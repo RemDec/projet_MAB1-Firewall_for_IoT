@@ -1,0 +1,136 @@
+\documentclass[]{article}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{fullpage}
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage[french]{babel}
+
+
+\usepackage[colorlinks=true, linkcolor=black]{hyperref}
+\usepackage{color}
+\usepackage{titling}
+\usepackage{subfig}
+
+%-- Logos PDG --
+\pretitle{
+\begin{center}
+
+\begin{figure}[!tbp]
+  \centering
+  \subfloat{\includegraphics[width=0.25\textwidth]{UMons_logo.png}}
+  \hfill
+  \subfloat{\includegraphics[width=0.25\textwidth]{sciences_logo.png}}\\
+\end{figure}
+~\newline
+
+}
+
+\posttitle{\end{center}}
+
+\begin{document}
+
+\title{
+\vspace{1.6cm}
+{\Huge Développement d'un pare-feu domestique}\\
+\vspace{0.5cm}
+{\Huge Pré-rapport de projet}\\
+{\large Activité d' Apprentissage \textsf{S-INFO-037}}\\
+}
+\bigskip
+
+
+\author{
+\vspace{0.9cm}
+\huge{Rémy Decocq}
+}
+
+\date{
+\vspace{9cm}
+Année Académique 2018-2019\\
+Master en Sciences Informatiques, bloc 1\\
+Faculté des Sciences, Université de Mons}
+
+\maketitle          
+
+\thispagestyle{empty}   
+
+\newpage
+
+\tableofcontents
+\newpage
+\large 
+\section*{Introduction}
+
+Depuis maintenant plusieurs décades, la connectique n'a cessé d'évoluer, que ce soit dans le cadre d'infrastructures de type "mainframe" ou dans le contexte des ordinateurs personnels. De fait, corrélé au fait de pouvoir de plus en plus s'interconnecter et rejoindre des réseaux de nature variée, le nombre de menaces potentielles pour une machine ainsi connectée augmente grandement. Heureusement, parallèlement à la connectique, les performances des machines classiques qui en sont équipée ont également suivi une bonne courbe de progression. C'est ce qui a permis d'en renforcer la sécurité à plusieurs niveaux, et surtout d'intercepter efficacement les menaces étrangères liées à l'utilisation des réseaux. À l'heure actuelle, n'importe qui a sur son PC au minimum un pare-feu basique fourni par l'OS de la machine, celui-ci tournant en arrière plan de façon quasi invisible car il demande peu de ressources par rapport ce qu'une machine actuelle peut offrir.\\
+
+\par En parallèle avec l'émancipation de ces machines de type \textit{desktop}, serveurs, etc. s'est développé depuis à peu près les années 2000 la tendance de l'"internet des objets", ou encore plus communément appelé \textit{IoT} pour \textit{Internet of Things}. Assez complexe à définir, cette dénomination regroupe beaucoup d'objets et de concepts, qu'ils soient virtuels ou non : cela englobe notamment la domotique, les outils de mesures diverses, etc. Tous ces éléments tendent vers une mise en réseau commune, souvent directement avec l'Internet. Or, comme évoqué ci-dessus, plus on s'interconnecte et plus on s'ouvre à des attaquants potentiels, ce qui pose problème si rien n'est mis en place pour s'en protéger.\\
+
+\par Ce travail aura pour objectif premièrement de faire un état de l'art des dispositifs de protection qui sont actuellement déployés dans l'\textit{IoT} et globalement la sécurité dans ce \textit{Web 3.0}. Effectivement, on approche un monde beaucoup plus hétérogène et restreint en terme de ressources que celui des ordinateurs modernes et classiques, de fait on ne peut pas réutiliser telles quelles toutes les technologies de protection y attenant. Deuxièmement, il sera question de mettre en pratique ces connaissances pour développer un système en lien avec ces nouvelles pratiques inhérentes à l'\textit{IoT}.
+
+\newpage
+\section{Présentation de l'\textit{internet des objets}}
+
+\subsection{Généralités}
+
+\par L'Internet des objets, qu'on désignera par \textit{IoT} pour le terme plus répandu de \textit{Internet Of Things}, représente un tout qui évolue maintenant en flèche depuis plusieurs années. Aucune définition formelle n'est acceptée globalement, mais plusieurs organismes ont tenté d'en établir une ébauche. Par exemple, l'ITU-T (ITU Telecommunication Standardization Sector) Y.2060 le définit comme tel : 
+\begin{center}
+\textit{“Global  infrastructure  for  the  society,  enabling  advanced  services  by  inter-connecting (physical and virtual) things based on existing and evolving in-teroperable information and communication technologies.”}
+\end{center}
+
+\par Derrière cette définition très générale, on peut distinguer plusieurs sous-groupes d'objets connectés distincts, aux applications tant variées que hétérogènes, dans des domaines et secteurs très différents. C'est ce qui fait la force et en même temps la faiblesse de ce tout ce qu'on regroupe derrière le terme \textit{IoT} et que des efforts considérables sont déployés pour inter-connecter au maximum. C'est un domaine d'étude intéressant car il représente littéralement ce qu'on pourrait considérer comme le futur de notre environnement technologique. De fait, les équipements que l'ont peut associer à une partie de l'\textit{IoT} ont déjà fait leur apparition dans notre quotidien : en 2017 on comptait 8,4 milliards de machines en présentant les caractéristiques et les estimations pour l'année 2020 tendent vers 20,4 milliards d'objets connectés [Defining\_the\_IoT].  
+\subsection{Caractéristiques des équipements de l'\textit{IoT}}
+
+\subsubsection{Domaines d'application}
+
+Les secteurs dans lesquels l'\textit{IoT} s'est implanté ces dernières années sont nombreux et très variés : ils s'étendent de l'industrie au domaine des soins de santé en passant par la tendance des \textit{SmartHome}. C'est ce dernier domaine qui est approfondi dans ce travail et dont il sera le plus question par la suite quand le terme \textit{IoT} est utilisé. La Figure 1 présente une vision d'un schéma global des autres domaines qui gravitent autour du vaste monde de l'\textit{IoT}, ainsi que les utilisateurs qui en sont les exploitants.\\
+
+\newpage
+
+\par Le terme émergeant \textit{SmartHome} est une fois de plus très englobant et général, il n'en existe pas de définition formelle et validée de tous. [Design\_simulation\_smarthome] nous en présente plusieurs, un résultat les unifiant pourrait être \textit{Une smarthome est un environnement lié au domicile particulier où plusieurs équipements ou sous-systèmes sont inter-connectés et où les informations qu'ils échangent sont collectées et utilisées afin de surveiller, réguler et automatiser l'écosystème du domicile.} L'utilisateur en tant que personne physique y vivant est donc au centre de cette architecture, et y siège comme le principal intervenant puisque dans l'idée où toute cette technologie est déployée dans le but d'améliorer sa qualité de vie, c'est lui qui devra interagir avec. La notion d'intelligence est intrinsèquement liée avec celle de l'interconnexion de tous ces senseurs et actuateurs déployés dans l'environnement du domicile : il s'agit d'en récolter et regrouper toutes les données en un point central doté d'une capacité de traitement plus évoluée afin qu'il puisse en tirer une optimisation globale du domicile et la proposer sous une forme donnée à l'habitant.\\
+
+\par Une certaine classification fonctionnelle peut être établie pour distinguer de façon plus concrète les différents équipements qui peuvent intervenir dans l'écosystème d'une \textit{smarthome}. Elle est schématisée par la Figure 2. 
+
+\subsubsection{Exemples d'équipements}
+
+\subsubsection{Restrictions des équipements}
+
+\newpage
+\section{Présentations des pare-feus}
+
+\subsection{Généralités}
+
+\subsection{Types de pare-feu}
+
+\subsection{Ressources logicielles importantes}
+
+\newpage
+\section{La protection dans l'\textit{IoT}}
+
+\subsection{Vulnérabilités liées à l'\textit{IoT}}
+
+\subsection{Possibilités d'amélioration}
+
+\subsection{Solutions existantes}
+
+\newpage
+\section{Les pare-feus et l'\textit{IoT}}
+
+\subsection{Différents types d'architecture}
+
+\subsection{Les pare-feus domestiques}
+
+\subsubsection{Caractéristiques d'un réseau domestique}
+
+\subsubsection{Attaques possibles et conséquences}
+
+\subsection{Application et implémentation}
+
+\newpage
+
+\section{Mise en pratique : ébauche}
+\newpage
+\section*{Conclusion}
+
+\end{document}
