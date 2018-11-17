@@ -3,20 +3,21 @@
 \contentsline {subsection}{\numberline {1.1}G\IeC {\'e}n\IeC {\'e}ralit\IeC {\'e}s}{4}{subsection.1.1}
 \contentsline {subsection}{\numberline {1.2}Caract\IeC {\'e}ristiques des \IeC {\'e}quipements de l'\textit {IoT}}{4}{subsection.1.2}
 \contentsline {subsubsection}{\numberline {1.2.1}Domaines d'application}{4}{subsubsection.1.2.1}
-\contentsline {subsubsection}{\numberline {1.2.2}Exemples d'\IeC {\'e}quipements}{5}{subsubsection.1.2.2}
-\contentsline {subsubsection}{\numberline {1.2.3}Restrictions des \IeC {\'e}quipements}{5}{subsubsection.1.2.3}
-\contentsline {section}{\numberline {2}Pr\IeC {\'e}sentations des pare-feus}{6}{section.2}
-\contentsline {subsection}{\numberline {2.1}G\IeC {\'e}n\IeC {\'e}ralit\IeC {\'e}s}{6}{subsection.2.1}
-\contentsline {subsection}{\numberline {2.2}Types de pare-feu}{6}{subsection.2.2}
-\contentsline {subsection}{\numberline {2.3}Ressources logicielles importantes}{6}{subsection.2.3}
-\contentsline {section}{\numberline {3}La protection dans l'\textit {IoT}}{7}{section.3}
-\contentsline {subsection}{\numberline {3.1}Vuln\IeC {\'e}rabilit\IeC {\'e}s li\IeC {\'e}es \IeC {\`a} l'\textit {IoT}}{7}{subsection.3.1}
-\contentsline {subsection}{\numberline {3.2}Possibilit\IeC {\'e}s d'am\IeC {\'e}lioration}{7}{subsection.3.2}
-\contentsline {subsection}{\numberline {3.3}Solutions existantes}{7}{subsection.3.3}
-\contentsline {section}{\numberline {4}Les pare-feus et l'\textit {IoT}}{8}{section.4}
-\contentsline {subsection}{\numberline {4.1}Diff\IeC {\'e}rents types d'architecture}{8}{subsection.4.1}
-\contentsline {subsection}{\numberline {4.2}Les pare-feus domestiques}{8}{subsection.4.2}
-\contentsline {subsubsection}{\numberline {4.2.1}Caract\IeC {\'e}ristiques d'un r\IeC {\'e}seau domestique}{8}{subsubsection.4.2.1}
-\contentsline {subsubsection}{\numberline {4.2.2}Attaques possibles et cons\IeC {\'e}quences}{8}{subsubsection.4.2.2}
-\contentsline {subsection}{\numberline {4.3}Application et impl\IeC {\'e}mentation}{8}{subsection.4.3}
-\contentsline {section}{\numberline {5}Mise en pratique : \IeC {\'e}bauche}{9}{section.5}
+\contentsline {subsubsection}{\numberline {1.2.2}L'environnement \textit {smarthome}}{5}{subsubsection.1.2.2}
+\contentsline {subsubsection}{\numberline {1.2.3}Exemples d'\IeC {\'e}quipements}{6}{subsubsection.1.2.3}
+\contentsline {subsubsection}{\numberline {1.2.4}Restrictions des \IeC {\'e}quipements}{6}{subsubsection.1.2.4}
+\contentsline {section}{\numberline {2}Pr\IeC {\'e}sentations des pare-feus}{7}{section.2}
+\contentsline {subsection}{\numberline {2.1}G\IeC {\'e}n\IeC {\'e}ralit\IeC {\'e}s}{7}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Types de pare-feu}{7}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}Ressources logicielles importantes}{7}{subsection.2.3}
+\contentsline {section}{\numberline {3}La protection dans l'\textit {IoT}}{8}{section.3}
+\contentsline {subsection}{\numberline {3.1}Vuln\IeC {\'e}rabilit\IeC {\'e}s li\IeC {\'e}es \IeC {\`a} l'\textit {IoT}}{8}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Possibilit\IeC {\'e}s d'am\IeC {\'e}lioration}{8}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Solutions existantes}{8}{subsection.3.3}
+\contentsline {section}{\numberline {4}Les pare-feus et l'\textit {IoT}}{9}{section.4}
+\contentsline {subsection}{\numberline {4.1}Diff\IeC {\'e}rents types d'architecture}{9}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Les pare-feus domestiques}{9}{subsection.4.2}
+\contentsline {subsubsection}{\numberline {4.2.1}Caract\IeC {\'e}ristiques d'un r\IeC {\'e}seau domestique}{9}{subsubsection.4.2.1}
+\contentsline {subsubsection}{\numberline {4.2.2}Attaques possibles et cons\IeC {\'e}quences}{9}{subsubsection.4.2.2}
+\contentsline {subsection}{\numberline {4.3}Application et impl\IeC {\'e}mentation}{9}{subsection.4.3}
+\contentsline {section}{\numberline {5}Mise en pratique : \IeC {\'e}bauche}{10}{section.5}

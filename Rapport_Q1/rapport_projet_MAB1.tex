@@ -10,8 +10,11 @@
 
 \usepackage[colorlinks=true, linkcolor=black]{hyperref}
 \usepackage{color}
+\usepackage[dvipsnames]{xcolor}
 \usepackage{titling}
 \usepackage{subfig}
+\definecolor{mygray}{gray}{0.6}
+\newcommand{\minit}[1]{{\small\textbf{ \underline{#1}}}~\\}
 
 %-- Logos PDG --
 \pretitle{
@@ -67,7 +70,7 @@ Depuis maintenant plusieurs décades, la connectique n'a cessé d'évoluer, que 
 
 \par En parallèle avec l'émancipation de ces machines de type \textit{desktop}, serveurs, etc. s'est développé depuis à peu près les années 2000 la tendance de l'"internet des objets", ou encore plus communément appelé \textit{IoT} pour \textit{Internet of Things}. Assez complexe à définir, cette dénomination regroupe beaucoup d'objets et de concepts, qu'ils soient virtuels ou non : cela englobe notamment la domotique, les outils de mesures diverses, etc. Tous ces éléments tendent vers une mise en réseau commune, souvent directement avec l'Internet. Or, comme évoqué ci-dessus, plus on s'interconnecte et plus on s'ouvre à des attaquants potentiels, ce qui pose problème si rien n'est mis en place pour s'en protéger.\\
 
-\par Ce travail aura pour objectif premièrement de faire un état de l'art des dispositifs de protection qui sont actuellement déployés dans l'\textit{IoT} et globalement la sécurité dans ce \textit{Web 3.0}. Effectivement, on approche un monde beaucoup plus hétérogène et restreint en terme de ressources que celui des ordinateurs modernes et classiques, de fait on ne peut pas réutiliser telles quelles toutes les technologies de protection y attenant. Deuxièmement, il sera question de mettre en pratique ces connaissances pour développer un système en lien avec ces nouvelles pratiques inhérentes à l'\textit{IoT}.
+\par Ce travail aura pour objectif premièrement de faire un état de l'art des dispositifs de protection qui sont actuellement déployés dans l'\textit{IoT} et globalement la sécurité dans ce \textit{Web 3.0}. Effectivement, on approche un monde beaucoup plus hétérogène et restreint en terme de ressources que celui des ordinateurs modernes et classiques, de fait on ne peut pas réutiliser telles quelles toutes les technologies de protection y attenant. Deuxièmement, il sera question de mettre en pratique ces connaissances pour développer un système en lien avec ces nouvelles mesures de sécurité restreintes inhérentes à l'\textit{IoT}.
 
 \newpage
 \section{Présentation de l'\textit{internet des objets}}
@@ -84,15 +87,60 @@ Depuis maintenant plusieurs décades, la connectique n'a cessé d'évoluer, que 
 
 \subsubsection{Domaines d'application}
 
-Les secteurs dans lesquels l'\textit{IoT} s'est implanté ces dernières années sont nombreux et très variés : ils s'étendent de l'industrie au domaine des soins de santé en passant par la tendance des \textit{SmartHome}. C'est ce dernier domaine qui est approfondi dans ce travail et dont il sera le plus question par la suite quand le terme \textit{IoT} est utilisé. La Figure 1 présente une vision d'un schéma global des autres domaines qui gravitent autour du vaste monde de l'\textit{IoT}, ainsi que les utilisateurs qui en sont les exploitants.\\
+Les secteurs dans lesquels l'\textit{IoT} s'est implanté ces dernières années sont nombreux et très variés : ils s'étendent de l'industrie au domaine des soins de santé en passant par la tendance des \textit{SmartHome}. C'est ce dernier domaine qui est approfondi dans ce travail et dont il sera le plus sous-entendu par la suite quand le terme \textit{IoT} est utilisé. La Figure 1 présente une vision d'un schéma global des autres domaines qui gravitent autour du vaste monde de l'\textit{IoT}, ainsi que les utilisateurs qui en sont les exploitants.\\
 
 \newpage
 
+\subsubsection{L'environnement \textit{smarthome}}
 \par Le terme émergeant \textit{SmartHome} est une fois de plus très englobant et général, il n'en existe pas de définition formelle et validée de tous. [Design\_simulation\_smarthome] nous en présente plusieurs, un résultat les unifiant pourrait être \textit{Une smarthome est un environnement lié au domicile particulier où plusieurs équipements ou sous-systèmes sont inter-connectés et où les informations qu'ils échangent sont collectées et utilisées afin de surveiller, réguler et automatiser l'écosystème du domicile.} L'utilisateur en tant que personne physique y vivant est donc au centre de cette architecture, et y siège comme le principal intervenant puisque dans l'idée où toute cette technologie est déployée dans le but d'améliorer sa qualité de vie, c'est lui qui devra interagir avec. La notion d'intelligence est intrinsèquement liée avec celle de l'interconnexion de tous ces senseurs et actuateurs déployés dans l'environnement du domicile : il s'agit d'en récolter et regrouper toutes les données en un point central doté d'une capacité de traitement plus évoluée afin qu'il puisse en tirer une optimisation globale du domicile et la proposer sous une forme donnée à l'habitant.\\
 
-\par Une certaine classification fonctionnelle peut être établie pour distinguer de façon plus concrète les différents équipements qui peuvent intervenir dans l'écosystème d'une \textit{smarthome}. Elle est schématisée par la Figure 2. 
+\par Une certaine classification fonctionnelle peut être établie pour distinguer de façon plus concrète les différents équipements qui peuvent intervenir dans l'écosystème d'une \textit{smarthome}. Elle est schématisée par la Figure 2, inspirée de []. Ce qui est désigné par \textit{point d'interconnexion} peut dépendre de l'architecture réelle d'une \textit{smarthome}, dans la plupart des cas il s'agit d'une machine faisant office de collecteur de toutes les données transitant dans le domicile et de gateway vers le reste de l'internet, éventuellement le cloud associé au domicile.\\
+
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=1.2]{smarthome_class.png}
+\caption{Classification fonctionnelle des équipements \textit{IoT} d'une smarthome}
+\label{sm_class}
+\end{figure}
+
+\newpage
 
 \subsubsection{Exemples d'équipements}
+
+La perception de ce qu'est l'\textit{IoT} par le grand public se résume énormément à l'environnement que constitue la \textit{smarthome}[]. Il s'agit d'une erreur d'incompréhension, on peut tenter de l'expliciter en analysant ce qui compose cette perception. La Fig en donne une vision générale, qui va être étayée par les exemples concrets d'équipements la suivant.
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.5]{benef_SH.png}
+\caption{Top des meilleurs avantages des \textit{smarthome} perçus par les Américains}
+\label{benef_SH}
+\end{figure}
+
+\minit{Appartenant à la classe sécurité}
+
+\begin{itemize}
+\item[$\bullet$] Caméras de vidéosurveillance dites IP
+\item[$\bullet$] Systèmes de gestion d'alarme à distance
+\item[$\bullet$] Verrous de portes intelligents
+\item[$\bullet$] Simulateurs de présence et occupation du domicile
+\end{itemize}
+
+\minit{Appartenant à la classe soins de santé}
+
+\begin{itemize}
+\item[$\bullet$] Surveillance des patients à leur domicile (contrôle des mesures médicales)
+\item[$\bullet$] Accessoires de fitness : montres, balances connectées et autres
+\item[$\bullet$] Outils divers d'aide aux personnes invalides 
+\end{itemize}
+
+\minit{Appartenant à la classe énergies}
+
+\begin{itemize}
+\item[$\bullet$] Luminaires intelligents/automatisés contrôlables à distance
+\item[$\bullet$] Accessoires de fitness : montres, balances connectées et autres
+\item[$\bullet$] Outils divers d'aide aux personnes invalides  
+\end{itemize}
 
 \subsubsection{Restrictions des équipements}
 
