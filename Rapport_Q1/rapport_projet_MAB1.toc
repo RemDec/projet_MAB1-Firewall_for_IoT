@@ -1,4 +1,4 @@
-\babel@toc {french}{}
+\select@language {french}
 \contentsline {section}{\numberline {1}Pr\IeC {\'e}sentation de l'\textit {internet des objets}}{4}{section.1}
 \contentsline {subsection}{\numberline {1.1}G\IeC {\'e}n\IeC {\'e}ralit\IeC {\'e}s}{4}{subsection.1.1}
 \contentsline {subsection}{\numberline {1.2}Caract\IeC {\'e}ristiques des \IeC {\'e}quipements de l'\textit {IoT}}{4}{subsection.1.2}
