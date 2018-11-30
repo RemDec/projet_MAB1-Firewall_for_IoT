@@ -1,5 +1,14 @@
 \begin{thebibliography}{1}
 
+\bibitem{Cable}
+Cable broadband technology gigabit evolution.
+\newblock Dernière lecture le 27/11/2018.
+
+\bibitem{IWS}
+Internet growth statistics par internet world stats.
+\newblock \url{http://www.ti.com/lit/ml/swrb028/swrb028.pdf}.
+\newblock Dernière lecture le 26/11/2018.
+
 \bibitem{Wind2015}
 Security in the {I}nternet of {T}hings.
 \newblock
@@ -16,5 +25,16 @@ Alhafidh Basman~M.Hasan and William Allen.
 Dan-Radu Berte.
 \newblock Defining the {I}o{T}.
 \newblock {\em De Gruyter}, 2018.
+
+\bibitem{Leloglu2017}
+Engin Leloglu.
+\newblock A review of security concerns in {I}nternet of {T}hings.
+\newblock {\em Journal of Computer and Communications}, 2017.
+
+\bibitem{Huichen2016}
+Huichen Lin and Neil Bergmann.
+\newblock Io{T} privacy and security challenges for {S}mart {H}ome
+  environments.
+\newblock {\em Information (online MDPI journal)}, 2016.
 
 \end{thebibliography}

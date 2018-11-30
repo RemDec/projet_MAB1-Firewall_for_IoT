@@ -1,5 +1,11 @@
 This is BibTeX, Version 0.99dThe top-level auxiliary file: rapport_projet_MAB1.aux
 The style file: plain.bst
 Database file #1: articles.bib
+I was expecting an "="---line 14 of file articles.bib
+ :     year 
+ :          : "2016",
+I'm skipping whatever remains of this entry
+Warning--to sort, need author or key in IWS
+Warning--to sort, need author or key in Cable
 Warning--to sort, need author or key in Wind2015
-(There was 1 warning)
+(There was 1 error message)
