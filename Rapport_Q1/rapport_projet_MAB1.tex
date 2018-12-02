@@ -14,7 +14,7 @@
 \usepackage{subfig}
 \definecolor{mygray}{gray}{0.6}
 \newcommand{\minit}[1]{\noindent{\small\textbf{ \underline{#1}}}\vspace{0.2cm}}
-
+\newcommand{\todo}[1]{\par{\color{red} /---| A faire : #1 |---\textbackslash\\}}
 
 %-- Logos PDG --
 \pretitle{
@@ -133,7 +133,7 @@ La perception de ce qu'est l'\textit{IoT} par le grand public se résume énorm�
 \end{figure}
 
 \vspace{0.3cm}
-
+\todo{Remplacer par une section plus pertinente}
 \minit{Appartenant à la classe sécurité}
 
 \begin{itemize}
@@ -193,9 +193,98 @@ Ces contraintes sont aussi identiques à celles des systèmes embarqués classiq
 \newpage
 \section{Présentations des pare-feus}
 
-\subsection{Généralités}
+\subsection{Généralités}\label{gen_FW}
 
+Un pare-feu est un dispositif, virtuel ou matériel, qui surveille et contrôle le lien entre un réseau dit de confiance et un réseau extérieur non fiable. Typiquement, ce réseau potentiellement dangereux est Internet et la zone à protéger est le réseau interne d'une entreprise ou d'une habitation. L'existence des pare-feus est une conséquence du besoin d'outils de protection aux bordures de réseaux distincts contrôlés par des entités différentes. D'une part, il faut garantir que des données internes confidentielles restent à l'intérieur du réseau de confiance. D'autre part, il est nécessaire de filtrer les données entrantes dans ce réseau de sorte qu'aucune menace ne s'y infiltre par des flux, même initiés depuis l'intérieur du réseau de confiance. Ces filtres sont créés et assemblés à partir de \textit{politiques} ou \textit{règles} définies par défaut ou par les personnes compétentes liées à l'entité gérant le réseau.
+
+\subsection{Différentes architectures}
+
+\par Deux classes de pare-feus sont distinguables en fonction de ce qu'ils visent à protéger. La description donnée \hyperref[gen_FW]{en début de section} correspond aux pare-feus au niveau réseau (\textit{network firewalls}), situés en bordure de LANs, WANs et intranets. Ceux-ci, de par leur nature de barrière entre réseaux, peuvent également fournir des services plus évolués : système de NAT, gestion de \textit{zones démilitarisées}, service DHCP, etc. La seconde classe agit au niveau des nœuds du réseau eux-mêmes (\textit{host-based firewalls}), protégeant une machine physique et non pas un réseau entier. Ces pare-feus se présentent donc sous forme de software, directement intégré au niveau du système d'exploitation ou installés à un plus haut niveau.\\
+
+\minit{Les pare-feux niveau réseau}
+
+\par Afin de remplir leur fonction, ces pare-feus sont placés en bordure du réseau à protéger et sont  directement liés au machines qui font office de \textit{gateway}. Tout le trafic passe donc par le pare-feu afin d'être analysé et filtré, ce qui peut représenter beaucoup de données à traiter. Le pare-feu doit offrir une vitesse de traitement proportionnelle aux débits et à la qualité des liens qui le traversent afin de ne pas être un goulot d'étranglement. C'est pourquoi 
+ces pare-feus doivent être très efficaces et sont communément situés (partiellement) au niveau hardware. On parle de \textit{hardware-based firewall appliances}, qui sont des machines physiques dont le seul objectif est de remplir les tâches d'un pare-feu le plus efficacement possible. On y retrouve deux composants : la partie applicative software ou firmware remplissant la fonction de pare-feu, qui repose sur la deuxième partie plus basse constituée de juste ce qu'il faut d'un OS particulier (\textit{jeOS} - \textit{just enough Operating System}). Cet OS est généralement propriétaire, lié au fabriquant du hardware sur lequel les deux parties opèrent et donc très optimisé pour garantir les performances.\\
+
+\par À plus petite échelle, dans un réseau domestique par exemple, on retrouve également des pare-feus directement implémentés dans le routeur qui fait office de \textit{gateway} pour l'habitation. Ceux-ci sont fatalement moins efficaces et complets que les matériels spécialement dédiés.
+
+% https://en.wikipedia.org/wiki/Comparison_of_firewalls
+%https://www.cisco.com/c/en/us/products/security/asa-5500-series-next-generation-firewalls/data_sheet_c78-345385.html
+\todo{Faire vrai tableau de comparaison}
+\begin{figure}[!ht]
+\centering
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=.45\linewidth]{ASA_5550.png}
+  \caption{Cisco ASA 5550}
+  \label{cisco_FW}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=.45\linewidth]{proxi_FW.png}
+  \caption{Another figure}
+  \label{proxi_FW}
+\end{minipage}
+\end{figure}
+
+\newpage
+\minit{Les pare-feux niveau hôte}
+
+\par Du fait que les pare-feus de cette classe sont généralement déployés sur des machines de type desktop, la dénomination \textit{pare-feu personnel} est aussi utilisée. Ces ordinateurs sont généralement munis de tels pare-feus par défaut ou peuvent tout du moins supporter leur installation par l'utilisateur si l'OS utilisé est classique (Windows, MAC OS X, ...). Le pare-feu agit jusqu'au niveau applicatif \cite{Kokko2017} et sous forme d'un \textit{service} ou d'un \textit{daemon} en fonction du système d'exploitation utilisé. Cela permet une proximité étroite avec l'OS et les processus. Le pare-feu personnel est donc capable de contrôler le trafic réseau demandé par chaque application et de détecter les menaces engendrées par certains flux. Ces dernières peuvent être entrantes ou sortantes : une machine extérieure qui tente d'établir une connexion suspecte ou un exécutable sur la machine à protéger qui initie un trafic avec une cible blacklistée, par exemple.\\
+
+%https://www.itprotoday.com/security/personal-firewalls
+%https://en.wikipedia.org/wiki/Personal_firewall
+
+\par Les principales fonctionnalités d'un pare-feu personnel devraient être au minimum les suivantes : 
+\vspace{0.1cm}
+\begin{itemize}
+\item[$\bullet$] Bloquer les attaques et comportements dangereux du réseau extérieur : scanning des ports ouverts, attaques par fragmentation, \textit{IP Spoofing}, etc.   
+\vspace{0.2cm}
+\item[$\bullet$] Empêcher les menaces venant de l'intérieur : un exécutable comme un \textit{malware} ou un \textit{spyware} qui tente d'établir une connexion vers l'extérieur doit être bloqué et mis en quarantaine
+\vspace{0.2cm}
+\item[$\bullet$] Présenter de l'automatisation, d'une part car un utilisateur non-expérimenté pour sa configuration doit quand même rester protégé et d'autre part il doit se mettre à jour automatiquement
+\vspace{0.2cm}
+\item[$\bullet$] Agir au niveau applicatif : un malware pourrait utiliser le port web 80 pour se répandre par exemple, pour détecter cela il faut analyser les payload des paquets et disposer d'une base de données à jour pour y déceler des patterns malicieux
+\vspace{0.2cm}
+\item[$\bullet$] Alerter l'utilisateur quand un événement survient, et le logger avec suffisamment d'informations pour qu'il puisse prendre une décision adaptée
+\vspace{0.2cm}
+\item[$\bullet$] Éviter les \textit{faux-positifs} (bloquer du trafic légitime)
+\end{itemize}
+\vspace{0.5cm}
+\par Que ce soit en entreprise ou dans une habitation, il est donc probable que l'on retrouve des pare-feus appartenant à ces deux classes distinctes là où ils sont efficaces. Il ne s'agit que d'échelles différentes, qui impliquent également des intervenants différents. En entreprise l'administrateur sécurité configure du matériel spécifique afin de sécuriser les frontières de son réseau tout en préservant ses performances. Il est aussi possible qu'il introduise dans les machines internes des pare-feus puissants pour empêcher les propagations des attaques déclenchées . Dans le domicile, l'habitant utilise généralement le routeur fournit par son FAI qui inclut un pare-feu réseau par défaut. S'il est un minimum expérimenté, il sera à même d'installer et configurer des pare-feus personnels sur chacun de ses équipements connectés.   
+
+\todo{Schéma récapitulatif de la place des FW dans l'architecture d'une entreprise}
+\newpage
 \subsection{Types de pare-feu}
+
+\subsubsection{Pare-feu de filtrage (sans état)}
+
+Aussi désigné dans la littérature par le terme \textit{stateless}. Il s'agit des pare-feus les plus rudimentaires dont le premier prototype remonte à celui élaboré par Jeffery Mogul en 1989 \cite{Shieha2014}. Généralement, ces pare-feus sont rapides mais peu efficace car facilement dupé. Un pare-feu de ce type inspecte chaque paquet individuellement et détermine s'il peut passer sur base d'un certain ensemble de règles écrites que ses headers matchent ou non. Il s'agit des headers TCP/IP (également UDP), des options y attenant et de l'interface d'entrée principalement. Plus en détail : les adresses IP sources et destination, les ports sources et destination au minimum seront soumis aux filtres du pare-feu. Il y a plusieurs problèmes avec cette approche :
+\vspace{0.25cm}
+\begin{itemize}
+\item Il n'y a aucune vérification au dessus de la couche transport : la partie applicative peut contenir n'importe quoi
+\item Le pare-feu n'est pas dynamique : il n'apprend rien du trafic qu'il laisse passer. Aucun état n'est retenu, alors que TCP est un protocole lié à une machine à état dont il pourrait être possible de garder une trace
+\item Les règles sont très redondantes à écrire pour être efficace, très peu modulable et facilement sujettes aux erreurs et oublis
+\end{itemize}
+\vspace{0.25cm}
+Ce type de pare-feu tombe en désuétude car ils sont trop simple à duper par des attaquants.  
+
+\subsubsection{Pare-feu à état}
+
+Le but de ce type de pare-feu dit \textit{stateful} est d'améliorer les techniques de filtrage sans état en maintenant de l'information sur les flux passant au travers, principalement TCP. Effectivement, au contraire d'UDP, TCP est un protocole qui garde un état qui se traduit dans certains champs de ses headers. Dés lors, le pare-feu peut accéder à cette information, l'analyser et l'utiliser pour en déduire dans quel état est actuellement la connexion entre les deux processus communiquant sur les deux hôtes impliqués. Cela peut se traduire par l'inspection des flags (SYN, FIN, ...), des numéros de séquences et acquittements qui permettent au pare-feu de contrôler en conséquence le contenu d'une table interne des connexions. 
+
+\par Une fois une connexion 
+
+\subsubsection{Pare-feu applicatif}
+
+\subsubsection{Pare-feu applicatif proxy}
+
+\subsubsection{Pare-feu à inspection profonde}
+
+\subsubsection{Pare-feu identifiant}
+
+\subsubsection{Pare-feu nouvelles génération}
+
 
 \subsection{Ressources logicielles importantes}
 
@@ -209,11 +298,11 @@ Ces contraintes sont aussi identiques à celles des systèmes embarqués classiq
 \subsection{Solutions existantes}
 
 \newpage
-\section{Les pare-feus et l'\textit{IoT}}
+\section{Les pare-feux et l'\textit{IoT}}
 
 \subsection{Différents types d'architecture}
 
-\subsection{Les pare-feus domestiques}
+\subsection{Les pare-feux domestiques}
 
 \subsubsection{Caractéristiques d'un réseau domestique}
 
