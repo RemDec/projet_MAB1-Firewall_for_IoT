@@ -1,4 +1,9 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
+
+\bibitem{wikiappfw}
+Application firewall.
+\newblock Wikipedia article, URL :
+  \url{https://en.wikipedia.org/wiki/Application\_firewall}.
 
 \bibitem{Cable}
 Cable broadband technology gigabit evolution.
@@ -26,6 +31,17 @@ Dan-Radu Berte.
 \newblock Defining the {I}o{T}.
 \newblock {\em De Gruyter}, 2018.
 
+\bibitem{Shimonski2013}
+Robert J.~Shimonski, Debra Littlejohn~Shinder, and Thomas W.~Shinder, editors.
+\newblock {\em The Best Damn Firewall Book Period}.
+\newblock Syngress, Burlington, 2003.
+
+\bibitem{Kokko2017}
+Kalle Kokko.
+\newblock Next-generation firewall case study.
+\newblock Master's thesis, South-Eastern Finland University of Applied
+  Sciences, 2017.
+
 \bibitem{Leloglu2017}
 Engin Leloglu.
 \newblock A review of security concerns in {I}nternet of {T}hings.
@@ -36,5 +52,15 @@ Huichen Lin and Neil Bergmann.
 \newblock Io{T} privacy and security challenges for {S}mart {H}ome
   environments.
 \newblock {\em Information (online MDPI journal)}, 2016.
+
+\bibitem{Palka2011}
+Dariusz Pałka and Marek Zachara.
+\newblock Learning web application firewall - benefits and caveats.
+\newblock pages 295--308, 01 2011.
+
+\bibitem{Shieha2014}
+Alaauddin Shieha.
+\newblock {\em Application Layer Firewall Using Open{F}low}.
+\newblock PhD thesis, University of Colorado, 2014.
 
 \end{thebibliography}
