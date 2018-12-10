@@ -2,17 +2,18 @@
 
 \usepackage[utf8]{inputenc}
 
+\usepackage{eurosym}
 \usepackage{fullpage}
 \usepackage{graphicx}
 \graphicspath{{figures/}}
 \usepackage[french]{babel}
 \usepackage{url}
-\usepackage[colorlinks=true, linkcolor=black]{hyperref}
+\usepackage[colorlinks=true, linkcolor=black, urlcolor=blue]{hyperref}
 \usepackage{color}
 \usepackage[dvipsnames]{xcolor}
 \usepackage{titling}
 \usepackage{subfig}
-\definecolor{mygray}{gray}{0.6}
+
 \newcommand{\minit}[1]{\noindent{\small\textbf{ \underline{#1}}}\vspace{0.2cm}}
 \newcommand{\todo}[1]{\par{\color{red} /---| A faire : #1 |---\textbackslash\\}}
 
@@ -191,6 +192,7 @@ Ces contraintes sont aussi identiques à celles des systèmes embarqués classiq
 
 
 \newpage
+
 \section{Présentations des pare-feux}
 
 \subsection{Généralités}\label{gen_FW}
@@ -206,11 +208,12 @@ Un pare-feu est un dispositif, virtuel ou matériel, qui surveille et contrôle 
 \par Afin de remplir leur fonction, ces pare-feux sont placés en bordure du réseau à protéger et sont  directement liés aux machines qui font office de \textit{gateway} (routeurs). Tout le trafic passe donc par le pare-feu afin d'être analysé et filtré, ce qui peut représenter beaucoup de données à traiter. Le pare-feu doit offrir une vitesse de traitement proportionnelle aux débits et à la qualité des liens qui le traversent afin de ne pas être un goulot d'étranglement. C'est pourquoi 
 ces pare-feux doivent être très efficaces et sont communément situés (partiellement) au niveau hardware. On parle de \textit{hardware-based firewall appliances}, qui sont des machines physiques dont le seul objectif est de remplir les tâches d'un pare-feu le plus efficacement possible. On y retrouve deux composants : la partie applicative software ou firmware remplissant la fonction de pare-feu, qui repose sur la deuxième partie plus basse constituée de juste ce qu'il faut d'un OS particulier (\textit{jeOS} - \textit{just enough Operating System}). Cet OS est généralement propriétaire, lié au fabriquant du hardware sur lequel les deux parties opèrent et donc très optimisé pour garantir les performances requises.\\
 
-\par À plus petite échelle, dans un réseau domestique par exemple, on retrouve également des pare-feux directement implémentés dans le routeur qui fait office de \textit{gateway} pour l'habitation. Ceux-ci sont fatalement moins efficaces et complets que les matériels spécialement dédiés à cette unique fonction.
+\par À plus petite échelle, dans un réseau domestique par exemple, on retrouve également des pare-feux directement implémentés dans le routeur qui fait office de \textit{gateway} pour l'habitation. Ceux-ci sont fatalement moins efficaces et complets que les matériels spécialement dédiés à cette unique fonction.\\
+
+\par À titre indicatif, la Figure~\ref{cisco_FW} donne un exemple d'une \textit{appliance} pare-feu issue de la gamme des Cisco ASA 5500-X (\textit{Adaptive Security Appliance}), la dernière génération que Cisco a introduit sur le marché. Il ne s'agit pas du modèle le plus performant de la gamme en comparant les \href{https://www.cisco.com/c/en/us/products/collateral/security/asa-5500-series-next-generation-firewalls/datasheet-c78-733916.html}{performances et fonctionnalités}, mais convient typiquement bien pour être déployé dans une petite entreprise (son prix avoisine 500\euro). Dans le cas d'une habitation, l'analogue correspondant est dans la majorité des cas le modem distribué par le fournisseur d'accès internet au domicile. La société Proximus fournit par exemple des b-box, que leurs clients peuvent configurer par une interface web. Dans ces configurations, il existe bien un onglet intitulé \textit{firewall}, mais celui-ci ne présente pas beaucoup d'options comme le montre la Figure~\ref{proxi_FW}. Dans d'autres onglets, on peut observer d'autres fonctionnalités qui peuvent y être relatives : restriction d'accès pour certains équipements en fonction de l'heure (par adresse MAC) et blocage de certains sites par domaine. Cela semble assez faible et les utilisateurs du réseau ont tout intérêt à installer sur leur équipements personnels des pare-feux pour hôtes.
 
 % https://en.wikipedia.org/wiki/Comparison_of_firewalls
 %https://www.cisco.com/c/en/us/products/security/asa-5500-series-next-generation-firewalls/data_sheet_c78-345385.html
-\todo{Faire vrai tableau de comparaison}
 \begin{figure}[!ht]
 \centering
 \begin{minipage}{.4\textwidth}
@@ -221,13 +224,13 @@ ces pare-feux doivent être très efficaces et sont communément situés (partie
 \end{minipage}%
 \begin{minipage}{.6\textwidth}
   \centering
-  \includegraphics[width=1.2\linewidth]{proxi_FW2.png}
-  \caption{Pare-feu b-box 3V}
+  \includegraphics[width=1.0\linewidth]{proximus_FW.png}
+  \caption{Options de config. du pare-feu pour une b-box 3V}
   \label{proxi_FW}
 \end{minipage}
 \end{figure}
 
-\newpage
+
 \minit{Les pare-feux niveau hôte}
 
 \par Du fait que les pare-feux de cette classe sont généralement déployés sur des machines de type desktop, la dénomination \textit{pare-feu personnel} est aussi utilisée. Ces ordinateurs sont généralement munis de tels pare-feux par défaut ou peuvent tout du moins supporter leur installation par l'utilisateur si l'OS utilisé est classique (Windows, MAC OS X, ...). Le pare-feu agit jusqu'au niveau applicatif \cite{Kokko2017} et sous forme d'un \textit{service} ou d'un \textit{daemon} en fonction du système d'exploitation utilisé. Cela permet une proximité étroite avec l'OS et les processus. Le pare-feu personnel est donc capable de contrôler le trafic réseau demandé par chaque application et de détecter les menaces engendrées par certains flux. Ces dernières peuvent être entrantes ou sortantes : une machine extérieure qui tente d'établir une connexion suspecte ou un exécutable sur la machine à protéger qui initie un trafic avec une cible blacklistée, par exemple.\\
@@ -281,10 +284,12 @@ Le but de ce type de pare-feu dit \textit{stateful} est d'améliorer les techniq
 
 \newpage
 
-\subsubsection{Pare-feu applicatif}
+\subsubsection{Pare-feu applicatif}\label{appfw}
 
 \par Ce type de pare-feu peut être considéré comme une extension complète aux simples pare-feux à états dans le but d'en améliorer la fiabilité. Là où ces derniers sont capables de déterminer quels protocoles sont utilisés et autorisés sur chaque port, les filtres ajoutés au niveau applicatif peuvent en plus déduire à quelles fins sont utilisés ces protocoles (l'inspection va jusqu'à la couche 7 du modèle OSI). Il s'agit cependant de plus que de simples filtres, c'est une technologie à part entière qui est utilisée : l'inspection profonde des paquets ou \textit{deep packet inspection} (DPI). Les pare-feux utilisant la DPI mêlent les fonctionnalités d'un pare-feu à état avec les systèmes de détection et prévention d'intrusions (sous-sections~\ref{IDS} et \ref{IPS}). La décision de bloquer ou de laisser passer le paquet tient compte de ce qu'il contient réellement au niveau données et de l'interprétation qui en est faite pour déterminer s'il représente un danger.\\
 
+\phantomsection
+\label{waf}
 \par Par exemple, les \textit{Web Application Firewalls} (WAF) sont une sous-catégorie des pare-feux applicatifs qui opèrent un filtrage sur le trafic HTTP. Ils peuvent donc filtrer le trafic sur base de certaines règles d'accessibilités fixées en bloquant des requêtes aux URL douteuses ou considérées comme non éthiques vis-à-vis de l'organisme maintenant le réseau par lequel elles transitent. Outre cela, les WAFs permettent également de se protéger contre les attaques dites de type \textit{parameter tampering} (injection SQL, cross-site scripting, etc.) \cite{Palka2011}, ainsi qu'inclure des filtres anti-spam pour les courriels \cite{wikifwFR}.\\
 
 \par Plus généralement, les pare-feux applicatifs permettent de se protéger des virus, vers et tentatives d'\textit{exploits} de faiblesses connues des systèmes à protéger \cite{wikiappfw} \cite{Palka2011}. Un autre avantage d'analyser jusqu'à la couche 7 grâce au DPI est que certains protocoles (FTP par exemple) utilisent la couche applicative pour transmettre des informations relatives aux couches plus basses (IPs, ports, etc.) et qui seront impliquées dans des communications passant par le dispositif pare-feu \cite{wikifwFR}. Comme illustré par l'exemple des WAFs, le principal défaut inhérent à leur nature réside dans le fait que pour chaque type de trafic applicatif que l'on souhaite contrôler, un travail spécifique doit être opéré (établir des règles dédiées par exemple) \cite{wikifw}. 
@@ -305,11 +310,19 @@ Ces pare-feux mêlent l'inspection au niveau applicatif et le rôle de proxy pou
 
 \newpage
 
-\subsubsection{Pare-feu identifiant}
+\subsubsection{Pare-feu identifiant}\label{idfw}
 
-Pour ce type de dispositif, on veut pouvoir définir des règles de filtrage en fonction de l'utilisateur ou le groupe qui se cache derrière un paquet ou un flux. Plusieurs schéma d'association existent, définissant ce à quoi le notion d'un utilisateur correspond. Par exemple, certains de ces pare-feux placés sur un gateway exigent qu'avant d'autoriser un flux, l'utilisateur de l'hôte doit établir une connexion SSH avec ce dernier. Les pare-feux développés par Cisco 
+Pour ce type de dispositif, on veut pouvoir définir des règles de filtrage en fonction de l'utilisateur ou le groupe qui se cache derrière un paquet ou un flux. Plusieurs schéma d'association existent, définissant ce à quoi le notion d'un utilisateur correspond. Par exemple certains de ces pare-feux comme \href{http://www.openbsd.org/faq/pf/authpf.html}{authpf} sous OpenBSD, qui étant placés sur un gateway, exigent qu'avant d'autoriser un flux, l'utilisateur d'un hôte communiquant doit établir une connexion SSH avec ce dernier. Un autre type d'association possible peut se faire par adresse MAC.\\
 
-\todo{Lire l'article https://www.cisco.com/c/en/us/td/docs/security/asa/asa96/configuration/firewall/asa-96-firewall-config/access-idfw.pdf}    
+\par Les pare-feux destinés aux entreprises développés par Cisco (ASA) \cite{cisco2018} et Palo Alto Networks \cite{Kokko2017} utilisent des gestionnaire d'annuaires d'utilisateurs basés sur les services \href{https://fr.wikipedia.org/wiki/Active_Directory}{Windows Active Directory}. Dans ces base de données utilisateurs, on retrouve les différentes adresses IP associées à un utilisateur particulier ainsi que les groupes qu'ils composent. Les interactions avec le pare-feu sont transparentes à ce niveau, en effet ce dernier travaille avec les objets "utilisateurs" et non plus directement les IPs (bien que cela reste possible). Procéder de cette façons apporte plusieurs avantages \cite{cisco2018}:
+\vspace{0.2cm}
+\begin{itemize}
+\item[$\bullet$] Simplifier la création et gestion des politiques de sécurité du pare-feu
+\vspace{0.2cm}
+\item[$\bullet$] Offre la possibilité d'identifier facilement les utilisateurs utilisant le réseau
+\vspace{0.2cm}
+\item[$\bullet$] Simplifier la surveillance des activités des utilisateurs du réseau et identifier la source de menaces
+\end{itemize} 
 
 
 %https://www.frameip.com/firewall/
@@ -387,7 +400,24 @@ avantages :
 \item[$\bullet$] Si l'IPS est lié à un dispositif faisant du proxy, il peut agir sur le contenu des paquets pour neutraliser la menace (par exemple ôter un fichier infecté joint à un mail)
 \end{itemize}
 
+
 \subsection{Les pare-feux nouvelle génération}
+
+Abrégés par NGFW (\textit{next-generation firewalls}), ces pare-feux font suite à ce qu'on distingue comme la troisième génération dans l'évolution des dispositifs pare-feux \cite{wikifw}, c'est-à-dire ceux qui appliquent les concepts de filtrage au niveau applicatif décrits dans la sous-section~\hyperref[appfw]{sous-section~\ref{appfw}}. Les NGFW effectuent une analyse plus fine que ces derniers en utilisant les technologies avancées de \href{https://en.wikipedia.org/wiki/Deep\_packet\_inspection}{\textit{deep packet inspection}}. Les services qu'offrent la nouvelle génération de pare-feux s'étendent encore au-delà de la simple fonctionnalité d'inspection des paquets, et sont devenus des systèmes très complexes implémentant d'autres dispositifs liés à la sécurité dont les suivants :
+\vspace{0.2cm}
+\begin{itemize}
+\item[$\bullet$] Support des technologies de (dé)chiffrement utilisés classiquement dans les réseaux
+\vspace{0.2cm}
+\item[$\bullet$] Les systèmes de management et contrôle sur base des identités des utilisateurs des \hyperref[idfw]{pare-feux identifiants} 
+\vspace{0.2cm}
+\item[$\bullet$] Les pare-feux destinés aux flux web (\hyperref[waf]{WAFs}), le filtrage d'URLs selon des politiques de sécurité et éthique
+\vspace{0.2cm}
+\item[$\bullet$] Des moyens de contre-mesures aux attaques empruntés aux \hyperref[IPS]{IPSs}
+\vspace{0.2cm}
+\item[$\bullet$] Les environnements virtuels (\textit{sandboxing}) de tests pour déceler dans un flux suspect une attaque non-reconnue \cite{Kokko2017}
+\vspace{0.2cm}
+\item[$\bullet$] De vastes bases de données sur le cloud interrogées efficacement via un service spécialisé fourni avec le pare-feu (environnement \href{https://www.paloaltonetworks.com/documentation/80/wildfire/wf\_admin/wildfire-overview/wildfire-deployments/wildfire-global-cloud}{WildFire} et similaires)
+\end{itemize}
 
 \subsection{Les pare-feux de référence}
 

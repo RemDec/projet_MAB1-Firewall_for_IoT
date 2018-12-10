@@ -9,10 +9,24 @@ Application firewall.
 Cable broadband technology gigabit evolution.
 \newblock Dernière lecture le 27/11/2018.
 
+\bibitem{wikifw}
+Firewall(computing).
+\newblock Wikipedia article, URL :
+  \url{https://en.wikipedia.org/wiki/Firewall\_(computing)}.
+
 \bibitem{IWS}
 Internet growth statistics par internet world stats.
 \newblock \url{http://www.ti.com/lit/ml/swrb028/swrb028.pdf}.
 \newblock Dernière lecture le 26/11/2018.
+
+\bibitem{frameIP}
+Les firewalls.
+\newblock Community article, URL : \url{https://www.frameip.com/firewall/}.
+
+\bibitem{wikifwFR}
+Pare-feu(informatique).
+\newblock Wikipedia article, URL :
+  \url{https://fr.wikipedia.org/wiki/Pare-feu\_(informatique)}.
 
 \bibitem{Wind2015}
 Security in the {I}nternet of {T}hings.
