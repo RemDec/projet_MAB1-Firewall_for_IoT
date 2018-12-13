@@ -16,6 +16,7 @@
 
 \newcommand{\minit}[1]{\noindent{\small\textbf{ \underline{#1}}}\vspace{0.2cm}}
 \newcommand{\todo}[1]{\par{\color{red} /---| A faire : #1 |---\textbackslash\\}}
+\newcommand{\wordlink}[2]{\hyperref[#1]{#2~\ref{#1}}}
 
 %-- Logos PDG --
 \pretitle{
@@ -71,16 +72,16 @@ Faculté des Sciences, Université de Mons}
 
 Depuis maintenant plusieurs années, la connectivité n'a cessé d'évoluer : en se limitant au domaine de l'Internet entre 2000 et 2015, une estimation de l'augmentation du pourcentage de la population mondiale l'utilisant avoisine 40\%  \cite{IWS} \cite{Cable}. Que ce soit dans le cadre d'infrastructures de type "mainframe" ou dans le contexte des ordinateurs personnels, les technologies et équipements relatifs au réseau et aux communications sont devenus indispensables. En conséquence, corrélé au fait de pouvoir de plus en plus s'interconnecter et rejoindre des réseaux de natures variées, le nombre de menaces potentielles pour une machine ainsi connectée augmente grandement. Heureusement, parallèlement à cette évolution, les performances des machines classiques qui en sont équipée ont également suivi une progression en terme de performances. Cela a permis d'en renforcer la sécurité à plusieurs niveaux, et surtout d'intercepter efficacement les menaces étrangères liées à l'utilisation des réseaux. À l'heure actuelle, les OS utilisés classiquement sur des machines desktop fournissent un pare-feu simple (\textit{Windows Defender}, un utilitaire fournit de base dans MAC OS X, \textit{iptables/Netfilter} ou autre pour les distributions Linux). Ce dernier tournant en arrière plan de façon quasi invisible car il demande peu de ressources par rapport à ce qu'une machine actuelle peut offrir.\\
 
-\par En parallèle avec la montée en puissance de ces machines de type desktop, serveurs, etc. s'est développée depuis à peu près les années 2000 la tendance de l'\og Internet des Objets \fg{}, ou encore plus communément abrégé IoT pour \textit{Internet of Things}. Bien qu'assez large, cette dénomination regroupe beaucoup d'objets et de concepts, qu'ils soient virtuels ou non mais possédant un dénominateur commun : la capacité de communiquer en réseau avec d'autres équipements. Cela englobe par exemple la domotique, les outils et capteurs de mesures diverses, les imprimantes et scanneurs en réseau, etc. Tous ces éléments convergeraient idéalement vers une mise en réseau commune. Cela peut se faire par le réseau Internet, il n'est pas rare d'orienter ces connections vers un cloud permettant de traiter globalement et intelligemment la masse de données qu'il reçoit de ces équipements. Or, comme évoqué ci-dessus, plus on s'interconnecte et plus on s'ouvre à des attaquants potentiels, ce qui pose problème si rien n'est mis en place pour s'en protéger.\\
+\par En parallèle avec la montée en puissance de ces machines de type desktop, serveurs, etc. s'est développée depuis à peu près les années 2000 la tendance de l'\og Internet des Objets \fg{}, ou encore plus communément abrégé IoT pour \textit{Internet of Things}. Bien qu'assez large, cette dénomination regroupe beaucoup d'objets et de concepts, qu'ils soient virtuels ou non mais possédant un dénominateur commun : la capacité de communiquer en réseau avec d'autres équipements. Cela englobe par exemple la domotique, les outils et capteurs de mesures diverses, les imprimantes et scanneurs en réseau, etc. Tous ces éléments convergeraient idéalement vers une mise en réseau commune, leur permettant de communiquer malgré leur nature hétérogène \cite{Kubler2014}. Cela peut se faire via le réseau Internet, il n'est pas rare d'orienter ces connections vers un cloud permettant de traiter globalement et intelligemment la masse de données qu'il reçoit de ces équipements \cite{Huichen2016}. Or, comme évoqué ci-dessus, plus on s'interconnecte et plus on s'ouvre à des attaquants potentiels, ce qui pose problème si rien n'est mis en place pour s'en protéger.\\
 
-\par Ce travail aura pour objectif premièrement de faire un état de l'art des dispositifs de protection qui sont actuellement déployés dans l'IoT et plus particulièrement dans le cadre domestique. Il s'agit d'un monde beaucoup plus hétérogène et restreint en terme de ressources que celui des ordinateurs qu'on retrouve classiquement dans ce milieu, de fait il n'est pas toujours possible de réutiliser telles quelles toutes les technologies de protection y attenant. De plus, il faut prendre en considération les spécificités d'une habitation : au centre de tous ces équipements communiquant se trouve l'habitant, une personne n'étant pas forcément habilitée à manipuler et contrôler ces nouvelles technologies. Il sera également question d'établir une vision globale des différentes formes de pare-feux et sous quelles formes ceux-ci peuvent être implémentés dans les équipements d'une habitation classique. Deuxièmement, il sera question de mettre en pratique ces connaissances pour développer un système en lien avec ces nouvelles mesures de sécurité inhérentes à l'\textit{IoT}. Celui-ci fera intervenir les connaissances acquises au préalables sur les pare-feux.
-
+\par Ce travail aura pour objectif premièrement de faire un état de l'art des dispositifs de protection qui sont actuellement déployés dans l'IoT et plus particulièrement dans le cadre domestique. Il s'agit d'un monde beaucoup plus hétérogène et restreint en terme de ressources que celui des ordinateurs qu'on retrouve classiquement dans ce milieu, de fait il n'est pas toujours possible de réutiliser telles quelles toutes les technologies de protection y attenant. De plus, il faut prendre en considération les spécificités d'une habitation : au centre de tous ces équipements communiquant se trouve l'habitant, une personne n'étant pas forcément habilitée à manipuler et contrôler ces nouvelles technologies. Il sera également question d'établir une vision globale des différentes dispositifs de pare-feux existant et sous quelles formes ceux-ci peuvent être implémentés dans les équipements d'une habitation classique. Deuxièmement, il sera question de mettre en pratique ces connaissances pour développer un système en lien avec ces nouvelles mesures de sécurité inhérentes à l'\textit{IoT}. Celui-ci fera intervenir les connaissances acquises au préalables sur les pare-feux.
+%http://www.archive.ece.cmu.edu/~ece649/lectures/17_embedded_internet_security.pdf
 \newpage
-\section{Présentation de l'\textit{Internet des Objets}}
+\section{Présentation de l'\textit{Internet des Objets}}\label{IoT}
 
 \subsection{Généralités}
 
-\par L'Internet des objets, qu'on désignera par \textit{IoT} pour le terme plus répandu de \textit{Internet Of Things}, représente un tout qui évolue maintenant en flèche depuis plusieurs années. Aucune définition formelle n'est acceptée globalement, mais plusieurs organismes ont tenté d'en établir une ébauche. Par exemple, l'ITU-T (ITU Telecommunication Standardization Sector) Y.2060 le définit comme tel : 
+\par L'Internet des objets, qu'on désignera par \textit{IoT} pour le terme plus répandu de \textit{Internet of Things}, est une notion englobant un vaste ensemble de dispositifs. Aucune définition formelle n'est acceptée globalement, mais plusieurs organismes ont tenté d'en établir une ébauche. Par exemple, l'ITU-T (ITU Telecommunication Standardization Sector) Y.2060 le définit comme tel : 
 \begin{center}
 \textit{“Global  infrastructure  for  the  society,  enabling  advanced  services  by  inter-connecting (physical and virtual) things based on existing and evolving in-teroperable information and communication technologies.”}
 \end{center}
@@ -103,14 +104,14 @@ Les secteurs dans lesquels l'IoT s'est implanté ces dernières années sont nom
 \newpage
 
 \subsubsection{L'environnement \textit{smarthome}}
-\par Le terme émergeant \textit{Smart Home} est une fois de plus très englobant et généra. Il n'en existe pas de définition formelle et communément acceptée. Basman M. Hasan et al. \cite{Basman2016} en présentent plusieurs. Un résultat les unifiant pourrait être
+\par Le terme émergeant \textit{Smart Home/smarthome} est une fois de plus très englobant et général. Il n'en existe pas de définition formelle et communément acceptée. Basman M. Hasan et al. \cite{Basman2016} en présentent plusieurs. Un résultat les unifiant pourrait être
 \begin{center}
  \textit{\og Une smarthome est un environnement lié au domicile particulier où plusieurs équipements ou sous-systèmes sont inter-connectés et où les informations qu'ils échangent sont collectées et utilisées afin de surveiller, réguler et automatiser l'écosystème du domicile\fg{}}.\\
 \end{center}
 
-\par L'utilisateur en tant que personne physique y vivant est donc au centre de cette architecture, et y siège comme le principal intervenant. Puisque dans l'idée où toute cette technologie est déployée dans le but d'améliorer sa qualité de vie, c'est lui qui devra interagir avec. La notion d'intelligence est intrinsèquement liée avec celle de l'interconnexion de tous ces senseurs et actuateurs déployés dans l'environnement du domicile : il s'agit d'en récolter et regrouper toutes les données en un point central doté d'une capacité de traitement plus évoluée afin qu'il puisse en tirer une optimisation globale du domicile et la proposer sous une forme donnée à l'habitant.\\
+\par L'utilisateur en tant que personne physique y vivant est donc au centre de cette architecture, et y siège comme le principal intervenant. Effectivement, l'objectif global du déploiement de tous ces dispositifs est l'amélioration de sa qualité de vie. La notion d'intelligence est intrinsèquement liée avec celle de l'interconnexion de tous ces capteurs et actuateurs déployés dans l'environnement du domicile. Il s'agit d'en récolter et regrouper toutes les données en un point central doté d'une capacité de traitement plus évoluée afin qu'il puisse en tirer une optimisation globale du domicile.\\
 
-\par Une certaine classification fonctionnelle peut être établie pour distinguer de façon plus concrète les différents équipements qui peuvent intervenir dans l'écosystème d'une \textit{smarthome}. Elle est schématisée par la Figure~\ref{sm_class}, inspirée de \cite{Basman2016}. Ce qui est désigné par \textit{point d'interconnexion} peut dépendre de l'architecture réelle d'une \textit{smarthome}. Dans la plupart des cas il s'agit d'une machine faisant office de collecteur pour toutes les données transitant dans le domicile et de gateway vers le reste de l'Internet, éventuellement le cloud associé au domicile.\\
+\par Une certaine classification fonctionnelle peut être établie pour distinguer de façon plus concrète les différents équipements qui peuvent intervenir dans l'écosystème d'une smarthome. Elle est schématisée par la Figure~\ref{sm_class}, inspirée de \cite{Basman2016}. Ce qui est désigné par \textit{point d'interconnexion} peut dépendre de l'architecture réelle d'une smarthome \cite{Huichen2016}. Dans la plupart des cas il s'agit d'une machine faisant office de collecteur pour toutes les données transitant dans le domicile et de gateway vers le reste de l'Internet, éventuellement le cloud associé au domicile.\\
 
 
 \begin{figure}[!h]
@@ -124,7 +125,7 @@ Les secteurs dans lesquels l'IoT s'est implanté ces dernières années sont nom
 
 \subsubsection{Exemples d'équipements}
 
-La perception de ce qu'est l'\textit{IoT} par le grand public se résume énormément à l'environnement que constitue la \textit{smarthome} \cite{Berte2018}. Il s'agit d'une erreur d'incompréhension, on peut tenter de l'expliciter en analysant ce qui compose cette perception. La Figure~\ref{benef_SH} en donne une vision générale (tirée d'un sondage effectué aux États-Unis), qui va être étayée par les exemples concrets d'équipements la suivant.
+La perception de ce qu'est l'\textit{IoT} par le grand public se résume énormément à l'environnement que constitue la smarthome \cite{Berte2018}. Il s'agit d'une erreur d'incompréhension, on peut tenter de l'expliciter en analysant ce qui compose cette perception. La Figure~\ref{benef_SH} en donne une vision générale (tirée d'un sondage effectué aux États-Unis), qui va être étayée par les exemples concrets d'équipements la suivant.
 
 \begin{figure}[!h]
 \centering
@@ -134,7 +135,7 @@ La perception de ce qu'est l'\textit{IoT} par le grand public se résume énorm�
 \end{figure}
 
 \vspace{0.3cm}
-\todo{Remplacer par une section plus pertinente}
+\todo{Remplacer par une section plus pertinente (diff architectures smarthome)}
 \minit{Appartenant à la classe sécurité}
 
 \begin{itemize}
@@ -172,23 +173,24 @@ La perception de ce qu'est l'\textit{IoT} par le grand public se résume énorm�
 
 \subsubsection{Restrictions des équipements}
 
-Malgré le fait que l'ensemble des objets considérés comme appartenant à l'IoT soit très hétérogène, on peut distinguer plusieurs caractéristiques communes à beaucoup d'entre eux. Elles tendent généralement vers ce qui est vu comme une restriction par rapport à un ordinateur type classique (\textit{desktop}). Ces éléments constituent les plus gros freins au développement de la sécurité sur de tels système \cite{Wind2015}. Les conséquences de ces restrictions sont discutées plus en détail dans la section~\ref{prot_IoT} de ce document.\\
+Malgré le fait que l'ensemble des objets considérés comme appartenant à l'IoT soit très hétérogène, on peut distinguer plusieurs caractéristiques communes à beaucoup d'entre eux. Elles tendent généralement vers ce qui est vu comme une restriction par rapport à un ordinateur type classique (\textit{desktop}). Ces éléments constituent les plus gros freins au développement de la sécurité sur de tels système \cite{Wind2015}. Les conséquences de ces restrictions sont discutées plus en détail dans la \wordlink{prot_IoT}{section} de ce document.\\
 
 \minit{Conçus pour satisfaire une unique fonction}
 
-Le meilleur exemple est celui des capteurs : un capteur a pour objectif de faire une mesure d'une grandeur physique (température, pression, etc.), d'en tirer une valeur numérique et de faire remonter via son interface avec le réseau cette information vers une unité centrale qui la traitera. Ce genre d'équipement est généralement minimaliste au possible et ne peut donc pas remplir d'autre tâche.\\
+Le meilleur exemple est celui des capteurs. Un capteur a pour objectif de faire une mesure d'une grandeur physique (température, pression, etc.), d'en tirer une valeur numérique et de faire remonter via son interface avec le réseau cette information vers une unité centrale. Cette dernière accumule ainsi des mesures provenant des nœuds distribués pour y appliquer un traitement, et c'est à ce plus haut niveau que le processus de décision a lieu s'il est nécessaire. Ce genre d'équipement est généralement minimaliste au possible et ne peut donc pas remplir d'autre tâche.\\
 
 \minit{Requièrent une faible consommation énergétique}
 
 Les systèmes embarqués n'ont pas toujours accès à une source illimitée d'énergie, et auront donc une durée de vie limitée à celle de leur batterie. En conséquence, il est souhaitable d'économiser un maximum, ce qui peut se faire en réduisant les temps d'éveil de l'équipement et en optimisant le nombre d'opérations effectuées quand il tourne à plein régime. Dés lors, certains protocoles et algorithmes doivent être adaptés (relatifs aux communications réseaux mais aussi à la sécurité) \cite{Huichen2016}.\\
 
-\minit{Sont contraints en ressources CPU, mémoires et radios}
+\minit{Sont contraints en ressources CPU, mémoire et radio}
+
 Ces contraintes sont aussi identiques à celles des systèmes embarqués classiques. En plus de celles-ci, on peut mettre en évidence le fait que les radios (quand il s'agit d'une interface sans fil) sont assez faibles et ne permettent pas des communications à haut débit. En résulte également que des techniques comme le saut de fréquence et les algorithmes de chiffrement de type asymétrique sont plus compliquées à mettre en œuvre \cite{Leloglu2017}.\\
 
 
 \minit{Sont programmés à un bas niveau d'abstraction}
 
-Étant conçus pour ne remplir que des fonctions spécifiques, certains équipements ne sont pas programmables en utilisant des langages de haut niveau. Par conséquent, ce sont souvent des boîtes noires difficilement manipulables et statiques : les mises à jour et patch de sécurité ne sont pas déployables aisément par les constructeurs \cite{Huichen2016}. Les seules interactions que l'utilisateur peut avoir avec l'équipement sont celles prévues par l'interface de ce dernier s'il y en a une.
+Étant conçus pour ne remplir que des fonctions spécifiques, certains équipements ne sont pas programmables en utilisant des langages de haut niveau. Par conséquent, ce sont souvent des boîtes noires difficilement manipulables et statiques : les mises à jour et patch de sécurité ne sont pas déployables aisément par les constructeurs \cite{Huichen2016}. Les seules interactions que l'utilisateur lambda peut avoir avec l'équipement sont celles prévues par l'interface de ce dernier s'il y en a une.
 
 
 \newpage
@@ -197,13 +199,13 @@ Ces contraintes sont aussi identiques à celles des systèmes embarqués classiq
 
 \subsection{Généralités}\label{gen_FW}
 
-Un pare-feu est un dispositif, virtuel ou matériel, qui surveille et contrôle le lien entre un réseau dit de confiance et un réseau extérieur non fiable. Typiquement, ce réseau potentiellement dangereux est Internet et la zone à protéger est le réseau interne d'une entreprise ou d'une habitation. L'existence des pare-feux est une conséquence du besoin d'outils de protection aux bordures de réseaux distincts contrôlés par des entités différentes. D'une part, il faut garantir que des données internes confidentielles restent à l'intérieur du réseau de confiance. D'autre part, il est nécessaire de filtrer les données entrantes dans ce réseau de sorte qu'aucune menace ne s'y infiltre par des flux, même initiés depuis l'intérieur du réseau de confiance. Ces filtres sont créés et assemblés à partir de \textit{politiques} ou \textit{règles} définies par défaut ou par les personnes compétentes liées à l'entité gérant le réseau.
+Un pare-feu est un dispositif, virtuel ou matériel, qui surveille et contrôle le lien entre un réseau dit de confiance et un réseau extérieur non fiable. Typiquement, ce réseau potentiellement dangereux est Internet et la zone à protéger est le réseau interne d'une entreprise ou d'une habitation. L'existence des pare-feux est une conséquence du besoin d'outils de protection aux bordures de réseaux distincts contrôlés par des entités différentes. D'une part, il faut garantir que des données internes confidentielles restent à l'intérieur du réseau de confiance. D'autre part, il est nécessaire de filtrer les données entrantes et sortantes de ce réseau de sorte qu'aucune menace ne s'y infiltre par des flux, même initiés depuis l'intérieur du réseau de confiance. Ces filtres sont créés et assemblés à partir de \textit{politiques} ou \textit{règles} définies par défaut ou par les personnes compétentes liées à l'entité gérant le réseau.
 
 \subsection{Différentes architectures}
 
 \par Deux classes de pare-feux sont distinguables en fonction de ce qu'ils visent à protéger. La description donnée \hyperref[gen_FW]{en début de section} correspond aux pare-feux au niveau réseau (\textit{network firewalls}), situés en bordure de LANs, WANs et intranets. Ceux-ci, de par leur nature de barrière entre réseaux, peuvent également fournir des services plus évolués : système de NAT, gestion de \textit{zones démilitarisées} \cite{Shimonski2013}, service DHCP, etc. La seconde classe agit au niveau des nœuds du réseau eux-mêmes (\textit{host-based firewalls}), protégeant une machine physique et non pas un réseau entier. Ces pare-feux se présentent donc sous forme de software, directement intégrés au niveau du système d'exploitation ou installés à un plus haut niveau.\\
 
-\minit{Les pare-feux niveau réseau}
+\minit{Les pare-feux niveau réseau}\label{netw_fw}
 
 \par Afin de remplir leur fonction, ces pare-feux sont placés en bordure du réseau à protéger et sont  directement liés aux machines qui font office de \textit{gateway} (routeurs). Tout le trafic passe donc par le pare-feu afin d'être analysé et filtré, ce qui peut représenter beaucoup de données à traiter. Le pare-feu doit offrir une vitesse de traitement proportionnelle aux débits et à la qualité des liens qui le traversent afin de ne pas être un goulot d'étranglement. C'est pourquoi 
 ces pare-feux doivent être très efficaces et sont communément situés (partiellement) au niveau hardware. On parle de \textit{hardware-based firewall appliances}, qui sont des machines physiques dont le seul objectif est de remplir les tâches d'un pare-feu le plus efficacement possible. On y retrouve deux composants : la partie applicative software ou firmware remplissant la fonction de pare-feu, qui repose sur la deuxième partie plus basse constituée de juste ce qu'il faut d'un OS particulier (\textit{jeOS} - \textit{just enough Operating System}). Cet OS est généralement propriétaire, lié au fabriquant du hardware sur lequel les deux parties opèrent et donc très optimisé pour garantir les performances requises.\\
@@ -256,8 +258,14 @@ ces pare-feux doivent être très efficaces et sont communément situés (partie
 \vspace{0.5cm}
 \par Que ce soit en entreprise ou dans une habitation, il est donc probable que l'on retrouve des pare-feux appartenant à ces deux classes distinctes là où ils sont efficaces. Il ne s'agit que d'échelles différentes, qui impliquent également des intervenants différents. En entreprise l'administrateur sécurité configure du matériel spécifique afin de sécuriser les frontières de son réseau tout en préservant ses performances. Il est aussi possible qu'il introduise dans les machines internes des pare-feux puissants pour empêcher les propagations des attaques déclenchées . Dans le domicile, l'habitant utilise généralement le routeur fournit par son FAI qui inclut un pare-feu réseau par défaut. S'il est un minimum expérimenté, il sera à même d'installer et configurer des pare-feux personnels sur chacun de ses équipements connectés.   
 
-\todo{Schéma récapitulatif de la place des FW dans l'architecture d'une entreprise}
-\newpage
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=1.65]{netw_IDS.png}
+\caption{Schéma récapitulatif des places des différents dispositifs dans le réseau}
+\label{netw_IDS}
+\end{figure}
+
 \subsection{Types de pare-feu}
 
 \subsubsection{Pare-feu de filtrage (sans état)}
@@ -282,7 +290,7 @@ Le but de ce type de pare-feu dit \textit{stateful} est d'améliorer les techniq
 
 \par Dans le cas d'une communication utilisant UDP, le contrôle possible est moins fin car il ne s'agit pas d'un protocole à état et les échanges ne sont pas bidirectionnels. Dans ce cas, quand le premier paquet d'une transmission arrive en entrée du pare-feu, il est soumis aux règles de filtrage. S'il est considéré comme correct, le pare-feu ajoute une entrée dans sa table pour les couple d'adresses et ports. Cette entrée expirera après un temps donné sans autre nouveau paquet la matchant. 
 
-\newpage
+
 
 \subsubsection{Pare-feu applicatif}\label{appfw}
 
@@ -308,7 +316,6 @@ Ces pare-feux mêlent l'inspection au niveau applicatif et le rôle de proxy pou
 \item[$\bullet$] Si un proxy présente une faille de sécurité, un assaillant peut l'utiliser comme un vecteur d'attaque et prendre le contrôle du système sur lequel il tourne. S'il parvient alors à désactiver les services relatifs au pare-feu, la voie vers ce qu'on souhaitait protéger se retrouve toute ouverte
 \end{itemize}
 
-\newpage
 
 \subsubsection{Pare-feu identifiant}\label{idfw}
 
@@ -403,7 +410,7 @@ avantages :
 
 \subsection{Les pare-feux nouvelle génération}
 
-Abrégés par NGFW (\textit{next-generation firewalls}), ces pare-feux font suite à ce qu'on distingue comme la troisième génération dans l'évolution des dispositifs pare-feux \cite{wikifw}, c'est-à-dire ceux qui appliquent les concepts de filtrage au niveau applicatif décrits dans la sous-section~\hyperref[appfw]{sous-section~\ref{appfw}}. Les NGFW effectuent une analyse plus fine que ces derniers en utilisant les technologies avancées de \href{https://en.wikipedia.org/wiki/Deep\_packet\_inspection}{\textit{deep packet inspection}}. Les services qu'offrent la nouvelle génération de pare-feux s'étendent encore au-delà de la simple fonctionnalité d'inspection des paquets, et sont devenus des systèmes très complexes implémentant d'autres dispositifs liés à la sécurité dont les suivants :
+Abrégés par NGFW (\textit{next-generation firewalls}), ces pare-feux font suite à ce qu'on distingue comme la troisième génération dans l'évolution des dispositifs pare-feux \cite{wikifw}, c'est-à-dire ceux qui appliquent les concepts de filtrage au niveau applicatif décrits dans la \hyperref[appfw]{sous-section~\ref{appfw}}. Les NGFW effectuent une analyse plus fine que ces derniers en utilisant les technologies avancées de \href{https://en.wikipedia.org/wiki/Deep\_packet\_inspection}{\textit{deep packet inspection}}. Les services qu'offrent la nouvelle génération de pare-feux s'étendent encore au-delà de la simple fonctionnalité d'inspection des paquets, et sont devenus des systèmes très complexes implémentant d'autres dispositifs liés à la sécurité dont les suivants :
 \vspace{0.2cm}
 \begin{itemize}
 \item[$\bullet$] Support des technologies de (dé)chiffrement utilisés classiquement dans les réseaux
@@ -420,6 +427,51 @@ Abrégés par NGFW (\textit{next-generation firewalls}), ces pare-feux font suit
 \end{itemize}
 
 \subsection{Les pare-feux de référence}
+
+\subsubsection{Sous forme de software}
+
+\par Ces pare-feux sont destinés à être installé et utilisés par-dessus des systèmes d'exploitation génériques tels que Windows, distributions Linux et BSD etc. En plus de protéger la machine sur laquelle ils opèrent des menaces extérieures, certains d'entre eux intègrent d'autres fonctionnalités telles que du \textit{traffic shaping} ou la gestion d'un système de NAT.\\
+
+\minit{Windows}
+
+\par \textbf{Windows Firewall} est intégré par défaut avec les versions de l'OS Windows postérieures à \textit{Windows XP}. Il s'agit d'un pare-feu qui se veut "user-friendly", de base il présente une liste de profils pré-configurés pour que l'utilisateur puisse sélectionner celui qui convient le plus à ses besoins (\textit{Public}, \textit{Private} et \textit{Domain}). Il agit comme un pare-feu à état basique mais assez complet dans sa fonction restreinte cependant, en plus d'être simple à utiliser et de disposer d'une interface graphique. Le fait qu'il soit directement incorporé dans le système permet un contrôle fin de quelles applications sont autorisées pour quels types de trafics.\\
+
+\minit{Linux}
+
+\par \textbf{Netfilter} est la solution de base de filtrage de paquets inclue dans le noyau Linux. Plusieurs modules de noyau sont également fournis pour servir d'intermédiaire dans la configuration de Netfliter, notamment sous la forme de tables de règles en chaines à appliquer séquentiellement sur les entrées à filtrer. Ces modules sont accessibles depuis l'utilitaire \textit{iptables}, sous les noms de ip\_tables, ip6\_tables, etc.\\
+
+\par \textbf{nftables} a pour objectif de remplacer Netfilter à terme car il est sensé apporter plus de performances principalement. L'utilitaire permettant de faire le lien est réduit à \textit{nft} (réduction du nombre de module par rapport à Netfilter).\\
+
+\par \textbf{Shorewall} se repose sur Netfilter, faisant office de couche d'abstraction pour faciliter la configuration des règles qui est assez laborieuse avec les outils comme iptables. Il permet l'écriture des règles alimentant les tables par un mécanisme de fichier de configuration. C'est un software complet, il propose des fonctionnalités classiques telles que du NAT, du , un support VPN et \href{http://www.shorewall.net/shorewall_features.htm}{autres}. Une autre fonctionnalité notable est la possibilité de partitionner le réseau en zones distinctes (ou pouvant se recouvrir l'une l'autre), permettant le contrôle de toutes les connexions entre chaque paire de zone à considérer. Cela permet notamment l'établissement aisé de zones démilitarisées (DMZ).\\ 
+
+\minit{BSD}  
+
+\par \textbf{Packet Filter} (pf) est comparable à Netfilter pour les noyaux Linux. C'est une solution de filtrage de paquet à état, incluant d'autres fonctionnalités classiques telles que la gestion de NAT, des mécanismes liés à la \textit{qualité de service} (QoS), une gestion des logs avancée en offrant leur configuration règle par règle. D'autres utilitaires sont venus s'y greffer, tel que \href{https://www.openbsd.org/faq/pf/authpf.html}{\textit{authpf}} qui permet un système de gateway authentifié (voir \href{idfw}{les pare-feux identifiants}). Packet Filter a fait l'objet de port vers de nombreux autres systèmes d'exploitations, notamment Apple Mac OS X et iOS, NetBSD et Solaris.
+
+\subsubsection{Sous forme d'appliance}
+
+Le terme \textit{appliance} désigne un appareil/système constitué du strict minimum de composants pour remplir au mieux une fonction spécifique. Du point de vue d'un pare-feu, on peut distinguer trois niveaux d'appliances :
+\begin{itemize}
+\vspace{0.2cm}
+\item[$\bullet$] les pare-feux sur systèmes embarqués, par exemple des équipements tels que présentés dans la \wordlink{IoT}{section} de ce travail. 
+\vspace{0.2cm}
+\item[$\bullet$] les pare-feux niveau logiciel destinés à fonctionner au dessus d'une couche d'abstraction du hardware spécifique (ou même sur une machine virtuelle minimaliste)
+\vspace{0.2cm}
+\item[$\bullet$] les pare-feux niveau hardware qui utilisent du matériel et des équipements spécifiques construits à cette fin
+\end{itemize}
+\vspace{0.2cm}
+
+\par Généralement, il s'agit de solutions destinées aux entreprises de par leur prix et leur nature. Effectivement, comme ce sont des équipements/dispositifs dédiés (presque) uniquement à la fonction de pare-feu, ils sont souvent déployés comme des \href{netw_fw}{pare-feux niveau réseau}. À noter que beaucoup de ces pare-feux tournent sur un OS propriétaire de l'entreprise qui les fabrique (Cisco, Check Point, etc.). Cela permet aux fabricants d'optimiser leurs produits tant au niveau performance que sécurité, restreignant leur OS au strict nécessaire (certains d'entre eux sont basés sur des noyaux déjà existants).\\
+
+\minit{Appliances sur systèmes embarqués}
+
+
+\minit{Appliances orientées software}
+
+\minit{Appliances software reposant sur du hardware spécifique}
+
+%https://community.checkpoint.com/thread/8111-just-to-be-sure-checkpoint-is-just-a-software-based-firewall-right-do-we-have-checkpoint-hardware-firewall-just-like-cisco-asa
+
 
 \newpage
 \section{La protection dans l'\textit{IoT}}\label{prot_IoT}
