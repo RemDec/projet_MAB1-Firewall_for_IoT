@@ -45,6 +45,14 @@ Dan-Radu Berte.
 \newblock Defining the {I}o{T}.
 \newblock {\em De Gruyter}, 2018.
 
+\bibitem{cisco2018}
+Cisco.
+\newblock {\em CLI Book 2: Cisco ASA Series Firewall CLI Configuration Guide,
+  9.6}, May 2018.
+\newblock URLs :
+  \url{https://www.cisco.com/c/en/us/td/docs/security/asa/asa96/configuration/firewall/asa-96-firewall-config/access-idfw.html},
+  \url{https://www.cisco.com/c/en/us/td/docs/security/asa/asa96/configuration/firewall/asa-96-firewall-config/access-idfw.pdf}.
+
 \bibitem{Shimonski2013}
 Robert J.~Shimonski, Debra Littlejohn~Shinder, and Thomas W.~Shinder, editors.
 \newblock {\em The Best Damn Firewall Book Period}.
@@ -55,6 +63,12 @@ Kalle Kokko.
 \newblock Next-generation firewall case study.
 \newblock Master's thesis, South-Eastern Finland University of Applied
   Sciences, 2017.
+
+\bibitem{Kubler2014}
+Sylvain Kubler, Kary Främling, and Andrea Buda.
+\newblock A standardized approach to deal with firewall and mobility policies
+  in the {I}o{T}.
+\newblock {\em Pervasive Mobile Computing}, 2014.
 
 \bibitem{Leloglu2017}
 Engin Leloglu.
