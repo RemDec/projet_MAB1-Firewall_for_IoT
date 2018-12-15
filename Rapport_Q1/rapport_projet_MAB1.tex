@@ -201,7 +201,7 @@ Ces contraintes sont aussi identiques à celles des systèmes embarqués classiq
 
 Un pare-feu est un dispositif, virtuel ou matériel, qui surveille et contrôle le lien entre un réseau dit de confiance et un réseau extérieur non fiable. Typiquement, ce réseau potentiellement dangereux est Internet et la zone à protéger est le réseau interne d'une entreprise ou d'une habitation. L'existence des pare-feux est une conséquence du besoin d'outils de protection aux bordures de réseaux distincts contrôlés par des entités différentes. D'une part, il faut garantir que des données internes confidentielles restent à l'intérieur du réseau de confiance. D'autre part, il est nécessaire de filtrer les données entrantes et sortantes de ce réseau de sorte qu'aucune menace ne s'y infiltre par des flux, même initiés depuis l'intérieur du réseau de confiance. Ces filtres sont créés et assemblés à partir de \textit{politiques} ou \textit{règles} définies par défaut ou par les personnes compétentes liées à l'entité gérant le réseau.
 
-\subsection{Différentes architectures}
+\subsection{Différentes positions et fonctions dans l'architecture réseau}
 
 \par Deux classes de pare-feux sont distinguables en fonction de ce qu'ils visent à protéger. La description donnée \hyperref[gen_FW]{en début de section} correspond aux pare-feux au niveau réseau (\textit{network firewalls}), situés en bordure de LANs, WANs et intranets. Ceux-ci, de par leur nature de barrière entre réseaux, peuvent également fournir des services plus évolués : système de NAT, gestion de \textit{zones démilitarisées}, service DHCP, etc. \cite{Shimonski2013} La seconde classe agit au niveau des nœuds du réseau eux-mêmes (\textit{host-based firewalls}), protégeant une machine physique et non pas un réseau entier. Ces pare-feux se présentent donc sous forme de softwares, directement intégrés au niveau du système d'exploitation ou installés à un plus haut niveau.\\
 
@@ -211,7 +211,7 @@ Un pare-feu est un dispositif, virtuel ou matériel, qui surveille et contrôle 
 
 \par À plus petite échelle, dans un réseau domestique par exemple, on retrouve également des pare-feux directement implémentés dans le routeur qui fait office de \textit{gateway} pour l'habitation. Ceux-ci sont fatalement moins efficaces et complets que les matériels spécialement dédiés à cette unique fonction.\\
 
-\par À titre indicatif, la Figure~\ref{cisco_FW} donne un exemple d'une \textit{appliance} pare-feu issue de la gamme des Cisco ASA 5500-X (\textit{Adaptive Security Appliance}), la dernière génération que Cisco a introduit sur le marché. Il ne s'agit pas du modèle le plus performant de la gamme en comparant les \href{https://www.cisco.com/c/en/us/products/collateral/security/asa-5500-series-next-generation-firewalls/datasheet-c78-733916.html}{performances et fonctionnalités}, mais convient typiquement bien pour être déployé dans une petite entreprise (son prix avoisine 500\euro). Dans le cas d'une habitation, l'analogue correspondant est dans la majorité des cas le modem distribué par le fournisseur d'accès internet au domicile. La société Proximus fournit par exemple des \textit{b-box}, que leurs clients peuvent configurer par une interface web. Dans ces configurations, il existe bien un onglet intitulé \textit{firewall}, mais celui-ci ne présente que peu d'options de configuration comme le montre la Figure~\ref{proxi_FW}. Dans d'autres onglets, on peut trouver d'autres fonctionnalités qui peuvent y être relatives : restriction d'accès pour certains nœuds en fonction de l'heure (par adresse MAC) et blocage de certains sites par domaine. Cela semble assez faible, les utilisateurs du réseau ont tout intérêt à installer sur leur équipements personnels des \hyperref[host_fw]{pare-feux pour hôtes}.
+\par À titre indicatif, la Figure~\ref{cisco_FW} donne un exemple d'une \textit{appliance} pare-feu issue de la gamme des Cisco ASA 5500-X, la dernière génération que Cisco a introduit sur le marché. Il ne s'agit pas du modèle le plus performant de la gamme en comparant les \href{https://www.cisco.com/c/en/us/products/collateral/security/asa-5500-series-next-generation-firewalls/datasheet-c78-733916.html}{performances et fonctionnalités}, mais convient typiquement bien pour être déployé dans une petite entreprise (son prix avoisine 500\euro). Dans le cas d'une habitation, l'analogue correspondant est dans la majorité des cas le modem distribué par le fournisseur d'accès internet au domicile. La société Proximus fournit par exemple des \textit{b-box}, que leurs clients peuvent configurer par une interface web. Dans ces configurations, il existe bien un onglet intitulé \textit{firewall}, mais celui-ci ne présente que peu d'options de configuration comme le montre la Figure~\ref{proxi_FW}. Dans d'autres onglets, on peut trouver d'autres fonctionnalités qui peuvent y être relatives : restriction d'accès pour certains nœuds en fonction de l'heure (par adresse MAC) et blocage de certains sites par domaine. Cela semble assez faible, les utilisateurs du réseau ont tout intérêt à installer sur leur équipements personnels des \hyperref[host_fw]{pare-feux pour hôtes}.
 
 % https://en.wikipedia.org/wiki/Comparison_of_firewalls
 %https://www.cisco.com/c/en/us/products/security/asa-5500-series-next-generation-firewalls/data_sheet_c78-345385.html
@@ -265,7 +265,7 @@ Un pare-feu est un dispositif, virtuel ou matériel, qui surveille et contrôle 
 \label{netw_IDS}
 \end{figure}
 
-\subsection{Types de pare-feu}
+\subsection{Les types de pare-feu}
 
 \subsubsection{Pare-feu de filtrage (sans état)}
 
@@ -287,6 +287,8 @@ Ce type de pare-feu tombe en désuétude car ils sont trop simples à duper par 
 
 Le but de ce type de pare-feu dit \textit{stateful} est d'améliorer les techniques de filtrage sans état en maintenant de l'information sur les flux passant au travers, principalement TCP. Effectivement, au contraire d'UDP, TCP est un protocole qui garde un état qui se traduit dans certains champs de ses headers. Dès lors, le pare-feu peut accéder à cette information, l'analyser et l'utiliser pour en déduire dans quel état est actuellement la connexion entre les deux processus communiquant sur les deux hôtes impliqués. Cela peut se traduire par l'inspection des flags (SYN, FIN, ...), des numéros de séquences et acquittements qui permettent au pare-feu de contrôler en conséquence le contenu d'une table interne des connexions.\\ 
 
+\newpage
+
 \par L'établissement d'une connexion se fait comme suit : lors de la réception du premier paquet TCP par le pare-feu, celui-ci va le soumettre à ses règles de filtrage définies comme dans un pare-feu sans état. Si le paquet est valide, il est retransmis pour poursuivre librement sa route et une entrée est ajoutée dans la table interne du pare-feu. Celle-ci va changer d'état à chaque paquet de la communication reçu, jusqu'à arriver dans un état \textit{established} correspondant à la fin du 3-way handshake TCP. Tous les paquets suivants pourront alors être traités rapidement en faisant matcher les headers à ceux de l'entrée en état \textit{estbalished} dans la table (qui sont donc théoriquement également légitimes). Cette façon de procéder est plus efficace que de soumettre chaque paquet individuellement aux règles de filtrage qui peuvent être complexes et demander beaucoup de travail et donc gourmandes en temps.\\
 
 \par Dans le cas d'une communication utilisant UDP, le contrôle possible est moins fin car il ne s'agit pas d'un protocole à état et les échanges ne sont pas bidirectionnels. Dans ce cas, lorsque le premier paquet d'une transmission arrive en entrée du pare-feu, il est soumis aux règles de filtrage. S'il est considéré comme correct, le pare-feu ajoute une entrée dans sa table pour les couples d'adresses et ports et considérera les suivants comme légitimes. Cette entrée expirera après un temps donné sans autre nouveau paquet la matchant. 
@@ -302,6 +304,8 @@ Le but de ce type de pare-feu dit \textit{stateful} est d'améliorer les techniq
 \par Par exemple, les \textit{Web Application Firewalls} (WAF) sont une sous-catégorie des pare-feux applicatifs qui opèrent un filtrage sur le trafic HTTP. Ils peuvent donc filtrer le trafic sur base de certaines règles d'accessibilités fixées en bloquant des requêtes aux URL douteuses ou considérées comme non éthiques vis-à-vis de l'organisme maintenant le réseau par lequel elles transitent. Outre cela, les WAFs permettent également de se protéger contre les attaques dites de type \textit{parameter tampering} (injection SQL, cross-site scripting, etc.) \cite{Palka2011}, ainsi que d'inclure des filtres anti-spam pour les courriels \cite{wikifwFR}.\\
 
 \par Plus généralement, les pare-feux applicatifs permettent de se protéger des virus, vers et tentatives d'\textit{exploits} de faiblesses connues des systèmes à protéger \cite{wikiappfw} \cite{Palka2011}. Un autre avantage d'analyser jusqu'à la couche 7 grâce à la DPI est que certains protocoles (FTP par exemple) utilisent la couche applicative pour transmettre des informations relatives aux couches plus basses (adresses IPs, ports, etc.) et qui seront impliquées dans des communications passant par le dispositif pare-feu \cite{wikifwFR}. Comme illustré par l'exemple des WAFs, le principal défaut inhérent à leur nature réside dans le fait que pour chaque type de trafic applicatif que l'on souhaite contrôler, un travail spécifique doit être opéré (établir des règles dédiées par exemple) \cite{wikifw}. 
+
+\newpage
 
 \subsubsection{Pare-feu applicatif proxy}
 
@@ -332,14 +336,15 @@ Pour ce type de dispositif, on veut pouvoir définir des règles de filtrage en 
 \item[$\bullet$] Simplifier la surveillance des activités des utilisateurs du réseau et identifier la source de menaces
 \end{itemize} 
 
+\newpage
 
 %https://www.frameip.com/firewall/
 \subsection{Systèmes de détection d'intrusion (\textit{IDS})}\label{IDS}
 %https://www.ibm.com/developerworks/library/se-intrusion/index.html
 %https://www.comparitech.com/net-admin/network-intrusion-detection-tools/
-Ce type de système, abrégé par IDS pour \textit{intrusion detection system}, est analogue à un ce qu'est un système d'alarme intérieur dans l'environnement d'une habitation : quand les dispositifs de protection mis en place à l'entrée sont contournés (une présence non permise est détectée à l'intérieur), l'alarme est lancée et des actions sont éventuellement prises en conséquence. Les IDSs sont donc des sentinelles qui surveillent le réseau interne, logiquement placées après le pare-feu dans le sens entrant. Ces systèmes se présentent sous la forme d'outils spécialisés dans l’interprétation des logs des routeurs, pare-feux, serveurs et autres agents du réseau interne. Les IDSs sont épaulés par une base de données des signatures d'attaques déjà connues et y comparent le contenu des logs afin de trouver des \textit{patterns} qui matchent. Dans une telle situation, plusieurs actions allant de simplement alerter l'administrateur réseau à couper les accès réseaux des machines peuvent être déclenchées, en fonction du degré de certitude (match fort entre les patterns) et de la menace.\\
+Ce type de système, abrégé par IDS pour \textit{intrusion detection system}, est analogue à un ce qu'est un système d'alarme intérieur dans l'environnement d'une habitation : quand les dispositifs de protection mis en place à l'entrée sont contournés (une présence non permise est détectée à l'intérieur), l'alarme est lancée et des actions sont éventuellement prises en conséquence. Les IDSs sont donc des sentinelles qui surveillent le réseau interne, logiquement placées après le pare-feu dans le sens entrant. Ces systèmes se présentent sous la forme d'outils spécialisés dans l’interprétation des logs des routeurs, pare-feux, serveurs et autres agents du réseau interne. Les IDSs sont épaulés par une base de données des signatures d'attaques déjà connues et y comparent le contenu des logs afin de trouver des \textit{patterns} qui matchent \cite{Shimonski2013}. Dans une telle situation, plusieurs actions allant de simplement alerter l'administrateur réseau à couper les accès réseaux des machines peuvent être déclenchées, en fonction du degré de certitude (match fort entre les patterns) et de la menace.\\
 
-\par Tout comme les pare-feux, les IDSs peuvent être des ressources software ou reposer sur du hardware spécifique. Dans le cas ou il s'agit de software, ils sont établis sur la même machine que le pare-feu, les proxys ou autres dispositifs de bordure de réseau. S'ils se présentent sous forme d'équipements hardwares spécifiques, ils sont installés de sortes à contrôler et surveiller de près un de ces dispositifs sensibles. Le trafic tant entrant que sortant peut être analysé par les IDSs, car les attaques peuvent autant venir de l'extérieur que se déployer depuis l'intérieur.\\
+\par Tout comme les pare-feux, les IDSs peuvent être des ressources software ou reposer sur du hardware spécifique. Dans le cas ou il s'agit de software, ils sont établis sur la même machine que le pare-feu, les proxys ou autres dispositifs de bordure de réseau. S'ils se présentent sous forme d'équipements hardwares spécifiques, ils sont installés de sorte à contrôler et surveiller de près un de ces dispositifs sensibles. Le trafic tant entrant que sortant peut être analysé par les IDSs, car les attaques peuvent autant venir de l'extérieur que se déployer depuis l'intérieur (chevaux de Troie, spywares, etc.).\\
 
 \par L'analyse des événements repose communément sur deux techniques. La première, la détection par signature (\textit{signature detection}), utilise une base de données de signatures d'attaques déjà connues et se base sur le trafic et les patterns observés pour établir un match avec ces signatures. La seconde approche est celle de la détection d'anomalies (\textit{anomaly detection}). Il est question d'utiliser des heuristiques afin de distinguer les situations et comportements anormaux, sur base de profils types construits par analyses statistiques, agencements de règles ou réseaux neuronaux. Outre la technique utilisée, trois catégories d'IDSs existent en fonction de leur place dans l'architecture réseau (leur mode de fonctionnement diffère en conséquence) :
 \vspace{0.3cm}
@@ -356,6 +361,7 @@ Ce type de système, abrégé par IDS pour \textit{intrusion detection system}, 
 \par Deux manières de procéder à l'analyse sont possibles : soit en mode \textit{in-line} soit en \textit{off-line}. Le cas de la capture du trafic par interface décrit ci-dessus correspond au mode in-line. Le trafic est analysé en temps réel, ce qui permet une plus grande réactivité mais peut constituer un goulot d'étranglement si le processus de décision est coûteux. Le mode off-line est donc plus avantageux à ce niveau, puisque le processus d'analyse et décision est opéré sur des données stockées et non pas à traiter à la volée. Une inspection plus fine est alors envisageable, cependant le principal défaut de ce mode de fonctionnement reste le manque de réactivité à une attaque.
 
 ~\\
+\newpage
 \minit{Les HIDSs}
 
 \par Les IDSs orientés systèmes sont élaborés dans le but de protéger uniquement l'hôte sur lequel ils sont déployés. Ils ciblent également de façon précise le trafic qu'ils doivent surveiller en fonction de la nature du système. Par exemple, si l'hôte ne maintient aucun service DNS, il est inutile d'analyser des requêtes DNS qui lui parviendraient pour y déceler un menace exploitant une faille connue dans le protocole DNS. Puisque les HIDSs vont s'exécuter sous forme d'un processus (\textit{daemon}) sur la machine hôte qui elle-même fonctionne sous un OS classique, un lien doit être établi entre les deux pour que l'HIDS puisse surveiller le système et les interfaces réseaux. Certains vont même jusqu'à rechercher les intrusions dans le noyau de l'OS.\\
@@ -416,7 +422,7 @@ Abrégés par NGFW (\textit{next-generation firewalls}), ces pare-feux font suit
 \begin{itemize}
 \item[$\bullet$] Support des technologies de (dé)chiffrement utilisées classiquement dans les réseaux
 \vspace{0.2cm}
-\item[$\bullet$] Les systèmes de management et contrôle sur base des identités des utilisateurs des \hyperref[idfw]{pare-feux identifiants} 
+\item[$\bullet$] Les systèmes de management et contrôle sur base des identités des utilisateurs inspirés des \hyperref[idfw]{pare-feux identifiants} 
 \vspace{0.2cm}
 \item[$\bullet$] Les pare-feux destinés aux flux web (\hyperref[waf]{WAFs}), le filtrage d'URLs selon des politiques de sécurité et éthique
 \vspace{0.2cm}
@@ -427,53 +433,70 @@ Abrégés par NGFW (\textit{next-generation firewalls}), ces pare-feux font suit
 \item[$\bullet$] De vastes bases de données sur le cloud interrogées efficacement via un service spécialisé fourni avec le pare-feu (environnement \href{https://www.paloaltonetworks.com/documentation/80/wildfire/wf\_admin/wildfire-overview/wildfire-deployments/wildfire-global-cloud}{WildFire} et similaires)
 \end{itemize}
 
+\newpage
 \subsection{Les pare-feux de référence}
 
 \subsubsection{Sous forme de software}
 
-\par Ces pare-feux sont destinés à être installé et utilisés par-dessus des systèmes d'exploitation génériques tels que Windows, distributions Linux et BSD etc. En plus de protéger la machine sur laquelle ils opèrent des menaces extérieures, certains d'entre eux intègrent d'autres fonctionnalités telles que du \textit{traffic shaping} ou la gestion d'un système de NAT.\\
+\par Ces pare-feux sont destinés à être installés et utilisés par-dessus des systèmes d'exploitation génériques tels que Windows, distributions Linux et BSD, etc. En plus de protéger la machine sur laquelle ils opèrent des menaces extérieures, certains d'entre eux intègrent d'autres fonctionnalités telles que du \textit{traffic shaping} ou la gestion d'un système de NAT.\\
 
 \minit{Windows}
 
-\par \textbf{Windows Firewall} est intégré par défaut avec les versions de l'OS Windows postérieures à \textit{Windows XP}. Il s'agit d'un pare-feu qui se veut "user-friendly", de base il présente une liste de profils pré-configurés pour que l'utilisateur puisse sélectionner celui qui convient le plus à ses besoins (\textit{Public}, \textit{Private} et \textit{Domain}). Il agit comme un pare-feu à état basique mais assez complet dans sa fonction restreinte cependant, en plus d'être simple à utiliser et de disposer d'une interface graphique. Le fait qu'il soit directement incorporé dans le système permet un contrôle fin de quelles applications sont autorisées pour quels types de trafics.\\
+\par \textbf{Windows Firewall} est intégré par défaut avec les versions de l'OS Windows postérieures à \textit{Windows XP}. Il s'agit d'un pare-feu qui se veut \og user-friendly \fg : par défaut il présente une liste de profils pré-configurés pour que l'utilisateur puisse sélectionner celui qui convient le plus à ses besoins (\textit{Public}, \textit{Private} et \textit{Domain}). Il agit comme un pare-feu à état basique mais assez complet dans sa fonction restreinte cependant, en plus d'être simple à utiliser et de disposer d'une interface graphique. Le fait qu'il soit directement incorporé dans le système permet un contrôle fin de quelles applications sont autorisées pour quels types de trafics.\\
 
 \minit{Linux}
 
-\par \textbf{Netfilter} est la solution de base de filtrage de paquets inclue dans le noyau Linux. Plusieurs modules de noyau sont également fournis pour servir d'intermédiaire dans la configuration de Netfliter, notamment sous la forme de tables de règles en chaines à appliquer séquentiellement sur les entrées à filtrer. Ces modules sont accessibles depuis l'utilitaire \textit{iptables}, sous les noms de ip\_tables, ip6\_tables, etc.\\
+\par \textbf{Netfilter} est la solution de base de filtrage de paquets inclue dans le noyau Linux. Plusieurs modules liés au noyau sont également fournis pour servir d'intermédiaire dans la configuration de Netfliter, notamment sous la forme de tables de règles en chaines à appliquer séquentiellement sur les entrées à filtrer. Ces modules sont accessibles depuis l'utilitaire \textit{iptables}, sous les noms de ip\_tables, ip6\_tables, etc.\\
 
 \par \textbf{nftables} a pour objectif de remplacer Netfilter à terme car il est sensé apporter plus de performances principalement. L'utilitaire permettant de faire le lien est réduit à \textit{nft} (réduction du nombre de module par rapport à Netfilter).\\
 
-\par \textbf{Shorewall} se repose sur Netfilter, faisant office de couche d'abstraction pour faciliter la configuration des règles qui est assez laborieuse avec les outils comme iptables. Il permet l'écriture des règles alimentant les tables par un mécanisme de fichier de configuration. C'est un software complet, il propose des fonctionnalités classiques telles que du NAT, du , un support VPN et \href{http://www.shorewall.net/shorewall_features.htm}{autres}. Une autre fonctionnalité notable est la possibilité de partitionner le réseau en zones distinctes (ou pouvant se recouvrir l'une l'autre), permettant le contrôle de toutes les connexions entre chaque paire de zone à considérer. Cela permet notamment l'établissement aisé de zones démilitarisées (DMZ).\\ 
+\par \textbf{Shorewall} se repose sur Netfilter, faisant office de couche d'abstraction pour faciliter la configuration des règles qui est assez laborieuse avec les outils comme iptables. Il permet l'écriture des règles alimentant les tables par un mécanisme de fichiers de configuration. C'est un software complet, il propose des fonctionnalités classiques telles que du NAT, du \textit{traffic shaping}, un support VPN et \href{http://www.shorewall.net/shorewall_features.htm}{autres}. Une autre fonctionnalité notable est la possibilité de partitionner le réseau en zones distinctes (ou pouvant se recouvrir l'une l'autre), permettant le contrôle de toutes les connexions entre chaque paire de zone à considérer. Cela permet notamment l'établissement aisé de zones démilitarisées (DMZ).\\ 
 
 \minit{BSD}  
 
-\par \textbf{Packet Filter} (pf) est comparable à Netfilter pour les noyaux Linux. C'est une solution de filtrage de paquet à état, incluant d'autres fonctionnalités classiques telles que la gestion de NAT, des mécanismes liés à la \textit{qualité de service} (QoS), une gestion des logs avancée en offrant leur configuration règle par règle. D'autres utilitaires sont venus s'y greffer, tel que \href{https://www.openbsd.org/faq/pf/authpf.html}{\textit{authpf}} qui permet un système de gateway authentifié (voir \href{idfw}{les pare-feux identifiants}). Packet Filter a fait l'objet de port vers de nombreux autres systèmes d'exploitations, notamment Apple Mac OS X et iOS, NetBSD et Solaris.
+\par \textbf{Packet Filter} (pf) est comparable à Netfilter pour les noyaux Linux. C'est une solution de filtrage de paquets à état, incluant d'autres fonctionnalités classiques telles que la gestion de NAT, des mécanismes liés à la \textit{qualité de service} (QoS), une gestion des logs avancée en offrant leur configuration règle par règle. D'autres utilitaires sont venus s'y greffer, tel que \href{https://www.openbsd.org/faq/pf/authpf.html}{\textit{authpf}} qui permet un système de gateway authentifié (voir \hyperref[idfw]{les pare-feux identifiants}). Packet Filter a fait l'objet de port vers de nombreux autres systèmes d'exploitation, notamment Apple Mac OS X et iOS, NetBSD et Solaris.
+
+\newpage
 
 \subsubsection{Sous forme d'appliance}
 
-Le terme \textit{appliance} désigne un appareil/système constitué du strict minimum de composants pour remplir au mieux une fonction spécifique. Du point de vue d'un pare-feu, on peut distinguer trois niveaux d'appliances :
+Le terme \textit{appliance} désigne un appareil/système constitué du strict minimum de composants pour remplir au mieux une fonction spécifique. Du point de vue des dispositifs pare-feux, on peut distinguer trois catégories d'appliances :
 \begin{itemize}
 \vspace{0.2cm}
-\item[$\bullet$] les pare-feux sur systèmes embarqués, par exemple des équipements tels que présentés dans la \wordlink{IoT}{section} de ce travail. 
+\item[$\bullet$] les pare-feux destinés aux systèmes embarqués, par exemple des équipements tels que présentés dans la \wordlink{IoT}{section} de ce travail (les plus adaptés aux ressources limitées de ces équipements). 
 \vspace{0.2cm}
-\item[$\bullet$] les pare-feux niveau logiciel destinés à fonctionner au dessus d'une couche d'abstraction du hardware spécifique (ou même sur une machine virtuelle minimaliste)
+\item[$\bullet$] les pare-feux logiciels destinés à fonctionner au dessus d'une couche d'abstraction du hardware spécifique (ou même sur une machine virtuelle), basés sur un noyau d'OS qui est transparent à l'utilisation
 \vspace{0.2cm}
-\item[$\bullet$] les pare-feux niveau hardware qui utilisent du matériel et des équipements spécifiques construits à cette fin
+\item[$\bullet$] les pare-feux reposant sur du hardware (machines dédiées vendues telles quelles) et qui utilisent le matériel et les équipements spécifiques construits à cette fin apportant de meilleures performances
 \end{itemize}
 \vspace{0.2cm}
 
-\par Généralement, il s'agit de solutions destinées aux entreprises de par leur prix et leur nature. Effectivement, comme ce sont des équipements/dispositifs dédiés (presque) uniquement à la fonction de pare-feu (et à la sécurisation du réseau en général), ils sont souvent déployés comme des \href{netw_fw}{pare-feux niveau réseau}. À noter que beaucoup de ces pare-feux tournent sur un OS propriétaire de l'entreprise qui les fabrique (Cisco, Check Point, etc.). Cela permet aux fabricants d'optimiser leurs produits tant au niveau performance que sécurité, restreignant leur OS au strict nécessaire (certains d'entre eux sont basés sur des noyaux déjà existants).\\
+\par Généralement, il s'agit de solutions destinées aux entreprises de par leur prix et leur nature. Effectivement, comme ce sont des équipements/dispositifs dédiés (presque) uniquement à la fonction de pare-feu (et à la sécurisation du réseau en général), ils sont souvent déployés comme des \hyperref[netw_fw]{pare-feux niveau réseau}. À noter que beaucoup de ces pare-feux tournent sur un OS propriétaire de l'entreprise qui les fabrique (Cisco, Check Point, etc.). Cela permet aux fabricants d'optimiser leurs produits tant au niveau performance que sécurité, restreignant leur OS au strict nécessaire (certains d'entre eux sont basés sur des noyaux déjà existants).\\
 
 \minit{Appliances sur systèmes embarqués}
 
+\par \textbf{IPFire} est dérivé du noyau Linux et est capable de remplir les toutes les fonctions basiques d'un routeur utilisé en conjugaison avec un pare-feu, sous des contraintes de ressource de 1GHz pour le CPU, 1GB de RAM et 4GB d'espace disque. De fait, IPFire peut être utilisé sur des systèmes comme une carte Raspberry PI ou dans des environnements virtuels. IPFire est modulable avec des \href{https://wiki.ipfire.org/addons/start}{add-ons} gérés par un utilitaire de management, \textit{Pakfire}. Cependant, \href{https://www.ipfire.org/features}{la version minimaliste} supporte déjà des fonctionnalités telles que l'inspection des paquets à état, le proxying, la prévention d'intrusions, la segmentation en zones du réseau, la gestion de QoS, les services DHCP et DNS, etc.\\
+
+\par \textbf{IPCop} est un pare-feu open-source assez minimaliste utilisant Netfilter en arrière-plan. Les pré-requis pour le faire tourner sont : 200MHz de fréquence CPU, 64 Mo de RAM et 800 Mo d'espace de stockage. Même avec cette configuration minimale, il assure les fonctionnalités de proxy et d'IPS en plus du filtrage à état classique. Des modules peuvent être ajoutés en fonction des services supplémentaires requis : services DHCP ou DNS, \textit{trafic shaping}, liste d'accès utilisateurs, etc. IPCop est une branche divergente du projet \href{https://www.smoothwall.com/}{SmoothWall}, ce dernier s'étant développé de telle sorte qu'il n'est plus associable à un pare-feu \textit{embarqué} en plus d'être passé en partie sous licence commerciale.\\
 
 \minit{Appliances orientées software}
+
+\par \textbf{pfSense} se repose sur FreeBSD (bien qu'aucune connaissance sur ce dernier ne soit requise, puisque pfSense est une appliance à utiliser tel quel). Le software peut être installé sur une machine physique dédiée ou dans un environnement virtuel. Il est complètement open-source, et \href{https://www.pfsense.org/getting-started/}{a la prétention} d'offrir tous les services que les grandes distributions incluent dans leur appliances physiques en un seul software, gratuit et extensible. pfSense opère comme un routeur et pare-feu sur la machine dédiée, ces services étant alors configurables et mis à jours via une interface web.\\
+
+%https://www.fortinet.com/demand/gated/gartner-magic-quadrant-utm-2018.html
+
+\par \textbf{Untangle} est quant à lui basé sur le noyau Linux. Il est également déployable sur une machine simple dédiée ou virtuelle. Ses \href{https://www.untangle.com/shop/ng-firewall-complete/}{fonctionnalités} incluent entre autres les classiques d'un pare-feu nouvelle génération (filtrage du contenu, IPS, identification utilisateur, etc.) mais aussi la possibilité de faire du cache web, du \textit{load balancing} et du routage. Cependant, seule une version légère du software est distribuée gratuitement.\\
+
+\newpage
 
 \minit{Softwares reposant sur des appliances hardware}
 
 %https://community.checkpoint.com/thread/8111-just-to-be-sure-checkpoint-is-just-a-software-based-firewall-right-do-we-have-checkpoint-hardware-firewall-just-like-cisco-asa
-	\textbf{CheckPoint Software} est une entreprise qui vend des machines dédiées à la protection des réseaux ainsi que les solutions logicielles qui les accompagnent. Le software \textit{GAiA} fait office d'OS pour les \href{https://www.checkpoint.com/downloads/products/check-point-appliances-brochure.pdf}{appliances hardwares vendues par CheckPoint}, mais peut également être déployé sur un appliance virtuelle compatible hébergée sur une \href{https://www.checkpoint.com/support-services/hcl/}{machine qui en est capable}.
+\par \textbf{CheckPoint Software} est une entreprise qui vend des machines dédiées à la protection des réseaux ainsi que les solutions logicielles qui les accompagnent. Le software \textit{GAiA} fait office d'OS pour les \href{https://www.checkpoint.com/downloads/products/check-point-appliances-brochure.pdf}{appliances hardwares vendues par CheckPoint} pour lesquels il est optimisé, mais peut également être déployé sur une appliance virtuelle compatible hébergée sur une \href{https://www.checkpoint.com/support-services/hcl/}{machine qui en est capable}.\\
 
+\par \textbf{Cisco} offre des services similaires avec ses pare-feux nouvelle génération ASA 5500-X. Le software Cisco \textit{Adaptative Security Appliance} est l'OS dédié principalement aux machines de la famille ASA (encore une fois des solutions de virtualisation existent). La sur-couche \textit{Cisco Firepower Threat Defence} (FTD) est un software intégrant les fonctionnalités d'ASA et des services axés IDS/IPS nouvelle génération de \href{https://en.wikipedia.org/wiki/Sourcefire}{FirePOWER}.\\
+
+\par Ces solutions sont généralement utilisées dans des réseaux de grande taille, donc en entreprise. Les appliances hardwares sont vendues tels quelles à prix élevé, et le software fourni avec y est intégré pour en garantir les performances, tant au niveau des débits que de la détection et du blocage des menaces. Cependant, il n'est pas vain de s'y intéresser car certaines technologies sur lesquelles elles sont basées sont parfois réutilisables à plus petite échelle (dans le cadre de solutions pour protéger un réseau d'habitation entre autres). Par exemple, FirePOWER a été développé à partir du software open-source \href{https://en.wikipedia.org/wiki/Snort_(software)}{Snort} et utilise les bases de données de définitions de signatures virales issues d'un utilitaire anti-virus nommé \href{http://www.clamwin.com/content/view/58/27/}{ClamWin}, libre également.
 
 \newpage
 \section{La protection dans l'\textit{IoT}}\label{prot_IoT}
@@ -484,7 +507,6 @@ Le terme \textit{appliance} désigne un appareil/système constitué du strict m
 
 \subsection{Solutions existantes}
 
-\newpage
 \section{Les pare-feux et l'\textit{IoT}}
 
 \subsection{Différents types d'architecture}
@@ -497,7 +519,6 @@ Le terme \textit{appliance} désigne un appareil/système constitué du strict m
 
 \subsection{Application et implémentation}
 
-\newpage
 
 \section{Mise en pratique : ébauche}
 \newpage
