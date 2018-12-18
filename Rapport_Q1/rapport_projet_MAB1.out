@@ -21,13 +21,17 @@
 \BOOKMARK [3][-]{subsubsection.2.7.1}{Sous forme de software}{subsection.2.7}% 21
 \BOOKMARK [3][-]{subsubsection.2.7.2}{Sous forme d'appliance}{subsection.2.7}% 22
 \BOOKMARK [1][-]{section.3}{La protection dans l'IoT}{}% 23
-\BOOKMARK [2][-]{subsection.3.1}{Vuln\351rabilit\351s li\351es \340 l'IoT}{section.3}% 24
-\BOOKMARK [2][-]{subsection.3.2}{Possibilit\351s d'am\351lioration}{section.3}% 25
-\BOOKMARK [2][-]{subsection.3.3}{Solutions existantes}{section.3}% 26
-\BOOKMARK [1][-]{section.4}{Les pare-feux et l'IoT}{}% 27
-\BOOKMARK [2][-]{subsection.4.1}{Diff\351rents types d'architecture}{section.4}% 28
-\BOOKMARK [2][-]{subsection.4.2}{Les pare-feux domestiques}{section.4}% 29
-\BOOKMARK [3][-]{subsubsection.4.2.1}{Caract\351ristiques d'un r\351seau domestique}{subsection.4.2}% 30
-\BOOKMARK [3][-]{subsubsection.4.2.2}{Attaques possibles et cons\351quences}{subsection.4.2}% 31
-\BOOKMARK [2][-]{subsection.4.3}{Application et impl\351mentation}{section.4}% 32
-\BOOKMARK [1][-]{section.5}{Mise en pratique : \351bauche}{}% 33
+\BOOKMARK [2][-]{subsection.3.1}{Motivations et exemples}{section.3}% 24
+\BOOKMARK [2][-]{subsection.3.2}{Description des besoins en terme de s\351curit\351}{section.3}% 25
+\BOOKMARK [2][-]{subsection.3.3}{Mod\350le d'architecture des \351quipements}{section.3}% 26
+\BOOKMARK [2][-]{subsection.3.4}{Vuln\351rabilit\351s li\351es \340 l'IoT et menaces courantes}{section.3}% 27
+\BOOKMARK [2][-]{subsection.3.5}{Possibilit\351s d'am\351lioration}{section.3}% 28
+\BOOKMARK [2][-]{subsection.3.6}{Solutions existantes}{section.3}% 29
+\BOOKMARK [3][-]{subsubsection.3.6.1}{OWASP Sec framework}{subsection.3.6}% 30
+\BOOKMARK [1][-]{section.4}{Les pare-feux et l'IoT}{}% 31
+\BOOKMARK [2][-]{subsection.4.1}{Diff\351rents types d'architecture}{section.4}% 32
+\BOOKMARK [2][-]{subsection.4.2}{Les pare-feux domestiques}{section.4}% 33
+\BOOKMARK [3][-]{subsubsection.4.2.1}{Caract\351ristiques d'un r\351seau domestique}{subsection.4.2}% 34
+\BOOKMARK [3][-]{subsubsection.4.2.2}{Attaques possibles et cons\351quences}{subsection.4.2}% 35
+\BOOKMARK [2][-]{subsection.4.3}{Application et impl\351mentation}{section.4}% 36
+\BOOKMARK [1][-]{section.5}{Mise en pratique : \351bauche}{}% 37

@@ -67,6 +67,7 @@ Faculté des Sciences, Université de Mons}
 \tableofcontents
 \newpage
 
+%------------- INTRO -------------
 \section*{Introduction}
 ~\\
 
@@ -77,6 +78,10 @@ Depuis maintenant plusieurs années, la connectivité n'a cessé d'évoluer : en
 \par Ce travail aura pour objectif premièrement de faire un état de l'art des dispositifs de protection qui sont actuellement déployés dans l'IoT et plus particulièrement dans le cadre domestique. Il s'agit d'un monde beaucoup plus hétérogène et restreint en terme de ressources que celui des ordinateurs qu'on retrouve classiquement dans ce milieu, de fait il n'est pas toujours possible de réutiliser telles quelles toutes les technologies de protection y attenant. De plus, il faut prendre en considération les spécificités d'une habitation : au centre de tous ces équipements communiquant se trouve l'habitant, une personne n'étant pas forcément habilitée à manipuler et contrôler ces nouvelles technologies. Il sera également question d'établir une vision globale des différentes dispositifs de pare-feux existant et sous quelles formes ceux-ci peuvent être implémentés dans les équipements d'une habitation classique. Deuxièmement, il sera question de mettre en pratique ces connaissances pour développer un système en lien avec ces nouvelles mesures de sécurité inhérentes à l'\textit{IoT}. Celui-ci fera intervenir les connaissances acquises au préalables sur les pare-feux.
 %http://www.archive.ece.cmu.edu/~ece649/lectures/17_embedded_internet_security.pdf
 \newpage
+
+
+%------------- IoT -------------
+
 \section{Présentation de l'\textit{Internet des Objets}}\label{IoT}
 
 \subsection{Généralités}
@@ -194,6 +199,8 @@ Ces contraintes sont aussi identiques à celles des systèmes embarqués classiq
 
 
 \newpage
+
+%------------- PARE FEUX -------------
 
 \section{Présentations des pare-feux}
 
@@ -499,14 +506,33 @@ Le terme \textit{appliance} désigne un appareil/système constitué du strict m
 \par Ces solutions sont généralement utilisées dans des réseaux de grande taille, donc en entreprise. Les appliances hardwares sont vendues tels quelles à prix élevé, et le software fourni avec y est intégré pour en garantir les performances, tant au niveau des débits que de la détection et du blocage des menaces. Cependant, il n'est pas vain de s'y intéresser car certaines technologies sur lesquelles elles sont basées sont parfois réutilisables à plus petite échelle (dans le cadre de solutions pour protéger un réseau d'habitation entre autres). Par exemple, FirePOWER a été développé à partir du software open-source \href{https://en.wikipedia.org/wiki/Snort_(software)}{Snort} et utilise les bases de données de définitions de signatures virales issues d'un utilitaire anti-virus nommé \href{http://www.clamwin.com/content/view/58/27/}{ClamWin}, libre également.
 
 \newpage
+
+%------------- SECU IoT -------------
+
 \section{La protection dans l'\textit{IoT}}\label{prot_IoT}
 
-\subsection{Vulnérabilités liées à l'\textit{IoT}}
+\subsection{Motivations et exemples}
+
+À priori, dans le cadre d'une smarthome, les équipements relevant de l'IoT sont plutôt des petits accessoires, voire gadgets (montres, lampes, balances connectées par exemple). On pourrait donc se dire qu'introduire des mécanismes de sécurité avancés dans de tels petits systèmes n'est pas primordial, l'aspect fonctionnel étant plus mis à l'honneur. C'est d'ailleurs ce qu'ont fait beaucoup de constructeurs, mettant sur le marché des équipements possédant des failles de sécurité importantes ou des faiblesses au niveau du design de conception. Un exemple interpellant est le fait que pour un équipement qui possède une interface accessible par un portail de sécurité de type identification \textit{user/password}, les valeurs d'usine par défaut sont laissées telles quelles, l'utilisateur n'étant jamais invité à les modifier. Ainsi, ils existent des listes établies de ces identifiants par défaut en fonction du constructeur (\href{https://www.ispyconnect.com/userguide-default-passwords.aspx}{pour les webcams} par exemple) qui, combinées avec des outils puissants comme \href{https://www.shodan.io/}{Shodan} ou \href{https://censys.io/}{Censys}, constituent des brèches dans la protection de l'habitation pour les attaquants qui savent les exploiter. La FIGURE illustre simplement la déconcertante facilité avec laquelle il est possible d'attenter à la vie privée des utilisateurs naïfs.\\
+
+
+\par Évidemment, l'utilisateur \og final \fg n'est pas le seul qui puisse en subir les conséquences. Ses équipements peuvent entre autres rejoindre un ensemble d'autres  objets connectés infectés, reconfigurés malicieusement en vue d'effectuer une attaque de masse de type \textit{DDOS} sur une cible étrangère au réseau domestique. C'est ce qui s'est passé avec \href{https://en.wikipedia.org/wiki/Mirai_(malware)}{\textit{Mirai}}, un malware décelé bien après son expansion qui a été utilisé dans plusieurs attaques menées sur le fournisseur de services DNS \textit{Dyn}, la société d'hébergement \textit{OVH} et bien d'autres. Mirai n'est pas un cas isolé, et les hackers ont pleinement saisi l'opportunité qu'incarne l'IoT : il existe beaucoup de failles connues et exploitables sur des équipements hétérogènes, et celles-ci sont en partie rendues publiques sur par exemple des \href{https://github.com/nebgnahz/awesome-iot-hacks}{dépôts githubs} et des \href{https://hackforums.net/forumdisplay.php?fid=193}{forums dédiés}.\\
+
+\par Les équipements qu'on retrouve dans une smarthome ne sont pas les seuls à présenter des lacunes en terme de sécurité. Encore plus grave, les systèmes connectés utilisés dans l'industrie de nos jours peuvent être attaqués, et cela peut porter lourdement à conséquence jusqu'à l'échelle nationale. Le \href{https://horusscenario.com/}{scénario Horus} le démontre particulièrement bien. Imaginé par un chercher néerlandais, il cible les installations photo-voltaïques qui fournissent en énergie l'Europe, et plus spécifiquement les onduleurs connectés qui sont les dispositifs transformant le courant alternatif en continu. Pas moins de 17 failles ont été découvertes, dont certaines permettant de prendre le contrôle total des onduleurs à distance. Il serait alors possible de simuler artificiellement l'impact qu'une éclipse solaire aurait sur le réseau, qui est en temps normal compensé artificiellement. En appliquant une telle variation de puissance soudaine, le réseau entrerait dans un état de fluctuation tel qu'il ne serait plus contrôlable et une grande partie du réseau finirait par sauter. La perte suite à une telle panne, considérant qu'elle dure trois heures, s'élèverait à 4,5 milliards d'euros.
+
+\subsection{Description des besoins en terme de sécurité}
+
+\subsection{Modèle d'architecture des équipements}
+
+\subsection{Vulnérabilités liées à l'IoT et menaces courantes}
 
 \subsection{Possibilités d'amélioration}
 
 \subsection{Solutions existantes}
 
+\subsubsection{OWASP Sec framework}
+
+%------------- PARE FEUX + IoT -------------
 \section{Les pare-feux et l'\textit{IoT}}
 
 \subsection{Différents types d'architecture}
@@ -519,7 +545,7 @@ Le terme \textit{appliance} désigne un appareil/système constitué du strict m
 
 \subsection{Application et implémentation}
 
-
+%------------- IMPLEM -------------
 \section{Mise en pratique : ébauche}
 \newpage
 \section*{Conclusion}
