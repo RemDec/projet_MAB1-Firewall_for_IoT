@@ -9,6 +9,8 @@
 \contentsline {section}{\numberline {2}Pr\IeC {\'e}sentations des pare-feux}{8}{section.2}
 \contentsline {subsection}{\numberline {2.1}G\IeC {\'e}n\IeC {\'e}ralit\IeC {\'e}s}{8}{subsection.2.1}
 \contentsline {subsection}{\numberline {2.2}Diff\IeC {\'e}rentes positions et fonctions dans l'architecture r\IeC {\'e}seau}{8}{subsection.2.2}
+\contentsline {subsubsection}{\numberline {2.2.1}Les pare-feux niveau r\IeC {\'e}seau}{8}{subsubsection.2.2.1}
+\contentsline {subsubsection}{\numberline {2.2.2}Les pare-feux niveau h\IeC {\^o}te}{9}{subsubsection.2.2.2}
 \contentsline {subsection}{\numberline {2.3}Les types de pare-feu}{10}{subsection.2.3}
 \contentsline {subsubsection}{\numberline {2.3.1}Pare-feu de filtrage (sans \IeC {\'e}tat)}{10}{subsubsection.2.3.1}
 \contentsline {subsubsection}{\numberline {2.3.2}Pare-feu \IeC {\`a} \IeC {\'e}tat}{10}{subsubsection.2.3.2}
@@ -24,15 +26,15 @@
 \contentsline {section}{\numberline {3}La protection dans l'\textit {IoT}}{19}{section.3}
 \contentsline {subsection}{\numberline {3.1}Motivations et exemples}{19}{subsection.3.1}
 \contentsline {subsection}{\numberline {3.2}Description des besoins en terme de s\IeC {\'e}curit\IeC {\'e}}{20}{subsection.3.2}
-\contentsline {subsection}{\numberline {3.3}Mod\IeC {\`e}le d'architecture des \IeC {\'e}quipements}{20}{subsection.3.3}
-\contentsline {subsection}{\numberline {3.4}Vuln\IeC {\'e}rabilit\IeC {\'e}s li\IeC {\'e}es \IeC {\`a} l'IoT et menaces courantes}{20}{subsection.3.4}
-\contentsline {subsection}{\numberline {3.5}Possibilit\IeC {\'e}s d'am\IeC {\'e}lioration}{20}{subsection.3.5}
-\contentsline {subsection}{\numberline {3.6}Solutions existantes}{20}{subsection.3.6}
-\contentsline {subsubsection}{\numberline {3.6.1}OWASP Sec framework}{20}{subsubsection.3.6.1}
-\contentsline {section}{\numberline {4}Les pare-feux et l'\textit {IoT}}{20}{section.4}
-\contentsline {subsection}{\numberline {4.1}Diff\IeC {\'e}rents types d'architecture}{20}{subsection.4.1}
-\contentsline {subsection}{\numberline {4.2}Les pare-feux domestiques}{20}{subsection.4.2}
-\contentsline {subsubsection}{\numberline {4.2.1}Caract\IeC {\'e}ristiques d'un r\IeC {\'e}seau domestique}{20}{subsubsection.4.2.1}
-\contentsline {subsubsection}{\numberline {4.2.2}Attaques possibles et cons\IeC {\'e}quences}{20}{subsubsection.4.2.2}
-\contentsline {subsection}{\numberline {4.3}Application et impl\IeC {\'e}mentation}{20}{subsection.4.3}
-\contentsline {section}{\numberline {5}Mise en pratique : \IeC {\'e}bauche}{20}{section.5}
+\contentsline {subsection}{\numberline {3.3}Mod\IeC {\`e}le d'architecture des \IeC {\'e}quipements}{21}{subsection.3.3}
+\contentsline {subsection}{\numberline {3.4}Vuln\IeC {\'e}rabilit\IeC {\'e}s li\IeC {\'e}es \IeC {\`a} l'IoT et menaces courantes}{21}{subsection.3.4}
+\contentsline {subsection}{\numberline {3.5}Possibilit\IeC {\'e}s d'am\IeC {\'e}lioration}{21}{subsection.3.5}
+\contentsline {subsection}{\numberline {3.6}Solutions existantes}{21}{subsection.3.6}
+\contentsline {subsubsection}{\numberline {3.6.1}OWASP Sec framework}{21}{subsubsection.3.6.1}
+\contentsline {section}{\numberline {4}Les pare-feux et l'\textit {IoT}}{21}{section.4}
+\contentsline {subsection}{\numberline {4.1}Diff\IeC {\'e}rents types d'architecture}{21}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Les pare-feux domestiques}{21}{subsection.4.2}
+\contentsline {subsubsection}{\numberline {4.2.1}Caract\IeC {\'e}ristiques d'un r\IeC {\'e}seau domestique}{21}{subsubsection.4.2.1}
+\contentsline {subsubsection}{\numberline {4.2.2}Attaques possibles et cons\IeC {\'e}quences}{21}{subsubsection.4.2.2}
+\contentsline {subsection}{\numberline {4.3}Application et impl\IeC {\'e}mentation}{21}{subsection.4.3}
+\contentsline {section}{\numberline {5}Mise en pratique : \IeC {\'e}bauche}{21}{section.5}

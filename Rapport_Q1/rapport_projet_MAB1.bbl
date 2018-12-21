@@ -9,6 +9,12 @@ Application firewall.
 Cable broadband technology gigabit evolution.
 \newblock Dernière lecture le 27/11/2018.
 
+\bibitem{wikiASA}
+Cisco asa.
+\newblock Wikipedia article, URL :
+  \url{https://en.wikipedia.org/wiki/Cisco_ASA}, dernière lecture le
+  19/12/2018.
+
 \bibitem{wikifw}
 Firewall(computing).
 \newblock Wikipedia article, URL :
@@ -74,6 +80,13 @@ Sylvain Kubler, Kary Främling, and Andrea Buda.
 Engin Leloglu.
 \newblock A review of security concerns in {I}nternet of {T}hings.
 \newblock {\em Journal of Computer and Communications}, 2017.
+
+\bibitem{Leos2014}
+Manuel Leos~Rivas.
+\newblock Securing the home {I}o{T} network.
+\newblock SANS Institute Reading Room, URL :
+  \url{https://www.sans.org/reading-room/whitepapers/hsoffice/paper/37717},
+  2014.
 
 \bibitem{Huichen2016}
 Huichen Lin and Neil Bergmann.

@@ -1,6 +1,4 @@
-This is BibTeX, Version 0.99d (TeX Live 2015/Debian)
-Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
-The top-level auxiliary file: rapport_projet_MAB1.aux
+This is BibTeX, Version 0.99dThe top-level auxiliary file: rapport_projet_MAB1.aux
 The style file: plain.bst
 Database file #1: articles.bib
 I was expecting an "="---line 14 of file articles.bib
@@ -10,50 +8,10 @@ I'm skipping whatever remains of this entry
 Warning--to sort, need author or key in IWS
 Warning--to sort, need author or key in Cable
 Warning--to sort, need author or key in Wind2015
+Warning--to sort, need author or key in wikiASA
 Warning--to sort, need author or key in wikifwFR
 Warning--to sort, need author or key in wikiappfw
 Warning--to sort, need author or key in wikifw
 Warning--to sort, need author or key in frameIP
 Warning--empty booktitle in Palka2011
-You've used 17 entries,
-            2118 wiz_defined-function locations,
-            582 strings with 6429 characters,
-and the built_in function-call counts, 3579 in all, are:
-= -- 342
-> -- 112
-< -- 1
-+ -- 52
-- -- 32
-* -- 163
-:= -- 561
-add.period$ -- 45
-call.type$ -- 17
-change.case$ -- 65
-chr.to.int$ -- 0
-cite$ -- 25
-duplicate$ -- 159
-empty$ -- 354
-format.name$ -- 32
-if$ -- 785
-int.to.chr$ -- 0
-int.to.str$ -- 17
-missing$ -- 7
-newline$ -- 82
-num.names$ -- 19
-pop$ -- 122
-preamble$ -- 1
-purify$ -- 51
-quote$ -- 0
-skip$ -- 122
-stack$ -- 0
-substring$ -- 117
-swap$ -- 25
-text.length$ -- 1
-text.prefix$ -- 0
-top$ -- 0
-type$ -- 66
-warning$ -- 8
-while$ -- 20
-width$ -- 19
-write$ -- 157
 (There was 1 error message)
