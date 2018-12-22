@@ -106,7 +106,6 @@ Les secteurs dans lesquels l'IoT s'est implanté ces dernières années sont nom
 \label{domains_IoT}
 \end{figure}
 
-\newpage
 
 \subsubsection{L'environnement \textit{smarthome}}
 \par Le terme émergeant \textit{Smart Home/smarthome} est une fois de plus très englobant et général. Il n'en existe pas de définition formelle et communément acceptée. Basman M. Hasan et al. \cite{Basman2016} en présentent plusieurs. Un résultat les unifiant pourrait être
@@ -553,7 +552,7 @@ Seuls les utilisateurs légitimes (acquéreurs du produit entre autres) devraien
 
 Les différents composants du système et les applications qui y sont relatives doivent avoir des privilèges d'accès au ressources limités de sorte qu'ils ne permettent que le strict minimum pour qu'ils puissent fonctionner correctement. 
 
-\subsection{Vulnérabilités liées aux équipements IoT}
+\subsection{Vulnérabilités liées aux équipements IoT}\label{vuln_IoT}
 
 \par Les caractéristiques généralement présentées par les équipements décrites comme des restrictions dans la \wordlink{restr_IoT}{sous-section} portent à conséquence en terme de sécurité. Il en résulte de potentielles vulnérabilités \cite{Huichen2016}, couvertes ou non par ces équipements en fonction de leur conception et implémentation spécifique. Celles-ci sont brièvement décrites ci-dessous.\\
 
@@ -573,17 +572,64 @@ Les différents composants du système et les applications qui y sont relatives 
 
 \subsection{Architecture globale des systèmes IoT}
 
-Leoglu propose dans \cite{Leloglu2017} un travail de synthèse sur base de plusieurs sources dont il résulte entre autres un modèle structural de l'IoT. Il n'est pas à considérer du point de vue d'un seul équipement, mais plutôt au niveau global ie. tout ce qui est impliqué dans le fonctionnement d'un système impliquant des équipements de l'IoT (présentant une architecture typique décrite dans la \wordlink{arch_IoT}{section}). C'est une représentation en couches, une couche supérieure s'appuyant sur les couches plus basses afin de remplir la fonction qui lui est dédiée :
+Leoglu propose dans \cite{Leloglu2017} un travail de synthèse sur base de plusieurs sources dont il résulte entre autres un modèle structural de l'IoT. Il n'est pas à considérer du point de vue d'un seul équipement, mais plutôt au niveau global ie. tout ce qui est impliqué dans le fonctionnement d'un système impliquant des équipements de l'IoT (présentant une architecture typique décrite dans la \wordlink{arch_IoT}{section}). C'est une représentation en couches, une couche supérieure s'appuyant sur les services fournis par les couches plus basses afin de remplir la fonction qui lui est dédiée. On distingue les suivantes :\\
+
+\minit{La couche perception}
+
+Il s'agit de la couche la plus basse, où on considère les équipements par rapport à l'environnement dans lequel ils évoluent. Comme expliqué dans la \wordlink{restr_IoT}{sous-section}, ces derniers sont généralement conçus pour remplir une fonction spécifique. C'est dans cette couche qu'elle prend tout son sens, car elle dépend souvent de l'environnement. L'exemple le plus évident est les capteurs, possédant ce qui est nécessaire en terme de matériel pour effectuer une mesure d'une grandeur physique. Les divers systèmes embarqués peuvent également s'intéresser à leur environnement extérieur ou au(x) dispositif(x) qu'ils supervisent (lave-vaisselle connecté, etc.). Une autre technologie que l'on situe à cette couche est celle de la radio-identification (RFID - \textit{radio frequency identification}), considérée comme une prémisse à l'IoT [CITE]. La perception se fait ici au niveau du lecteur RFID, qui capte et interprète les tags RFID qui évoluent dans son environnement. En résumé, l'objectif de cette couche est l'identification des objets uniques et la collecte d'informations de l'environnement physique.\\ 
+
+\minit{La couche réseau}
+
+Cette couche a pour objectif le transfert des informations récoltées par la couche perception depuis les équipements qui les ont réalisées et jusqu'au système qui en effectuera le traitement. On distingue généralement deux parties dans ce transfert, la première correspondant à l'acheminement des données à travers un réseau local jusqu'à un portail qui constituera le point de départ de la deuxième partie du transfert, utilisant le réseau Internet pour atteindre le système de traitement terminal.\\
+
+\minit{La couche support}
+
+Elle englobe tout le système de traitement des données acheminées mentionné plus haut. Il s'agit donc de partir des données brutes transmises et de leur appliquer un processus de transformation. Ce dernier peut comprendre de l'agrégation de données, de l'analyse, du tri, de la classification, etc., son but étant d'en tirer des données utiles et pertinentes. Les données finales peuvent ainsi être stockées dans une base de données sur laquelle une ou des applications peuvent travailler (les couches support et application étant très proches, on les considère parfois comme une seule).\\
+
+ 
+\minit{La couche application}
+
+Les applications sont diverses et variées, développées dans des domaines tels que repris dans la \wordlink{domains_IoT}{figure}. Pour remplir leurs objectifs, elles utilisent les données obtenus en sortie du processus de traitement opéré par la couche inférieure.
 
 \begin{figure}[!h]
 \centering
 \includegraphics[scale=0.65]{layers_IoT.png}
-\caption{Architecture d'un système IoT proposée par Leoglu \cite{Leloglu2017}}
-\label{sm_class}
+\caption{Architecture d'un système IoT proposée par Leloglu \cite{Leloglu2017}}
+\label{prov}
 \end{figure}
 
+\begin{table}[!ht]
+    \center
+    \begin{tabular}[b]{|c|p{12cm}|}
+    \hline
+		Niveau dans le système &  Outils, protocoles et équipements y opérant\\
+	\hline
+Couche perception & Caméras, microphones, capteurs, GPS et divers systèmes embarqués mesurant et interagissant avec l'environnement qui leur est extérieur (montres intelligentes, détecteurs, etc.)\\
+	\hline
+Couche réseau & Réseaux de capteurs (PROTs), réseaux classiques tels que Internet (IP), 3G, télédistribution.\\
+	\hline
+Couche support & Cloud, centre de traitement des données, base de données et autres technologies et supports permettant d’agréger, stocker et analyser les données\\
+	\hline
+Couche application & Applications relatives aux smarthomes (interfaçage avec l'utilisateur, optimisation de son quotidien, etc.), applications médicales (surveillance de patients), sociales (smartcity : parkings intelligents, etc.), scientifiques (études des mesures, détection de catastrophes, etc.) et industrielles (arrosage de plants, transport, etc.)\\   
+  \hline
+    \end{tabular}
+    \caption{Architecture d'un système IoT proposée par Leloglu \cite{Leloglu2017}}
+\end{table}
 
-\subsection{ et menaces courantes}
+\todo{Schema d'un exemple avec corresp des couches basé sur \cite{Wind2015}}
+
+\subsection{Les attaques courantes}
+
+Plusieurs types d'attaques peuvent être distingués, exploitant ou non des vulnérabilités recensées dans la \wordlink{vuln_IoT}{section}. Ils sont classés ici en fonction de la couche du modèle développé plus tôt qu'ils ciblent, selon Makhdoom et al. \cite{Makhdoom2018} et Leloglu \cite{Leloglu2017}.
+
+\subsubsection{Sur la couche perception}
+
+\subsubsection{Sur la couche réseau}
+
+\subsubsection{Sur la couche support}
+
+\subsubsection{Sur la couche application}
+
 
 \subsection{Solutions et outils existants}
 

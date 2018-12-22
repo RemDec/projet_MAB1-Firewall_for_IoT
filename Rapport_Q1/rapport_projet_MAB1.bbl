@@ -46,6 +46,12 @@ Alhafidh Basman~M.Hasan and William Allen.
   self-adaptive system.
 \newblock {\em Int. Journal of Engineering Research and Application}, 2016.
 
+\bibitem{Batra2016}
+Isha Batra and Kr.~Luhach Ashish.
+\newblock Analysis of lightweight cryptographic solutions for {I}nternet of
+  {T}hings.
+\newblock {\em Indian Journal of Science and Technology}, 9, July 2016.
+
 \bibitem{Berte2018}
 Dan-Radu Berte.
 \newblock Defining the {I}o{T}.
@@ -93,6 +99,18 @@ Huichen Lin and Neil Bergmann.
 \newblock Io{T} privacy and security challenges for {S}mart {H}ome
   environments.
 \newblock {\em Information (online MDPI journal)}, 2016.
+
+\bibitem{Makhdoom2018}
+Imran Makhdoom, Mehran Abolhasan, Justin Lipman, Ren Liu, and Wei Ni.
+\newblock Anatomy of threats to the internet of things.
+\newblock {\em IEEE Communications Surveys and Tutorials}, PP, 10 2018.
+
+\bibitem{Nthala2018}
+Norbert Nthala and Ivan Flechais.
+\newblock Informal support networks: an investigation into {H}ome {D}ata
+  {S}ecurity {P}ractice.
+\newblock In {\em Fourteenth Symposium on Usable Privacy and Security (SOUPS)}.
+  USENIX, August 2018.
 
 \bibitem{Palka2011}
 Dariusz Pałka and Marek Zachara.
