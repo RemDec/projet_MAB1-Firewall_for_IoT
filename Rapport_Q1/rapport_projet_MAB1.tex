@@ -70,12 +70,12 @@ Faculté des Sciences, Université de Mons}
 %------------- INTRO -------------
 \section*{Introduction}
 ~\\
-
-Depuis maintenant plusieurs années, la connectivité n'a cessé d'évoluer : en se limitant au domaine de l'Internet entre 2000 et 2015, une estimation de l'augmentation du pourcentage de la population mondiale l'utilisant avoisine 40\%  \cite{IWS} \cite{Cable}. Que ce soit dans le cadre d'infrastructures de type \og mainframe \fg ou dans le contexte des ordinateurs personnels, les technologies et équipements relatifs au réseau et aux communications sont devenus indispensables. En raison du potentiel croissant d'interconnexion, les ordinateurs et équipements mis en réseau s'exposent à davantage de menaces. Heureusement, parallèlement à cette évolution, les performances de ces machines qui rejoignent de nouveaux réseaux ont également suivi une amélioration en terme de performances. Cela a permis d'en renforcer la sécurité à plusieurs niveaux, et surtout d'intercepter efficacement les menaces étrangères liées à l'utilisation des réseaux. À l'heure actuelle, les OS utilisés classiquement sur des machines desktop fournissent un pare-feu simple (\textit{Windows Defender}, un utilitaire fournit de base dans MAC OS X, \textit{iptables/Netfilter} ou autre pour les distributions Linux). Ce dernier tournant en arrière plan de façon quasi invisible car il demande peu de ressources par rapport à ce qu'une machine actuelle peut offrir.\\
+%https://www.entrepreneur.com/article/228489
+Depuis maintenant plusieurs années, la connectivité n'a cessé d'évoluer : en se limitant au domaine de l'Internet entre 2000 et 2015, une estimation de l'augmentation du pourcentage de la population mondiale l'utilisant avoisine 40\%  \cite{IWS} \cite{Cable}. Que ce soit dans le cadre d'infrastructures de type \og mainframe \fg \ ou dans le contexte des ordinateurs personnels, les technologies et équipements relatifs au réseau et aux communications sont devenus indispensables. En raison du potentiel croissant d'interconnexion, les ordinateurs et équipements mis en réseau s'exposent à davantage de menaces. Heureusement, parallèlement à cette évolution, les performances de ces machines rejoignant de nouveaux réseaux ont également suivi une amélioration en terme de performances. Cela a permis d'en renforcer la sécurité à plusieurs niveaux et surtout d'intercepter efficacement les menaces étrangères liées à l'utilisation des réseaux. À l'heure actuelle, les OS utilisés classiquement sur des machines desktop fournissent un pare-feu simple (\textit{Windows Defender}, un utilitaire fourni de base dans MAC OS X, \textit{iptables/Netfilter} ou autre pour les distributions Linux). Ce dernier tourne en arrière plan de façon quasi invisible car il demande peu de ressources par rapport à ce qu'une machine actuelle peut offrir.\\
 
 \par En parallèle avec la montée en puissance de ces machines de type desktop, serveurs, etc. s'est développée depuis à peu près les années 2000 la tendance de l'\og Internet des Objets \fg{}, ou encore plus communément abrégé IoT pour \textit{Internet of Things}. Bien qu'assez large, cette dénomination regroupe beaucoup d'objets et de concepts, qu'ils soient virtuels ou non mais possédant un dénominateur commun : la capacité de communiquer en réseau avec d'autres équipements. Cela englobe par exemple la domotique, les outils et capteurs de mesures diverses, les imprimantes et scanneurs en réseau, etc. Tous ces éléments convergeraient idéalement vers une mise en réseau commune, leur permettant de communiquer malgré leur nature hétérogène \cite{Kubler2014}. Cela peut se faire via le réseau Internet, il n'est pas rare d'orienter ces connections vers un cloud permettant de traiter globalement et intelligemment la masse de données qu'il reçoit de ces équipements \cite{Huichen2016}. Or, comme évoqué ci-dessus, plus on s'interconnecte et plus on s'ouvre à des attaquants potentiels, ce qui pose problème si rien n'est mis en place pour s'en protéger.\\
 
-\par Ce travail aura pour objectif premièrement de faire un état de l'art des dispositifs de protection qui sont actuellement déployés dans l'IoT et plus particulièrement dans le cadre domestique. Il s'agit d'un monde beaucoup plus hétérogène et restreint en terme de ressources que celui des ordinateurs qu'on retrouve classiquement dans ce milieu, de fait il n'est pas toujours possible de réutiliser telles quelles toutes les technologies de protection y attenant. De plus, il faut prendre en considération les spécificités d'une habitation : au centre de tous ces équipements communiquant se trouve l'habitant, une personne n'étant pas forcément habilitée à manipuler et contrôler ces nouvelles technologies. Il sera également question d'établir une vision globale des différentes dispositifs de pare-feux existant et sous quelles formes ceux-ci peuvent être implémentés dans les équipements d'une habitation classique. Deuxièmement, il sera question de mettre en pratique ces connaissances pour développer un système en lien avec ces nouvelles mesures de sécurité inhérentes à l'IoT. Celui-ci fera intervenir les connaissances acquises au préalables sur les pare-feux.
+\par Ce travail aura pour objectif premièrement de faire un état de l'art des dispositifs de protection qui sont actuellement déployés dans l'IoT et plus particulièrement dans le cadre domestique. Il s'agit d'un monde beaucoup plus hétérogène et restreint en terme de ressources que celui des ordinateurs qu'on retrouve classiquement dans ce milieu, de fait il n'est pas toujours possible de réutiliser telles quelles toutes les technologies de protection y attenant. De plus, il faut prendre en considération les spécificités d'une habitation : au centre de tous ces équipements communiquant se trouve l'habitant, une personne n'étant pas forcément apte à manipuler et contrôler ces nouvelles technologies. Il sera également question d'établir une vision globale des différentes dispositifs de pare-feux existant et sous quelles formes ceux-ci peuvent être implémentés dans les équipements d'une habitation classique. Deuxièmement, il sera question de mettre en pratique ces connaissances pour développer un système en lien avec ces nouvelles mesures de sécurité inhérentes à l'IoT. Celui-ci fera intervenir les connaissances acquises au préalable sur les pare-feux.
 %http://www.archive.ece.cmu.edu/~ece649/lectures/17_embedded_internet_security.pdf
 \newpage
 
@@ -88,7 +88,7 @@ Depuis maintenant plusieurs années, la connectivité n'a cessé d'évoluer : en
 
 \par L'Internet des objets, qu'on désignera par \textit{IoT} pour le terme plus répandu de \textit{Internet of Things}, est une notion englobant un vaste ensemble de dispositifs. Aucune définition formelle n'est acceptée globalement, mais plusieurs organismes ont tenté d'en établir une ébauche. Par exemple, l'ITU-T (ITU Telecommunication Standardization Sector) Y.2060 le définit comme tel : 
 \begin{center}
-\textit{\og Global  infrastructure  for  the  society,  enabling  advanced  services  by  inter-connecting (physical and virtual) things based on existing and evolving in-teroperable information and communication technologies. \fg}
+\textit{\og Global  infrastructure  for  the  society,  enabling  advanced  services  by  inter-connecting (physical and virtual) things based on existing and evolving interoperable information and communication technologies. \fg}
 \end{center}
 
 \par Derrière cette définition très générale, on peut distinguer plusieurs sous-groupes d'objets connectés distincts, aux applications tant variées que hétérogènes, dans des domaines et secteurs également très différents. C'est ce qui fait la force et en même temps la faiblesse de cet ensemble d'équipements et services qu'on regroupe derrière le terme \textit{IoT} et que des efforts considérables sont déployés pour inter-connecter au maximum. C'est un domaine d'étude intéressant car il représente littéralement ce qu'on pourrait considérer comme le futur de notre environnement technologique. De fait, les équipements que l'ont peut associer à une partie de l'IoT ont déjà fait leur apparition dans notre quotidien : en 2017 on comptait 8,4 milliards de machines en présentant les caractéristiques et les estimations pour l'année 2020 tendent vers 20,4 milliards d'objets connectés d'après la société d'analyse Gartner \cite{Berte2018}.  
@@ -176,7 +176,7 @@ La perception de ce qu'est l'IoT par le grand public se résume énormément à 
 \end{itemize}
 \newpage
 
-\subsubsection{Restrictions des équipements}
+\subsubsection{Restrictions des équipements}\label{restr_IoT}
 
 Malgré le fait que l'ensemble des objets considérés comme appartenant à l'IoT soit très hétérogène, on peut distinguer plusieurs caractéristiques communes à beaucoup d'entre eux. Elles tendent généralement vers ce qui est vu comme une restriction par rapport à un ordinateur type classique (\textit{desktop}). Ces éléments constituent les plus gros freins au développement de la sécurité sur de tels système \cite{Wind2015}. Les conséquences de ces restrictions sont discutées plus en détail dans la \wordlink{prot_IoT}{section} de ce document.\\
 
@@ -198,7 +198,7 @@ Ces contraintes sont aussi identiques à celles des systèmes embarqués classiq
 Étant conçus pour ne remplir que des fonctions spécifiques, certains équipements ne sont pas programmables en utilisant des langages de haut niveau. Par conséquent, ce sont souvent des boîtes noires difficilement manipulables et statiques : les mises à jour et patch de sécurité ne sont pas déployables aisément par les constructeurs \cite{Huichen2016}. Les seules interactions que l'utilisateur lambda peut avoir avec l'équipement sont celles prévues par l'interface de ce dernier s'il y en a une (pour le configurer, consulter son état, etc.).
 
 
-\newpage
+\subsection{Architectures d'un système d'équipements IoT}\label{arch_IoT}
 
 %------------- PARE FEUX -------------
 
@@ -283,7 +283,7 @@ Aussi désignés dans la littérature par le terme \textit{stateless}, ces pare-
 \vspace{0.2cm}
 \item[$\bullet$] Le pare-feu n'est pas dynamique : il n'apprend rien du trafic qu'il laisse passer. Aucun état n'est retenu, alors que par exemple TCP est un protocole lié à une machine à état (orienté connexion) dont il pourrait être possible de garder une trace
 \vspace{0.2cm}
-\item[$\bullet$] Les règles sont très redondantes à écrire pour être efficace, très peu modulables et facilement sujettes aux erreurs et oublis
+\item[$\bullet$] Les règles sont très redondantes à écrire pour être efficaces, très peu modulables et facilement sujettes aux erreurs et oublis
 \end{itemize}
 \vspace{0.25cm}
 
@@ -296,7 +296,7 @@ Le but de ce type de pare-feu dit \textit{stateful} est d'améliorer les techniq
 
 \newpage
 
-\par L'établissement d'une connexion TCP se fait comme suit : lors de la réception du premier paquet TCP par le pare-feu, celui-ci va le soumettre à ses règles de filtrage définies comme dans un pare-feu sans état. Si le paquet est valide, il est retransmis pour poursuivre librement sa route et une entrée est ajoutée dans la table interne du pare-feu. Celle-ci va changer d'état à chaque paquet de la communication reçu, jusqu'à arriver dans un état \textit{established} correspondant à la fin du 3-way handshake TCP. Tous les paquets suivants pourront alors être traités rapidement en faisant matcher les headers à ceux de l'entrée en état estbalished dans la table (qui sont donc théoriquement également légitimes). Cette façon de procéder est plus efficace que de soumettre chaque paquet individuellement aux règles de filtrage qui peuvent être complexes et demander beaucoup de travail et donc gourmandes en temps.\\
+\par L'établissement d'une connexion TCP se fait comme suit : lors de la réception du premier paquet TCP par le pare-feu, celui-ci va le soumettre à ses règles de filtrage définies comme dans un pare-feu sans état. Si le paquet est valide, il est retransmis pour poursuivre librement sa route et une entrée est ajoutée dans la table interne du pare-feu. Celle-ci va changer d'état à chaque paquet de la communication reçu, jusqu'à arriver dans un état \textit{established} correspondant à la fin du 3-way handshake TCP. Tous les paquets suivants pourront alors être traités rapidement en établissant la correspondance entre ses en-têtes et celles de l'entrée en état estbalished dans la table (qui sont donc théoriquement également légitimes). Cette façon de procéder est plus efficace que de soumettre chaque paquet individuellement aux règles de filtrage qui peuvent être complexes et demander beaucoup de travail et donc gourmandes en temps.\\
 
 \par Dans le cas d'une communication utilisant UDP, le contrôle possible est moins fin car il ne s'agit pas d'un protocole à état et les échanges ne sont pas bidirectionnels. Dans ce cas, lorsque le premier paquet d'une transmission arrive en entrée du pare-feu, il est soumis aux règles de filtrage. S'il est considéré comme correct, le pare-feu ajoute une entrée dans sa table pour les couples d'adresses et ports et considérera les suivants comme légitimes. Cette entrée expirera après un temps donné sans autre nouveau paquet la matchant. 
 
@@ -349,9 +349,9 @@ Pour ce type de dispositif, on veut pouvoir définir des règles de filtrage en 
 \subsection{Systèmes de détection d'intrusion (\textit{IDS})}\label{IDS}
 %https://www.ibm.com/developerworks/library/se-intrusion/index.html
 %https://www.comparitech.com/net-admin/network-intrusion-detection-tools/
-Ce type de systèmes, abrégé par IDS pour \textit{intrusion detection system}, est analogue à ce qu'est un système d'alarme intérieur dans l'environnement d'une habitation : quand les dispositifs de protection mis en place à l'entrée sont contournés (une présence non permise est détectée à l'intérieur), l'alarme est lancée et des actions sont éventuellement prises en conséquence. Les IDSs sont donc des sentinelles qui surveillent le réseau interne, logiquement placées après le pare-feu dans le sens entrant. Ces systèmes se présentent sous la forme d'outils spécialisés dans l’interprétation des logs des routeurs, pare-feux, serveurs et autres agents du réseau interne. Les IDSs sont épaulés par une base de données des signatures d'attaques déjà connues et y comparent le contenu des logs afin de trouver des \textit{patterns} qui matchent \cite{Shimonski2013}. Dans une telle situation, plusieurs actions allant de simplement alerter l'administrateur réseau à couper les accès réseaux des machines peuvent être déclenchées, en fonction du degré de certitude (correspondance forte entre les signatures) et de la menace.\\
+Ce type de systèmes, abrégé par IDS pour \textit{intrusion detection system}, est analogue à ce qu'est un système d'alarme intérieur dans l'environnement d'une habitation : quand les dispositifs de protection mis en place à l'entrée sont contournés (une présence non permise est détectée à l'intérieur), l'alarme est lancée et des actions sont éventuellement prises en conséquence. Les IDSs sont donc des sentinelles qui surveillent le réseau interne, logiquement placées après le pare-feu dans le sens entrant. Ces systèmes se présentent sous la forme d'outils spécialisés dans l’interprétation des logs des routeurs, pare-feux, serveurs et autres agents du réseau interne. Les IDSs sont épaulés par une base de données des signatures d'attaques déjà connues et y comparent le contenu des logs afin de trouver des \textit{patterns} qui correspondent \cite{Shimonski2013}. Dans une telle situation, plusieurs actions allant de simplement alerter l'administrateur réseau à couper les accès réseaux des machines peuvent être déclenchées, en fonction du degré de certitude (correspondance forte entre les signatures) et de la menace.\\
 
-\par Tout comme les pare-feux, les IDSs peuvent être des ressources software ou reposer sur du hardware spécifique. Dans le cas ou il s'agit de software, ils sont établis sur la même machine que le pare-feu, les proxys ou autres dispositifs de bordure de réseau. S'ils se présentent sous forme d'équipements hardwares spécifiques, ils sont installés de sorte à contrôler et surveiller de près un de ces dispositifs sensibles. Le trafic tant entrant que sortant peut être analysé par les IDSs, car les attaques peuvent autant venir de l'extérieur que se déployer depuis l'intérieur (chevaux de Troie, spywares, etc.).\\
+\par Tout comme les pare-feux, les IDSs peuvent être des ressources software ou reposer sur du hardware spécifique. Dans le cas ou il s'agit de software, ils sont établis sur la même machine que le pare-feu, les proxy ou autres dispositifs de bordure de réseau. S'ils se présentent sous forme d'équipements hardwares spécifiques, ils sont installés de sorte à contrôler et surveiller de près un de ces dispositifs sensibles. Le trafic tant entrant que sortant peut être analysé par les IDSs, car les attaques peuvent autant venir de l'extérieur que se déployer depuis l'intérieur (chevaux de Troie, spywares, etc.).\\
 
 \par L'analyse des événements repose communément sur deux techniques. La première, la détection par signature (\textit{signature detection}), utilise une base de données de signatures d'attaques déjà connues et se base sur le trafic et les patterns observés pour établir un match avec ces signatures. La seconde approche est celle de la détection d'anomalies (\textit{anomaly detection}). Il est question d'utiliser des heuristiques afin de distinguer les situations et comportements anormaux, sur base de profils types construits par analyses statistiques, agencements de règles ou réseaux neuronaux. Outre la technique utilisée, trois catégories d'IDSs existent en fonction de leur place dans l'architecture réseau (leur mode de fonctionnement diffère en conséquence) :
 \vspace{0.3cm}
@@ -371,7 +371,7 @@ Ce type de systèmes, abrégé par IDS pour \textit{intrusion detection system},
 \newpage
 \minit{Les HIDSs}
 
-\par Les IDSs orientés systèmes, \textit{Host-based IDS}, sont élaborés dans le but de protéger uniquement l'hôte sur lequel ils sont déployés et non plus un segment du réseau. Ils ciblent également de façon précise le trafic qu'ils doivent surveiller en fonction de la nature du système. Par exemple, si l'hôte ne maintient aucun service DNS, il est inutile d'analyser des requêtes DNS qui lui parviendraient pour y déceler un menace exploitant une faille connue dans le protocole DNS. Puisque les HIDSs vont s'exécuter sous forme d'un processus (\textit{daemon}) sur la machine hôte qui elle-même fonctionne sous un OS classique, un lien doit être établi entre les deux pour que l'HIDS puisse surveiller le système et les interfaces réseaux. Certains vont même jusqu'à rechercher les intrusions dans le noyau de l'OS.\\
+\par Les IDSs orientés systèmes, \textit{Host-based IDS}, sont élaborés dans le but de protéger uniquement l'hôte sur lequel ils sont déployés et non plus un segment du réseau. Ils ciblent également de façon précise le trafic qu'ils doivent surveiller en fonction de la nature du système. Par exemple, si l'hôte ne maintient aucun service DNS, il est inutile d'analyser des requêtes DNS qui lui parviendraient pour y déceler une menace exploitant une faille connue dans le protocole DNS. Puisque les HIDSs vont s'exécuter sous forme d'un processus (\textit{daemon}) sur la machine hôte qui elle-même fonctionne sous un OS classique, un lien doit être établi entre les deux pour que l'HIDS puisse surveiller le système et les interfaces réseaux. Certains vont même jusqu'à rechercher les intrusions dans le noyau de l'OS.\\
 
 \par D'une part, un HIDS peut surveiller le comportement du système  dynamiquement en récupérant des informations que ce dernier met à sa disposition à la manière d'un antivirus. Différents indicateurs sont à interpréter :
 \vspace{0.2cm}
@@ -435,7 +435,7 @@ Abrégés par NGFW (\textit{next-generation firewalls}), ces pare-feux font suit
 \vspace{0.2cm}
 \item[$\bullet$] Des moyens de contre-mesures aux attaques empruntés aux \hyperref[IPS]{IPSs}
 \vspace{0.2cm}
-\item[$\bullet$] Les environnements virtuels (\textit{sandboxing}) de tests pour déceler dans un flux suspect une attaque non-reconnue \cite{Kokko2017}
+\item[$\bullet$] Les environnements virtuels (\textit{sandboxing}) de tests pour déceler dans un flux suspect une attaque non reconnue \cite{Kokko2017}
 \vspace{0.2cm}
 \item[$\bullet$] De vastes bases de données sur le cloud interrogées efficacement via un service spécialisé fourni avec le pare-feu (environnement \href{https://www.paloaltonetworks.com/documentation/80/wildfire/wf\_admin/wildfire-overview/wildfire-deployments/wildfire-global-cloud}{WildFire} et similaires)
 \end{itemize}
@@ -470,7 +470,7 @@ Abrégés par NGFW (\textit{next-generation firewalls}), ces pare-feux font suit
 Le terme \textit{appliance} désigne un appareil/système constitué du strict minimum de composants pour remplir au mieux une fonction spécifique. Du point de vue des dispositifs pare-feux, on peut distinguer trois catégories d'appliances :
 \begin{itemize}
 \vspace{0.2cm}
-\item[$\bullet$] les pare-feux destinés aux systèmes embarqués, par exemple des équipements tels que présentés dans la \wordlink{IoT}{section} de ce travail (les plus adaptés aux ressources limitées de ces équipements). 
+\item[$\bullet$] les pare-feux destinés aux systèmes embarqués, particulièrement contraints en ressources comme c'est le cas pour certains équipements de l'IoT.  
 \vspace{0.2cm}
 \item[$\bullet$] les pare-feux logiciels destinés à fonctionner au dessus d'une couche d'abstraction du hardware spécifique (ou même sur une machine virtuelle), basés sur un noyau d'OS qui est transparent à l'utilisation
 \vspace{0.2cm}
@@ -511,27 +511,27 @@ Le terme \textit{appliance} désigne un appareil/système constitué du strict m
 
 \section{La protection dans l'\textit{IoT}}\label{prot_IoT}
 
-\subsection{Motivations et exemples}
+\subsection{Motivations et exemples}\label{motiv_IoT}
 
 À priori, dans le cadre d'une smarthome, les équipements relevant de l'IoT sont plutôt des petits accessoires, voire gadgets (montres, lampes, balances connectées par exemple). On pourrait donc se dire qu'introduire des mécanismes de sécurité avancés dans de tels petits systèmes n'est pas primordial, l'aspect fonctionnel étant plus mis à l'honneur. C'est d'ailleurs ce qu'ont fait beaucoup de constructeurs, mettant sur le marché des équipements possédant des failles de sécurité importantes ou des faiblesses au niveau du design de conception. Un exemple interpellant est le fait que pour un équipement qui possède une interface accessible par un portail de sécurité de type identification \textit{user/password}, les valeurs d'usine par défaut sont laissées telles quelles, l'utilisateur n'étant jamais invité à les modifier \cite{Leos2014}. Ainsi, il existe des listes établies de ces identifiants par défaut en fonction du constructeur (\href{https://www.ispyconnect.com/userguide-default-passwords.aspx}{pour les webcams} par exemple) qui, combinées avec des outils puissants comme \href{https://www.shodan.io/}{Shodan} ou \href{https://censys.io/}{Censys}, constituent des brèches dans la protection de l'habitation pour les attaquants qui savent les exploiter. La \wordlink{shodans}{Figure} illustre la déconcertante facilité avec laquelle il est possible d'attenter à la vie privée des utilisateurs inconscients (une unique requête a été nécessaire).\\
 
 
     \begin{figure}[!h]
        \noindent\makebox[\textwidth]{%
-       \includegraphics[width=1.1\textwidth]{shodans.png}}
+       \includegraphics[width=1.1\textwidth]{Shodans.png}}
        \caption{Résultats d'une brève recherche avec Shodan ciblant des caméras en réseau non ou peu protégées}
        \label{shodans}
     \end{figure}
 
 \newpage
 
-\par Évidemment, l'utilisateur \og final \fg n'est pas le seul qui puisse en subir les conséquences. Ses équipements peuvent entre autres rejoindre un ensemble d'autres  objets connectés infectés, reconfigurés malicieusement en vue d'effectuer une attaque de masse de type \textit{DDOS} sur une cible étrangère au réseau domestique. C'est ce qui s'est passé avec \href{https://en.wikipedia.org/wiki/Mirai_(malware)}{\textit{Mirai}}, un malware décelé bien après son expansion qui a été utilisé dans plusieurs attaques menées sur le fournisseur de services DNS \textit{Dyn}, la société d'hébergement \textit{OVH} et bien d'autres. Mirai n'est pas un cas isolé, et les hackers ont pleinement saisi l'opportunité qu'incarne l'IoT : il existe beaucoup de failles connues et exploitables sur des équipements hétérogènes, et celles-ci sont en partie rendues publiques sur par exemple des \href{https://github.com/nebgnahz/awesome-iot-hacks}{dépôts githubs} et des \href{https://hackforums.net/forumdisplay.php?fid=193}{forums dédiés}.\\
+\par Évidemment, l'utilisateur \og final \fg \ n'est pas le seul qui puisse en subir les conséquences. Ses équipements peuvent entre autres rejoindre un ensemble d'autres  objets connectés infectés, reconfigurés malicieusement en vue d'effectuer une attaque de masse de type \textit{DDOS} sur une cible étrangère au réseau domestique. C'est ce qui s'est passé avec \href{https://en.wikipedia.org/wiki/Mirai_(malware)}{\textit{Mirai}}, un malware de type \textit{botnet} décelé bien après son expansion qui a été utilisé dans plusieurs attaques menées sur le fournisseur de services DNS \textit{Dyn}, la société d'hébergement \textit{OVH} et bien d'autres. Mirai n'est pas un cas isolé, et les hackers ont pleinement saisi l'opportunité qu'incarne l'IoT : il existe beaucoup de failles connues et exploitables sur des équipements hétérogènes, et celles-ci sont en partie rendues publiques sur par exemple des \href{https://github.com/nebgnahz/awesome-iot-hacks}{dépôts githubs} et des \href{https://hackforums.net/forumdisplay.php?fid=193}{forums dédiés}.\\
 
-\par Les équipements qu'on retrouve dans une smarthome ne sont pas les seuls à présenter des lacunes en terme de sécurité. Encore plus grave, les systèmes connectés utilisés dans l'industrie de nos jours peuvent être attaqués, et cela peut porter lourdement à conséquence jusqu'à l'échelle nationale. Le \href{https://horusscenario.com/}{scénario Horus} le démontre particulièrement bien. Imaginé par un chercher néerlandais, il cible les installations photo-voltaïques qui fournissent en énergie l'Europe, et plus spécifiquement les onduleurs connectés qui sont les dispositifs transformant le courant alternatif en continu. Pas moins de 17 failles ont été découvertes, dont certaines permettant de prendre le contrôle total des onduleurs à distance. Il serait alors possible de simuler artificiellement l'impact qu'une éclipse solaire aurait sur le réseau, qui est en temps normal compensé artificiellement. En appliquant une telle variation de puissance soudaine, le réseau entrerait dans un état de fluctuation tel qu'il ne serait plus contrôlable et une grande partie du réseau finirait par sauter. La perte suite à une telle panne, considérant qu'elle dure trois heures, s'élèverait à 4,5 milliards d'euros.
+\par Les équipements qu'on retrouve dans une smarthome ne sont pas les seuls à présenter des lacunes en terme de sécurité. Encore plus grave, les systèmes connectés utilisés dans l'industrie de nos jours peuvent être attaqués, et cela peut porter lourdement à conséquence jusqu'à l'échelle nationale. Le \href{https://horusscenario.com/}{scénario Horus} le démontre particulièrement bien. Imaginé par un chercher néerlandais, il cible les installations photo-voltaïques qui fournissent en énergie l'Europe, plus spécifiquement les onduleurs connectés y opérant (qui, brièvement, sont les dispositifs transformant le courant alternatif en courant continu). Pas moins de 17 failles ont été découvertes, dont certaines permettant de prendre le contrôle total des onduleurs à distance. Il serait alors possible pour un attaquent de simuler artificiellement l'impact qu'une éclipse solaire aurait sur le réseau, qui est en temps normal compensé artificiellement (celle-ci pouvant être anticipée). En appliquant une telle variation de puissance soudaine, le réseau entrerait dans un état de fluctuation tel qu'il ne serait plus contrôlable et une grande partie du réseau finirait par sauter. La perte suite à une telle panne, considérant qu'elle dure trois heures, s'élèverait à 4,5 milliards d'euros.
 
 \subsection{Description des besoins en terme de sécurité}
 
-\par Ces notions sont similaires à celles généralement mises en avant dans le domaine de la sécurité informatique. On peut cependant les affiner davantage en se restreignant au cadre un peu plus limité des équipements IoT et en tenant compte de leurs particularités. Ces grands axes sont les suivants \cite{Leloglu2017} \cite{Huichen2016} :\\
+\par Ces notions sont similaires à celles généralement mises en avant dans le domaine de la sécurité informatique en général. On les agrémente en faisant le lien avec le cas un peu plus restreint des équipements relatifs à l'IoT, si possible. Ces grands axes sont les suivants \cite{Leloglu2017} \cite{Huichen2016} :\\
 
 \minit{Confidentialité}
 
@@ -553,17 +553,44 @@ Seuls les utilisateurs légitimes (acquéreurs du produit entre autres) devraien
 
 Les différents composants du système et les applications qui y sont relatives doivent avoir des privilèges d'accès au ressources limités de sorte qu'ils ne permettent que le strict minimum pour qu'ils puissent fonctionner correctement. 
 
+\subsection{Vulnérabilités liées aux équipements IoT}
+
+\par Les caractéristiques généralement présentées par les équipements décrites comme des restrictions dans la \wordlink{restr_IoT}{sous-section} portent à conséquence en terme de sécurité. Il en résulte de potentielles vulnérabilités \cite{Huichen2016}, couvertes ou non par ces équipements en fonction de leur conception et implémentation spécifique. Celles-ci sont brièvement décrites ci-dessous.\\
+
+\par L'exemple des caméras IP présenté en \hyperref[motiv_IoT]{introduction} l'illustre bien : l'\textbf{accessibilité aux équipements depuis le réseau} (surtout Internet) est un problème conséquent, dans la mesure où il n'est pas pris en considération à la conception du système. Des mesures découlant du principe d'authentification doivent être prises afin de limiter les accès aux entités légitimes uniquement.\\
+
+\par Une autre vulnérabilité découle directement du fait que les équipements sont \textbf{restreints en ressources CPU et mémoire}. On y retrouve des petits microcontrôleurs travaillant sur 8 bits \cite{Huichen2016}, ce qui contraint beaucoup l'utilisation des algorithmes de chiffrement classiques (AES, 3DES, TEA, etc.). C'est donc une vulnérabilité importante qu'il est capital de contrer car transmettre des données en clair va à l'encontre des principes de confidentialité énoncé plus tôt. Des solutions sous forme d'algorithmes adaptés \cite{Batra2016} ou de matériel dédié [CITE] existent.\\
+
+\par Outre les restrictions en terme de capacité, une autre composante est à prendre en compte : \textbf{la source d'énergie limitée} (pour les équipements utilisant une batterie par exemple). Cette vulnérabilité ouvre la porte aux attaques d'exhaustion, consistant à désactiver un équipement par le biais de l'épuisement de sa source d'alimentation [CITE] (attaque dite de \href{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6021927/}{\textit{Depletion-of-Battery}}). C'est une atteinte au principe de disponibilité.\\
+
+\par Les \textbf{firmwares non mis à jour} et globalement les \textbf{constructeurs peu impliqués dans la sécurité} de leurs produits constituent une vulnérabilité qui peut être exploitée par des attaquants. Par exemple, les identifiants par défaut ou stockés en clair. Peu d'équipements installés dans les smarthomes bénéficient d'un service de mise à jour permettant des patchs de sécurité \cite{Huichen2016} suites à des failles décelées et rendues accessibles publiquement.\\
+
+\par L'\textbf{accès physique au(x) média(s) de transmission} représente une autre vulnérabilité, surtout dans le cadre des communications sans-fil. Dans le cadre d'une smarthome par exemple, un dispositif de sécurité pour protéger l'habitation qui utilise du sans-fil devrait tenir compte du fait que toutes les transmissions peuvent être entendues en dehors de l'enceinte des murs de la maison (\href{https://www.ittsystems.com/packet-sniffing-tools/}{outils de \textit{sniffing}}). En plus de l'écoute passive, le média peut aussi être pris d'assaut activement, dans l'exemple une attaque de type \textit{Denial Of Service} pourrait impacter le système de sécurité.\\
+
+\par L'\textbf{hétérogénéité des équipements} peut être problématique pour d'une part définir des standards et d'autre part avoir une bonne connaissance technique de chacun des équipements évoluant par exemple dans une smarthome. La documentation pour chaque équipement devrait alors lui être spécifique, et pour peu qu'elle existe il faudrait qu'elle développe les mécanismes de sécurité fournis avec l'équipement. Allant de paire avec cela, les systèmes de mises-à-jours et patchs de sécurité divergent de l'un à l'autre.\\
+
+\par Dans le cas particulier des smarthomes, le \textbf{manque de connaissances des utilisateurs} en terme de sécurité informatique \cite{Nthala2018} peut être considéré comme une vulnérabilité car il peut en résulter une mauvaise installation ou configuration des systèmes menant à des failles exploitables. Conjugué avec le fait que les constructeurs des équipements que l'habitant achète ne mettent pas la priorité sur leur sécurisation, cela ouvre de multiples portes dont les attaquants n'ont plus qu'à se servir.
+
+\subsection{Architecture globale des systèmes IoT}
+
+Leoglu propose dans \cite{Leloglu2017} un travail de synthèse sur base de plusieurs sources dont il résulte entre autres un modèle structural de l'IoT. Il n'est pas à considérer du point de vue d'un seul équipement, mais plutôt au niveau global ie. tout ce qui est impliqué dans le fonctionnement d'un système impliquant des équipements de l'IoT (présentant une architecture typique décrite dans la \wordlink{arch_IoT}{section}). C'est une représentation en couches, une couche supérieure s'appuyant sur les couches plus basses afin de remplir la fonction qui lui est dédiée :
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.65]{layers_IoT.png}
+\caption{Architecture d'un système IoT proposée par Leoglu \cite{Leloglu2017}}
+\label{sm_class}
+\end{figure}
 
 
-\subsection{Modèle d'architecture des équipements}
+\subsection{ et menaces courantes}
 
-\subsection{Vulnérabilités liées à l'IoT et menaces courantes}
-
-\subsection{Possibilités d'amélioration}
-
-\subsection{Solutions existantes}
+\subsection{Solutions et outils existants}
 
 \subsubsection{OWASP Sec framework}
+
+\subsubsection{Détection des vulnérabilités dans un réseau}
+
 
 %------------- PARE FEUX + IoT -------------
 \section{Les pare-feux et l'\textit{IoT}}
