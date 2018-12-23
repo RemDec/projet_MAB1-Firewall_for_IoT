@@ -34,8 +34,8 @@
 \contentsline {subsubsection}{\numberline {3.5.2}Sur la couche r\IeC {\'e}seau}{24}{subsubsection.3.5.2}
 \contentsline {subsubsection}{\numberline {3.5.3}Sur la couche support}{24}{subsubsection.3.5.3}
 \contentsline {subsubsection}{\numberline {3.5.4}Sur la couche application}{24}{subsubsection.3.5.4}
-\contentsline {subsection}{\numberline {3.6}Solutions et outils existants}{24}{subsection.3.6}
-\contentsline {subsubsection}{\numberline {3.6.1}OWASP Sec framework}{24}{subsubsection.3.6.1}
+\contentsline {subsection}{\numberline {3.6}Ressources, solutions et outils existants}{24}{subsection.3.6}
+\contentsline {subsubsection}{\numberline {3.6.1}Le travail d'OWASP}{24}{subsubsection.3.6.1}
 \contentsline {subsubsection}{\numberline {3.6.2}D\IeC {\'e}tection des vuln\IeC {\'e}rabilit\IeC {\'e}s dans un r\IeC {\'e}seau}{24}{subsubsection.3.6.2}
 \contentsline {section}{\numberline {4}Les pare-feux et l'\textit {IoT}}{24}{section.4}
 \contentsline {subsection}{\numberline {4.1}Diff\IeC {\'e}rents types d'architecture}{24}{subsection.4.1}

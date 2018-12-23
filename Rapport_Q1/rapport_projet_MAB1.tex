@@ -572,7 +572,7 @@ Les différents composants du système et les applications qui y sont relatives 
 
 \subsection{Architecture globale des systèmes IoT}
 
-Leoglu propose dans \cite{Leloglu2017} un travail de synthèse sur base de plusieurs sources dont il résulte entre autres un modèle structural de l'IoT. Il n'est pas à considérer du point de vue d'un seul équipement, mais plutôt au niveau global ie. tout ce qui est impliqué dans le fonctionnement d'un système impliquant des équipements de l'IoT (présentant une architecture typique décrite dans la \wordlink{arch_IoT}{section}). C'est une représentation en couches, une couche supérieure s'appuyant sur les services fournis par les couches plus basses afin de remplir la fonction qui lui est dédiée. On distingue les suivantes :\\
+Leloglu propose dans \cite{Leloglu2017} un travail de synthèse sur base de plusieurs sources dont il résulte entre autres un modèle structural de l'IoT. Il n'est pas à considérer du point de vue d'un seul équipement, mais plutôt au niveau global ie. tout ce qui est impliqué dans le fonctionnement d'un système impliquant des équipements de l'IoT (présentant une architecture typique décrite dans la \wordlink{arch_IoT}{section}). C'est une représentation en couches, une couche supérieure s'appuyant sur les services fournis par les couches plus basses afin de remplir la fonction qui lui est dédiée. On distingue les suivantes :\\
 
 \minit{La couche perception}
 
@@ -631,9 +631,16 @@ Plusieurs types d'attaques peuvent être distingués, exploitant ou non des vuln
 \subsubsection{Sur la couche application}
 
 
-\subsection{Solutions et outils existants}
+\subsection{Ressources, solutions et outils existants}
 
-\subsubsection{OWASP Sec framework}
+\subsubsection{Le travail d'OWASP}
+
+La fondation \href{https://www.owasp.org/index.php/Main_Page}{OWASP} (\textit{The Open Web Application Security Project}) est une organisation à l'échelle mondiale qui aspire à améliorer la sécurité informatique des systèmes et logiciels. L'IoT étant en plein essor, \href{https://www.owasp.org/index.php/OWASP_Internet_of_Things_Project}{un projet} a vu le jour sur la plateforme, décrit comme \og conçu pour aider les fabricants, développeurs et utilisateurs à mieux comprendre les problèmes sécuritaires liés à l'IoT, et pour permettre aux utilisateurs de prendre de meilleures décisions relatives à la sécurité quand ils déploient et travaillent avec des technologies de l'IoT \fg .
+Ainsi, plusieurs sous-projets plus spécifiques sont destinés à peupler le projet principal, certains étant encore actuellement en développement.\\
+
+L'équipe travaillant sur le projet a établi \href{https://www.owasp.org/index.php/Principles_of_IoT_Security}{une liste} des principes relatif à la sécurité dans l'IoT. Plusieurs guides ont également été écrits, orientés chacun vers un point de vue différent : pour le fabricant, le développeur et l'utilisateur. D'autres ressources écrites sont disponibles, mais encore aucun outil développé autour de la sécurité n'a vu le jour comme c'est le cas pour d'autres domaines (les applications web particulièrement puisque originellement l'organisation ciblait ce secteur).	 
+
+\par  
 
 \subsubsection{Détection des vulnérabilités dans un réseau}
 
