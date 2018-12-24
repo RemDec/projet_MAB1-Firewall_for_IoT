@@ -199,6 +199,8 @@ Ces contraintes sont aussi identiques à celles des systèmes embarqués classiq
 
 \subsection{Architectures d'un système d'équipements IoT}\label{arch_IoT}
 
+\subsection{Protocoles adaptés à l'IoT}\label{IoT_prot}
+
 %------------- PARE FEUX -------------
 
 \section{Présentations des pare-feux}
@@ -508,7 +510,7 @@ Le terme \textit{appliance} désigne un appareil/système constitué du strict m
 
 %------------- SECU IoT -------------
 
-\section{La protection dans l'\textit{IoT}}\label{prot_IoT}
+\section{La protection dans l'IoT}\label{prot_IoT}
 
 \subsection{Motivations et exemples}\label{motiv_IoT}
 
@@ -568,9 +570,9 @@ Les différents composants du système et les applications qui y sont relatives 
 
 \par L'\textbf{hétérogénéité des équipements} peut être problématique pour d'une part définir des standards et d'autre part avoir une bonne connaissance technique de chacun des équipements évoluant par exemple dans une smarthome. La documentation pour chaque équipement devrait alors lui être spécifique, et pour peu qu'elle existe il faudrait qu'elle développe les mécanismes de sécurité fournis avec l'équipement. Allant de paire avec cela, les systèmes de mises-à-jours et patchs de sécurité divergent de l'un à l'autre.\\
 
-\par Dans le cas particulier des smarthomes, le \textbf{manque de connaissances des utilisateurs} en terme de sécurité informatique \cite{Nthala2018} peut être considéré comme une vulnérabilité car il peut en résulter une mauvaise installation ou configuration des systèmes menant à des failles exploitables. Conjugué avec le fait que les constructeurs des équipements que l'habitant achète ne mettent pas la priorité sur leur sécurisation, cela ouvre de multiples portes dont les attaquants n'ont plus qu'à se servir.
+\par Dans le cas particulier des smarthomes, le \textbf{manque de connaissances des utilisateurs} en terme de sécurité informatique \cite{Nthala2018} peut être considéré comme une vulnérabilité car il peut en résulter une mauvaise installation ou configuration des systèmes menant à des failles exploitables. Conjugué avec le fait que les constructeurs des équipements que l'habitant achète ne mettent pas la priorité sur leur sécurisation, cela ouvre de multiples portes que les attaquants n'ont qu'à ouvrir.
 
-\subsection{Architecture globale des systèmes IoT}
+\subsection{Architecture globale des systèmes impliquant des équipements IoT}
 
 Leloglu propose dans \cite{Leloglu2017} un travail de synthèse sur base de plusieurs sources dont il résulte entre autres un modèle structural de l'IoT. Il n'est pas à considérer du point de vue d'un seul équipement, mais plutôt au niveau global ie. tout ce qui est impliqué dans le fonctionnement d'un système impliquant des équipements de l'IoT (présentant une architecture typique décrite dans la \wordlink{arch_IoT}{section}). C'est une représentation en couches, une couche supérieure s'appuyant sur les services fournis par les couches plus basses afin de remplir la fonction qui lui est dédiée. On distingue les suivantes :\\
 
@@ -602,7 +604,7 @@ Les applications sont diverses et variées, développées dans des domaines tels
     \center
     \begin{tabular}[b]{|c|p{12cm}|}
     \hline
-		Niveau dans le système &  Outils, protocoles et équipements y opérant\\
+		Niveau dans le système &  Exemples d'outils, protocoles et équipements y opérant\\
 	\hline
 Couche perception & Caméras, microphones, capteurs, GPS et divers systèmes embarqués mesurant et interagissant avec l'environnement qui leur est extérieur (montres intelligentes, détecteurs, etc.)\\
 	\hline
@@ -620,7 +622,7 @@ Couche application & Applications relatives aux smarthomes (interfaçage avec l'
 
 \subsection{Les attaques courantes}
 
-Plusieurs types d'attaques peuvent être distingués, exploitant ou non des vulnérabilités recensées dans la \wordlink{vuln_IoT}{section}. Ils sont classés ici en fonction de la couche du modèle développé plus tôt qu'ils ciblent, selon Makhdoom et al. \cite{Makhdoom2018} et Leloglu \cite{Leloglu2017}.
+Plusieurs types d'attaques peuvent être distingués, exploitant ou non des vulnérabilités recensées dans la \wordlink{vuln_IoT}{section}. Ces scénarios d'attaques typiques sont classés en fonction de la couche dans laquelle ils opèrent, selon Makhdoom et al. \cite{Makhdoom2018} et Leloglu \cite{Leloglu2017}.
 
 \subsubsection{Sur la couche perception}
 
@@ -638,15 +640,65 @@ Plusieurs types d'attaques peuvent être distingués, exploitant ou non des vuln
 La fondation \href{https://www.owasp.org/index.php/Main_Page}{OWASP} (\textit{The Open Web Application Security Project}) est une organisation à l'échelle mondiale qui aspire à améliorer la sécurité informatique des systèmes et logiciels. L'IoT étant en plein essor, \href{https://www.owasp.org/index.php/OWASP_Internet_of_Things_Project}{un projet} a vu le jour sur la plateforme, décrit comme \og conçu pour aider les fabricants, développeurs et utilisateurs à mieux comprendre les problèmes sécuritaires liés à l'IoT, et pour permettre aux utilisateurs de prendre de meilleures décisions relatives à la sécurité quand ils déploient et travaillent avec des technologies de l'IoT \fg .
 Ainsi, plusieurs sous-projets plus spécifiques sont destinés à peupler le projet principal, certains étant encore actuellement en développement.\\
 
-L'équipe travaillant sur le projet a établi \href{https://www.owasp.org/index.php/Principles_of_IoT_Security}{une liste} des principes relatif à la sécurité dans l'IoT. Plusieurs guides ont également été écrits, orientés chacun vers un point de vue différent : pour le fabricant, le développeur et l'utilisateur. D'autres ressources écrites sont disponibles, mais encore aucun outil développé autour de la sécurité n'a vu le jour comme c'est le cas pour d'autres domaines (les applications web particulièrement puisque originellement l'organisation ciblait ce secteur).	 
+L'équipe travaillant sur le projet a établi \href{https://www.owasp.org/index.php/Principles_of_IoT_Security}{une liste} des principes relatif à la sécurité dans l'IoT. Plusieurs guides ont également été écrits, orientés chacun selon point de vue différent : pour le fabricant, le développeur et l'utilisateur. D'autres ressources écrites sont disponibles, mais encore aucun outil développé autour de la sécurité n'a vu le jour comme c'est le cas pour d'autres domaines (les applications web particulièrement puisque originellement l'organisation ciblait ce secteur).	 
 
-\par  
+\subsubsection{La standardisation de protocoles adaptés sécurisés}
+
+\par La \wordlink{IoT_prot}{sous-section} présentait les protocoles utilisables dans l'IoT, adaptés aux restrictions des équipements qui ne permettent pas toujours une compatibilité avec la \textit{stack TCP/IP} classique. Lors de la conception de ces protocoles, la composante sécurité a été prise en compte et des mécanismes y ont été introduits pour l'assurer \cite{Huichen2016} (ou alors des chercheurs ont fait ce travail par la suite).\\
+
+\par 6LowPAN propose déjà des mécanismes utiles pour garantir la sécurité \cite{wiki6lowpan}. Pour éviter les attaques par fragmentation, les options d'en-têtes \textit{Timestamp} et \textit{Nonce} sont un premier rempart. La découverte des voisins d'un nœud est effectuée de façon sécurisée grâce à LSEND (\textit{Lightweight Secure Neighbor Discovery protocol}), version allégée de SEND. Des chercheurs ont également élaboré une version allégée de la suite de protocoles IPsec afin de garantir des communications sécurisées d'un nœud à l'autre dans un réseau 6LowPAN \cite{Huichen2016}. D'autres ont proposé un système d'établissement de connexion sécurisée à partir d'un échange de clés \cite{Huichen2016}.\\
+
+\todo{Lire article protocoles existants et sec dans IoT}
+
+\par RPL, utilisé pour le routage dans les réseaux de capteurs et utilisable dans un réseau 6LowPAN, propose également des mécanismes de protection. Il s'agit dans ce cas de garantir 
 
 \subsubsection{Détection des vulnérabilités dans un réseau}
 
+Face à un réseau réel, disons local à une habitation possédant des équipements connectés (c-à-d orientée smarthome), il est difficile de se faire une idée de tous les objets y étant connectés et de quelles sont leurs fonctionnalités. Des outils sont nécessaires afin de découvrir le réseau et établir quels équipements peuvent potentiellement être la cible d'attaques. Il en existe une flopée (\href{https://sectools.org/}{sectools.org} en maintient un classement fourni), libres ou commerciaux, possédant une interface graphique ou non, fonctionnels sur des OS variés. Outre ces logiciels complets au champs d'action assez étendu, des outils de scanning plus spécifiques à des cibles (routeur, serveurs, ...) et services (Web, SQL, mail, ...) sont trouvables dans des dépôts dédiés sous la forme de scripts (\href{https://github.com/We5ter/Scanners-Box}{Scanners-box} est dédié à leur référencement). Des exemples sont donnés ci-dessous, classés en deux catégories \cite{Leos2014} en fonction de la manière dont le scan est effectué. Une attention particulière est portée aux outils dédiés à la détection des failles sur les équipements IoT d'un réseau s'il en existe qui y soient dédiés.\\
+
+\minit{Le scan passif ou la prise d'empreintes}
+
+L'objectif est d'en apprendre un maximum sur les équipements connectés au réseau sans les interpeller directement. Cela se fait en écoutant toutes les transmissions passant sur un média utilisé par ces équipements, les capturant, les stockant et les agrégeant. Cela est donc assimilable à la pratique du sniffing. L'utilisation qui est faite de ces données varie en fonction de l'application : soit elles sont étudiées telles quelles car c'est le trafic qui est intéressant (\href{https://en.wikipedia.org/wiki/Packet_analyzer}{analyseurs de trafic}), soit elles sont utilisées pour faire de la \og prise d'empreinte\fg \ (\href{https://en.wikipedia.org/wiki/TCP/IP_stack_fingerprinting}{\textit{TCP/IP stack, OS fingerprinting}}) afin de caractériser les nœuds du réseau, soit les deux. Il peut également y avoir, suite à la phase d'écoute passive, des actions entreprises (par exemple si le processus a déterminé qu'un hôte présente une faiblesse exploitable).\\
+
+\par Un analyseur de paquet populaire est Wireshark, qui utilise l'API \textit{pcap} pour capturer les paquets transitant par le réseau sur lequel une interface désignée est placée en mode promiscuité (c-à-d fait remonter au système tous les paquets qui lui parviennent). Beaucoup d'autres utilitaires de capture (Kismet, tcpdump, ngrep, etc.) utilisent l'API \textit{pcap}, implémentée dans la librairie \textit{libcap} (systèmes UNIX) ou WinPcap (port de libcap vers Windows), il s'agit donc d'une ressource importante. Wireshark permet un filtrage assez fin des lots de paquets capturés (plus d'un millier de protocoles reconnus), permettant une grande flexibilité en fonction du but de la capture (debug, recherche d'une information, surveillance du trafic, etc.).\\
+
+\par Les logiciels destinés à la capture d'empreintes et uniquement à cela sont assez peu nombreux (la plupart intègrent d'autres fonctionnalités actives). \href{http://lcamtuf.coredump.cx/p0f3/README}{p0f} est l'outil minimaliste le plus efficace. Il utilise diverses métriques extraites des en-têtes IPv4/6, des en-têtes TCP, des dynamiques observables dans le 3-way handshake de TCP et des données exploitables au niveau de la couche application (HTTP, SMTP, FTP, etc.). Combinées à une base de données de signatures récupérées expérimentalement, ces mesures permettent de déduire quels systèmes opèrent derrière les nœuds du réseau communiquant (là où un outil comme Nmap peut en être incapable). Outre cela, p0f est capable de déduire d'autres informations :
+
+\begin{itemize}
+\vspace{0.2cm}
+\item[$\bullet$] présence d'une pare-feu, d'un système de NAT ou \textit{load balancer}, de proxy applicatifs
+\vspace{0.2cm}
+\item[$\bullet$] mesures du temps d'activité d'un système, sa distance (grâce au TTL), ses préférences au niveau de la langue, etc.
+\vspace{0.2cm}
+\item[$\bullet$] les services utilisés par les clients et serveurs qui déclarent des champs comme X-Mailer ou User-Agent
+\end{itemize}
+~\\
+
+\par D'autres outils existent, leurs fonctionnalités s'étendant au-delà de ce qui est considérable comme outil passif. On peut citer notamment :
+\begin{itemize}
+\vspace{0.2cm}
+\item[$\bullet$] \href{http://www.ettercap-project.org/}{Ettercap} utilise la capture de paquets pour intercepter des informations sensibles, et d'autres opérations avec pour but final d'effectuer une attaque de type \textit{Man-In-The-Middle} (MITM)
+\vspace{0.2cm}
+\item[$\bullet$] \href{https://scapy.net/}{Scapy} et \href{https://github.com/phaethon/kamene}{Kamene} (fork du projet), des utilitaires en Python, permettent la capture et le reforgeage de paquets, la prise d'empreintes, le lancement d'attaques, etc. (le tout de façon modulable)
+\end{itemize}
+~\\
+
+\minit{Le scan actif}
+
+\par Ces logiciels tentent d'établir des connexions avec les hôtes à analyser, à la recherche d'un service répondant donc potentiellement ouvert, non protégé et dont il est possible de soutirer des informations. Une liste de numéros de ports pertinents est construite par le scanneur, utilisée par ce dernier lors de l'analyse des hôtes qu'il trouve dans le réseau. Cette technique basique est appelée \href{https://fr.wikipedia.org/wiki/Balayage_de_ports}{balayage de port}.   Se servant de ces scanneurs comme appoint, les \href{https://fr.wikipedia.org/wiki/Scanneur_de_vuln\%C3\%A9rabilit\%C3\%A9}{scanneurs de vulnérabilités} vont plus loin en tentant de découvrir pour chaque hôte analysé les failles de sécurités auxquelles ils sont exposés (au niveau d'une application, du système d'exploitation ou des interfaces réseaux).\\
+
+\par L'outil \href{https://nmap.org/}{Nmap} est dédié au balayage de ports et à l'acquisition directe d'informations (version, composants matériels utilisés, etc.) concernant le système et les services ouverts d'un hôte analysé. La détection de vulnérabilités est rendue possible grâce aux interactions scriptées avec la cible en utilisant le Nmap Scripting Engine (NSE), un exemple de module Nmap y étant dédié est \href{https://www.computec.ch/projekte/vulscan/}{Vulscan.nse}. Nmap a d'autres fonctionnalités pratiques telles qu'une interface graphique complète (\href{https://nmap.org/zenmap/}{Zenmap}) et la personnalisation des formats de sorties pour les résultats (filtrage, langages balisés, etc.).\\
+
+\par \href{http://www.openvas.org/}{OpenVAS} est une branche du projet \href{https://www.tenable.com/products/nessus/nessus-professional}{Nessus}, ce dernier étant passé sous licence commerciale. Ce sont les frameworks pour la détection de vulnérabilités sur un réseau les plus populaires. Tenable$^{®}$ (qui possède Nessus) propose des \href{https://www.tenable.com/solutions/iot}{services de scan dédiés aux équipements IoT} utilisés dans l'industrie, mais OpenVAS n'offre rien de similaire.\\
+
+\par Le cas de \href{https://cisofy.com/lynis/}{Lynis} est un peu particulier. Effectivement, en opposition aux scanneurs en réseau comme OpenVAS, il s'agit d'un scanneur de vulnérabilités à lancer sur l'hôte à analyser. Cela permet une inspection beaucoup plus en profondeur des services et des vulnérabilités qu'ils présentent. Il tourne sur presque tous les systèmes basés UNIX : distributions BSD, Linux, etc. et même sur un système limité tel qu'une carte Raspberry Pi ou un équipement relatif à l'IoT qui est capable de supporter le même type de charge. Lynis peut donc être un outil intéressant si on possède le contrôle de l'équipement à analyser (légitimement ou non).\\
+
+\par Dédié à la détection des vulnérabilités des équipements IoT, \href{https://github.com/rapid7/IoTSeeker}{IoTSeeker} est un outil libre et écrit en Perl, supporté sur les systèmes Linux/Mac OS. Il est axé sur les vulnérabilités d'authentification, la découverte de mots de passes laissés par défaut par les utilisateurs imprudents (sur base des listes des identifiants par constructeur évoquée dans la \wordlink{motiv_IoT}{sous-section}).\\
+
+\par \href{https://github.com/threat9/routersploit}{Routersploit} est un framework dédié à la détection et l'exploitation de failles dans les systèmes embarqués. Comme son nom l'indique, la cible est d'avantage les routeurs que les équipements de l'IoT, cependant quelques modules ciblent notamment les caméras et d'autres équipements connectés insolites (projecteur, laveur de laboratoire). L'outil de pénétration \href{https://github.com/zdresearch/OWASP-Nettacker}{Nettacker} développé par OWASP, dont le but est le soutirage et l'agrégation d'informations d'une cible pour en dresser une liste des failles de sécurité, promet également la sortie future d'un module spécifique à l'IoT.
 
 %------------- PARE FEUX + IoT -------------
-\section{Les pare-feux et l'\textit{IoT}}
+\section{Les pare-feux et l'IoT}
 
 \subsection{Différents types d'architecture}
 
