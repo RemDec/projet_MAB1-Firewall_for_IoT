@@ -3,7 +3,11 @@
 \usepackage[utf8]{inputenc}
 
 \usepackage{eurosym}
-\usepackage{fullpage}
+\usepackage[
+  margin=1.8cm,
+  includefoot,
+  footskip=10pt,
+]{geometry}
 \usepackage{graphicx}
 \graphicspath{{figures/}}
 \usepackage[french]{babel}
@@ -105,17 +109,18 @@ Depuis maintenant plusieurs années, la connectivité n'a cessé d'évoluer : en
 \subsection{Caractéristiques des équipements de l'\textit{IoT}}
 
 \subsubsection{Domaines d'application}
-
+~\\
 Les secteurs dans lesquels l'IoT s'est implanté ces dernières années sont nombreux et très variés : ils s'étendent de l'industrie au domaine des soins de santé en passant par la tendance des \textit{Smart Home}. C'est ce dernier domaine qui est approfondi dans ce travail et qui sera le plus sous-entendu par la suite quand le terme \textit{IoT} est utilisé. La Figure~\ref{domains_IoT} présente une vision d'un schéma global des autres domaines qui gravitent autour du vaste monde de l'IoT.\\
 
 
 \begin{figure}[!h]
 \centering
-\includegraphics[width=0.6\linewidth]{IoT_domains.png}
+\includegraphics[width=0.65\linewidth]{IoT_domains.png}
 \caption{Domaines d'application de l'IoT}
 \label{domains_IoT}
 \end{figure}
 
+\newpage
 
 \subsubsection{L'environnement \textit{smarthome}}
 \par Le terme émergeant \textit{Smart Home/smarthome} est une fois de plus très englobant et général. Il n'en existe pas de définition formelle et communément acceptée. Basman M. Hasan et al. \cite{Basman2016} en présentent plusieurs. Un résultat les unifiant pourrait être
@@ -127,10 +132,11 @@ Les secteurs dans lesquels l'IoT s'est implanté ces dernières années sont nom
 
 \par Une certaine classification fonctionnelle peut être établie pour distinguer de façon plus concrète les différents équipements qui peuvent intervenir dans l'écosystème d'une smarthome. Elle est schématisée par la Figure~\ref{sm_class}, inspirée de \cite{Basman2016}. Ce qui est désigné par \textit{point d'interconnexion} peut dépendre de l'architecture réelle d'une smarthome \cite{Huichen2016}. Dans la plupart des cas il s'agit d'une machine faisant office de collecteur pour toutes les données transitant dans le domicile et de gateway vers le reste de l'Internet, éventuellement le cloud associé.\\
 
+~\\
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=1.3]{smarthome_class.png}
+\includegraphics[scale=1.4]{smarthome_class.png}
 \caption{Classification fonctionnelle des équipements \textit{IoT} d'une smarthome}
 \label{sm_class}
 \end{figure}
@@ -227,7 +233,7 @@ Ces contraintes sont aussi identiques à celles des systèmes embarqués classiq
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.8]{IoT_stack.png}
+\includegraphics[scale=0.85]{IoT_stack.png}
 \caption{Comparaison du modèle en couche classique (TCP/IP) avec celui adapté à l'IoT}
 \label{IoT_stack}
 \end{figure}
@@ -251,6 +257,8 @@ Un pare-feu est un dispositif, virtuel ou matériel, qui surveille et contrôle 
 \par Afin de remplir leur fonction, ces pare-feux sont placés en bordure du réseau à protéger et sont  directement liés aux machines qui font office de \textit{gateway} (routeurs). Le trafic échangé entre les réseaux ainsi connectés passe donc par le pare-feu afin d'être analysé et filtré, ce qui peut représenter beaucoup de données à traiter. Le pare-feu doit offrir une vitesse de traitement proportionnelle aux débits et à la qualité des liens qui le traversent afin de ne pas être un goulot d'étranglement. C'est pourquoi ces pare-feux doivent être très efficaces et sont communément portés (partiellement) au niveau matériel. On parle de \textit{hardware-based firewall appliances}, qui sont des machines physiques dont le seul objectif est de remplir les tâches d'un pare-feu le plus efficacement possible. On y retrouve deux composants : la partie applicative software ou firmware remplissant la fonction de pare-feu, qui repose sur la deuxième partie plus basse constituée de juste ce qu'il faut d'un OS particulier (\textit{jeOS} - \textit{just enough Operating System}). Cet OS est généralement propriétaire, lié au fabriquant du hardware sur lequel les deux parties opèrent et donc optimisé pour garantir les performances requises.\\
 
 \par À plus petite échelle, dans un réseau domestique par exemple, on retrouve également des pare-feux directement implémentés dans le routeur qui fait office de \textit{gateway} pour l'habitation. Ceux-ci sont fatalement moins efficaces et complets que les matériels spécialement dédiés à cette unique fonction.\\
+
+\newpage
 
 \par À titre indicatif, la Figure~\ref{cisco_FW} donne un exemple d'une \textit{appliance} pare-feu issue de la gamme des Cisco ASA 55xx-X, la dernière génération que Cisco a introduit sur le marché en 2018 \cite{wikiASA}. Il ne s'agit pas du modèle le plus performant de la gamme en comparant les \href{https://www.cisco.com/c/en/us/products/collateral/security/asa-5500-series-next-generation-firewalls/datasheet-c78-733916.html}{performances et fonctionnalités}, mais convient typiquement bien pour être déployé dans une petite entreprise (son prix avoisine 500\euro). Dans le cas d'une habitation, l'analogue correspondant est dans la majorité des cas le modem distribué par le fournisseur d'accès internet au domicile. La société Proximus fournit par exemple des \textit{b-box}, que leurs clients peuvent configurer par une interface web. Dans ces configurations, il existe bien un onglet intitulé \textit{firewall}, mais celui-ci ne présente que peu d'options de configuration comme le montre la Figure~\ref{proxi_FW}. Dans d'autres onglets, on peut trouver d'autres fonctionnalités qui peuvent y être relatives : restriction d'accès pour certains nœuds en fonction de l'heure (par adresse MAC) et blocage de certains sites par domaine. Cela semble assez faible, les utilisateurs du réseau ont tout intérêt à installer sur leurs équipements personnels des \hyperref[host_fw]{pare-feux pour hôtes}.
 
@@ -296,6 +304,9 @@ Un pare-feu est un dispositif, virtuel ou matériel, qui surveille et contrôle 
 \item[$\bullet$] Éviter les \textit{faux-positifs} (bloquer du trafic légitime)
 \end{itemize}
 \vspace{0.5cm}
+
+\newpage
+
 \par Que ce soit en entreprise ou dans une habitation, il est donc probable que l'on retrouve des pare-feux appartenant à ces deux classes distinctes là où ils sont efficaces (voir  \wordlink{netw_IDS}{Figure}). Il ne s'agit que d'échelles différentes, qui impliquent également des intervenants différents. En entreprise, l'administrateur sécurité/réseau configure du matériel spécifique afin de sécuriser les frontières de son réseau tout en préservant ses performances. Il est aussi possible qu'il installe dans les machines internes de son réseau des pare-feux assez puissants pour empêcher les propagations des attaques déclenchées. Dans le domicile, l'habitant est sommairement protégé par le routeur fournit par son FAI qui inclut un pare-feu réseau par défaut. S'il est un minimum expérimenté, il sera à même d'installer et configurer des pare-feux personnels sur chacun de ses équipements connectés, pour autant que cela soit possible (par exemple, les contraintes liées aux équipements de l'IoT décrites dans la \wordlink{restr_IoT}{sous-section} sont un  frein à cela).   
 
 
@@ -323,6 +334,9 @@ Aussi désignés dans la littérature par le terme \textit{stateless}, ces pare-
 
 Les paquets ICMP peuvent également faire l'objet d'un filtrage du même acabit \cite{Shimonski2013}.
 Ce type de pare-feu tombe en désuétude car il est trop simple à duper par des attaquants.  
+
+
+\newpage
 
 \subsubsection{Pare-feu à état}
 
@@ -392,13 +406,14 @@ Ce type de systèmes, abrégé par IDS pour \textit{intrusion detection system},
 \item[$\bullet$] Surveillance des systèmes du réseau (\textit{HIDS}:\textit{ Host-based IDS}) 
 \item[$\bullet$] Surveillance distribuée du réseau (\textit{NIDS}:\textit{ Distributed IDS}) 
 \end{itemize} 
-~\\
+
 \subsubsection{Les NIDSs}
 
 \par Ces dispositifs surveillent le réseau ou un segment de ce réseau, sous forme d'un équipement intermédiaire de capture (ses interfaces sont en mode écoute pour l'entièreté du trafic transitant par le segment). Il est important d'avoir plusieurs unités de surveillance distinctes dans le cas où le réseau est scindé en plusieurs modules/zones. Par exemple, un serveur web d'une entreprise pourrait être infecté et servir de plateforme de lancement d'une attaque depuis le réseau interne, vers un autre module contenant des serveurs internes.\\
 
 \par Deux manières de procéder à l'analyse sont possibles : soit en mode \textit{in-line} soit en mode \textit{off-line}. Le cas de la capture du trafic par interface décrit ci-dessus correspond au mode in-line. Le trafic est analysé en temps réel, ce qui permet une plus grande réactivité mais peut constituer un goulot d'étranglement si le processus de décision est coûteux. Le mode off-line est donc plus avantageux à ce niveau, puisque le processus d'analyse et décision est opéré sur des données stockées et non pas à traiter à la volée. Une inspection plus fine est alors envisageable, cependant le principal défaut de ce mode de fonctionnement reste le manque de réactivité à une attaque.
 
+\newpage
 \subsubsection{Les HIDSs}
 
 \par Les IDSs orientés systèmes, \textit{Host-based IDS}, sont élaborés dans le but de protéger uniquement l'hôte sur lequel ils sont déployés et non plus un segment du réseau. Ils ciblent également de façon précise le trafic qu'ils doivent surveiller en fonction de la nature du système. Par exemple, si l'hôte ne maintient aucun service DNS, il est inutile d'analyser des requêtes DNS qui lui parviendraient pour y déceler une menace exploitant une faille connue dans le protocole DNS. Puisque les HIDSs vont s'exécuter sous forme d'un processus (\textit{daemon}) sur la machine hôte qui elle-même fonctionne sous un OS classique, un lien doit être établi entre les deux pour que l'HIDS puisse surveiller le système et les interfaces réseaux. Certains vont même jusqu'à rechercher les intrusions dans le noyau de l'OS.\\
@@ -434,6 +449,7 @@ avantages :
 
 \par Afin de transmettre les alertes générées jusqu'à l'unité centrale efficacement, les différents nœuds IDSs du réseau devraient communiquer de façon homogène. À cette fin, un standard a été écrit sous le nom de format IDMEF (\textit{Intrusion Detection Message Exchange Format}, RFC 4765). Ce langage d'alertes est lisible par l'humain, utilisant le format XML. Utilisé par tous les nœuds qui effectuent la tâche de détection d'intrusion (quelque soit le type et l'implémentation), l'unité centrale qui récolte toutes les alertes peut utiliser un outil de pilotage de la sécurité du réseau global comme \href{https://fr.wikipedia.org/wiki/Prelude_SIEM}{Prelude}\footnote{\url{https://en.wikipedia.org/wiki/Prelude_SIEM_(Intrusion_Detection_System)}}. Cet outil normalise, trie, agrège, corrèle et en tire les conclusions sur des décisions à prendre pour protéger le réseau, tout en fournissant une interface (et des logs) via laquelle l'administrateur peut surveiller ce qui se passe globalement.
 
+\newpage
 \subsection{Systèmes de prévention d'intrusion (\textit{IPS})}\label{IPS}
 %https://fr.wikipedia.org/wiki/Syst%C3%A8mes_de_d%C3%A9tection_et_de_pr%C3%A9vention_d%27intrusions_dans_les_syst%C3%A8mes_distribu%C3%A9s
 \par Dans la section précédente, il était question de détection des attaques et pour certaines d'entre elles des actions à effectuer en contre-mesure pour bloquer la menace. Cela relève du domaine d'application des systèmes de prévention d'intrusion, aussi abrégé IPS pour \textit{intrusion prevention systems}. Tout comme pour les IDSs, deux types d'IPS peuvent être distingués en fonction de leur place dans l'architecture réseau : les \textit{host-based IPS} agissent au niveau local pour un hôte, tandis que les \textit{network-based IPS} défendent un réseau ou un de ses segments internes. De fait, IDSs et IPSs vont de paire puisque les contre-mesures prises par un dispositif IPS sont basées sur ce que l'IDS détecte et lui transmet comme information.
@@ -583,6 +599,8 @@ Seuls les utilisateurs légitimes (acquéreurs du produit entre autres) devraien
 
 Les différents composants du système et les applications qui y sont relatives doivent avoir des privilèges d'accès au ressources limités de sorte qu'ils ne permettent que le strict minimum pour qu'ils puissent fonctionner correctement. 
 
+\newpage
+
 \subsection{Vulnérabilités liées aux équipements IoT}\label{vuln_IoT}
 
 \par Les caractéristiques généralement présentées par les équipements décrites comme des restrictions dans la \wordlink{restr_IoT}{sous-section} portent à conséquence en terme de sécurité. Il en résulte de potentielles vulnérabilités \cite{Huichen2016}, couvertes ou non par ces équipements en fonction de leur conception et implémentation spécifique. Celles-ci sont brièvement décrites ci-dessous.\\
@@ -600,6 +618,8 @@ Les différents composants du système et les applications qui y sont relatives 
 \par L'\textbf{hétérogénéité des équipements} peut être problématique pour d'une part définir des standards et d'autre part avoir une bonne connaissance technique de chacun des équipements évoluant par exemple dans une smarthome. La documentation pour chaque équipement devrait alors lui être spécifique, et pour peu qu'elle existe il faudrait qu'elle développe les mécanismes de sécurité fournis avec l'équipement. Allant de paire avec cela, les systèmes de mises-à-jours et patchs de sécurité divergent de l'un à l'autre.\\
 
 \par Dans le cas particulier des smarthomes, le \textbf{manque de connaissances des utilisateurs} en terme de sécurité informatique \cite{Nthala2018} peut être considéré comme une vulnérabilité car il peut en résulter une mauvaise installation ou configuration des systèmes menant à des failles exploitables. Conjugué avec le fait que les constructeurs des équipements que l'habitant achète ne mettent pas la priorité sur leur sécurisation, cela ouvre de multiples portes que les attaquants n'ont qu'à ouvrir.
+
+\newpage
 
 \subsection{Architecture globale des systèmes impliquant des équipements IoT}
 
@@ -621,13 +641,13 @@ Elle englobe tout le système de traitement des données acheminées mentionné 
 \minit{La couche application}
 
 Les applications sont diverses et variées, développées dans des domaines tels que repris dans la \wordlink{domains_IoT}{figure}. Pour remplir leurs objectifs, elles utilisent les données obtenus en sortie du processus de traitement opéré par la couche inférieure.
-
-\begin{figure}[!h]
-\centering
-\includegraphics[scale=0.65]{layers_IoT.png}
-\caption{Architecture d'un système IoT proposée par Leloglu \cite{Leloglu2017}}
-\label{prov}
-\end{figure}
+%
+%\begin{figure}[!h]
+%\centering
+%\includegraphics[scale=0.65]{layers_IoT.png}
+%\caption{Architecture d'un système IoT proposée par Leloglu \cite{Leloglu2017}}
+%\label{prov}
+%\end{figure}
 
 \begin{table}[!ht]
     \center
@@ -647,11 +667,14 @@ Couche application & Applications relatives aux smarthomes (interfaçage avec l'
     \caption{Architecture d'un système IoT proposée par Leloglu \cite{Leloglu2017}}
 \end{table}
 
+\newpage
+~
 \todo{Schema d'un exemple avec corresp des couches basé sur \cite{Wind2015}}
-
+\newpage
 \subsection{Les attaques courantes}
 
 Plusieurs types d'attaques peuvent être distingués, exploitant ou non des vulnérabilités recensées dans la \wordlink{vuln_IoT}{section}. Ces scénarios d'attaques typiques sont classés en fonction de la couche dans laquelle ils opèrent, selon Makhdoom et al. \cite{Makhdoom2018} et Leloglu \cite{Leloglu2017}.
+
 
 \subsubsection{Sur la couche perception}
 
@@ -689,7 +712,7 @@ Plusieurs types d'attaques peuvent être distingués, exploitant ou non des vuln
 \subsubsection{Sur la couche support et application}
 
 
-
+\newpage
 \subsection{Ressources, solutions et outils existants}
 
 \subsubsection{Le travail d'OWASP}
@@ -757,6 +780,12 @@ L'objectif est d'en apprendre un maximum sur les équipements connectés au rés
 
 
 %------------- IMPLEM -------------
+
+%------------- CCL -------------
+
+\newpage
+
+\section{Conclusion et travail futur}
 
 \newpage
 

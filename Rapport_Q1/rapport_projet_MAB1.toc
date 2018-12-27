@@ -11,35 +11,36 @@
 \contentsline {section}{\numberline {2}Pr\IeC {\'e}sentations des pare-feux}{9}{section.2}
 \contentsline {subsection}{\numberline {2.1}G\IeC {\'e}n\IeC {\'e}ralit\IeC {\'e}s}{9}{subsection.2.1}
 \contentsline {subsection}{\numberline {2.2}Diff\IeC {\'e}rentes positions et fonctions dans l'architecture r\IeC {\'e}seau}{9}{subsection.2.2}
-\contentsline {subsubsection}{\numberline {2.2.1}Les pare-feux niveau r\IeC {\'e}seau}{10}{subsubsection.2.2.1}
+\contentsline {subsubsection}{\numberline {2.2.1}Les pare-feux niveau r\IeC {\'e}seau}{9}{subsubsection.2.2.1}
 \contentsline {subsubsection}{\numberline {2.2.2}Les pare-feux niveau h\IeC {\^o}te}{10}{subsubsection.2.2.2}
-\contentsline {subsection}{\numberline {2.3}Les types de pare-feu}{12}{subsection.2.3}
-\contentsline {subsubsection}{\numberline {2.3.1}Pare-feu de filtrage (sans \IeC {\'e}tat)}{12}{subsubsection.2.3.1}
+\contentsline {subsection}{\numberline {2.3}Les types de pare-feu}{11}{subsection.2.3}
+\contentsline {subsubsection}{\numberline {2.3.1}Pare-feu de filtrage (sans \IeC {\'e}tat)}{11}{subsubsection.2.3.1}
 \contentsline {subsubsection}{\numberline {2.3.2}Pare-feu \IeC {\`a} \IeC {\'e}tat}{12}{subsubsection.2.3.2}
 \contentsline {subsubsection}{\numberline {2.3.3}Pare-feu applicatif}{12}{subsubsection.2.3.3}
-\contentsline {subsubsection}{\numberline {2.3.4}Pare-feu applicatif proxy}{14}{subsubsection.2.3.4}
-\contentsline {subsubsection}{\numberline {2.3.5}Pare-feu identifiant}{14}{subsubsection.2.3.5}
-\contentsline {subsection}{\numberline {2.4}Syst\IeC {\`e}mes de d\IeC {\'e}tection d'intrusion (\textit {IDS})}{15}{subsection.2.4}
-\contentsline {subsubsection}{\numberline {2.4.1}Les NIDSs}{15}{subsubsection.2.4.1}
-\contentsline {subsubsection}{\numberline {2.4.2}Les HIDSs}{16}{subsubsection.2.4.2}
-\contentsline {subsubsection}{\numberline {2.4.3}Les DIDSs}{16}{subsubsection.2.4.3}
-\contentsline {subsection}{\numberline {2.5}Syst\IeC {\`e}mes de pr\IeC {\'e}vention d'intrusion (\textit {IPS})}{17}{subsection.2.5}
-\contentsline {subsection}{\numberline {2.6}Les pare-feux nouvelle g\IeC {\'e}n\IeC {\'e}ration}{17}{subsection.2.6}
-\contentsline {subsection}{\numberline {2.7}Les pare-feux de r\IeC {\'e}f\IeC {\'e}rence}{18}{subsection.2.7}
-\contentsline {subsubsection}{\numberline {2.7.1}Sous forme de software}{18}{subsubsection.2.7.1}
-\contentsline {subsubsection}{\numberline {2.7.2}Sous forme d'appliance}{19}{subsubsection.2.7.2}
-\contentsline {section}{\numberline {3}La protection dans l'IoT}{21}{section.3}
-\contentsline {subsection}{\numberline {3.1}Motivations et exemples}{21}{subsection.3.1}
-\contentsline {subsection}{\numberline {3.2}Description des besoins en terme de s\IeC {\'e}curit\IeC {\'e}}{23}{subsection.3.2}
-\contentsline {subsection}{\numberline {3.3}Vuln\IeC {\'e}rabilit\IeC {\'e}s li\IeC {\'e}es aux \IeC {\'e}quipements IoT}{23}{subsection.3.3}
-\contentsline {subsection}{\numberline {3.4}Architecture globale des syst\IeC {\`e}mes impliquant des \IeC {\'e}quipements IoT}{24}{subsection.3.4}
+\contentsline {subsubsection}{\numberline {2.3.4}Pare-feu applicatif proxy}{13}{subsubsection.2.3.4}
+\contentsline {subsubsection}{\numberline {2.3.5}Pare-feu identifiant}{13}{subsubsection.2.3.5}
+\contentsline {subsection}{\numberline {2.4}Syst\IeC {\`e}mes de d\IeC {\'e}tection d'intrusion (\textit {IDS})}{14}{subsection.2.4}
+\contentsline {subsubsection}{\numberline {2.4.1}Les NIDSs}{14}{subsubsection.2.4.1}
+\contentsline {subsubsection}{\numberline {2.4.2}Les HIDSs}{15}{subsubsection.2.4.2}
+\contentsline {subsubsection}{\numberline {2.4.3}Les DIDSs}{15}{subsubsection.2.4.3}
+\contentsline {subsection}{\numberline {2.5}Syst\IeC {\`e}mes de pr\IeC {\'e}vention d'intrusion (\textit {IPS})}{16}{subsection.2.5}
+\contentsline {subsection}{\numberline {2.6}Les pare-feux nouvelle g\IeC {\'e}n\IeC {\'e}ration}{16}{subsection.2.6}
+\contentsline {subsection}{\numberline {2.7}Les pare-feux de r\IeC {\'e}f\IeC {\'e}rence}{17}{subsection.2.7}
+\contentsline {subsubsection}{\numberline {2.7.1}Sous forme de software}{17}{subsubsection.2.7.1}
+\contentsline {subsubsection}{\numberline {2.7.2}Sous forme d'appliance}{18}{subsubsection.2.7.2}
+\contentsline {section}{\numberline {3}La protection dans l'IoT}{20}{section.3}
+\contentsline {subsection}{\numberline {3.1}Motivations et exemples}{20}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Description des besoins en terme de s\IeC {\'e}curit\IeC {\'e}}{21}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Vuln\IeC {\'e}rabilit\IeC {\'e}s li\IeC {\'e}es aux \IeC {\'e}quipements IoT}{22}{subsection.3.3}
+\contentsline {subsection}{\numberline {3.4}Architecture globale des syst\IeC {\`e}mes impliquant des \IeC {\'e}quipements IoT}{23}{subsection.3.4}
 \contentsline {subsection}{\numberline {3.5}Les attaques courantes}{25}{subsection.3.5}
 \contentsline {subsubsection}{\numberline {3.5.1}Sur la couche perception}{25}{subsubsection.3.5.1}
-\contentsline {subsubsection}{\numberline {3.5.2}Sur la couche r\IeC {\'e}seau}{27}{subsubsection.3.5.2}
-\contentsline {subsubsection}{\numberline {3.5.3}Sur la couche support et application}{28}{subsubsection.3.5.3}
-\contentsline {subsection}{\numberline {3.6}Ressources, solutions et outils existants}{28}{subsection.3.6}
-\contentsline {subsubsection}{\numberline {3.6.1}Le travail d'OWASP}{28}{subsubsection.3.6.1}
-\contentsline {subsubsection}{\numberline {3.6.2}La standardisation de protocoles adapt\IeC {\'e}s s\IeC {\'e}curis\IeC {\'e}s}{28}{subsubsection.3.6.2}
-\contentsline {subsubsection}{\numberline {3.6.3}D\IeC {\'e}tection des \IeC {\'e}quipements en r\IeC {\'e}seau et de leurs vuln\IeC {\'e}rabilit\IeC {\'e}s}{28}{subsubsection.3.6.3}
-\contentsline {paragraph}{\numberline {3.6.3.1}Le scan passif et la prise d'empreintes}{29}{paragraph.3.6.3.1}
-\contentsline {paragraph}{\numberline {3.6.3.2}Le scan actif}{30}{paragraph.3.6.3.2}
+\contentsline {subsubsection}{\numberline {3.5.2}Sur la couche r\IeC {\'e}seau}{25}{subsubsection.3.5.2}
+\contentsline {subsubsection}{\numberline {3.5.3}Sur la couche support et application}{26}{subsubsection.3.5.3}
+\contentsline {subsection}{\numberline {3.6}Ressources, solutions et outils existants}{27}{subsection.3.6}
+\contentsline {subsubsection}{\numberline {3.6.1}Le travail d'OWASP}{27}{subsubsection.3.6.1}
+\contentsline {subsubsection}{\numberline {3.6.2}La standardisation de protocoles adapt\IeC {\'e}s s\IeC {\'e}curis\IeC {\'e}s}{27}{subsubsection.3.6.2}
+\contentsline {subsubsection}{\numberline {3.6.3}D\IeC {\'e}tection des \IeC {\'e}quipements en r\IeC {\'e}seau et de leurs vuln\IeC {\'e}rabilit\IeC {\'e}s}{27}{subsubsection.3.6.3}
+\contentsline {paragraph}{\numberline {3.6.3.1}Le scan passif et la prise d'empreintes}{28}{paragraph.3.6.3.1}
+\contentsline {paragraph}{\numberline {3.6.3.2}Le scan actif}{28}{paragraph.3.6.3.2}
+\contentsline {section}{\numberline {4}Conclusion et travail futur}{30}{section.4}
