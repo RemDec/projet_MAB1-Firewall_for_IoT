@@ -1,5 +1,9 @@
 \begin{thebibliography}{10}
 
+\bibitem{wiki6lowpan}
+6lowpan.
+\newblock Wikipedia article, URL : \url{https://fr.wikipedia.org/wiki/6LoWPAN}.
+
 \bibitem{wikiappfw}
 Application firewall.
 \newblock Wikipedia article, URL :
@@ -65,6 +69,12 @@ Cisco.
   \url{https://www.cisco.com/c/en/us/td/docs/security/asa/asa96/configuration/firewall/asa-96-firewall-config/access-idfw.html},
   \url{https://www.cisco.com/c/en/us/td/docs/security/asa/asa96/configuration/firewall/asa-96-firewall-config/access-idfw.pdf}.
 
+\bibitem{Granjal2015}
+Jorge Granjal, Edmundo Monteiro, and Jorge Sá~Silva.
+\newblock Security for the internet of things: A survey of existing protocols
+  and open research issues.
+\newblock {\em IEEE Communications Surveys \& Tutorials}, pages 1--1, 07 2015.
+
 \bibitem{Shimonski2013}
 Robert J.~Shimonski, Debra Littlejohn~Shinder, and Thomas W.~Shinder, editors.
 \newblock {\em The Best Damn Firewall Book Period}.
@@ -81,6 +91,11 @@ Sylvain Kubler, Kary Främling, and Andrea Buda.
 \newblock A standardized approach to deal with firewall and mobility policies
   in the {I}o{T}.
 \newblock {\em Pervasive Mobile Computing}, 2014.
+
+\bibitem{Lakkundi2014}
+Vishwas Lakkundi and Keval Singh.
+\newblock Lightweight dtls implementation in coap-based internet of things.
+\newblock 09 2014.
 
 \bibitem{Leloglu2017}
 Engin Leloglu.

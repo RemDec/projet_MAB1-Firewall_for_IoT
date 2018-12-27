@@ -1,6 +1,4 @@
-This is BibTeX, Version 0.99d (TeX Live 2015/Debian)
-Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
-The top-level auxiliary file: rapport_projet_MAB1.aux
+This is BibTeX, Version 0.99dThe top-level auxiliary file: rapport_projet_MAB1.aux
 The style file: plain.bst
 Database file #1: articles.bib
 I was expecting an "="---line 14 of file articles.bib
@@ -19,46 +17,7 @@ Warning--to sort, need author or key in wikifwFR
 Warning--to sort, need author or key in wikiappfw
 Warning--to sort, need author or key in wikifw
 Warning--to sort, need author or key in frameIP
+Warning--to sort, need author or key in wiki6lowpan
+Warning--empty booktitle in Lakkundi2014
 Warning--empty booktitle in Palka2011
-You've used 22 entries,
-            2118 wiz_defined-function locations,
-            610 strings with 7292 characters,
-and the built_in function-call counts, 4783 in all, are:
-= -- 457
-> -- 174
-< -- 1
-+ -- 77
-- -- 52
-* -- 233
-:= -- 772
-add.period$ -- 60
-call.type$ -- 22
-change.case$ -- 90
-chr.to.int$ -- 0
-cite$ -- 31
-duplicate$ -- 206
-empty$ -- 450
-format.name$ -- 52
-if$ -- 1034
-int.to.chr$ -- 0
-int.to.str$ -- 22
-missing$ -- 10
-newline$ -- 106
-num.names$ -- 27
-pop$ -- 152
-preamble$ -- 1
-purify$ -- 71
-quote$ -- 0
-skip$ -- 156
-stack$ -- 0
-substring$ -- 142
-swap$ -- 30
-text.length$ -- 1
-text.prefix$ -- 0
-top$ -- 0
-type$ -- 86
-warning$ -- 9
-while$ -- 28
-width$ -- 24
-write$ -- 207
 (There were 2 error messages)

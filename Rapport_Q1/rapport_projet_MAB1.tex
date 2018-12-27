@@ -13,10 +13,19 @@
 \usepackage[dvipsnames]{xcolor}
 \usepackage{titling}
 \usepackage{subfig}
+\usepackage[bottom]{footmisc}
+\usepackage{titlesec}
+
+\setcounter{secnumdepth}{4}
 
 \newcommand{\minit}[1]{\noindent{\small\textbf{ \underline{#1}}}\vspace{0.2cm}}
 \newcommand{\todo}[1]{\par{\color{red} /---| A faire : #1 |---\textbackslash\\}}
 \newcommand{\wordlink}[2]{\hyperref[#1]{#2~\ref{#1}}}
+
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
 
 %-- Logos PDG --
 \pretitle{
@@ -72,6 +81,7 @@ Faculté des Sciences, Université de Mons}
 ~\\
 %https://www.entrepreneur.com/article/228489
 Depuis maintenant plusieurs années, la connectivité n'a cessé d'évoluer : en se limitant au domaine de l'Internet entre 2000 et 2015, une estimation de l'augmentation du pourcentage de la population mondiale l'utilisant avoisine 40\%  \cite{IWS} \cite{Cable}. Que ce soit dans le cadre d'infrastructures de type \og mainframe \fg \ ou dans le contexte des ordinateurs personnels, les technologies et équipements relatifs au réseau et aux communications sont devenus indispensables. En raison du potentiel croissant d'interconnexion, les ordinateurs et équipements mis en réseau s'exposent à davantage de menaces. Heureusement, parallèlement à cette évolution, les performances de ces machines rejoignant de nouveaux réseaux ont également suivi une amélioration en terme de performances. Cela a permis d'en renforcer la sécurité à plusieurs niveaux et surtout d'intercepter efficacement les menaces étrangères liées à l'utilisation des réseaux. À l'heure actuelle, les OS utilisés classiquement sur des machines desktop fournissent un pare-feu simple (\textit{Windows Defender}, un utilitaire fourni de base dans MAC OS X, \textit{iptables/Netfilter} ou autre pour les distributions Linux). Ce dernier tourne en arrière plan de façon quasi invisible car il demande peu de ressources par rapport à ce qu'une machine actuelle peut offrir.\\
+
 
 \par En parallèle avec la montée en puissance de ces machines de type desktop, serveurs, etc. s'est développée depuis à peu près les années 2000 la tendance de l'\og Internet des Objets \fg{}, ou encore plus communément abrégé IoT pour \textit{Internet of Things}. Bien qu'assez large, cette dénomination regroupe beaucoup d'objets et de concepts, qu'ils soient virtuels ou non mais possédant un dénominateur commun : la capacité de communiquer en réseau avec d'autres équipements. Cela englobe par exemple la domotique, les outils et capteurs de mesures diverses, les imprimantes et scanneurs en réseau, etc. Tous ces éléments convergeraient idéalement vers une mise en réseau commune, leur permettant de communiquer malgré leur nature hétérogène \cite{Kubler2014}. Cela peut se faire via le réseau Internet, il n'est pas rare d'orienter ces connections vers un cloud permettant de traiter globalement et intelligemment la masse de données qu'il reçoit de ces équipements \cite{Huichen2016}. Or, comme évoqué ci-dessus, plus on s'interconnecte et plus on s'ouvre à des attaquants potentiels, ce qui pose problème si rien n'est mis en place pour s'en protéger.\\
 
@@ -201,6 +211,27 @@ Ces contraintes sont aussi identiques à celles des systèmes embarqués classiq
 
 \subsection{Protocoles adaptés à l'IoT}\label{IoT_prot}
 
+\par Les restrictions communément présentées par les équipements IoT énumérées dans la \wordlink{restr_IoT}{sous-section} imposent de repenser les protocoles utilisés dans un réseau non soumis à ces contraintes. Les protocoles décrits ci-dessous ont été conçus dans cette optique et sont utilisables dans un réseau composé d'équipements restreints en ressources, tel qu'un réseau de capteurs communiquant via la technologie sans-fil (WSN - \textit{Wireless Sensors Network}). La \wordlink{IoT_stack}{figure} en présente un récapitulatif, mettant en exergue les différences avec les protocoles utilisés dans un réseau classique (supportant la \textit{stack TCP/IP}).\\
+
+\par Le standard \textbf{IEEE 802.15.4} a été défini par l'IEEE (Institute of Electrical and Electronics Engineers) pour les réseaux sans-fil dits \og personnels \fg \ (WPANs - \textit{Wireless Personal Area Networks}) c-à-d destinés à couvrir une zone d'émission de l'ordre de quelques dizaines de mètres. IEEE 802.15.4 supporte les couches physiques (PHY) et lien (MAC - \textit{Medium Access Control}) dans ce cadre, en considérant la composante du manque de ressources des équipements \cite{Granjal2015} \cite{Huichen2016}.\\
+
+\par Les réseaux utilisant IEEE 802.15.4 dans les couches plus basses sont contraints par la taille maximum que les trames peuvent contenir (pour les couches supérieures) selon ce standard, c-à-d 102 bytes. Sachant que la taille maximum d'un paquet IPv6 peut aller jusqu'à 1280 bytes par défaut, pour utiliser ce protocole il est nécessaire d'introduire un mécanisme d'adaptation. C'est l'objectif principal de la couche intermédiaire \textbf{6LoWPAN} : elle gère la fragmentation et le ré-assemblage des paquets IPv6 pour qu'ils puissent être transférés dans un réseau utilisant IEEE 802.15.4. 6LoWPAN propose d'autres services tels que la compression des en-têtes IPv6 (intuitivement nécessaire) et de l'auto-configuration de l'équipement joignant un réseau (similaire à IPv6).\\
+
+\par L'aspect routage (sous-entendu pour des adresses IPv6) est généralement géré par le biais de \textbf{RPL} (bien qu'il soit possible de le faire avec 6LoWPAN). Il s'agit d'un protocole à vecteurs de distances adapté aux réseaux comme les WSN, comme le suggère son nom complet : \textit{Routing Protocol for Low-Power and Lossy Networks}. Il se base sur une topologie virtuelle en arbre établie par un DODAG (\textit{Destination Oriented Directed Acyclic Graph}), la racine étant un nœud qui a pour tâche de collecter toutes les informations montantes (et de les transmettre à un nœud extérieur au WSN). Plusieurs métriques peuvent être envisagées pour déterminer les routes, comme le nombre de sauts, la qualité des sources d'énergie de chaque nœud, les probabilités de réussite de transmission entre les nœuds. RPL est donc assez souple que pour s'adapter aux besoins et aux particularités des réseaux de natures variées que l'on peut retrouver dans l'IoT.\\
+
+\par \textbf{DTLS} (\textit{Datagram Transport Layer Security}) est le mécanisme de sécurisation sur lequel peuvent se reposer les applications utilisées par les équipements IoT. Son homologue dans les réseaux non restreints est TLS, qui se repose sur la fiabilité de transport garantie par TCP : si un paquet est pas ou mal délivré la connexion est interrompue \cite{Lakkundi2014}. DTLS est conçu pour fonctionner par dessus \textbf{UDP}, qui est le protocole \textit{de facto} utilisé pour le transport dans les réseaux IoT (celui-ci consommant moins de ressources). Il n'est pas forcément destiné à l'IoT, aussi des implémentations ont vu le jour dans cette optique (\href{https://projects.eclipse.org/proposals/tinydtls}{TinyDTLS}).\\
+
+\par Du côté applicatif, \textbf{CoAP} est un bon candidat. Ce protocole est maintenu par l'IETF, par l'équipe du CoRE (\textit{Constrained RESTful Environments}) et est de fait basé sur l'architecture REST \cite{Granjal2015} comme son homologue HTTP. Il s'agit donc d'un modèle client-serveur. CoAP aspire à restreindre le dialecte HTTP à un sous-ensemble adapté aux contraintes des équipements IoT (aux communications 6LoWPAN) et est prévu pour fonctionner sur UDP. Ce dernier n'étant pas un protocole de transport fiable, CoAP implémente un mécanisme simple impliquant des messages \textit{Confirmables} et \textit{Acknowledge} pour pouvoir assurer un minimum de fiabilité si les données à transmettre sont critiques.\\
+
+\par \textbf{MQTT} est un autre protocole qui diffère de CoAP sur plusieurs points\footnote{\url{https://www.eclipse.org/community/eclipse_newsletter/2014/february/article2.php}}. C'est un protocole de messagerie orienté souscription/publication léger par rapport à HTTP, la taille des messages se restreignant à quelques bytes contre plusieurs centaines \cite{Leos2014}. L'architecture est également différente : on a un équipement dit \textit{broker} qui joue le rôle de serveur de messagerie autour duquel s'articulent plusieurs clients désirant communiquer entre eux. Chaque client s'abonne à un \textit{topic} pour lequel il est intéressé en établissant une liaison avec le broker, et recevra un message concernant ce topic posté par tout autre nœud. Cette liaison, ouverte en permanence, utilise TCP et peut donc être authentifiée et chiffrée avec TLS. En plus du fait que la longueur des noms des topics peut poser problème avec la taille maximum des frames 802.15.4, cette utilisation de TCP pose problème pour les nœuds trop limités en ressources. Un port vers UDP du nom de \href{http://www.mqtt.org/new/wp-content/uploads/2009/06/MQTT-SN_spec_v1.2.pdf}{MQTT-SN} a été établi à cette fin.  
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.8]{IoT_stack.png}
+\caption{Comparaison du modèle en couche classique (TCP/IP) avec celui adapté à l'IoT}
+\label{IoT_stack}
+\end{figure}
+
 %------------- PARE FEUX -------------
 
 \section{Présentations des pare-feux}
@@ -211,7 +242,9 @@ Un pare-feu est un dispositif, virtuel ou matériel, qui surveille et contrôle 
 
 \subsection{Différentes positions et fonctions dans l'architecture réseau}
 
-\par Deux classes de pare-feux sont distinguables en fonction de ce qu'ils visent à protéger. La première correspond aux pare-feux au niveau réseau (\textit{network firewalls}), situés en bordure de LANs, WANs et intranets. Ceux-ci, de par leur nature de barrière entre réseaux, peuvent également fournir des services plus évolués : système de NAT, gestion de \textit{zones démilitarisées}, service DHCP, etc. \cite{Shimonski2013} La seconde classe agit au niveau des nœuds du réseau eux-mêmes (\textit{host-based firewalls}), protégeant une machine physique et non pas un réseau entier. Ces pare-feux se présentent donc sous forme de logiciels, directement intégrés au niveau du système d'exploitation ou installés à un plus haut niveau.\\
+\par Deux classes de pare-feux sont distinguables en fonction de ce qu'ils visent à protéger. La première correspond aux pare-feux au niveau réseau (\hyperref[netw_fw]{\textit{network firewalls}}), situés en bordure de LANs, WANs et intranets. Ceux-ci, de par leur nature de barrière entre réseaux, peuvent également fournir des services plus évolués : système de NAT, gestion de \textit{zones démilitarisées} (définies ci-dessous), service DHCP, etc. \cite{Shimonski2013} La seconde classe agit au niveau des nœuds du réseau eux-mêmes (\hyperref[host_fw]{\textit{host-based firewalls}}), protégeant une machine physique et non pas un réseau entier. Ces pare-feux se présentent donc sous forme de logiciels, directement intégrés au niveau du système d'exploitation ou installés à un plus haut niveau.\\
+
+\par La figure \wordlink{netw_IDS}{figure} schématise la place de ces dispositifs, mettant en scène le scénario simplifié d'un utilisateur surfant sur le site d'une entreprise. Une requête HTTP pour une page est créée et envoyée depuis le domicile, destinée aux serveurs de l'entreprise. Ceux-ci sont protégés derrière une machine dédiée uniquement à la fonction de pare-feu (qu'on qualifie alors par le terme \textit{appliance}), dans une zone tampon désignée par \textbf{DMZ} pour \textit{Demilitarized Zone} (zone démilitarisée). Cette zone intermédiaire est un sous-réseau contenant les machines étant destinées à être accédées depuis Internet mais qui n'ont aucun besoin d'accéder au réseau local de l'entreprise (typiquement des serveurs). Ainsi, si une attaque contre ces machines aboutit et que l'attaquant en prend le contrôle, il n'a pas encore un accès direct aux autres machines de l'entreprise (si le pare-feu est toujours fonctionnel). Cela permet en plus d'établir un filtrage plus fin effectué par le pare-feu, qui utilise des règles différentes en fonction de la zone ciblée et donc des services à considérer comme légitimes.
 
 \subsubsection{Les pare-feux niveau réseau}\label{netw_fw}
 
@@ -256,14 +289,14 @@ Un pare-feu est un dispositif, virtuel ou matériel, qui surveille et contrôle 
 \vspace{0.2cm}
 \item[$\bullet$] Présenter de l'automatisation car d'une part car un utilisateur non-expérimenté pour sa configuration doit quand même rester protégé et d'autre part il doit pouvoir se mettre à jour automatiquement
 \vspace{0.2cm}
-\item[$\bullet$] Agir au niveau applicatif : un malware pourrait utiliser le port web 80 pour se répandre par exemple, pour détecter cela il faut analyser les payloads des paquets et disposer d'une base de données à jour pour y déceler des patterns malicieux
+\item[$\bullet$] Agir au niveau applicatif : un malware pourrait utiliser le port web 80 pour se répandre par exemple, pour détecter cela il faut analyser les payloads des paquets et disposer d'une base de données à jour pour y déceler des patterns malicieux sur base de leur signature
 \vspace{0.2cm}
 \item[$\bullet$] Alerter l'utilisateur quand un événement survient, et le logger avec suffisamment d'informations pour qu'il puisse prendre une décision adaptée
 \vspace{0.2cm}
 \item[$\bullet$] Éviter les \textit{faux-positifs} (bloquer du trafic légitime)
 \end{itemize}
 \vspace{0.5cm}
-\par Que ce soit en entreprise ou dans une habitation, il est donc probable que l'on retrouve des pare-feux appartenant à ces deux classes distinctes là où ils sont efficaces (voir  \wordlink{netw_IDS}{Figure}). Il ne s'agit que d'échelles différentes, qui impliquent également des intervenants différents. En entreprise, l'administrateur sécurité/réseau configure du matériel spécifique afin de sécuriser les frontières de son réseau tout en préservant ses performances. Il est aussi possible qu'il installe dans les machines internes de son réseau des pare-feux assez puissants pour empêcher les propagations des attaques déclenchées. Dans le domicile, l'habitant est sommairement protégé par le routeur fournit par son FAI qui inclut un pare-feu réseau par défaut. S'il est un minimum expérimenté, il sera à même d'installer et configurer des pare-feux personnels sur chacun de ses équipements connectés.   
+\par Que ce soit en entreprise ou dans une habitation, il est donc probable que l'on retrouve des pare-feux appartenant à ces deux classes distinctes là où ils sont efficaces (voir  \wordlink{netw_IDS}{Figure}). Il ne s'agit que d'échelles différentes, qui impliquent également des intervenants différents. En entreprise, l'administrateur sécurité/réseau configure du matériel spécifique afin de sécuriser les frontières de son réseau tout en préservant ses performances. Il est aussi possible qu'il installe dans les machines internes de son réseau des pare-feux assez puissants pour empêcher les propagations des attaques déclenchées. Dans le domicile, l'habitant est sommairement protégé par le routeur fournit par son FAI qui inclut un pare-feu réseau par défaut. S'il est un minimum expérimenté, il sera à même d'installer et configurer des pare-feux personnels sur chacun de ses équipements connectés, pour autant que cela soit possible (par exemple, les contraintes liées aux équipements de l'IoT décrites dans la \wordlink{restr_IoT}{sous-section} sont un  frein à cela).   
 
 
 \begin{figure}[!h]
@@ -295,9 +328,7 @@ Ce type de pare-feu tombe en désuétude car il est trop simple à duper par des
 
 Le but de ce type de pare-feu dit \textit{stateful} est d'améliorer les techniques de filtrage sans état en maintenant de l'information sur les flux passant au travers, principalement TCP. Effectivement, au contraire d'UDP, TCP est un protocole qui garde un état qui se traduit dans certains champs de ses headers. Dès lors, le pare-feu peut accéder à cette information, l'analyser et l'utiliser pour en déduire dans quel état est actuellement la connexion entre les deux processus communiquant sur les deux hôtes impliqués. Cela peut se traduire par l'inspection des flags (SYN, FIN, ...), des numéros de séquences et acquittements qui permettent au pare-feu de contrôler en conséquence le contenu d'une table interne des connexions.\\ 
 
-\newpage
-
-\par L'établissement d'une connexion TCP se fait comme suit : lors de la réception du premier paquet TCP par le pare-feu, celui-ci va le soumettre à ses règles de filtrage définies comme dans un pare-feu sans état. Si le paquet est valide, il est retransmis pour poursuivre librement sa route et une entrée est ajoutée dans la table interne du pare-feu. Celle-ci va changer d'état à chaque paquet de la communication reçu, jusqu'à arriver dans un état \textit{established} correspondant à la fin du 3-way handshake TCP. Tous les paquets suivants pourront alors être traités rapidement en établissant la correspondance entre ses en-têtes et celles de l'entrée en état estbalished dans la table (qui sont donc théoriquement également légitimes). Cette façon de procéder est plus efficace que de soumettre chaque paquet individuellement aux règles de filtrage qui peuvent être complexes et demander beaucoup de travail et donc gourmandes en temps.\\
+\par L'établissement d'une connexion TCP se fait comme suit : lors de la réception du premier paquet TCP par le pare-feu, celui-ci va le soumettre à ses règles de filtrage définies comme dans un pare-feu sans état. Si le paquet est valide, il est retransmis pour poursuivre librement sa route et une entrée est ajoutée dans la table interne du pare-feu. Celle-ci va changer d'état à chaque paquet de la communication reçu, jusqu'à arriver dans un état dit \textit{established} correspondant à la fin du 3-way handshake TCP. Tous les paquets suivants pourront alors être traités rapidement en établissant la correspondance entre ses en-têtes et celles de l'entrée en état estbalished dans la table (qui sont donc théoriquement également légitimes). Cette façon de procéder est plus efficace que de soumettre chaque paquet individuellement aux règles de filtrage qui peuvent être complexes et demander beaucoup de travail et donc gourmandes en temps.\\
 
 \par Dans le cas d'une communication utilisant UDP, le contrôle possible est moins fin car il ne s'agit pas d'un protocole à état et les échanges ne sont pas bidirectionnels. Dans ce cas, lorsque le premier paquet d'une transmission arrive en entrée du pare-feu, il est soumis aux règles de filtrage. S'il est considéré comme correct, le pare-feu ajoute une entrée dans sa table pour les couples d'adresses et ports et considérera les suivants comme légitimes. Cette entrée expirera après un temps donné sans autre nouveau paquet la matchant. 
 
@@ -332,7 +363,7 @@ Ces pare-feux mêlent l'inspection au niveau applicatif et le rôle de proxy pou
 
 \subsubsection{Pare-feu identifiant}\label{idfw}
 
-Pour ce type de dispositif, on veut pouvoir définir des règles de filtrage en fonction de l'utilisateur ou le groupe qui se cache derrière un paquet ou un flux. Plusieurs schémas d'association existent, définissant ce à quoi la notion d'un utilisateur correspond. Par exemple certains de ces pare-feux comme \href{http://www.openbsd.org/faq/pf/authpf.html}{authpf} sous OpenBSD, qui étant placés sur un gateway, exigent qu'avant d'autoriser un flux l'utilisateur d'un hôte communiquant doit établir une connexion SSH avec ce dernier. Un autre type d'association possible peut se faire par adresse MAC.\\
+Pour ce type de dispositif, on veut pouvoir définir des règles de filtrage en fonction de l'utilisateur ou le groupe qui se cache derrière un paquet ou un flux. Plusieurs schémas d'association existent, définissant ce à quoi la notion d'un utilisateur correspond. Par exemple certains de ces pare-feux comme \href{http://www.openbsd.org/faq/pf/authpf.html}{authpf}\footnote{\url{http://www.openbsd.org/faq/pf/authpf.html}} sous OpenBSD, qui étant placés sur un gateway, exigent qu'avant d'autoriser un flux l'utilisateur d'un hôte communiquant doit établir une connexion SSH avec ce dernier. Un autre type d'association possible peut se faire par adresse MAC.\\
 
 \par Les pare-feux destinés aux entreprises développés par Cisco (ASA) \cite{cisco2018} et Palo Alto Networks \cite{Kokko2017} utilisent des gestionnaires d'annuaires d'utilisateurs basés sur les services \href{https://fr.wikipedia.org/wiki/Active_Directory}{Windows Active Directory}. Dans ces bases de données utilisateurs, on retrouve les différentes adresses IP associées à un utilisateur particulier ainsi que les groupes qu'ils composent. Les interactions avec le pare-feu sont transparentes à ce niveau, en effet ce dernier travaille avec les objets \og utilisateurs \fg et non plus directement les IPs (bien que cela reste possible). Procéder de cette façon apporte plusieurs avantages \cite{cisco2018}:
 \vspace{0.2cm}
@@ -362,15 +393,13 @@ Ce type de systèmes, abrégé par IDS pour \textit{intrusion detection system},
 \item[$\bullet$] Surveillance distribuée du réseau (\textit{NIDS}:\textit{ Distributed IDS}) 
 \end{itemize} 
 ~\\
-\minit{Les NIDSs}
+\subsubsection{Les NIDSs}
 
 \par Ces dispositifs surveillent le réseau ou un segment de ce réseau, sous forme d'un équipement intermédiaire de capture (ses interfaces sont en mode écoute pour l'entièreté du trafic transitant par le segment). Il est important d'avoir plusieurs unités de surveillance distinctes dans le cas où le réseau est scindé en plusieurs modules/zones. Par exemple, un serveur web d'une entreprise pourrait être infecté et servir de plateforme de lancement d'une attaque depuis le réseau interne, vers un autre module contenant des serveurs internes.\\
 
 \par Deux manières de procéder à l'analyse sont possibles : soit en mode \textit{in-line} soit en mode \textit{off-line}. Le cas de la capture du trafic par interface décrit ci-dessus correspond au mode in-line. Le trafic est analysé en temps réel, ce qui permet une plus grande réactivité mais peut constituer un goulot d'étranglement si le processus de décision est coûteux. Le mode off-line est donc plus avantageux à ce niveau, puisque le processus d'analyse et décision est opéré sur des données stockées et non pas à traiter à la volée. Une inspection plus fine est alors envisageable, cependant le principal défaut de ce mode de fonctionnement reste le manque de réactivité à une attaque.
 
-~\\
-\newpage
-\minit{Les HIDSs}
+\subsubsection{Les HIDSs}
 
 \par Les IDSs orientés systèmes, \textit{Host-based IDS}, sont élaborés dans le but de protéger uniquement l'hôte sur lequel ils sont déployés et non plus un segment du réseau. Ils ciblent également de façon précise le trafic qu'ils doivent surveiller en fonction de la nature du système. Par exemple, si l'hôte ne maintient aucun service DNS, il est inutile d'analyser des requêtes DNS qui lui parviendraient pour y déceler une menace exploitant une faille connue dans le protocole DNS. Puisque les HIDSs vont s'exécuter sous forme d'un processus (\textit{daemon}) sur la machine hôte qui elle-même fonctionne sous un OS classique, un lien doit être établi entre les deux pour que l'HIDS puisse surveiller le système et les interfaces réseaux. Certains vont même jusqu'à rechercher les intrusions dans le noyau de l'OS.\\
 
@@ -387,7 +416,7 @@ Ce type de systèmes, abrégé par IDS pour \textit{intrusion detection system},
 \par D'autre part, certaines sections plus critiques du système peuvent être intéressantes à analyser finement, car c'est généralement là qu'un attaquant voulant prendre le contrôle de la machine va laisser des traces en y installant ses outils softwares. Un HIDS voulant s'assurer que des sections critiques (système de fichiers, registres, ...) ne sont pas infectées va maintenir une base de données de leur évolution dans le temps, sous forme d'attributs et sommes de contrôles (\textit{checksums}). Ces dernières permettent d'assurer l'intégrité des ressources concernées en en comparant les valeurs régulièrement dans le temps, et notifiant les différences observées.
 
 ~\\
-\minit{Les DIDSs}
+\subsubsection{Les DIDSs}
 %https://www.symantec.com/connect/articles/introduction-distributed-intrusion-detection-systems
 \par Les DIDSs se présentent sous la forme d'une architecture distribuée d'IDSs (surveillant des segments de réseaux et/ou hôtes), et d'une unité centrale de management qui récolte toutes les informations de ces dispositifs déployés. Ainsi, la machine centrale peut maintenir une vaste base de données centralisée, représentant l'état global du réseau à protéger. Cette approche présente plusieurs 
 avantages :
@@ -403,7 +432,7 @@ avantages :
 \end{itemize}
 \vspace{0.4cm}
 
-\par Afin de transmettre les alertes générées jusqu'à l'unité centrale efficacement, les différents nœuds IDSs du réseau devraient communiquer de façon homogène. À cette fin, un standard a été écrit sous le nom de format IDMEF (\textit{Intrusion Detection Message Exchange Format}, RFC 4765). Ce langage d'alertes est lisible par l'humain, utilisant le format XML. Utilisé par tous les nœuds qui effectuent la tâche de détection d'intrusion (quelque soit le type et l'implémentation), l'unité centrale qui récolte toutes les alertes peut utiliser un outil de pilotage de la sécurité du réseau global comme \href{https://fr.wikipedia.org/wiki/Prelude_SIEM}{Prelude}. Cet outil normalise, trie, agrège, corrèle et en tire les conclusions sur des décisions à prendre pour protéger le réseau, tout en fournissant une interface (et des logs) via laquelle l'administrateur peut surveiller ce qui se passe globalement.
+\par Afin de transmettre les alertes générées jusqu'à l'unité centrale efficacement, les différents nœuds IDSs du réseau devraient communiquer de façon homogène. À cette fin, un standard a été écrit sous le nom de format IDMEF (\textit{Intrusion Detection Message Exchange Format}, RFC 4765). Ce langage d'alertes est lisible par l'humain, utilisant le format XML. Utilisé par tous les nœuds qui effectuent la tâche de détection d'intrusion (quelque soit le type et l'implémentation), l'unité centrale qui récolte toutes les alertes peut utiliser un outil de pilotage de la sécurité du réseau global comme \href{https://fr.wikipedia.org/wiki/Prelude_SIEM}{Prelude}\footnote{\url{https://en.wikipedia.org/wiki/Prelude_SIEM_(Intrusion_Detection_System)}}. Cet outil normalise, trie, agrège, corrèle et en tire les conclusions sur des décisions à prendre pour protéger le réseau, tout en fournissant une interface (et des logs) via laquelle l'administrateur peut surveiller ce qui se passe globalement.
 
 \subsection{Systèmes de prévention d'intrusion (\textit{IPS})}\label{IPS}
 %https://fr.wikipedia.org/wiki/Syst%C3%A8mes_de_d%C3%A9tection_et_de_pr%C3%A9vention_d%27intrusions_dans_les_syst%C3%A8mes_distribu%C3%A9s
@@ -560,9 +589,9 @@ Les différents composants du système et les applications qui y sont relatives 
 
 \par L'exemple des caméras IP présenté en \hyperref[motiv_IoT]{introduction} l'illustre bien : l'\textbf{accessibilité aux équipements depuis le réseau} (surtout Internet) est un problème conséquent, dans la mesure où il n'est pas pris en considération à la conception du système. Des mesures découlant du principe d'authentification doivent être prises afin de limiter les accès aux entités légitimes uniquement.\\
 
-\par Une autre vulnérabilité découle directement du fait que les équipements sont \textbf{restreints en ressources CPU et mémoire}. On y retrouve des petits microcontrôleurs travaillant sur 8 bits \cite{Huichen2016}, ce qui contraint beaucoup l'utilisation des algorithmes de chiffrement classiques (AES, 3DES, TEA, etc.). C'est donc une vulnérabilité importante qu'il est capital de contrer car transmettre des données en clair va à l'encontre des principes de confidentialité énoncé plus tôt. Des solutions sous forme d'algorithmes adaptés \cite{Batra2016} ou de matériel dédié [CITE] existent.\\
+\par Une autre vulnérabilité découle directement du fait que les équipements sont \textbf{restreints en ressources CPU et mémoire}. On y retrouve des petits microcontrôleurs travaillant sur 8 bits \cite{Huichen2016}, ce qui contraint beaucoup l'utilisation des algorithmes de chiffrement classiques (AES, 3DES, TEA, etc.). C'est donc une vulnérabilité importante qu'il est capital de contrer car transmettre des données en clair va à l'encontre des principes de confidentialité énoncé plus tôt. Des solutions sous forme d'algorithmes adaptés \cite{Batra2016} ou de matériel spécialement dédié au chiffrement\footnote{\url{https://www.zymbit.com/make-things-secure-1/}} existent.\\
 
-\par Outre les restrictions en terme de capacité, une autre composante est à prendre en compte : \textbf{la source d'énergie limitée} (pour les équipements utilisant une batterie par exemple). Cette vulnérabilité ouvre la porte aux attaques d'exhaustion, consistant à désactiver un équipement par le biais de l'épuisement de sa source d'alimentation [CITE] (attaque dite de \href{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6021927/}{\textit{Depletion-of-Battery}}). C'est une atteinte au principe de disponibilité.\\
+\par Outre les restrictions en terme de capacité, une autre composante est à prendre en compte : \textbf{la source d'énergie limitée} (pour les équipements utilisant une batterie par exemple). Cette vulnérabilité ouvre la porte aux attaques d'exhaustion, consistant à désactiver un équipement par le biais de l'épuisement de sa source d'alimentation \cite{Makhdoom2018} (attaque dite de \href{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6021927/}{\textit{Depletion-of-Battery}}). C'est une atteinte au principe de disponibilité.\\
 
 \par Les \textbf{firmwares non mis à jour} et globalement les \textbf{constructeurs peu impliqués dans la sécurité} de leurs produits constituent une vulnérabilité qui peut être exploitée par des attaquants. Par exemple, les identifiants par défaut ou stockés en clair. Peu d'équipements installés dans les smarthomes bénéficient d'un service de mise à jour permettant des patchs de sécurité \cite{Huichen2016} suites à des failles décelées et rendues accessibles publiquement.\\
 
@@ -582,7 +611,7 @@ Il s'agit de la couche la plus basse, où on considère les équipements par rap
 
 \minit{La couche réseau}
 
-Cette couche a pour objectif le transfert des informations récoltées par la couche perception depuis les équipements qui les ont réalisées et jusqu'au système qui en effectuera le traitement. On distingue généralement deux parties dans ce transfert, la première correspondant à l'acheminement des données à travers un réseau local jusqu'à un portail qui constituera le point de départ de la deuxième partie du transfert, utilisant le réseau Internet pour atteindre le système de traitement terminal.\\
+Cette couche a pour objectif le transfert des informations récoltées par la couche perception depuis les équipements qui les ont réalisées et jusqu'au système qui en effectuera le traitement. On distingue généralement deux parties dans ce transfert, la première correspondant à l'acheminement des données à travers un réseau local jusqu'à un portail qui constituera le point de départ de la deuxième partie du transfert, utilisant le réseau Internet pour atteindre le système de traitement terminal. Afin de rendre possible les communications entre ces deux réseaux de natures différentes, il est parfois nécessaire d'introduire une couche d'adaptation dans la pile des protocoles utilisés, e.g. \textit{6LoWPAN} qui permet des échanges basés sur IPv6 dans les réseaux contraints en ressources.\\
 
 \minit{La couche support}
 
@@ -604,15 +633,15 @@ Les applications sont diverses et variées, développées dans des domaines tels
     \center
     \begin{tabular}[b]{|c|p{12cm}|}
     \hline
-		Niveau dans le système &  Exemples d'outils, protocoles et équipements y opérant\\
+		Niveau dans le système &  Exemples de technologies, systèmes et équipements y opérant\\
 	\hline
-Couche perception & Caméras, microphones, capteurs, GPS et divers systèmes embarqués mesurant et interagissant avec l'environnement qui leur est extérieur (montres intelligentes, détecteurs, etc.)\\
+Couche perception & Caméras, microphones, capteurs, GPS et divers systèmes embarqués mesurant et interagissant avec l'environnement qui leur est extérieur (montres intelligentes, détecteurs, etc.), ainsi que la technologie RFID. Côté software : OS adapté aux systèmes embarqués tels que Contiki, tinyOS, LiteOS, etc.\\
 	\hline
-Couche réseau & Réseaux de capteurs (PROTs), réseaux classiques tels que Internet (IP), 3G, télédistribution.\\
+Couche réseau & Réseaux de capteurs, réseau mobile 2G/3G, réseaux classiques tel que Internet (IP).\\
 	\hline
 Couche support & Cloud, centre de traitement des données, base de données et autres technologies et supports permettant d’agréger, stocker et analyser les données\\
 	\hline
-Couche application & Applications relatives aux smarthomes (interfaçage avec l'utilisateur, optimisation de son quotidien, etc.), applications médicales (surveillance de patients), sociales (smartcity : parkings intelligents, etc.), scientifiques (études des mesures, détection de catastrophes, etc.) et industrielles (arrosage de plants, transport, etc.)\\   
+Couche application & Applications relatives aux smarthomes (interfaçage avec l'utilisateur, optimisation de son quotidien, etc.), applications médicales (surveillance de patients, aides aux invalides, etc.), sociales et structurelles (smartcity : parkings intelligents, etc.), scientifiques (études des mesures, détection de catastrophes, etc.) et industrielles (arrosage de plants, transport, etc.)\\   
   \hline
     \end{tabular}
     \caption{Architecture d'un système IoT proposée par Leloglu \cite{Leloglu2017}}
@@ -626,11 +655,39 @@ Plusieurs types d'attaques peuvent être distingués, exploitant ou non des vuln
 
 \subsubsection{Sur la couche perception}
 
+\par Drainage de batterie (\textit{Depletion-of-Battery attack}) : en apparence justifiée car il s'agit d'un scénario légitime du point de vue de l'utilisation, ce type d'attaque porte à préjudice à un nœud en le bombardant de requêtes qu'il doit traiter car considérée comme légitimes. Cela empêche le nœud de passer en mode veille pour préserver de l'énergie, et peut mener à l'extinction de celui-ci une fois sa source d'énergie épuisée.\\
+
+\par Sabotage du nœud (\textit{Node capturing/cloning}) : un attaquant peut attenter physiquement au système : il est possible qu'il accède à un nœud parmi ceux dispersés dans un réseau de capteur par exemple. Il lui est donc potentiellement possible de le corrompre ou le remplacer physiquement par un nœud intrus qui effectuera un travail dissimulé.\\
+
+\par Brouillage radio (\textit{Signal/Radio jamming}) : un type d'attaque DoS qui vise à occuper le canal (sans-fil) au moment où des nœuds souhaitent également émettre, brouillant les communications.\\
+
+\par Écoute clandestine (\textit{Eavesdropping}) : dans le cadre des communications sans-fi, un attaquant peut placer physiquement un nœud clandestin qui lui permet d'écouter les informations passant par ce canal. Ces informations peuvent être sensibles, telles que des mots de passe transmis en clair par d'autres équipements. Outre cela, le simple fait de savoir quand des informations sont émises sur le canal peut aider un attaquant, par exemple en l'aidant à évaluer quand une maison est occupée.\\
+
+\par Attaque par intrusion (\textit{(Semi-)Invasise intrusions}) : par l'étude des variations de certains paramètres tels que le voltage, le signal de l'horloge, etc., un attaquant peut inférer les opérations qu'un microcontrolleur effectue. Il est aussi possible de déduire certaines valeurs stockées dans la mémoire sensée rester privée telles que les clés maitres de chiffrement (AES ou autre). En appliquant des fluctuations physiques, il est aussi possible de faire en sorte que le CPU exécute au final une autre opération.\\
+%https://www.cl.cam.ac.uk/~sps32/semi-inv_def.html
+
+\par Mise à jour faussée : des implémentations mal faites des mécanismes d'authentification peuvent aider un attaquant à soit maintenir une version du firmware obsolète, soit faire passer une mise à jour falsifiée comme provenant du constructeur officiel de l'équipement. Les patchs relatifs à la sécurité peuvent ainsi être bloqués, et les failles qu'ils corrigeaient laissées exploitables.
+
+
+
 \subsubsection{Sur la couche réseau}
 
-\subsubsection{Sur la couche support}
+\par \textit{Spoofing} : effectuée par le biais de paquets forgés, ce type d'attaque vise à usurper une identité renseignée comme source du paquet falsifié.\\
 
-\subsubsection{Sur la couche application}
+\par \textit{Selective Forwarding} : un nœud infecté ou malicieux introduit dans le réseau peut influencer celui-ci quand il est question de retransmettre des paquets (il effectue un travail de routage). Selon une certaine procédure (créée à une fin spécifique pour attaquer le réseau), le nœud ne retransmet que les paquets qu'il sélectionne. Afin que ce ne soit pas trop évident de déceler le subterfuge, il n'arrête pas toutes les retransmissions.\\
+
+\par Attaque de Sybil : un nœud malicieux gère plusieurs identités simultanément, propres ou en se faisant passer pour un autre nœud. Du point de vue des nœuds légitimes, ce sont donc plusieurs équipements (simultanément ou représenté tour par tour). Une panne ou une attaque sur la disponibilité d'autres nœuds peut ainsi être masquée.\\
+
+\par \textit{Sinkhole/Blackhole attack} : l'attaque consiste à, à partir d'un nœud infecté, consommer les ressources des nœuds voisins dans le rayon d'émission. Cela se fait essentiellement en occupant le canal radio, brouillant les transmissions légitimes. Il en résulte une consommation d'énergie anormalement élevée pour les nœuds dans cette zone, attribuée aux retransmissions alors nécessaires.\\
+
+\par \textit{Wormhole} : cette attaque cible les protocoles de routages, introduisant une confusion dans le calcul des routes. Un nœud infecté va transmettre un paquet qu'il est sensé router, directement vers un autre nœud éloigné en établissant un tunnel invisible pour le protocole de routage. Ainsi, des nouvelles routes vont apparaitre, donnant l'illusion que les deux nœuds sont proches, ce qui pour un protocole de routage se basant sur la distance entre deux nœuds constituera une nouvelle meilleure route (qui ne l'est en réalité pas du tout).
+
+\par \textit{Man-in-the-Middle attack (MITM)} : forme d'eavesdropping où l'attaquant s'interpose entre deux nœuds voulant communiquer légitimement. Il opère de façon à ce que la communication aie lieu normalement du point de vue des deux autres intervenants, mais de sorte que chacun communique avec lui qui joue le rôle d'intermédiaire. Il peut alors accéder au contenu de tous les échanges et le manipuler pour en tirer des informations confidentielles.\\
+
+\par \textit{Hello-flood attack} : inondation du canal par des messages inutiles qui demandent une réponse de la part des nœuds qui le reçoivent (générant ainsi davantage de trafic).\\
+
+\subsubsection{Sur la couche support et application}
+
 
 
 \subsection{Ressources, solutions et outils existants}
@@ -648,15 +705,15 @@ L'équipe travaillant sur le projet a établi \href{https://www.owasp.org/index.
 
 \par 6LowPAN propose déjà des mécanismes utiles pour garantir la sécurité \cite{wiki6lowpan}. Pour éviter les attaques par fragmentation, les options d'en-têtes \textit{Timestamp} et \textit{Nonce} sont un premier rempart. La découverte des voisins d'un nœud est effectuée de façon sécurisée grâce à LSEND (\textit{Lightweight Secure Neighbor Discovery protocol}), version allégée de SEND. Des chercheurs ont également élaboré une version allégée de la suite de protocoles IPsec afin de garantir des communications sécurisées d'un nœud à l'autre dans un réseau 6LowPAN \cite{Huichen2016}. D'autres ont proposé un système d'établissement de connexion sécurisée à partir d'un échange de clés \cite{Huichen2016}.\\
 
-\todo{Lire article protocoles existants et sec dans IoT}
+\par RPL, utilisé pour le routage dans les réseaux de capteurs notamment au dessus de 6LowPAN, propose également des mécanismes de protection. Il s'agit dans ce cas de garantir que quand un nœud sélectionne sont parent pour rejoindre la topologie, ce dernier soit un nœud légitime (éviter le \textit{spoofing}). Des solutions d'autres chercheurs sont présentées par Huichen \cite{Huichen2016} afin de sécuriser la génération des tables de routage dans RPL. Une première est un schéma de topologie authentifiée appelée TRAIL (\textit{Trust Anchor Interconnection Loop}) qui permet la découverte et l'isolation des nœuds falsifiés et où chaque nœud peut en envoyant un message particulier, valider son chemin jusqu'à la racine.\\
 
-\par RPL, utilisé pour le routage dans les réseaux de capteurs et utilisable dans un réseau 6LowPAN, propose également des mécanismes de protection. Il s'agit dans ce cas de garantir 
+\par CoAP, tout comme son homologue HTTP, peut s'appuyer sur une couche intermédiaire plus basse pour assurer un transport sécurisé (chiffré pour préserver la confidentialité). Il s'agit de DTLS (\textit{Datagram Transport Layer Security}), un équivalent de TLS adapté aux contraintes de ressources des équipements de l'IoT. La principale différence réside dans le fait que TLS soit basé sur TCP, au contraire de DTLS qui l'est sur UDP, toujours dans l'optique d'utiliser le minimum de ressources. CoAP offre le choix entre quatre modes relatifs à la sécurité : \textit{NoSec}, \textit{PreSharedKey}, \textit{RawPublicKey} et \textit{Certificate}.
 
-\subsubsection{Détection des vulnérabilités dans un réseau}
+\subsubsection{Détection des équipements en réseau et de leurs vulnérabilités}
 
-Face à un réseau réel, disons local à une habitation possédant des équipements connectés (c-à-d orientée smarthome), il est difficile de se faire une idée de tous les objets y étant connectés et de quelles sont leurs fonctionnalités. Des outils sont nécessaires afin de découvrir le réseau et établir quels équipements peuvent potentiellement être la cible d'attaques. Il en existe une flopée (\href{https://sectools.org/}{sectools.org} en maintient un classement fourni), libres ou commerciaux, possédant une interface graphique ou non, fonctionnels sur des OS variés. Outre ces logiciels complets au champs d'action assez étendu, des outils de scanning plus spécifiques à des cibles (routeur, serveurs, ...) et services (Web, SQL, mail, ...) sont trouvables dans des dépôts dédiés sous la forme de scripts (\href{https://github.com/We5ter/Scanners-Box}{Scanners-box} est dédié à leur référencement). Des exemples sont donnés ci-dessous, classés en deux catégories \cite{Leos2014} en fonction de la manière dont le scan est effectué. Une attention particulière est portée aux outils dédiés à la détection des failles sur les équipements IoT d'un réseau s'il en existe qui y soient dédiés.\\
+Face à un réseau réel, disons local à une habitation possédant des équipements connectés (c-à-d orientée smarthome), il est difficile de se faire une idée de tous les objets y étant connectés et de quelles sont leurs fonctionnalités. Des outils sont nécessaires afin de découvrir le réseau et établir quels équipements peuvent potentiellement être la cible d'attaques. Il en existe une flopée (\href{https://sectools.org/}{sectools.org} en maintient un classement fourni), libres ou commerciaux, possédant une interface graphique ou non, fonctionnels sur des OS variés. Outre ces logiciels complets au champs d'action assez étendu, des outils de scanning plus spécifiques à des cibles (routeur, serveurs, ...) et services (Web, SQL, mail, ...) sont trouvables dans des dépôts dédiés sous la forme de scripts (\href{https://github.com/We5ter/Scanners-Box}{Scanners-box} est dédié à leur référencement). Des exemples sont donnés ci-dessous, classés en deux catégories \cite{Leos2014} en fonction de la manière dont le scan est effectué. Une attention particulière est portée aux outils dédiés à la détection des failles sur les équipements IoT d'un réseau s'il en existe qui y soient dédiés.
 
-\minit{Le scan passif ou la prise d'empreintes}
+\paragraph{Le scan passif et la prise d'empreintes}
 
 L'objectif est d'en apprendre un maximum sur les équipements connectés au réseau sans les interpeller directement. Cela se fait en écoutant toutes les transmissions passant sur un média utilisé par ces équipements, les capturant, les stockant et les agrégeant. Cela est donc assimilable à la pratique du sniffing. L'utilisation qui est faite de ces données varie en fonction de l'application : soit elles sont étudiées telles quelles car c'est le trafic qui est intéressant (\href{https://en.wikipedia.org/wiki/Packet_analyzer}{analyseurs de trafic}), soit elles sont utilisées pour faire de la \og prise d'empreinte\fg \ (\href{https://en.wikipedia.org/wiki/TCP/IP_stack_fingerprinting}{\textit{TCP/IP stack, OS fingerprinting}}) afin de caractériser les nœuds du réseau, soit les deux. Il peut également y avoir, suite à la phase d'écoute passive, des actions entreprises (par exemple si le processus a déterminé qu'un hôte présente une faiblesse exploitable).\\
 
@@ -672,8 +729,7 @@ L'objectif est d'en apprendre un maximum sur les équipements connectés au rés
 \vspace{0.2cm}
 \item[$\bullet$] les services utilisés par les clients et serveurs qui déclarent des champs comme X-Mailer ou User-Agent
 \end{itemize}
-~\\
-
+~
 \par D'autres outils existent, leurs fonctionnalités s'étendant au-delà de ce qui est considérable comme outil passif. On peut citer notamment :
 \begin{itemize}
 \vspace{0.2cm}
@@ -683,7 +739,7 @@ L'objectif est d'en apprendre un maximum sur les équipements connectés au rés
 \end{itemize}
 ~\\
 
-\minit{Le scan actif}
+\paragraph{Le scan actif}
 
 \par Ces logiciels tentent d'établir des connexions avec les hôtes à analyser, à la recherche d'un service répondant donc potentiellement ouvert, non protégé et dont il est possible de soutirer des informations. Une liste de numéros de ports pertinents est construite par le scanneur, utilisée par ce dernier lors de l'analyse des hôtes qu'il trouve dans le réseau. Cette technique basique est appelée \href{https://fr.wikipedia.org/wiki/Balayage_de_ports}{balayage de port}.   Se servant de ces scanneurs comme appoint, les \href{https://fr.wikipedia.org/wiki/Scanneur_de_vuln\%C3\%A9rabilit\%C3\%A9}{scanneurs de vulnérabilités} vont plus loin en tentant de découvrir pour chaque hôte analysé les failles de sécurités auxquelles ils sont exposés (au niveau d'une application, du système d'exploitation ou des interfaces réseaux).\\
 
@@ -698,23 +754,11 @@ L'objectif est d'en apprendre un maximum sur les équipements connectés au rés
 \par \href{https://github.com/threat9/routersploit}{Routersploit} est un framework dédié à la détection et l'exploitation de failles dans les systèmes embarqués. Comme son nom l'indique, la cible est d'avantage les routeurs que les équipements de l'IoT, cependant quelques modules ciblent notamment les caméras et d'autres équipements connectés insolites (projecteur, laveur de laboratoire). L'outil de pénétration \href{https://github.com/zdresearch/OWASP-Nettacker}{Nettacker} développé par OWASP, dont le but est le soutirage et l'agrégation d'informations d'une cible pour en dresser une liste des failles de sécurité, promet également la sortie future d'un module spécifique à l'IoT.
 
 %------------- PARE FEUX + IoT -------------
-\section{Les pare-feux et l'IoT}
 
-\subsection{Différents types d'architecture}
-
-\subsection{Les pare-feux domestiques}
-
-\subsubsection{Caractéristiques d'un réseau domestique}
-
-\subsubsection{Attaques possibles et conséquences}
-
-\subsection{Application et implémentation}
 
 %------------- IMPLEM -------------
-\section{Mise en pratique : ébauche}
-\newpage
-\section*{Conclusion}
 
+\newpage
 
 \bibliographystyle{plain}
 \bibliography{articles}
