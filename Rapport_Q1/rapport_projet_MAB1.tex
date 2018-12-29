@@ -213,7 +213,7 @@ Ces contraintes sont aussi identiques à celles des systèmes embarqués classiq
 Étant conçus pour ne remplir que des fonctions spécifiques, certains équipements ne sont pas programmables en utilisant des langages de haut niveau. Par conséquent, ce sont souvent des boîtes noires difficilement manipulables et statiques : les mises à jour et patch de sécurité ne sont pas déployables aisément par les constructeurs \cite{Huichen2016}. Les seules interactions que l'utilisateur lambda peut avoir avec l'équipement sont celles prévues par l'interface de ce dernier s'il y en a une (pour le configurer, consulter son état, etc.).
 
 
-\subsection{Architectures d'un système d'équipements IoT}\label{arch_IoT}
+%\subsection{Architectures d'un système d'équipements IoT}\label{arch_IoT}
 
 \subsection{Protocoles adaptés à l'IoT}\label{IoT_prot}
 
@@ -627,7 +627,7 @@ Leloglu propose dans \cite{Leloglu2017} un travail de synthèse sur base de plus
 
 \minit{La couche perception}
 
-Il s'agit de la couche la plus basse, où on considère les équipements par rapport à l'environnement dans lequel ils évoluent. Comme expliqué dans la \wordlink{restr_IoT}{sous-section}, ces derniers sont généralement conçus pour remplir une fonction spécifique. C'est dans cette couche qu'elle prend tout son sens, car elle dépend souvent de l'environnement. L'exemple le plus évident est les capteurs, possédant ce qui est nécessaire en terme de matériel pour effectuer une mesure d'une grandeur physique. Les divers systèmes embarqués peuvent également s'intéresser à leur environnement extérieur ou au(x) dispositif(x) qu'ils supervisent (lave-vaisselle connecté, etc.). Une autre technologie que l'on situe à cette couche est celle de la radio-identification (RFID - \textit{radio frequency identification}), considérée comme une prémisse à l'IoT [CITE]. La perception se fait ici au niveau du lecteur RFID, qui capte et interprète les tags RFID qui évoluent dans son environnement. En résumé, l'objectif de cette couche est l'identification des objets uniques et la collecte d'informations de l'environnement physique.\\ 
+Il s'agit de la couche la plus basse, où on considère les équipements par rapport à l'environnement dans lequel ils évoluent. Comme expliqué dans la \wordlink{restr_IoT}{sous-section}, ces derniers sont généralement conçus pour remplir une fonction spécifique. C'est dans cette couche qu'elle prend tout son sens, car elle dépend souvent de l'environnement. L'exemple le plus évident est les capteurs, possédant ce qui est nécessaire en terme de matériel pour effectuer une mesure d'une grandeur physique. Les divers systèmes embarqués peuvent également s'intéresser à leur environnement extérieur ou au(x) dispositif(x) qu'ils supervisent (lave-vaisselle connecté, etc.). Une autre technologie que l'on situe à cette couche est celle de la radio-identification (RFID - \textit{radio frequency identification}), considérée par certain comme une prémisse à l'IoT \cite{Berte2018}. La perception se fait ici au niveau du lecteur RFID, qui capte et interprète les tags RFID qui évoluent dans son environnement. En résumé, l'objectif de cette couche est l'identification des objets uniques et la collecte d'informations de l'environnement physique.\\ 
 
 \minit{La couche réseau}
 
@@ -635,12 +635,12 @@ Cette couche a pour objectif le transfert des informations récoltées par la co
 
 \minit{La couche support}
 
-Elle englobe tout le système de traitement des données acheminées mentionné plus haut. Il s'agit donc de partir des données brutes transmises et de leur appliquer un processus de transformation. Ce dernier peut comprendre de l'agrégation de données, de l'analyse, du tri, de la classification, etc., son but étant d'en tirer des données utiles et pertinentes. Les données finales peuvent ainsi être stockées dans une base de données sur laquelle une ou des applications peuvent travailler (les couches support et application étant très proches, on les considère parfois comme une seule).\\
+Elle englobe tout le système de traitement des données acheminées mentionné plus haut. Il s'agit donc de partir des données brutes transmises et de leur appliquer un processus de transformation. Ce dernier peut comprendre de l'agrégation de données, de l'analyse, du tri, de la classification, etc., son but étant d'en tirer des données utiles et pertinentes. Les données finales peuvent ainsi être stockées dans une base de données sur laquelle une ou des applications peuvent travailler.\\
 
  
 \minit{La couche application}
 
-Les applications sont diverses et variées, développées dans des domaines tels que repris dans la \wordlink{domains_IoT}{figure}. Pour remplir leurs objectifs, elles utilisent les données obtenus en sortie du processus de traitement opéré par la couche inférieure.
+Les applications sont diverses et variées, développées dans des domaines tels que repris dans la \wordlink{domains_IoT}{figure}. Pour remplir leurs objectifs, elles utilisent les données obtenus en sortie du processus de traitement opéré par la couche inférieure (les couches support et application étant très proches, on les considère parfois comme une seule).
 %
 %\begin{figure}[!h]
 %\centering
@@ -678,9 +678,10 @@ Couche application & Applications relatives aux smarthomes (interfaçage avec l'
     \end{figure}
     
 \newpage
-\subsection{Les attaques courantes}
+%\subsection{Les attaques courantes}
+\subsection{Les archétypes d'attaques courantes}
 
-Plusieurs types d'attaques peuvent être distingués, exploitant ou non des vulnérabilités recensées dans la \wordlink{vuln_IoT}{section}. Ces scénarios d'attaques typiques sont classés en fonction de la couche dans laquelle ils opèrent, selon Makhdoom et al. \cite{Makhdoom2018} et Leloglu \cite{Leloglu2017}.
+Plusieurs schémas d'attaques peuvent être distingués, exploitant ou non des vulnérabilités recensées dans la \wordlink{vuln_IoT}{section}. Ces scénarios d'attaques typiques sont classés en fonction de la couche dans laquelle ils opèrent, selon Makhdoom et al. \cite{Makhdoom2018} et Leloglu \cite{Leloglu2017}.
 
 
 \subsubsection{Sur la couche perception}
@@ -710,7 +711,9 @@ Plusieurs types d'attaques peuvent être distingués, exploitant ou non des vuln
 
 \par \textit{Sinkhole/Blackhole attack} : l'attaque consiste à, à partir d'un nœud infecté, consommer les ressources des nœuds voisins dans le rayon d'émission. Cela se fait essentiellement en occupant le canal radio, brouillant les transmissions légitimes. Il en résulte une consommation d'énergie anormalement élevée pour les nœuds dans cette zone, attribuée aux retransmissions alors nécessaires.\\
 
-\par \textit{Wormhole} : cette attaque cible les protocoles de routages, introduisant une confusion dans le calcul des routes. Un nœud infecté va transmettre un paquet qu'il est sensé router, directement vers un autre nœud éloigné en établissant un tunnel invisible pour le protocole de routage. Ainsi, des nouvelles routes vont apparaitre, donnant l'illusion que les deux nœuds sont proches, ce qui pour un protocole de routage se basant sur la distance entre deux nœuds constituera une nouvelle meilleure route (qui ne l'est en réalité pas du tout).
+\newpage
+
+\par \textit{Wormhole} : cette attaque cible les protocoles de routages, introduisant une confusion dans le calcul des routes. Un nœud infecté va transmettre un paquet qu'il est sensé router, directement vers un autre nœud éloigné en établissant un tunnel invisible pour le protocole de routage. Ainsi, des nouvelles routes vont apparaitre, donnant l'illusion que les deux nœuds sont proches, ce qui pour un protocole de routage se basant sur la distance entre deux nœuds constituera une nouvelle meilleure route (qui ne l'est en réalité pas du tout).\\
 
 \par \textit{Man-in-the-Middle attack (MITM)} : forme d'eavesdropping où l'attaquant s'interpose entre deux nœuds voulant communiquer légitimement. Il opère de façon à ce que la communication aie lieu normalement du point de vue des deux autres intervenants, mais de sorte que chacun communique avec lui qui joue le rôle d'intermédiaire. Il peut alors accéder au contenu de tous les échanges et le manipuler pour en tirer des informations confidentielles.\\
 
@@ -718,8 +721,21 @@ Plusieurs types d'attaques peuvent être distingués, exploitant ou non des vuln
 
 \subsubsection{Sur la couche support et application}
 
+\par Altération/exploitation des données : comme ces couches manipulent des données issues de ce que les équipements ont mesuré et capté, elles peuvent être sensibles et doivent être protégées. Un attaquant qui met la main sur ces données pourrait d'une part les corrompre et d'autre part les analyser et les exploiter afin de mener une autre attaque contre les utilisateurs. Par exemple, il pourrait dégager des données enregistrées quelles sont les plages horaires pendant lesquelles un domicile n'est pas occupé et donc trouver une fenêtre de liberté pour une approche physique. De plus,  ces données ne sont plus directement sous le contrôle de l'utilisateur (stockée dans les machines d'une entreprise), cela peut donc être problématique et mener à une atteinte à sa vie privée (revente  illégale d'informations à une compagnie tierce, etc.).\\
+
+\par Attaques de déni de service (\textit{DoS}, \textit{DDoS}) : les compagnies qui hébergent les services repris dans les couches support et application (traitement des données, accès aux serveurs, etc.) sont elles aussi susceptibles de se faire attaquer directement. Les attaques DoS (ou DDoS comme illustré avec Mirai dans la en introduction de cette section) sont courantes et peuvent complètement interrompre ces services par différent biais (congestion, mise à l'arrêt des machines).\\
+
+\par Injection de code : l'attaquant utilise des failles dans les applications pour injecter et faire exécuter son propre code écrit à des fins malicieuses. Cela se fait notamment sur les bases de données (injection SQL). Une injection peut résulter en l'installation d'un malware, des requêtes illégitimes effectuées sur les bases de données, un gain de privilèges dans le système pour l'attaquant ou encore rendre possible du \textit{cross-site scripting}\footnote{\url{https://en.wikipedia.org/wiki/Code_injection}}.\\
+
+\par \textit{Sniffers/loggers} : les attaquants récoltent un maximum des données utilisées et transitant (par exemple lors des échanges avec l'utilisateur par le biais de l'application) afin d'en tirer des informations de valeur (bien que cela soit rendu plus difficile par le chiffrement). Il peut s'agir d'identifiants, de mots de passes, d'emails, etc.\\
+
+\par \textit{Session Hijacking} : les attaquants exploitent des failles dans les processus d'authentification et gestion de session afin d'interférer dans les échanges et obtenir des accès privilégiés à des ressources. Cela se fait principalement via les cookies.\\
+
+\par Ingénierie sociale : l'attaquant extrait des informations ou interagit directement avec l'utilisateur inaverti pour obtenir des identifiants ou autre en fonction de l'application à laquelle l'utilisateur accorde sa confiance.
 
 \newpage
+
+
 \subsection{Ressources, solutions et outils existants}
 
 \subsubsection{Le travail d'OWASP}

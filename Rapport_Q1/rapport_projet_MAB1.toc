@@ -6,8 +6,7 @@
 \contentsline {subsubsection}{\numberline {1.2.2}L'environnement \textit {smarthome}}{5}{subsubsection.1.2.2}
 \contentsline {subsubsection}{\numberline {1.2.3}Exemples d'\IeC {\'e}quipements}{6}{subsubsection.1.2.3}
 \contentsline {subsubsection}{\numberline {1.2.4}Restrictions des \IeC {\'e}quipements}{7}{subsubsection.1.2.4}
-\contentsline {subsection}{\numberline {1.3}Architectures d'un syst\IeC {\`e}me d'\IeC {\'e}quipements IoT}{7}{subsection.1.3}
-\contentsline {subsection}{\numberline {1.4}Protocoles adapt\IeC {\'e}s \IeC {\`a} l'IoT}{7}{subsection.1.4}
+\contentsline {subsection}{\numberline {1.3}Protocoles adapt\IeC {\'e}s \IeC {\`a} l'IoT}{7}{subsection.1.3}
 \contentsline {section}{\numberline {2}Pr\IeC {\'e}sentations des pare-feux}{9}{section.2}
 \contentsline {subsection}{\numberline {2.1}G\IeC {\'e}n\IeC {\'e}ralit\IeC {\'e}s}{9}{subsection.2.1}
 \contentsline {subsection}{\numberline {2.2}Diff\IeC {\'e}rentes positions et fonctions dans l'architecture r\IeC {\'e}seau}{9}{subsection.2.2}
@@ -33,7 +32,7 @@
 \contentsline {subsection}{\numberline {3.2}Description des besoins en terme de s\IeC {\'e}curit\IeC {\'e}}{21}{subsection.3.2}
 \contentsline {subsection}{\numberline {3.3}Vuln\IeC {\'e}rabilit\IeC {\'e}s li\IeC {\'e}es aux \IeC {\'e}quipements IoT}{22}{subsection.3.3}
 \contentsline {subsection}{\numberline {3.4}Architecture globale des syst\IeC {\`e}mes impliquant des \IeC {\'e}quipements IoT}{23}{subsection.3.4}
-\contentsline {subsection}{\numberline {3.5}Les attaques courantes}{25}{subsection.3.5}
+\contentsline {subsection}{\numberline {3.5}Les arch\IeC {\'e}types d'attaques courantes}{25}{subsection.3.5}
 \contentsline {subsubsection}{\numberline {3.5.1}Sur la couche perception}{25}{subsubsection.3.5.1}
 \contentsline {subsubsection}{\numberline {3.5.2}Sur la couche r\IeC {\'e}seau}{25}{subsubsection.3.5.2}
 \contentsline {subsubsection}{\numberline {3.5.3}Sur la couche support et application}{26}{subsubsection.3.5.3}
