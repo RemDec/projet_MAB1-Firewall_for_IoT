@@ -623,7 +623,7 @@ Les différents composants du système et les applications qui y sont relatives 
 
 \subsection{Architecture globale des systèmes impliquant des équipements IoT}
 
-Leloglu propose dans \cite{Leloglu2017} un travail de synthèse sur base de plusieurs sources dont il résulte entre autres un modèle structural de l'IoT. Il n'est pas à considérer du point de vue d'un seul équipement, mais plutôt au niveau global ie. tout ce qui est impliqué dans le fonctionnement d'un système impliquant des équipements de l'IoT (présentant une architecture typique décrite dans la \wordlink{arch_IoT}{section}). C'est une représentation en couches, une couche supérieure s'appuyant sur les services fournis par les couches plus basses afin de remplir la fonction qui lui est dédiée. On distingue les suivantes :\\
+Leloglu propose dans \cite{Leloglu2017} un travail de synthèse sur base de plusieurs sources dont il résulte entre autres un modèle structural de l'IoT. Il n'est pas à considérer du point de vue d'un seul équipement, mais plutôt au niveau global ie. tout ce qui est impliqué dans le fonctionnement d'un système impliquant des équipements de l'IoT (présentant une architecture typique décrite dans la \wordlink{arch_IoT}{section}). C'est une représentation en couches, une couche supérieure s'appuyant sur les services fournis par les couches plus basses afin de remplir la fonction qui lui est dédiée. On distingue les suivantes (reprises par des exemples dans le \wordlink{IoT_model_desc}{tableau} et schématisées par la \wordlink{IoT_model_scheme}{figure}) :\\
 
 \minit{La couche perception}
 
@@ -659,17 +659,24 @@ Couche perception & Caméras, microphones, capteurs, GPS et divers systèmes emb
 	\hline
 Couche réseau & Réseaux de capteurs, réseau mobile 2G/3G, réseaux classiques tel que Internet (IP).\\
 	\hline
-Couche support & Cloud, centre de traitement des données, base de données et autres technologies et supports permettant d’agréger, stocker et analyser les données\\
+Couche support & Cloud, centre de traitement des données, base de données et autres technologies et supports permettant d’agréger, stocker et analyser les données (\textit{Big Data})\\
 	\hline
 Couche application & Applications relatives aux smarthomes (interfaçage avec l'utilisateur, optimisation de son quotidien, etc.), applications médicales (surveillance de patients, aides aux invalides, etc.), sociales et structurelles (smartcity : parkings intelligents, etc.), scientifiques (études des mesures, détection de catastrophes, etc.) et industrielles (arrosage de plants, transport, etc.)\\   
   \hline
     \end{tabular}
     \caption{Architecture d'un système IoT proposée par Leloglu \cite{Leloglu2017}}
+    \label{IoT_model_desc}
 \end{table}
 
 \newpage
-~
-\todo{Schema d'un exemple avec corresp des couches basé sur \cite{Wind2015}}
+
+    \begin{figure}[!h]
+       \noindent\makebox[\textwidth]{%
+       \includegraphics[width=0.67\textwidth]{IoT_sec_layers.png}}
+       \caption{Schématisation des couches considérées pour un système utilisant des équipements IoT}
+       \label{IoT_model_scheme}
+    \end{figure}
+    
 \newpage
 \subsection{Les attaques courantes}
 
@@ -732,7 +739,7 @@ L'équipe travaillant sur le projet a établi \href{https://www.owasp.org/index.
 
 \par CoAP, tout comme son homologue HTTP, peut s'appuyer sur une couche intermédiaire plus basse pour assurer un transport sécurisé (chiffré pour préserver la confidentialité). Il s'agit de DTLS (\textit{Datagram Transport Layer Security}), un équivalent de TLS adapté aux contraintes de ressources des équipements de l'IoT. La principale différence réside dans le fait que TLS soit basé sur TCP, au contraire de DTLS qui l'est sur UDP, toujours dans l'optique d'utiliser le minimum de ressources. CoAP offre le choix entre quatre modes relatifs à la sécurité : \textit{NoSec}, \textit{PreSharedKey}, \textit{RawPublicKey} et \textit{Certificate}.
 
-\subsubsection{Détection des équipements en réseau et de leurs vulnérabilités}
+\subsubsection{La détection des équipements en réseau et de leurs vulnérabilités}
 
 Face à un réseau réel, disons local à une habitation possédant des équipements connectés (c-à-d orientée smarthome), il est difficile de se faire une idée de tous les objets y étant connectés et de quelles sont leurs fonctionnalités. Des outils sont nécessaires afin de découvrir le réseau et établir quels équipements peuvent potentiellement être la cible d'attaques. Il en existe une flopée (\href{https://sectools.org/}{sectools.org} en maintient un classement fourni), libres ou commerciaux, possédant une interface graphique ou non, fonctionnels sur des OS variés. Outre ces logiciels complets au champs d'action assez étendu, des outils de scanning plus spécifiques à des cibles (routeur, serveurs, ...) et services (Web, SQL, mail, ...) sont trouvables dans des dépôts dédiés sous la forme de scripts (\href{https://github.com/We5ter/Scanners-Box}{Scanners-box} est dédié à leur référencement). Des exemples sont donnés ci-dessous, classés en deux catégories \cite{Leos2014} en fonction de la manière dont le scan est effectué. Une attention particulière est portée aux outils dédiés à la détection des failles sur les équipements IoT d'un réseau s'il en existe qui y soient dédiés.
 
@@ -786,6 +793,8 @@ L'objectif est d'en apprendre un maximum sur les équipements connectés au rés
 \newpage
 
 \section{Conclusion et travail futur}
+
+\par Les premières sections de ce travail ont abordé en surface les notions distinctes de concepts liés à l'IoT, pare-feux et la composante sécurité dans l'IoT. La partie concernant l'état de l'art doit être complétée par une nouvelle section joignant les sujets abordés précédemment. Il y sera donc question de la façon dont on peut conjuguer les pare-feux avec les réseaux d'équipements IoT afin d'assurer la protection de ces derniers. Une partie sera consacrée aux solutions commerciales mais également à ce qui est proposé concernant la protection des smarthomes dans la littérature scientifique. Une fois l'état de l'art accompli, la conception d'un système similaire pourra être entamée. Cette implémentation utilisera les concepts établis lors de l'état de l'art, mais la forme précise que celle-ci prendra n'a pas encore été définie à l'heure actuelle (plusieurs pistes étant envisageables et discutables).
 
 \newpage
 
