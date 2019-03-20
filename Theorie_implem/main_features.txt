@@ -1,0 +1,39 @@
+Pré-requis dispositif :
+    - interface ethernet
+    - (interface 802.11 pouvant s'accorder au Wi-Fi domestique + mode Promiscious)
+    - possibilité d'obtenir infos/accès à ces interfaces par l'OS
+    - lien ethernet entre dispositif et routeur/modem domestique principal (gateway)
+    - adresse obtensible dans le LAN (serveur DHCP dans le réseau domestique)
+    - (gateway configurable pour dédoubler le trafic vers le dispositif)
+    
+Features générales :
+    - Établissement de l'état du réseau domestique : caractéristiques des équipements connectés
+    - Surveillance du trafic transitant : détection des protocoles utilisés et d'anomalies 
+    - Test de la sécurité des équipements connectés : tentatives de pénétration et bdd vulnérabilités connues
+    - Notification des alertes par mail 
+    - Interface de gestion du réseau domestique (serveur web)
+    - (DDOS des équipements jugés malicieux)
+    - (Évaluation de la qualité des mdp wifi/des équipements connectés)
+
+Plus précisément, le dispositif agira pour remplir ces objectifs de deux manières.
+Il peut analyser à la demande ou à une fréquence donnée le réseau domestique en interrogeant
+directement les équipements. D'autre part, le dispositif peut se placer comme un agent de protection passif
+du réseau en se servant du trafic qu'il peut observer.
+
+Scan actif :
+    - Découverte des équipements du LAN : fabricant, adresses IP/MAC, ports/service ouverts
+    - Test de pénétration des équipements (identifiants par défauts)
+    - Recherche d'exploits connus : tentatives d'infiltration et recherche dans les BDD
+    
+Scan passif :
+    - NIDS sur le trafic dédoublé depuis le gateway ou via le sniffing wifi (analyse menace, DDOS)
+    - Authentification des protocoles utilisés par les équipements
+    - Détection du spoofing
+    
+Interaction avec l'utilisateur/interface :
+    - Doit pouvoir représenter l'état actuel du réseau avec toutes les informations issues des scans 
+      regroupées par équipement distinct 
+    - Permet de sélectionner quels modules de scan doivent être exécutés et à quelle fréquence
+    - Chaque module doit fournir des logs et pouvoir lancer une alerte quand une menace est détectée
+    - De telles alertes peuvent être transmises à l'utilisateur par mail
+    - L'utilisateur peut être amené à encoder lui même les caractéristiques de ses équipements et mots de passe

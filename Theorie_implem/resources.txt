@@ -1,0 +1,5 @@
+Langages :
+    -Scripts modules : bash, perl
+    
+    -Coeur application : Python 3.7
+        * 
