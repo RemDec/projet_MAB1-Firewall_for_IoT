@@ -2,4 +2,55 @@ Langages :
     -Scripts modules : bash, perl
     
     -Coeur application : Python 3.7
-        * 
+        * exécution de modules : threading.py
+        * manipulation scripts : subprocess.py
+        * parsing : ?
+        * traitement XML : xml.etree
+        * chiffrement : hashlib.py, secrets.py
+        * UI : Tkinter, interface Web ?
+
+
+Modules actifs (scripts) :
+    -découverte réseau & services : nmap, python-libnmap(run scan+parsing), shodan
+    -tests identifiants : IoTSeeker (http), telnet-scanner,
+                          ScanBox (réf scans & wordlists)
+    -tests pénétration : IoTScanner
+                         metasploit, routerhunter,
+                         routersploit, nettacker 
+    -test vulnérabilités connues : searchsploit (local)
+                                   Nmap-vulners (online), Nmap vulscan (local multi-db) 
+
+Base de données vulnérabilités :
+    -expoit-db + utilitaire searchsploit
+    -VirusTotal (API recherche)
+    -Rapid7 exploits
+
+Modules passifs (bg processus) :
+    -prise d'empreinte : pfsense
+    -NIDS : Snort
+    -Inspection trafic (protocoles) : 
+
+Projets similaires :
+    -Outil d'analyse de sécurité réseau IoT + mapping 
+        (très proche de l'app, en js) https://github.com/iotsploit/apparatus
+
+    -scanner vuln IoT (+support Zigbee) en python https://github.com/JurreitJ/IoTScanner
+
+    -scanner vuln (services ouverts & protocoles) interactif (front end web, back python) avec
+        utilisation db logins et alerte mail admin 
+        https://github.com/yashpungaliya/IoTVulnerabilityScanner
+
+    -analyseur de paquets Rasp Pi en mode AP (python) https://github.com/iotsploit/iot-inspector
+
+    -surveillant de réseau utilisant SDN pour isoler éq IoT dangereux et détection des 
+        vulnérabilités utilisant d'autres scripts et db (IoTSeeker, Mirai, Nessus) 
+        https://github.com/SecurityInEmergingEnvironments/IoTScanner 
+
+    -projet python (crack Wifi automatisé) utilisant d'autres scripts subsidiares
+        https://github.com/derv82/wifite2) et devant gérer des dépendances
+
+
+Ressources diverses :
+    - http://www.simpleiothings.com/
+    - https://github.com/Neo23x0/signature-base
+    - https://www.nccgroup.com/media/481272/2014-04-09_-_security_of_things_-_an_implementers_guide_to_cyber_security_for_internet_of_things_devices_and_beyond-2.pdf
