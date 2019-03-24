@@ -1,5 +1,5 @@
 Langages :
-    -Scripts modules : bash, perl
+    -Scripts modules : bash, perl, python, lua
     
     -Coeur application : Python 3.7
         * exécution de modules : threading.py
@@ -27,8 +27,7 @@ Base de données vulnérabilités :
 
 Modules passifs (bg processus) :
     -prise d'empreinte : pfsense
-    -NIDS : Snort
-    -Inspection trafic (protocoles) : 
+    -NIDS : Snort 
 
 Projets similaires :
     -Outil d'analyse de sécurité réseau IoT + mapping 
