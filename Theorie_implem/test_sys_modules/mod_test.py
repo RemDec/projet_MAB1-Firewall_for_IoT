@@ -1,5 +1,5 @@
 from module_act import *
-import subprocess
+
 
 def get_module():
     return AModule_test()
@@ -13,34 +13,31 @@ class AModule_test(Active_module):
         self.CMD = "nmap"
         self.PARAMS = {"port":("80", True, "-p"), "IP":("192.168.0.0/24", True,""), 
                        "options":("-sV", False, "")}
-          
+        # ou nom_param :  (val_defaut, obligatoire, prefixe)
         self.set_init_timer(60)
         self.set_params(params)
         
     def set_params(self, params):
-        self.params = self.treat_params({} if params is None else params)
+        self.params = super().treat_params(self.PARAMS, {} if params is None else params)
     
-    def distrib_output(self):
-        pass
-        
-    def treat_params(self, params):
-        final_par = {}
-        for par, val in self.PARAMS.items():
-            if params.get(par):
-                final_par[par] = params[par]
-            elif val[1]:
-                final_par[par] = val[0]
-        return final_par
+    def distrib_output(self, script_output):
+        print(f"Module [{self.m_id}] execution returned :\n{script_output.stdout}")
         
     def start(self):
         cmd = [self.CMD]
         for param, val in self.params.items():
             cmd.append(self.PARAMS[param][2] + val)
-        print(cmd)
-        end_proc = subprocess.run(cmd)
-        
+        s_thread = self.get_script_thread()
+        s_thread.start(cmd)
+
+    def get_script_thread(self):
+        return Script_thread(callback_fct=self.distrib_output)
+
     def stop(self):
         pass
     
     def get_description(self):
-        return "Module de test (actif) lançant un scan nmap basique"
+        return f"[{self.m_id}]Module de test (actif) lançant un scan nmap basique"
+
+    def get_module_id(self):
+        return self.m_id

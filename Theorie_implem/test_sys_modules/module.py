@@ -5,9 +5,17 @@ class Module(abc.ABC):
     @abc.abstractmethod
     def get_description(self):
         pass
-        
+
     @abc.abstractmethod
-    def start(self, params):
+    def get_module_id(self):
+        pass
+
+    @abc.abstractmethod
+    def set_params(self, params):
+        pass
+
+    @abc.abstractmethod
+    def start(self):
         pass
     
     @abc.abstractmethod
@@ -15,7 +23,7 @@ class Module(abc.ABC):
         pass
         
     @abc.abstractmethod
-    def distrib_output(self):
+    def distrib_output(self, output):
         pass
         
     @abc.abstractmethod
