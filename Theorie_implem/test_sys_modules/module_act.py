@@ -6,8 +6,16 @@ import subprocess
 class Active_module(Module):
 
     def set_init_timer(self, t):
-        self.init_timer = t
-        
+        self.init_timer = max(t, 1)
+        self.timer = self.init_timer
+
+    def decr_timer(self, call_exp=None, d=1):
+        self.timer -= d
+        if self.timer <= 0:
+            if call_exp is not None:
+                call_exp()
+            self.timer = self.init_timer
+
     def is_active(self):
         return True
 

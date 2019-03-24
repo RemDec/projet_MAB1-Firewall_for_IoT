@@ -5,11 +5,12 @@ def get_module():
 
 class AModule_blank(Active_module):
 
-    def __init__(self, given_params=None):
+    def __init__(self, given_params=None, timer=60):
         self.m_id = "blank"
         self.PARAMS = {"prog":("echo", True, ""),
                        "args":("No or bad command given to blank module", False, "")}
         self.set_params(given_params)
+        self.set_init_timer(timer)
 
     def get_description(self):
         return f"[{self.m_id}]Module blanc exécutant toute commande complète donnée en argument"
@@ -24,7 +25,7 @@ class AModule_blank(Active_module):
         s_thread = self.get_script_thread()
         if self.params.get("args") is None:
             self.params["args"] = self.PARAMS["args"][0] if self.params["prog"] == "echo" else ""
-        s_thread.start([ self.params["prog"], self.params["args"] ])
+        s_thread.start([ self.params["prog"]] + self.params["args"].split())
 
     def get_script_thread(self):
         return Script_thread(callback_fct=self.distrib_output)
