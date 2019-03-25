@@ -1,8 +1,8 @@
 from module_act import *
 
 
-def get_module():
-    return AModule_test()
+def get_module(params=None, timer=30):
+    return AModule_test(params, timer)
 
 
 class AModule_test(Active_module):

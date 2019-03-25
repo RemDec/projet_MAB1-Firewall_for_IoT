@@ -4,6 +4,7 @@ from threading import Timer
 class Time_queue():
 
     def __init__(self, *modules):
+        self.total_time = 0
         self.q = [] + list(modules)
         self.resort()
 
@@ -18,11 +19,13 @@ class Time_queue():
         self.q = sorted(self.q, key= lambda mod: mod.timer, reverse=True)
 
     def decr_queue(self, call_exp=True):
+        self.total_time += 1
         for mod in self.q:
             if call_exp:
                 mod.decr_timer(call_exp=mod.start)
         self.resort()
-        print(self)
+        if self.total_time % 5 == 0:
+            print("\n\n", self)
 
     def __str__(self):
         m = ""

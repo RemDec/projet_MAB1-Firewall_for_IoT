@@ -1,7 +1,7 @@
 from module_act import *
 
-def get_module():
-    return AModule_blank()
+def get_module(params=None, timer=5):
+    return AModule_blank(params, timer)
 
 class AModule_blank(Active_module):
 
