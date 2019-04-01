@@ -1,0 +1,60 @@
+Application
+    Maintient:
+        -Objet routine
+        -Objet carte réseau
+        -Objet logs
+        -Thread timer
+    Utilise modules(py):
+        -Inputs
+        -Chiffrement
+        -Alertes mails
+    Fonction:
+        Coeur de l'application qui initialise et contrôle les autres composants plus bas. Récupère les entrées de
+        l'utilisateur pour les interpréter et modifier l'état courant : ajout de modules/mise en pause pour la routine,
+        gestion centrale du temps, modification manuelle de la carte réseau, envoi de mails, etc.
+        Les changements à effectuer sont transmis à Application dans un objet Inputs au format défini et les fonctions
+        correspondant sont appelées en conséquence. Cet objet peut donc provenir de plusieurs sources, dans l'idée
+        où l'appli pourrait être contrôlée de plusieurs façons (CLI, GUI, serveur Web). Il y aura donc une surcouche à
+        Application qui par exemple pour CLI s'occupera de lancer un interpréteur en ligne de commande et de parser les
+        entrées pour les transmettre en un objet Inputs à Application. Cette surcouche s'occupera également d'afficher
+        dans une interface les logs courants récupérables depuis Application. Application est donc le point d'ancrage
+        de la partie back-end et devra également s'assurer que l'application termine proprement (kill de thread/proc etc).
+        
+        
+Timer
+    Maintient:
+        -Ensemble d'objets implémentant decr()
+        -Temps total courant
+    Fonction:
+        Thread initialisé par l'application principale, sert à gérer tout ce qui est relatif au temps dans le reste
+        de l'application depuis une seule instance. Les objets qui veulent y souscrire doivent implémenter une méthode
+        decr() qui fait le travail voulu pour l'objet (opaque). Chaque seconde, cette méthode est appelée par le thread
+        pour tous les objets encore inscris.
+        
+
+Carte du réseau
+    Maintient:
+        -Ensemble des objets instances virtuelles d'un réseau
+        -Les identifiants associés (Wifi, équipements)
+    Fonction:
+        Gère l'ajout/la destruction/la complétion des instances virtuelles au réseau courant sur lequel l'application
+        travaille. En gère également l'accès par index qui peut s'avéré peu aisé car on ne dispose pas toujours des
+        informations exhaustives de l'épuipement sur lequel on veut travailler. Une telle déduction peut se faire sur
+        base d'un ou plusieurs des 3 champs : adresses MAC et IP, nom d'hôte. Dans la carte, un identifiant unique
+        arbitraire est aussi associé à chaque instance afin de la retrouver plus facilement en fonction de la situation.
+        
+        
+Instance d'équipement
+    Maintient:
+        -Les informations collectées pour un équipement unique du réseau ("champs")
+        -Un journal des menaces détectées relatives à l'équipement
+    Fonction:
+        Représente un équipement du réseau et en regroupe toutes les informations qui ont pu être récupérées : soit de façon
+        autonome par les modules (scanners) soit entrées manuellement par l'utilisateur. Lorsqu'une alerte de sécurité
+        est lancée concernant l'équipement, cette information est aussi stockée.
+        
+        
+Routine
+    
+        
+        
