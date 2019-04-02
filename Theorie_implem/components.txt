@@ -25,6 +25,9 @@ Timer
     Maintient:
         -Ensemble d'objets implémentant decr()
         -Temps total courant
+    Utilise:
+        -librairie time
+        -librairie threading
     Fonction:
         Thread initialisé par l'application principale, sert à gérer tout ce qui est relatif au temps dans le reste
         de l'application depuis une seule instance. Les objets qui veulent y souscrire doivent implémenter une méthode
@@ -55,6 +58,125 @@ Instance d'équipement
         
         
 Routine
+    Maintient:
+        -Les modules de surveillance du réseau dans la routine automatisée
+        -Deux ensembles les contenant : Queue et Panel
+        -L'état de l'exécution courante
+    Fontion:
+        La routine gère la partie automatisée de l'application visant à surveiller le réseau sur base d'un ensemble d'outils
+        disponibles. Ces outils sont des "modules" et classés en 2 catégories : actifs et passifs, en fonction de leur mode
+        opératoire pour découvrir des menaces. Les modules actifs sont placés dans la Queue où ils sont executés 
+        séquentiellement et les passifs dans le Panel et s'exécutent en fond continuellement. La routine s'occupe des
+        transitions d'états pour ces exécutions (pause/reprise) et de la modification du contenu des ensembles (ajout/
+        suppression). Ces actions peuvent cibler des niveaux différents : pause de toute la routine ou que de la Queue, etc.
+
+
+Queue
+    Maintient:
+        -L'ensemble des modules actifs de la routine courante
+        -Un enregistrement à Timer
+        -Un timer "temps restant" associé à chacun
+    Fonction:
+        Peut être vue comme une file des modules suivants à être exécutés triée selon leur temps restant associé avant
+        déclenchement. Elle s'enregistre au Timer et chaque seconde, si elle n'est pas en état "en pause", sa fonction
+        decr() est appelée qui va décrémenter de 1 les timers de tous les modules présents. Arrivé à expiration, la Queue
+        appelle une méthode start() du module correspondant qui va initier un thread où sera exécuté son script associé et
+        replace le module dans la file avec son temps initial fixé.
+
+
+Panel
+    Maintient:
+        -Les modules passifs de la routine courante
+        -Un thread pour chaque module passif en cours
+    Fonction:
+        Référence les modules passifs de la routine qui sont en cours d'exécution en arrière-plan de façon continue. Un
+        tel module mis en pause verra son thread associé tué. Le Panel est donc scindable en deux : les modules mis en pause
+        et en cours d'exécution. Il est manipulable comme un ensemble normal d'objet Modules (passifs).
+
+
+Module
+    Maintient:
+        -Un état : en pause où en cours et son type (actif ou passif)
+        -Un outil spécifique qui va être utilisé (script ou processus lié à la sécurité)
+        -Des paramètres passés à l'outil à son lancement
+        -Une manière de logger ses outputs et de les interpréter pour interagir avec l'application
+        -Une référence vers la carte des instances virtuelles
+    Utilise:
+        -librairie abc (abstract class)
+    Fonction:
+        Sorte de superclasse pour cerner ce qu'un module doit obligatoirement posséder pour interagir correctement avec
+        l'application. Un module fait le lien avec un outil réel spécifique à une tâche (qui doit donc être installé sur le
+        système). Par exemple, un scann précis avec une commande nmap dont les paramètres sont spécifiables via l'application
+        à l'instanciation du module. Le programme exécuté en dessous d'un module l'est dans un nouveau thread pour ne pas
+        interrompre le fil d'exécution de l'application. Les sorties de ce programme doivent être parsées afin d'en extraire
+        un maximum d'informations et les traduire pour compléter les instances virtuelles et interpréter les menaces (c'est le
+        travail d'une fonction spécifique à chaque module).
+
+
+Module actif
+    Maintient:
+        -Un thread une fois l'exécution lancée
+        -Des paramètres à passer au script
+        -Référence vers l'objet logs
+    Utilise:
+        -librairie threading
+        -librairie subprocess
+    Fonction:
+        Un module actif est analogique aux scanneurs actifs : il vise à interroger directement les équipements du réseau.
+        Il peut être n'importe quoi mais doit s'apparenter à un script qui une fois lancé (avec des paramètres fournis)
+        s'exécute et produit une sortie. Ce script est lancé dans un thread initialisé à l'occasion qui appelle une fonction
+        de callback une fois terminé. Celle-ci devra parser l'output, réagir en conséquence et contacter le Logger.
+
+
+Module passif
+    Maintient:
+        -Un thread processus d'arrière plan
+        -Un thread de récupération d'output
+        -Paramètres
+        -Logs
+    Utilise:
+        -librairies threading, subprocess
+        -librairie pipes
+    Fonction:
+        Analogue aux scanneurs passifs et analyseurs de trafic (NIDS), ils utilisent uniquement les données acquises au fur
+        et à mesure du temps par le dispositif pour inférer des informations. Ces modules s'apparentent donc à des taches de
+        fond sortant des output de façon irrégulière tant que le processus correspondant est actif. Le parsing doit donc se
+        faire de façon périodique sur la sortie de ce processus qui sera déviée vers un pipe propre à chaque module. Ce pipe
+        est créé par l'autre thread qui s'occupe de récupérer les sorties, de les parser et de contacter le Logger.  
+
+
+Logger
+    Maintient:
+        -Un descripteur pour la sortie standard
+        -Un buffer des derniers logs
+        -Un enregistrement à Timer
+    Utilise:
+        -librairie login
+    Fonction:
+        Centrale de récupération de tous les événements et informations issus de la routine en cours d'exécution. Cela
+        comprend : le lancement d'un module, l'output obtenu, les maj d'intances, les menaces trouvées. Plusieurs niveaux en
+        fonction de la gravité, les niveaux les plus élevés résultant en l'envoi d'un mail à l'utilisateur par le Centre
+        d'alertes. La communication des outputs se fait différemment entre module actif/passif:
+            Actif : simple appel d'une méthode du logger en fournissant l'output déjà traité par la fonction de callback
+                    exécutée après la fin du script
+            Passif :     
+
+Parseur/Loader
+
+
+Chiffrement
+
+
+
+
+
+
+
+
+
+
+
+
     
         
         
