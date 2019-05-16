@@ -142,7 +142,8 @@ Module passif
         et à mesure du temps par le dispositif pour inférer des informations. Ces modules s'apparentent donc à des taches de
         fond sortant des output de façon irrégulière tant que le processus correspondant est actif. Le parsing doit donc se
         faire de façon périodique sur la sortie de ce processus qui sera déviée vers un pipe propre à chaque module. Ce pipe
-        est créé par l'autre thread qui s'occupe de récupérer les sorties, de les parser et de contacter le Logger.  
+        est créé par l'autre thread (dit de "communication") qui s'occupe de récupérer les sorties, de les parser et de 
+        contacter le Logger.  
 
 
 Logger
@@ -159,7 +160,9 @@ Logger
         d'alertes. La communication des outputs se fait différemment entre module actif/passif:
             Actif : simple appel d'une méthode du logger en fournissant l'output déjà traité par la fonction de callback
                     exécutée après la fin du script
-            Passif :     
+            Passif : toutes les t secondes (fourni par Timer), le thread de communication récupère les outputs du programme
+                     par un pipe, les traite et finalement log le résultat en appelant une méthode du logger
+                     
 
 Parseur/Loader
 

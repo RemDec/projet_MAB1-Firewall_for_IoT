@@ -690,6 +690,7 @@ Plusieurs schémas d'attaques peuvent être distingués, exploitant ou non des v
 
 
 \subsection{Ressources, solutions et outils existants}
+\label{scanners}
 
 \subsubsection{Le travail d'OWASP}
 
@@ -769,17 +770,44 @@ L'objectif est d'en apprendre un maximum sur les équipements connectés au rés
 
 \subsubsection{Contexte et environnement ciblé}
 
-Ce travail englobe la thématique de la sécurité des équipements en réseau dans l'environnement domestique, en mettant l'accent sur les différents types de pare-feux. Effectivement, ces derniers peuvent palier en partie aux faiblesses récurrentes des équipements IoT qui peuplent les réseaux domestiques. L'aboutissement final du projet est de développer un outil qui puisse contribuer à la protection de ces réseaux. Comme analysé dans la section, il existe des pare-feux de tous types pour surveiller des réseaux, et quelques solutions spécifiques à l'IoT non libres.   
+Ce travail englobe la thématique de la sécurité des équipements en réseau dans l'environnement domestique, en mettant l'accent sur les différents types de pare-feux. Effectivement, ces derniers peuvent palier en partie aux faiblesses récurrentes des équipements IoT qui peuplent les réseaux domestiques. L'aboutissement final du projet est de développer un outil qui puisse contribuer à la protection de ces réseaux. Cependant, l'analyse de trafic avancée (au delà du simple pare-feu à état) telle qu'utilisée dans les solutions commerciales est une technologie non triviale qui sort des limites de ce projet (théorie de \textit{machine learning}, construction de base de données de signatures, etc.). À l'inverse, se limiter à un simple pare-feu à état ciblant un protocole de l'IoT peut sembler réducteur vis-à-vis de toutes les menaces planant sur ces équipements qu'un tel pare-feu ne pourrait contrer.\\
+
+\par La \wordlink{scanners}{sous-section} met en évidence quelques outils qui peuvent aider à analyser le réseau domestique et détecter les failles exploitables des équipements qui le peuplent. Ces \textit{scanners}, conjugués à des systèmes de prévention d'intrusion \textit{NIDS}, permettraient d'améliorer grandement la sécurité du réseau domestique, tout en n'effectuant aucune tâche de filtrage direct du trafic (c-à-d n'étant pas bloquant comme le serait un véritable pare-feu). En découle l'idée motrice de l'application à développer : prodiguer un outil permettant l'\textbf{analyse}, la \textbf{surveillance} et l'\textbf{agrégation des caractéristiques des équipements} d'un réseau domestique, basé sur des \textbf{scanneurs} existants ciblant \textbf{différents aspects} de sa sécurité. Le système doit donc être conçu de façon modulaire, de sorte que l'\textbf{intégration d'un nouveau scanneur} ne requiert comme travail que la traduction (parsing) de la sortie dudit programme vers des actions et éléments interprétables par l'application.     \\
+
+\par Par exemple, l'application pourrait intégrer des scanneurs tels que \textit{nmap}, \textit{IoTSeeker}, etc. qui interrogent directement les équipements (actifs) et des programmes de prise d'empreintes/analyse de trafic tels que \textit{Snort}, \textit{p0f}, etc. (passifs). Chacun de ces programmes fournit un feedback sur sa sortie, que ce soit une fois son exécution terminée ou de façon continue jusqu'à interruption de l'exécution. Une fois parsées, les informations obtenues peuvent servir à alimenter une représentation virtuelle du réseau maintenue par l'application (renseignant les caractéristiques des équipements qui le peuplent) ou constituer une alerte à faire remonter jusqu'à l'utilisateur si une faille ou menace est détectée. Le framework d'intégration définit comment ajouter ces programmes à l'environnement de l'application, prodiguant une surcouche telle qu'il n'est nécessaire de fournir que la \textbf{commande} liée au programme, la façon de les lui passer et quels \textbf{paramètres} du programme utilisé et la \textbf{méthode de traitement} de la sortie. 
+
+
 
 \subsubsection{Objectifs de l'application}
 
 \paragraph{La surveillance du réseau domestique}
 
-\paragraph{La définition d'un framework d'intégration}
+L'application doit pouvoir être utilisée telle quelle depuis un équipement connecté au réseau domestique (similaire ou supérieur en terme de ressources à une carte Raspberry PI), avec un lot de programmes (sous entendu scanneurs dans la plupart des cas) déjà intégrés et prêts à l'emploi par une personne non initiée.
+Les interactions se font principalement sur deux composants décris plus en détail dans la \wordlink{compapp}{sous-section} : la routine de surveillance automatisée et la carte du réseau. En terme de concepts :\\
+
+\par $\bullet$ \textbf{La routine de surveillance} est l'ensemble des scanneurs qui doivent être utilisés pour analysé le réseau quand l'application est lancée. Elle se divise en deux sous-ensembles, l'un destiné aux programmes tournant en continus (analogie avec les scanneurs passifs, la prise d'empreintes) et l'autre aux programmes/scripts qui interagissent directement avec les équipements du réseau pour en sortir un feedback une fois leur analyse terminée (analogie avec les scanneurs actifs). L'automatisation pour le premier se fait simplement en associant un état commutable \textit{en cours}/\textit{arrêté} à chaque programme qui contrôle le lancement/l'interruption du processus sous-jacent. Pour le second, il s'agit d'un timer d'expiration associé à chaque programme dans l'ensemble, au terme duquel le programme est exécuté (se termine et fournit un feedback sur sa sortie) et son timer restauré à sa valeur initiale (on peut donc voir cela comme une file de programmes à exécutés les uns à la suite des autres). Ces deux ensembles sont manipulables, des programmes peuvent être ajoutés/retirés et leur état modifié en agissant sur ce qui sera désigné par la \textbf{Routine} qui regroupe ces deux ensembles \textbf{Panel} et \textbf{Queue} respectivement.
+
+\newpage
+
+\par $\bullet$ \textbf{La carte du réseau} est le résultat de l'agrégation des informations parsées sur les sorties des programmes de la Routine (donc automatiques) et des entrées manuelles de l'utilisateur. Il s'agit de résumer au mieux d'une part les informations récoltées concernant les équipements (adresses MAC, IP, hostname, ports ouverts, etc.) et d'autre part les alertes associées à un équipement particulier (CVE existante pour le modèle, service utilisé non sécurisé ou sujet à une faille connue, etc.). Cette carte virtuelle du réseau a pour objectif de fournir une vue d'ensemble du réseau domestique (limitée au LAN) pour l'utilisateur, afin qu'il puisse y exercer un contrôle plus pertinent.
+
+\paragraph{La conception d'un framework d'intégration}
+
+Puisque l'application fonctionne uniquement en se basant sur des programmes extérieurs arbitraires, il est nécessaire de définir un cadre assez rigoureux pour les intégrer au système. Cela se fait via une surcouche d'abstraction désignée par le terme Module. Deux archétypes son envisagés pour un \textbf{Module}, en fonction de la nature de l'exécution du programme à abstraire : soit celle-ci est continue et produit un feedback régulier jusqu'à terminaison du processus, soit il s'agit d'une exécution unique destinée à se terminer avec un feedback des résultats. Par analogie avec les types de scanneurs, on désigne l'archétype de Module à suivre correspondant par \textbf{Module Actif} et \textbf{Module Passif}. La surcouche correspond dans les faits à hériter d'une classe abstraite dont plusieurs méthodes doivent être implémentées, cette partie pratique est approfondie dans la \wordlink{abstrmodel}{sous-section}.\\
+
+\par De nouveaux programmes peuvent ainsi être intégrés et utilisables dans l'application, à condition d'écrire une classe héritant de la classe correspondant soit aux modules actifs, soit aux modules passifs en fonction de la nature du programme. Dans ces classes supérieures, la façon dont l'exécution du programme sous-jacent doit être traitée est déjà encadrée (bien qu'il soit aussi possible de réécrire cela). Le schéma d'exécution est le suivant :
+
+\begin{itemize}
+\item[$\bullet$] \textbf{Module actif} : un thread est lancé
+\item[$\bullet$]
+\end{itemize}
+
+\par Librairie et q/p
 
 %---------------- Concepts
 
 \subsection{Composants du système de surveillance}
+\label{compapp}
 
 \subsubsection{Modules actifs et passifs - abstraction des logiciels}
 
@@ -792,6 +820,8 @@ Ce travail englobe la thématique de la sécurité des équipements en réseau d
 %---------------- Modèle d'abstraction
 
 \subsection{Modèle d'abstraction des logiciels}
+\label{abstrmodel}
+
 
 \subsubsection{Design pour un module actif}
 
