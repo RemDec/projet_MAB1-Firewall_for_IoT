@@ -1,44 +1,71 @@
 \select@language {french}
-\contentsline {section}{\numberline {1}Pr\IeC {\'e}sentation de l'\textit {Internet des Objets}}{4}{section.1}
-\contentsline {subsection}{\numberline {1.1}G\IeC {\'e}n\IeC {\'e}ralit\IeC {\'e}s}{4}{subsection.1.1}
-\contentsline {subsection}{\numberline {1.2}Caract\IeC {\'e}ristiques des \IeC {\'e}quipements de l'\textit {IoT}}{4}{subsection.1.2}
-\contentsline {subsubsection}{\numberline {1.2.1}Domaines d'application}{4}{subsubsection.1.2.1}
-\contentsline {subsubsection}{\numberline {1.2.2}L'environnement \textit {smarthome}}{5}{subsubsection.1.2.2}
-\contentsline {subsubsection}{\numberline {1.2.3}Restrictions des \IeC {\'e}quipements}{6}{subsubsection.1.2.3}
-\contentsline {subsection}{\numberline {1.3}Protocoles adapt\IeC {\'e}s \IeC {\`a} l'IoT}{6}{subsection.1.3}
-\contentsline {section}{\numberline {2}Pr\IeC {\'e}sentations des pare-feux}{8}{section.2}
-\contentsline {subsection}{\numberline {2.1}G\IeC {\'e}n\IeC {\'e}ralit\IeC {\'e}s}{8}{subsection.2.1}
-\contentsline {subsection}{\numberline {2.2}Diff\IeC {\'e}rentes positions et fonctions dans l'architecture r\IeC {\'e}seau}{8}{subsection.2.2}
-\contentsline {subsubsection}{\numberline {2.2.1}Les pare-feux niveau r\IeC {\'e}seau}{8}{subsubsection.2.2.1}
-\contentsline {subsubsection}{\numberline {2.2.2}Les pare-feux niveau h\IeC {\^o}te}{9}{subsubsection.2.2.2}
-\contentsline {subsection}{\numberline {2.3}Les types de pare-feu}{10}{subsection.2.3}
-\contentsline {subsubsection}{\numberline {2.3.1}Pare-feu de filtrage (sans \IeC {\'e}tat)}{10}{subsubsection.2.3.1}
-\contentsline {subsubsection}{\numberline {2.3.2}Pare-feu \IeC {\`a} \IeC {\'e}tat}{11}{subsubsection.2.3.2}
-\contentsline {subsubsection}{\numberline {2.3.3}Pare-feu applicatif}{11}{subsubsection.2.3.3}
-\contentsline {subsubsection}{\numberline {2.3.4}Pare-feu applicatif proxy}{12}{subsubsection.2.3.4}
-\contentsline {subsubsection}{\numberline {2.3.5}Pare-feu identifiant}{12}{subsubsection.2.3.5}
-\contentsline {subsection}{\numberline {2.4}Syst\IeC {\`e}mes de d\IeC {\'e}tection d'intrusion (\textit {IDS})}{13}{subsection.2.4}
-\contentsline {subsubsection}{\numberline {2.4.1}Les NIDSs}{13}{subsubsection.2.4.1}
-\contentsline {subsubsection}{\numberline {2.4.2}Les HIDSs}{14}{subsubsection.2.4.2}
-\contentsline {subsubsection}{\numberline {2.4.3}Les DIDSs}{14}{subsubsection.2.4.3}
-\contentsline {subsection}{\numberline {2.5}Syst\IeC {\`e}mes de pr\IeC {\'e}vention d'intrusion (\textit {IPS})}{15}{subsection.2.5}
-\contentsline {subsection}{\numberline {2.6}Les pare-feux nouvelle g\IeC {\'e}n\IeC {\'e}ration}{15}{subsection.2.6}
-\contentsline {subsection}{\numberline {2.7}Les pare-feux de r\IeC {\'e}f\IeC {\'e}rence}{16}{subsection.2.7}
-\contentsline {subsubsection}{\numberline {2.7.1}Sous forme de software}{16}{subsubsection.2.7.1}
-\contentsline {subsubsection}{\numberline {2.7.2}Sous forme d'appliance}{17}{subsubsection.2.7.2}
-\contentsline {section}{\numberline {3}La s\IeC {\'e}curit\IeC {\'e} dans l'IoT}{19}{section.3}
-\contentsline {subsection}{\numberline {3.1}Motivations et exemples}{19}{subsection.3.1}
-\contentsline {subsection}{\numberline {3.2}Description des besoins en terme de s\IeC {\'e}curit\IeC {\'e}}{20}{subsection.3.2}
-\contentsline {subsection}{\numberline {3.3}Vuln\IeC {\'e}rabilit\IeC {\'e}s li\IeC {\'e}es aux \IeC {\'e}quipements IoT}{21}{subsection.3.3}
-\contentsline {subsection}{\numberline {3.4}Architecture globale des syst\IeC {\`e}mes impliquant des \IeC {\'e}quipements IoT}{22}{subsection.3.4}
-\contentsline {subsection}{\numberline {3.5}Les arch\IeC {\'e}types d'attaques courantes}{24}{subsection.3.5}
-\contentsline {subsubsection}{\numberline {3.5.1}Sur la couche perception}{24}{subsubsection.3.5.1}
-\contentsline {subsubsection}{\numberline {3.5.2}Sur la couche r\IeC {\'e}seau}{24}{subsubsection.3.5.2}
-\contentsline {subsubsection}{\numberline {3.5.3}Sur la couche support et application}{25}{subsubsection.3.5.3}
-\contentsline {subsection}{\numberline {3.6}Ressources, solutions et outils existants}{26}{subsection.3.6}
-\contentsline {subsubsection}{\numberline {3.6.1}Le travail d'OWASP}{26}{subsubsection.3.6.1}
-\contentsline {subsubsection}{\numberline {3.6.2}La standardisation de protocoles adapt\IeC {\'e}s s\IeC {\'e}curis\IeC {\'e}s}{26}{subsubsection.3.6.2}
-\contentsline {subsubsection}{\numberline {3.6.3}La d\IeC {\'e}tection des \IeC {\'e}quipements en r\IeC {\'e}seau et de leurs vuln\IeC {\'e}rabilit\IeC {\'e}s}{26}{subsubsection.3.6.3}
-\contentsline {paragraph}{\numberline {3.6.3.1}Le scan passif et la prise d'empreintes}{27}{paragraph.3.6.3.1}
-\contentsline {paragraph}{\numberline {3.6.3.2}Le scan actif}{28}{paragraph.3.6.3.2}
-\contentsline {section}{\numberline {4}Conclusion et travail futur}{29}{section.4}
+\contentsline {section}{\numberline {1}Pr\IeC {\'e}sentation de l'\textit {Internet des Objets}}{5}{section.1}
+\contentsline {subsection}{\numberline {1.1}G\IeC {\'e}n\IeC {\'e}ralit\IeC {\'e}s}{5}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}Caract\IeC {\'e}ristiques des \IeC {\'e}quipements de l'\textit {IoT}}{5}{subsection.1.2}
+\contentsline {subsubsection}{\numberline {1.2.1}Domaines d'application}{5}{subsubsection.1.2.1}
+\contentsline {subsubsection}{\numberline {1.2.2}L'environnement \textit {smarthome}}{6}{subsubsection.1.2.2}
+\contentsline {subsubsection}{\numberline {1.2.3}Restrictions des \IeC {\'e}quipements}{7}{subsubsection.1.2.3}
+\contentsline {subsection}{\numberline {1.3}Protocoles adapt\IeC {\'e}s \IeC {\`a} l'IoT}{7}{subsection.1.3}
+\contentsline {section}{\numberline {2}Pr\IeC {\'e}sentations des pare-feux}{9}{section.2}
+\contentsline {subsection}{\numberline {2.1}G\IeC {\'e}n\IeC {\'e}ralit\IeC {\'e}s}{9}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Diff\IeC {\'e}rentes positions et fonctions dans l'architecture r\IeC {\'e}seau}{9}{subsection.2.2}
+\contentsline {subsubsection}{\numberline {2.2.1}Les pare-feux niveau r\IeC {\'e}seau}{9}{subsubsection.2.2.1}
+\contentsline {subsubsection}{\numberline {2.2.2}Les pare-feux niveau h\IeC {\^o}te}{10}{subsubsection.2.2.2}
+\contentsline {subsection}{\numberline {2.3}Les types de pare-feu}{11}{subsection.2.3}
+\contentsline {subsubsection}{\numberline {2.3.1}Pare-feu de filtrage (sans \IeC {\'e}tat)}{11}{subsubsection.2.3.1}
+\contentsline {subsubsection}{\numberline {2.3.2}Pare-feu \IeC {\`a} \IeC {\'e}tat}{12}{subsubsection.2.3.2}
+\contentsline {subsubsection}{\numberline {2.3.3}Pare-feu applicatif}{12}{subsubsection.2.3.3}
+\contentsline {subsubsection}{\numberline {2.3.4}Pare-feu applicatif proxy}{13}{subsubsection.2.3.4}
+\contentsline {subsubsection}{\numberline {2.3.5}Pare-feu identifiant}{13}{subsubsection.2.3.5}
+\contentsline {subsection}{\numberline {2.4}Syst\IeC {\`e}mes de d\IeC {\'e}tection d'intrusion (\textit {IDS})}{14}{subsection.2.4}
+\contentsline {subsubsection}{\numberline {2.4.1}Les NIDSs}{14}{subsubsection.2.4.1}
+\contentsline {subsubsection}{\numberline {2.4.2}Les HIDSs}{15}{subsubsection.2.4.2}
+\contentsline {subsubsection}{\numberline {2.4.3}Les DIDSs}{15}{subsubsection.2.4.3}
+\contentsline {subsection}{\numberline {2.5}Syst\IeC {\`e}mes de pr\IeC {\'e}vention d'intrusion (\textit {IPS})}{16}{subsection.2.5}
+\contentsline {subsection}{\numberline {2.6}Les pare-feux nouvelle g\IeC {\'e}n\IeC {\'e}ration}{16}{subsection.2.6}
+\contentsline {subsection}{\numberline {2.7}Les pare-feux de r\IeC {\'e}f\IeC {\'e}rence}{17}{subsection.2.7}
+\contentsline {subsubsection}{\numberline {2.7.1}Sous forme de software}{17}{subsubsection.2.7.1}
+\contentsline {subsubsection}{\numberline {2.7.2}Sous forme d'appliance}{18}{subsubsection.2.7.2}
+\contentsline {section}{\numberline {3}La s\IeC {\'e}curit\IeC {\'e} dans l'IoT}{20}{section.3}
+\contentsline {subsection}{\numberline {3.1}Motivations et exemples}{20}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Description des besoins en terme de s\IeC {\'e}curit\IeC {\'e}}{21}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Vuln\IeC {\'e}rabilit\IeC {\'e}s li\IeC {\'e}es aux \IeC {\'e}quipements IoT}{22}{subsection.3.3}
+\contentsline {subsection}{\numberline {3.4}Architecture globale des syst\IeC {\`e}mes impliquant des \IeC {\'e}quipements IoT}{23}{subsection.3.4}
+\contentsline {subsection}{\numberline {3.5}Les arch\IeC {\'e}types d'attaques courantes}{25}{subsection.3.5}
+\contentsline {subsubsection}{\numberline {3.5.1}Sur la couche perception}{25}{subsubsection.3.5.1}
+\contentsline {subsubsection}{\numberline {3.5.2}Sur la couche r\IeC {\'e}seau}{25}{subsubsection.3.5.2}
+\contentsline {subsubsection}{\numberline {3.5.3}Sur la couche support et application}{26}{subsubsection.3.5.3}
+\contentsline {subsection}{\numberline {3.6}Ressources, solutions et outils existants}{27}{subsection.3.6}
+\contentsline {subsubsection}{\numberline {3.6.1}Le travail d'OWASP}{27}{subsubsection.3.6.1}
+\contentsline {subsubsection}{\numberline {3.6.2}La standardisation de protocoles adapt\IeC {\'e}s s\IeC {\'e}curis\IeC {\'e}s}{27}{subsubsection.3.6.2}
+\contentsline {subsubsection}{\numberline {3.6.3}La d\IeC {\'e}tection des \IeC {\'e}quipements en r\IeC {\'e}seau et de leurs vuln\IeC {\'e}rabilit\IeC {\'e}s}{27}{subsubsection.3.6.3}
+\contentsline {paragraph}{\numberline {3.6.3.1}Le scan passif et la prise d'empreintes}{28}{paragraph.3.6.3.1}
+\contentsline {paragraph}{\numberline {3.6.3.2}Le scan actif}{29}{paragraph.3.6.3.2}
+\contentsline {section}{\numberline {4}D\IeC {\'e}veloppement d'une application \textit {IoTMonitor} - introduction et concepts}{30}{section.4}
+\contentsline {subsection}{\numberline {4.1}Pr\IeC {\'e}sentation g\IeC {\'e}n\IeC {\'e}rale}{30}{subsection.4.1}
+\contentsline {subsubsection}{\numberline {4.1.1}Environnement cibl\IeC {\'e}}{30}{subsubsection.4.1.1}
+\contentsline {subsubsection}{\numberline {4.1.2}Objectifs de l'application}{30}{subsubsection.4.1.2}
+\contentsline {paragraph}{\numberline {4.1.2.1}La surveillance du r\IeC {\'e}seau domestique}{30}{paragraph.4.1.2.1}
+\contentsline {paragraph}{\numberline {4.1.2.2}La d\IeC {\'e}finition d'un framework d'int\IeC {\'e}gration}{30}{paragraph.4.1.2.2}
+\contentsline {subsection}{\numberline {4.2}Composants du syst\IeC {\`e}me de surveillance}{30}{subsection.4.2}
+\contentsline {subsubsection}{\numberline {4.2.1}Modules actifs et passifs - abstraction des logiciels}{30}{subsubsection.4.2.1}
+\contentsline {subsubsection}{\numberline {4.2.2}Routine - automatisation de la surveillance}{30}{subsubsection.4.2.2}
+\contentsline {subsubsection}{\numberline {4.2.3}Netmap - agr\IeC {\'e}gation des \IeC {\'e}quipements du r\IeC {\'e}seau}{30}{subsubsection.4.2.3}
+\contentsline {subsubsection}{\numberline {4.2.4}Centre d\IeC {\textquoteright }\IeC {\'e}v\IeC {\'e}nements - logging et lancement d'alertes}{30}{subsubsection.4.2.4}
+\contentsline {subsection}{\numberline {4.3}Mod\IeC {\`e}le d'abstraction des logiciels}{30}{subsection.4.3}
+\contentsline {subsubsection}{\numberline {4.3.1}Design pour un module actif}{30}{subsubsection.4.3.1}
+\contentsline {subsubsection}{\numberline {4.3.2}Design pour un module passif}{30}{subsubsection.4.3.2}
+\contentsline {subsubsection}{\numberline {4.3.3}Mod\IeC {\`e}le g\IeC {\'e}n\IeC {\'e}ral d'abstraction}{30}{subsubsection.4.3.3}
+\contentsline {section}{\numberline {5}Impl\IeC {\'e}mentation de l'application}{31}{section.5}
+\contentsline {subsection}{\numberline {5.1}Justification des choix}{31}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}S\IeC {\'e}lection des logiciels \IeC {\`a} int\IeC {\'e}grer}{31}{subsection.5.2}
+\contentsline {subsection}{\numberline {5.3}Discussions des choix d'impl\IeC {\'e}mentation}{31}{subsection.5.3}
+\contentsline {subsubsection}{\numberline {5.3.1}Gestion du temps}{31}{subsubsection.5.3.1}
+\contentsline {subsubsection}{\numberline {5.3.2}Ex\IeC {\'e}cution des logiciels}{31}{subsubsection.5.3.2}
+\contentsline {subsubsection}{\numberline {5.3.3}Parsing des sorties}{31}{subsubsection.5.3.3}
+\contentsline {subsubsection}{\numberline {5.3.4}Stockage et agr\IeC {\'e}gation des informations}{31}{subsubsection.5.3.4}
+\contentsline {subsubsection}{\numberline {5.3.5}Interactivit\IeC {\'e} avec l'application}{31}{subsubsection.5.3.5}
+\contentsline {section}{\numberline {6}Tests et \IeC {\'e}valuation de l'application}{31}{section.6}
+\contentsline {subsection}{\numberline {6.1}Simulation d'\IeC {\'e}quipements}{31}{subsection.6.1}
+\contentsline {subsection}{\numberline {6.2}D\IeC {\'e}ploiement dans un milieu domestique}{31}{subsection.6.2}
+\contentsline {subsection}{\numberline {6.3}Stress-test dans un environnement peupl\IeC {\'e}}{31}{subsection.6.3}

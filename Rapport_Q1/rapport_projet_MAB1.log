@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.11.6)  12 MAR 2019 21:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.11.6)  15 MAY 2019 19:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -745,14 +745,14 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: subfig package v1.3 is loaded.
 Package caption Info: End \AtBeginDocument code.
 
-<figures/UMons_logo.png, id=168, 193.72375pt x 54.2025pt>
+<figures/UMons_logo.png, id=269, 193.72375pt x 54.2025pt>
 File: figures/UMons_logo.png Graphic file (type png)
 
 <use figures/UMons_logo.png>
 Package pdftex.def Info: figures/UMons_logo.png used on input line 74.
 (pdftex.def)             Requested size: 127.96622pt x 35.80435pt.
 
-<figures/sciences_logo.png, id=169, 174.6525pt x 81.30376pt>
+<figures/sciences_logo.png, id=270, 174.6525pt x 81.30376pt>
 File: figures/sciences_logo.png Graphic file (type png)
 
 <use figures/sciences_logo.png>
@@ -773,11 +773,11 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <7> on input line 3.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <5> on input line 3.
-)
+ [2])
 \tf@toc=\write4
 \openout4 = `rapport_projet_MAB1.toc'.
 
- [2]
+ [3]
 Underfull \hbox (badness 10000) in paragraph at lines 85--87
 
  []
@@ -792,18 +792,18 @@ Underfull \hbox (badness 10000) in paragraph at lines 90--91
 
  []
 
-[3]
+[4]
 Underfull \hbox (badness 10000) in paragraph at lines 112--114
 
  []
 
-<figures/IoT_domains.png, id=247, 320.8788pt x 248.6088pt>
+<figures/IoT_domains.png, id=377, 320.8788pt x 248.6088pt>
 File: figures/IoT_domains.png Graphic file (type png)
 
 <use figures/IoT_domains.png>
 Package pdftex.def Info: figures/IoT_domains.png used on input line 118.
 (pdftex.def)             Requested size: 332.70906pt x 257.77695pt.
- [4 <./figures/IoT_domains.png>]
+ [5 <./figures/IoT_domains.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 131--132
 
  []
@@ -818,13 +818,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 135--136
 
  []
 
-<figures/smarthome_class.png, id=261, 305.00087pt x 220.20883pt>
+<figures/smarthome_class.png, id=391, 305.00087pt x 220.20883pt>
 File: figures/smarthome_class.png Graphic file (type png)
 
 <use figures/smarthome_class.png>
 Package pdftex.def Info: figures/smarthome_class.png used on input line 139.
 (pdftex.def)             Requested size: 426.99828pt x 308.29024pt.
- [5 <./figures/smarthome_class.png>]
+ [6 <./figures/smarthome_class.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 149--150
 
  []
@@ -861,7 +861,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 177--178
 
  []
 
-[6]
+[7]
 Underfull \hbox (badness 10000) in paragraph at lines 179--180
 
  []
@@ -881,13 +881,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 185--186
 
  []
 
-<figures/IoT_stack.png, id=297, 376.7676pt x 187.6611pt>
+<figures/IoT_stack.png, id=428, 376.7676pt x 187.6611pt>
 File: figures/IoT_stack.png Graphic file (type png)
 
 <use figures/IoT_stack.png>
 Package pdftex.def Info: figures/IoT_stack.png used on input line 189.
 (pdftex.def)             Requested size: 320.25395pt x 159.51268pt.
- [7 <./figures/IoT_stack.png>]
+ [8 <./figures/IoT_stack.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 204--205
 
  []
@@ -902,7 +902,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 212--213
 
  []
 
-[8] <figures/desc_cisco_ASA-5506H-X.png, id=327, 138.7584pt x 126.16277pt>
+[9] <figures/desc_cisco_ASA-5506H-X.png, id=456, 138.7584pt x 126.16277pt>
 File: figures/desc_cisco_ASA-5506H-X.png Graphic file (type png)
 
 <use figures/desc_cisco_ASA-5506H-X.png>
@@ -910,7 +910,7 @@ Package pdftex.def Info: figures/desc_cisco_ASA-5506H-X.png used on input line
 224.
 (pdftex.def)             Requested size: 122.84694pt x 111.69542pt.
 
-<figures/proximus_FW.png, id=328, 586.19pt x 207.77625pt>
+<figures/proximus_FW.png, id=457, 586.19pt x 207.77625pt>
 File: figures/proximus_FW.png Graphic file (type png)
 
 <use figures/proximus_FW.png>
@@ -927,14 +927,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 239--240
 
  []
 
-[9 <./figures/desc_cisco_ASA-5506H-X.png> <./figures/proximus_FW.png>]
-<figures/netw_IDS.png, id=346, 294.8616pt x 92.38515pt>
+[10 <./figures/desc_cisco_ASA-5506H-X.png> <./figures/proximus_FW.png>]
+<figures/netw_IDS.png, id=475, 294.8616pt x 92.38515pt>
 File: figures/netw_IDS.png Graphic file (type png)
 
 <use figures/netw_IDS.png>
 Package pdftex.def Info: figures/netw_IDS.png used on input line 268.
 (pdftex.def)             Requested size: 486.51863pt x 152.43452pt.
- [10 <./figures/netw_IDS.png>]
+ [11 <./figures/netw_IDS.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 296--297
 
  []
@@ -954,7 +954,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 310--311
 
  []
 
-[11]
+[12]
 Underfull \hbox (badness 10000) in paragraph at lines 318--319
 
  []
@@ -964,7 +964,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 333--334
 
  []
 
-[12]
+[13]
 Underfull \hbox (badness 10000) in paragraph at lines 351--352
 
  []
@@ -979,7 +979,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 365--366
 
  []
 
-[13]
+[14]
 Underfull \hbox (badness 10000) in paragraph at lines 372--373
 
  []
@@ -989,7 +989,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 386--387
 
  []
 
-[14] [15]
+[15] [16]
 Underfull \hbox (badness 10000) in paragraph at lines 447--448
 
  []
@@ -1014,7 +1014,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 459--460
 
  []
 
-[16]
+[17]
 Underfull \hbox (badness 10000) in paragraph at lines 480--481
 
  []
@@ -1039,7 +1039,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 494--495
 
  []
 
-[17]
+[18]
 Underfull \hbox (badness 10000) in paragraph at lines 501--502
 
  []
@@ -1049,18 +1049,18 @@ Underfull \hbox (badness 10000) in paragraph at lines 503--504
 
  []
 
-[18]
+[19]
 Underfull \hbox (badness 10000) in paragraph at lines 515--516
 
  []
 
-<figures/Shodans.png, id=450, 1485.55pt x 1114.1625pt>
+<figures/Shodans.png, id=580, 1485.55pt x 1114.1625pt>
 File: figures/Shodans.png Graphic file (type png)
 
 <use figures/Shodans.png>
 Package pdftex.def Info: figures/Shodans.png used on input line 520.
 (pdftex.def)             Requested size: 563.05452pt x 422.29811pt.
- [19 <./figures/Shodans.png>]
+ [20 <./figures/Shodans.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 527--528
 
  []
@@ -1090,7 +1090,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 549--550
 
  []
 
-[20]
+[21]
 Underfull \hbox (badness 10000) in paragraph at lines 559--560
 
  []
@@ -1125,7 +1125,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 571--572
 
  []
 
-[21]
+[22]
 Underfull \hbox (badness 10000) in paragraph at lines 579--580
 
  []
@@ -1145,13 +1145,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 591--592
 
  []
 
-[22] <figures/IoT_sec_layers.png, id=509, 414.1071pt x 526.1256pt>
+[23] <figures/IoT_sec_layers.png, id=639, 414.1071pt x 526.1256pt>
 File: figures/IoT_sec_layers.png Graphic file (type png)
 
 <use figures/IoT_sec_layers.png>
 Package pdftex.def Info: figures/IoT_sec_layers.png used on input line 628.
 (pdftex.def)             Requested size: 342.94855pt x 435.7288pt.
- [23 <./figures/IoT_sec_layers.png>]
+ [24 <./figures/IoT_sec_layers.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 642--643
 
  []
@@ -1191,7 +1191,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 663--664
 
  []
 
-[24]
+[25]
 Underfull \hbox (badness 10000) in paragraph at lines 667--668
 
  []
@@ -1236,7 +1236,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 685--686
 
  []
 
-[25]
+[26]
 Underfull \hbox (badness 10000) in paragraph at lines 696--698
 
  []
@@ -1261,7 +1261,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 717--718
 
  []
 
-[26]
+[27]
 Underfull \hbox (badness 10000) in paragraph at lines 719--720
 
  []
@@ -1271,7 +1271,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 739--740
 
  []
 
-[27]
+[28]
 Underfull \hbox (badness 10000) in paragraph at lines 745--746
 
  []
@@ -1313,7 +1313,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 753--754
 
  []
 
-[28] [29] (./rapport_projet_MAB1.bbl
+[29]
+Overfull \hbox (19.23665pt too wide) in paragraph at lines 766--766
+|[]\OT1/cmr/bx/n/14.4 D^^Seveloppement d'une ap-pli-ca-tion \OT1/cmr/bx/it/14.4
+ IoT-Mo-ni-tor \OT1/cmr/bx/n/14.4 - in-tro-duc-tion et concepts| 
+ []
+
+[30] [31] (./rapport_projet_MAB1.bbl
 Underfull \hbox (badness 1221) in paragraph at lines 17--21
 []\OT1/cmr/m/n/10 Cisco asa.  Wi-ki-pe-dia ar-ticle, URL : [][]$\OT1/cmtt/m/n/1
 0 https : / / en . wikipedia . org / wiki / Cisco _ ASA$[][]\OT1/cmr/m/n/10 , d
@@ -1352,24 +1358,24 @@ mr/m/n/10 , [][]$\OT1/cmtt/m/n/10 https : / / www . cisco . com / c / en / us /
  []
 
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 775.
- [30]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 775.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 843.
+ [32]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 843.
  (./rapport_projet_MAB1.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 775.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 775.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 843.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 843.
 Package rerunfilecheck Info: File `rapport_projet_MAB1.out' has not changed.
-(rerunfilecheck)             Checksum: BE4B83139B4D0714B9EB670276DFC52D;3536.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 775.
+(rerunfilecheck)             Checksum: 83CA071C60749A88F3B646938C9B75EA;5829.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 843.
  ) 
 Here is how much of TeX's memory you used:
- 9334 strings out of 493029
- 138554 string characters out of 6136234
- 253649 words of memory out of 5000000
- 12628 multiletter control sequences out of 15000+600000
+ 9388 strings out of 493029
+ 139472 string characters out of 6136234
+ 255652 words of memory out of 5000000
+ 12653 multiletter control sequences out of 15000+600000
  11898 words of font info for 42 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 44i,11n,45p,1578b,439s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 44i,11n,45p,1578b,596s stack positions out of 5000i,500n,10000p,200000b,80000s
 pdfTeX warning (dest): name{Hfootnote.7} has been referenced but does not exi
 st, replaced by a fixed one
 
@@ -1407,10 +1413,10 @@ b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr
 /texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/eurosym/feymr10.pfb>
-Output written on rapport_projet_MAB1.pdf (30 pages, 3922994 bytes).
+Output written on rapport_projet_MAB1.pdf (32 pages, 3929412 bytes).
 PDF statistics:
- 697 PDF objects out of 1000 (max. 8388607)
- 622 compressed objects within 7 object streams
- 118 named destinations out of 1000 (max. 500000)
- 379 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 840 PDF objects out of 1000 (max. 8388607)
+ 762 compressed objects within 8 object streams
+ 147 named destinations out of 1000 (max. 500000)
+ 579 words of extra memory for PDF output out of 10000 (max. 10000000)
 
