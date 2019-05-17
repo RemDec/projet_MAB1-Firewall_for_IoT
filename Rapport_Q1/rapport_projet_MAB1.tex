@@ -19,6 +19,8 @@
 \usepackage{subfig}
 \usepackage[bottom]{footmisc}
 \usepackage{titlesec}
+\usepackage{chngpage}
+\usepackage{calc}
 
 \setcounter{secnumdepth}{4}
 
@@ -791,25 +793,44 @@ Les interactions se font principalement sur deux composants décris plus en dét
 
 \par $\bullet$ \textbf{La carte du réseau} est le résultat de l'agrégation des informations parsées sur les sorties des programmes de la Routine (donc automatiques) et des entrées manuelles de l'utilisateur. Il s'agit de résumer au mieux d'une part les informations récoltées concernant les équipements (adresses MAC, IP, hostname, ports ouverts, etc.) et d'autre part les alertes associées à un équipement particulier (CVE existante pour le modèle, service utilisé non sécurisé ou sujet à une faille connue, etc.). Cette carte virtuelle du réseau a pour objectif de fournir une vue d'ensemble du réseau domestique (limitée au LAN) pour l'utilisateur, afin qu'il puisse y exercer un contrôle plus pertinent.
 
+\vspace{1cm}
+
 \paragraph{La conception d'un framework d'intégration}
 
-Puisque l'application fonctionne uniquement en se basant sur des programmes extérieurs arbitraires, il est nécessaire de définir un cadre assez rigoureux pour les intégrer au système. Cela se fait via une surcouche d'abstraction désignée par le terme Module. Deux archétypes son envisagés pour un \textbf{Module}, en fonction de la nature de l'exécution du programme à abstraire : soit celle-ci est continue et produit un feedback régulier jusqu'à terminaison du processus, soit il s'agit d'une exécution unique destinée à se terminer avec un feedback des résultats. Par analogie avec les types de scanneurs, on désigne l'archétype de Module à suivre correspondant par \textbf{Module Actif} et \textbf{Module Passif}. La surcouche correspond dans les faits à hériter d'une classe abstraite dont plusieurs méthodes doivent être implémentées, cette partie pratique est approfondie dans la \wordlink{abstrmodel}{sous-section}.\\
+Puisque l'application fonctionne uniquement en se basant sur des programmes extérieurs arbitraires, il est nécessaire de définir un cadre assez rigoureux pour les intégrer au système. Cela se fait via une surcouche d'abstraction désignée par le terme \textbf{Module}. Deux archétypes son envisagés pour un Module, en fonction de la nature de l'exécution du programme à abstraire : soit celle-ci est continue et produit un feedback régulier jusqu'à terminaison du processus, soit il s'agit d'une exécution unique destinée à se terminer avec un feedback des résultats e, sortie. Par analogie avec les types de scanneurs, on désigne l'archétype de Module à suivre correspondant par \textbf{Module Actif} et \textbf{Module Passif}. La surcouche correspond dans les faits à hériter d'une classe abstraite dont plusieurs méthodes doivent être implémentées, cette partie pratique est approfondie dans la \wordlink{abstrmodel}{sous-section}.\\
 
 \par De nouveaux programmes peuvent ainsi être intégrés et utilisables dans l'application, à condition d'écrire une classe héritant de la classe correspondant soit aux modules actifs, soit aux modules passifs en fonction de la nature du programme. Dans ces classes supérieures, la façon dont l'exécution du programme sous-jacent doit être traitée est déjà encadrée (bien qu'il soit aussi possible de réécrire cela). Le schéma d'exécution est le suivant :
-
+\vspace{0.2cm}
 \begin{itemize}
-\item[$\bullet$] \textbf{Module actif} : un thread est lancé
-\item[$\bullet$]
+\item[$\bullet$] \textbf{Module actif} : un thread est lancé pour dissocier le fil d'exécution général de l'application. Dans ce thread, un processus fils exécutant le programme est instancié, avec sa sortie récupérable. Une fois l'exécution terminée, le thread se termine en appelant une fonction de callback qui est celle définie pour le parsing du programme.
+\vspace{0.2cm}
+\item[$\bullet$] \textbf{Module passif} : le travail est divisé en deux parties, la première se charge de lancer un processus fils exécutant le programme dont la sortie est redirigée vers un pipe et la seconde est chargée de lire le contenu de ce pipe et d'appeler la fonction de parsing dessus à intervalle de temps régulier.
 \end{itemize}
+\vspace{0.4cm}
 
-\par Librairie et q/p
 
+\par Comme énoncé lors de son introduction, la Routine est composée de deux ensembles de modules : Panel et Queue. Le premier est donc destiné à accueillir des modules respectant l'archétype \textbf{passif}, tandis ce que le second s'attend à des modules présentant l'archétype \textbf{actif}. Sur base de cette hypothèse, un contrôle cohérent de leur exécution peut être établi : par exemple l'action de \textit{mettre en pause} un module passif dans le Panel et actif dans la Queue a une sémantique différente. Mettre en pause un module passif équivaut à envoyer un signal d'interruption au processus sous-jacent tournant en continu en arrière-plan. Mettre en pause un module actif dans la Queue équivaut à ne plus décrémenter son timer d'expiration associé, au terme duquel il était censé lancer une exécution du programme qu'il abstrait.\\
+
+
+\par L'application référence tous les modules disponibles dans une \textbf{Librairie} de modules. Il ne s'agit, en arrière-plan, que d'un simple fichier \texttt{XML} décrivant tous les modules qui doivent être chargés dans un format strict. Afin d'intégrer de façon constante un module pour qu'il soit utilisable dans l'application, deux options sont possibles : soit écrire manuellement la description du module et l'ajouter au fichier correspondant (plusieurs librairies de modules peuvent être envisagées), soit simplement appeler une méthode dédiée sur une instance du module qui en créera le descriptif automatiquement. Si le module a été correctement écrit en suivant le strict minimum imposé par le framework, le descriptif du module sera ajouté à la librairie courante et le module facilement manipulable dans l'application (pour par exemple l'ajouter à la Routine de surveillance).
+
+
+\newpage
 %---------------- Concepts
 
 \subsection{Composants du système de surveillance}
 \label{compapp}
 
-\subsubsection{Modules actifs et passifs - abstraction des logiciels}
+\begin{figure}[!ht]
+   \begin{adjustwidth}{-\oddsidemargin-1in + 0.5cm}{-\rightmargin}
+     \centering
+     \includegraphics[width=\paperwidth - 1cm]{maqGUI}
+   \end{adjustwidth}
+\end{figure}
+
+\subsubsection{Modules actifs et passifs - abstraction des programmes}
+
+Les Modules constituent la couche d'abstraction pour les programmes sous-jacents et sont régis par un framework spécifique à l'archétype actif ou passif. Par programme il est entendu : \textit{un programme ou script installé et fonctionnel sur le système, exécutable depuis un terminal et dont la sortie est récupérable}.
 
 \subsubsection{Routine - automatisation de la surveillance}
 
@@ -836,11 +857,7 @@ Puisque l'application fonctionne uniquement en se basant sur des programmes ext�
 
 %---------------- Choix
 
-\subsection{Justification des choix}
-
-%---------------- Logiciels
-
-\subsection{Sélection des logiciels à intégrer}
+\subsection{Justification des choix généraux}
 
 %---------------- Discussion implem
 
@@ -855,6 +872,17 @@ Puisque l'application fonctionne uniquement en se basant sur des programmes ext�
 \subsubsection{Stockage et agrégation des informations}
 
 \subsubsection{Interactivité avec l'application}
+
+%---------------- Logiciels
+
+\subsection{Sélection des logiciels à intégrer}
+
+
+\newpage
+
+\section{Manuel d'utilisation}
+
+\newpage
 
 \section{Tests et évaluation de l'application}
 

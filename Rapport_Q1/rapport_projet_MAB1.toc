@@ -47,25 +47,26 @@
 \contentsline {subsubsection}{\numberline {4.1.2}Objectifs de l'application}{30}{subsubsection.4.1.2}
 \contentsline {paragraph}{\numberline {4.1.2.1}La surveillance du r\IeC {\'e}seau domestique}{30}{paragraph.4.1.2.1}
 \contentsline {paragraph}{\numberline {4.1.2.2}La conception d'un framework d'int\IeC {\'e}gration}{31}{paragraph.4.1.2.2}
-\contentsline {subsection}{\numberline {4.2}Composants du syst\IeC {\`e}me de surveillance}{31}{subsection.4.2}
-\contentsline {subsubsection}{\numberline {4.2.1}Modules actifs et passifs - abstraction des logiciels}{31}{subsubsection.4.2.1}
-\contentsline {subsubsection}{\numberline {4.2.2}Routine - automatisation de la surveillance}{31}{subsubsection.4.2.2}
-\contentsline {subsubsection}{\numberline {4.2.3}Netmap - agr\IeC {\'e}gation des \IeC {\'e}quipements du r\IeC {\'e}seau}{31}{subsubsection.4.2.3}
-\contentsline {subsubsection}{\numberline {4.2.4}Centre d\IeC {\textquoteright }\IeC {\'e}v\IeC {\'e}nements - logging et lancement d'alertes}{31}{subsubsection.4.2.4}
-\contentsline {subsection}{\numberline {4.3}Mod\IeC {\`e}le d'abstraction des logiciels}{31}{subsection.4.3}
-\contentsline {subsubsection}{\numberline {4.3.1}Design pour un module actif}{31}{subsubsection.4.3.1}
-\contentsline {subsubsection}{\numberline {4.3.2}Design pour un module passif}{31}{subsubsection.4.3.2}
-\contentsline {subsubsection}{\numberline {4.3.3}Mod\IeC {\`e}le g\IeC {\'e}n\IeC {\'e}ral d'abstraction}{31}{subsubsection.4.3.3}
-\contentsline {section}{\numberline {5}Impl\IeC {\'e}mentation de l'application}{32}{section.5}
-\contentsline {subsection}{\numberline {5.1}Justification des choix}{32}{subsection.5.1}
-\contentsline {subsection}{\numberline {5.2}S\IeC {\'e}lection des logiciels \IeC {\`a} int\IeC {\'e}grer}{32}{subsection.5.2}
-\contentsline {subsection}{\numberline {5.3}Discussions des choix d'impl\IeC {\'e}mentation}{32}{subsection.5.3}
-\contentsline {subsubsection}{\numberline {5.3.1}Gestion du temps}{32}{subsubsection.5.3.1}
-\contentsline {subsubsection}{\numberline {5.3.2}Ex\IeC {\'e}cution des logiciels}{32}{subsubsection.5.3.2}
-\contentsline {subsubsection}{\numberline {5.3.3}Parsing des sorties}{32}{subsubsection.5.3.3}
-\contentsline {subsubsection}{\numberline {5.3.4}Stockage et agr\IeC {\'e}gation des informations}{32}{subsubsection.5.3.4}
-\contentsline {subsubsection}{\numberline {5.3.5}Interactivit\IeC {\'e} avec l'application}{32}{subsubsection.5.3.5}
-\contentsline {section}{\numberline {6}Tests et \IeC {\'e}valuation de l'application}{32}{section.6}
-\contentsline {subsection}{\numberline {6.1}Simulation d'\IeC {\'e}quipements}{32}{subsection.6.1}
-\contentsline {subsection}{\numberline {6.2}D\IeC {\'e}ploiement dans un milieu domestique}{32}{subsection.6.2}
-\contentsline {subsection}{\numberline {6.3}Stress-test dans un environnement peupl\IeC {\'e}}{32}{subsection.6.3}
+\contentsline {subsection}{\numberline {4.2}Composants du syst\IeC {\`e}me de surveillance}{32}{subsection.4.2}
+\contentsline {subsubsection}{\numberline {4.2.1}Modules actifs et passifs - abstraction des programmes}{32}{subsubsection.4.2.1}
+\contentsline {subsubsection}{\numberline {4.2.2}Routine - automatisation de la surveillance}{32}{subsubsection.4.2.2}
+\contentsline {subsubsection}{\numberline {4.2.3}Netmap - agr\IeC {\'e}gation des \IeC {\'e}quipements du r\IeC {\'e}seau}{32}{subsubsection.4.2.3}
+\contentsline {subsubsection}{\numberline {4.2.4}Centre d\IeC {\textquoteright }\IeC {\'e}v\IeC {\'e}nements - logging et lancement d'alertes}{32}{subsubsection.4.2.4}
+\contentsline {subsection}{\numberline {4.3}Mod\IeC {\`e}le d'abstraction des logiciels}{32}{subsection.4.3}
+\contentsline {subsubsection}{\numberline {4.3.1}Design pour un module actif}{32}{subsubsection.4.3.1}
+\contentsline {subsubsection}{\numberline {4.3.2}Design pour un module passif}{32}{subsubsection.4.3.2}
+\contentsline {subsubsection}{\numberline {4.3.3}Mod\IeC {\`e}le g\IeC {\'e}n\IeC {\'e}ral d'abstraction}{32}{subsubsection.4.3.3}
+\contentsline {section}{\numberline {5}Impl\IeC {\'e}mentation de l'application}{33}{section.5}
+\contentsline {subsection}{\numberline {5.1}Justification des choix g\IeC {\'e}n\IeC {\'e}raux}{33}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}Discussions des choix d'impl\IeC {\'e}mentation}{33}{subsection.5.2}
+\contentsline {subsubsection}{\numberline {5.2.1}Gestion du temps}{33}{subsubsection.5.2.1}
+\contentsline {subsubsection}{\numberline {5.2.2}Ex\IeC {\'e}cution des logiciels}{33}{subsubsection.5.2.2}
+\contentsline {subsubsection}{\numberline {5.2.3}Parsing des sorties}{33}{subsubsection.5.2.3}
+\contentsline {subsubsection}{\numberline {5.2.4}Stockage et agr\IeC {\'e}gation des informations}{33}{subsubsection.5.2.4}
+\contentsline {subsubsection}{\numberline {5.2.5}Interactivit\IeC {\'e} avec l'application}{33}{subsubsection.5.2.5}
+\contentsline {subsection}{\numberline {5.3}S\IeC {\'e}lection des logiciels \IeC {\`a} int\IeC {\'e}grer}{33}{subsection.5.3}
+\contentsline {section}{\numberline {6}Manuel d'utilisation}{34}{section.6}
+\contentsline {section}{\numberline {7}Tests et \IeC {\'e}valuation de l'application}{35}{section.7}
+\contentsline {subsection}{\numberline {7.1}Simulation d'\IeC {\'e}quipements}{35}{subsection.7.1}
+\contentsline {subsection}{\numberline {7.2}D\IeC {\'e}ploiement dans un milieu domestique}{35}{subsection.7.2}
+\contentsline {subsection}{\numberline {7.3}Stress-test dans un environnement peupl\IeC {\'e}}{35}{subsection.7.3}
