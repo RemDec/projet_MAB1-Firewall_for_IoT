@@ -821,36 +821,212 @@ Puisque l'application fonctionne uniquement en se basant sur des programmes ext�
 \subsection{Composants du système de surveillance}
 \label{compapp}
 
+Afin de mieux visualiser les différents éléments qui composent le cœur de l'application, une maquette d'interface graphique a été élaborée. Celle-ci représente ce à quoi devrait correspondre l'écran de gestion principal de l'application. Effectivement, afin de pouvoir être utilisée dans un contexte restreint (tel que sur une carte Raspberry PI), l'application a d'abord été dotée d'une interface en ligne de commande en priorité (voir \wordlink{justifinter}{point}). Une partie des composants principaux sont repris dans la 
+\wordlink{gui}{figure}.
+
 \begin{figure}[!ht]
    \begin{adjustwidth}{-\oddsidemargin-1in + 0.5cm}{-\rightmargin}
      \centering
      \includegraphics[width=\paperwidth - 1cm]{maqGUI}
+     \caption{Maquette GUI de l'application en reprenant les principaux éléments}
+     \label{gui}
    \end{adjustwidth}
+   \
 \end{figure}
 
 \subsubsection{Modules actifs et passifs - abstraction des programmes}
 
-Les Modules constituent la couche d'abstraction pour les programmes sous-jacents et sont régis par un framework spécifique à l'archétype actif ou passif. Par programme il est entendu : \textit{un programme ou script installé et fonctionnel sur le système, exécutable depuis un terminal et dont la sortie est récupérable}.
+Les Modules constituent la couche d'abstraction pour les programmes sous-jacents et sont régis par un framework spécifique à l'archétype actif ou passif. Par programme il est entendu : \textit{un programme ou script installé et fonctionnel sur le système, exécutable depuis un terminal et dont la sortie est récupérable}. Plusieurs modules distincts peuvent abstraire le même programme, mais dont les utilisations spécifiques sont différentes. Par exemple, le programme \textit{nmap} est accompagné du NSE (Nmap Script Engine), un framework permettant d'intégrer des scripts variés à l'exécution d'un scan nmap. Nmap peut donc être utilisé en combinaison avec différents scripts dont les objectifs (et donc les paramètres et sorties du programme) sont très hétérogènes. Cela implique que des couches d'abstraction distinctes devraient être écrites afin de les représenter par différents modules dans l'application.\\
+
+\par Les modules sont manipulables comme des unités dans l'application. Ils sont référencés dans la Library qui est le point d'entrée à partir duquel les instancier dans l'application. Elle est représentée dans la maquette par le label \texttt{(1)}. À partir de là, un module peut soit être inséré dans la routine de surveillance si on souhaite son utilisation régulière automatisée, ou dans un ensemble à part, dit indépendant, où il sera exécuté directement une unique fois (ce qui a plus de sens pour un module actif, mais reste possible pour un module passif).
+
+\newpage
+
+Les attributs qui devraient être définis lors de l'écriture d'un module doivent au minimum comporter : 
+\begin{itemize}
+\item[$\bullet$] Un id unique parmi tous les modules déjà référencés dans la Library
+\item[$\bullet$] Une description textuelle du rôle du module
+\item[$\bullet$] Une indication de l'archétype associé au module : à considérer comme actif ou passif
+\item[$\bullet$] La commande qui permet d'appeler l'exécutable sur le système
+\item[$\bullet$] Une définition des paramètres ajoutables à la commande, avec pour chacun :
+\begin{itemize}
+\item un indicateur booléen indiquant s'il est indispensable (toujours rajouté à la commande)
+\item une valeur par défaut, qui sera utilisée si le paramètre est indispensable mais non fourni
+\item le flag associé à l'option du programme en ligne de commande si existant
+\end{itemize}
+\item[$\bullet$] Additionnellement, une description textuelle de chaque paramètre
+\item[$\bullet$] La méthode de parsing
+\end{itemize}
+
+\vspace{1.3cm}
+
+Le champ d'action d'un module tel qu'il devrait être suivant le framework est le suivant :
+
+\begin{enumerate}
+\item Appeler le programme avec les paramètres qui lui ont été communiqués ou ceux définis comme par défaut
+\item Dissocier le fil d'exécution en exécutant le programme sous-jacent dans un nouveau thread
+\item Maintenir une référence vers ce processus de sorte à pouvoir communiquer avec (signal d'interruption, etc.)
+\item Récupérer les informations que le programme renvoie sur sa sortie standard et ses erreurs
+\item Parser cette sortie et la traduire vers l'application afin d'y intégrer l'information :
+\subitem 1. \textbf{Logging} : informations diverses à inclure dans les logs de l'application (debug, ...)
+\subitem 2. \textbf{Alertes} : menace détectée par le programme, à ne pas simplement logger (associer à un équipement particulier, création et envoi d'un mail au propriétaire, ...)
+\subitem 3. \textbf{Modifications} : un module a l'accès en lecture et écriture sur la carte du réseau et ses éléments, permettant leur mise à jour automatique depuis les sorties des programmes
+\end{enumerate}
+
+\vspace{0.5cm}
+
+Pour plus de détails concernant l'implémentation concrète du système de modules, se référer à la \wordlink{abstrmodel}{sous-section}.
 
 \subsubsection{Routine - automatisation de la surveillance}
 
-\subsubsection{Netmap - agrégation des équipements du réseau}
+La Routine est l'ensemble des modules sélectionnés pour surveiller le réseau domestique de façon automatisée, en répétition continue. On la retrouve associée dans la maquette au label \texttt{(2)}. La Routine courante est remplie par l'utilisateur depuis la Library et peut être paramétrée, modifiée et contrôlée par celui-ci à volonté. Elle maintient deux sous-ensembles vers lesquels les modules sont aiguillés en fonction de leur archétype : le Panel des passifs \texttt{(2.1)} et la Queue des actifs \texttt{(2.2)}. À l'ajout d'un module, un index unique parmi le sous-ensemble est associé (par défaut l'id du module) et toute interaction avec le module peut se faire via ce \texttt{setid} (respectivement un \texttt{pid} et un \texttt{qid}  dans les deux sous-ensembles). Un même module peut être présent en de multiples exemplaires, tant qu'il s'agit d'instances différentes. Cela permet, par exemple, d'avoir deux instances du même module mais qui considéreront des paramètres différents pour le programme sous-jacent.\\
+
+\par Le Panel maintient les modules respectant l'archétype \textit{passif}, c'est-à-dire dont le programme sous-jacent est destiné à être exécuté de façon continue jusqu'à interruption du processus. En plus d'un \texttt{pid}, à chaque module est donc associé un état "en cours" ou "pause", et au Panel également (panel "en cours" $\Leftrightarrow$ au moins un de ses modules est "en cours"). Cet état est commutable pour chacun de ces éléments, le passage à l'état "en cours" pour le Panel revient à lancer l'exécution de tous ses modules (idem pour "pause").\\
+
+\par La Queue contient les modules dits \textit{actifs}, dont le programme sous-jacent effectue un travail en temps fini au terme duquel il a terminé son exécution. Le but de la Queue est d'organiser la séquence des modules qui seront lancés. Pour cela, en plus du \texttt{qid} attribué à chacun de ses modules, un timer d'expiration est initialisé (à une valeur fournie par le module et modifiable). Il est décrémenté chaque seconde jusqu'à valoir 0, alors le module est lancé (entendu l'exécution du programme sous-jacent), et son timer est réinitialisé. L'ensemble des modules de la Queue peut alors être visualisé comme une file, où les modules sont agencés selon leur temps restant. On visualise ainsi la séquence d'exécution prochaine, totalement automatisée.
+
+\newpage
+
+\subsubsection{Netmap - recensement des équipements du réseau}
+
+La carte du réseau est l'élément vers lequel doivent converger toutes les informations concernant le réseau, obtenues grâce aux programmes sous-jacents ou entrées par l'utilisateur lui-même. Elle a pour objectif de les agréger pour produire une représentation interne du réseau domestique cohérente, comme représenté dans la maquette par \texttt{(3)}. Les équipements physiques y sont représentés par des \textbf{Instances Virtuelles} (IV), chacune destinée à correspondre à un unique équipement et regroupant un maximum des informations le concernant. Cet ensemble d'IVs est maintenu dans la \textbf{Netmap}, où elles sont indexées par un identifiant \texttt{mapid} attribué automatiquement \textit{device0}, \textit{device1}, ... modifiable par l'utilisateur s'il le désire en fonction de ce qu'est réellement l'équipement pour lui.\\
+
+\par Les informations stockées dans les IVs sont appelées des \textbf{champs}. Ceux-ci peuvent être créés et remplis de façon automatisée par les modules (c'est un travail de la fonction de parsing des sorties à définir pour chaque module), mais également par l'utilisateur lui-même s'il souhaite étayer les informations concernant ses équipements. Quelques champs sont plus importants que d'autres, car plus pertinents dans un processus d'identification de l'équipement concerné par un paquet d'informations. Par exemple, un scanneur de ports des équipements du réseau envoie sur sa sortie l'IP de chaque équipement analysé et une table des ports ouverts. Pour associer cette information à chaque IV concernée, il va falloir identifier dans la Netmap l'IV unique qui renseigne déjà cette IP. S'il n'y en a pas, une nouvelle IV est créée pour contenir l'information. Il est possible que l'équipement réel était en effet déjà référencé dans la Netmap, mais son champ IP vide. Il s'agit donc d'un problème non trivial, une première étape pour le résoudre est de définir dans quel ordre certains champs sont pertinents pour évaluer une correspondance.\\
+
+Les champs principaux sont les suivants (par ordre de pertinence):
+
+\begin{enumerate}
+\item Adresse MAC (unique pour chaque équipement, sauf en cas de spoofing)
+\item Adresse IP (allouée généralement dynamiquement)
+\item Nom d'hôte \textit{hostname} (aucune garantie d'unicité, mais assez probable)
+\end{enumerate}
+
+\vspace{0.2cm}
+
+D'autres champs, considérés comme divers et auxquels de nouveaux peuvent venir se greffer à volonté :
+
+\begin{itemize}
+\item[$\bullet$] Fabriquant
+\item[$\bullet$] Modèle
+\item[$\bullet$] Firmware
+\item[$\bullet$] ...
+\end{itemize}
+
+\vspace{0.4cm}
+
+Afin de limiter ce besoin d'identifier l'instance virtuelle relative à une information obtenue du réseau, une mécanique simple est prévue. Quand un module est lancé, il est possible de lui fournir en paramètre quelles sont les IVs auxquelles l'exécution est relative. Cela permet deux améliorations : accéder à des informations sur les équipements déjà connues pour paramétriser l'exécution du programme et à interpréter sa sortie en fonction d'IVs déjà connues (donc de ne pas avoir à chercher une correspondance). Cet aspect est à gérer dans l'implémentation de chaque module.\\  
+
+À chaque instance virtuelle est également associée une Table des ports. Celle-ci maintient de l'information pour chaque port qui a été détecté. L'indexation se fait simplement par le numéro associé au port, et les valeurs principales à y associer sont le nom du service correspondant, le protocole de transport utilisé et son état (\textit{open}, \textit{closed}, ...). Il y a également la possibilité d'y associer des informations diverses à volonté telles que la version du service, le taux de confiance en cette information, etc.\\
+
+\indent Une entrée dans cette table est donc de la forme :
+\begin{center}
+\textit{numPort} : $<$\textit{service}, \textit{protocole}, \textit{état}$>$, divers \{(serv\_version, \textit{val}), (conf, \textit{val}), ...\}
+\end{center}
+
+\newpage
 
 \subsubsection{Centre d’événements - logging et lancement d'alertes}
+
+On distingue deux catégories d'informations qui doivent être enregistrées par l'application : les logs purs et les événements représentés par un objet \textbf{Event}. Les logs sont de simples informations à écrire dans un fichier ou une sortie donnée, tels que des du debug, des codes de retour à la terminaison des programmes et autres informations lors de leur exécution, etc. Les Events sont quant à eux capturés par l'application et instanciés pour être manipulés par la suite. Les logs interviennent principalement dans le cadre de l'exécution des programmes sous-jacents aux modules, et sont donc être utilisables depuis l'endroit de leur définition. La place de ces éléments dans la maquette est indiquée par \texttt{(4)}.\\
+
+\par Les Events peuvent être de deux natures, et constituent un moyen pour les modules de communiquer les modifications qu'ils effectuent sur les éléments de l'application. Soit ce sont des événements de modification, soit de menace. Le premier cas fait référence aux modifications sur la Netmap et ses instances virtuelles, notamment la création d'une IV ou un ajout ou changement de valeur d'un de ses champs. L'objet Event contient principalement des informations telles que la valeur précédente et la nouvelle, le module qui a fait la modification. Un Event de menace est utilisé pour décrire une détection de menace au niveau de la sécurité du réseau domestique. Elle maintient des informations sur la nature de la menace, le possible patch à appliquer, le niveau de danger, etc. qui doivent être remplies par le module qui lance l'alerte.\\
+
+\par L'élément de centralisation des Events de l'application est appelé \textbf{EventCenter}. Il est accessible par un simple appel depuis n'importe où dans l'application et permet de créer des Events qui y seront enregistrés. Il est alors possible d'appliquer des fonctions de recherche et filtrage sur ces événements, par exemple pour trouver toutes les modifications sur une instance virtuelle donnée. Un nombre fixe limite le maximum d'événements gardés en mémoire, les plus anciens laissant leur place aux plus récents.\\
+
+\par Pour éviter la perte d'événements importants concernant des équipements du réseau de la sorte, il est également possible d'accéder à l'EventCenter en passant par la Netmap. Un Event créé par ce biais, s'il concerne une IV de la Netmap, sera conservé de façon permanente dans la Netmap en plus de la journalisation temporaire dans l'EventCenter. L'indexation des Events dans la Netmap se fait simplement par le même index d'IV (son \texttt{mapid}). L'utilisateur peut ainsi facilement visualiser les modifications et menaces impliquant directement ses équipements.
 
 %---------------- Modèle d'abstraction
 
 \subsection{Modèle d'abstraction des logiciels}
 \label{abstrmodel}
 
+\subsubsection{Modèle général d'abstraction}
 
+Bien que l'on considère deux archétypes différents, les modules actifs et passifs doivent implémenter plusieurs méthodes communes. On définit donc ce qui équivaut à une interface générale dont deux classes abstraites héritent. Le framework pour l'intégration des modules est défini de cette façon. La \wordlink{abstrmodeldiag}{figure} reprend ce framework, illustrant quelles méthodes doivent être implémentées pour que l'application puisse utiliser le nouveau module écrit.
+\vspace{-0.4cm}
+    \begin{figure}[!h]
+       \noindent\makebox[\textwidth]{%
+       \includegraphics[width=0.585\textwidth]{abstrmodel.png}}
+       \caption{Structure orientée objet du modèle d'abstraction}
+       \label{abstrmodeldiag}
+    \end{figure}
+
+\newpage
+
+À noter que chaque module devrait garder une référence vers les threads dans lesquels il a lancé une exécution de son programme sous-jacent (plus de détails aux points suivants).
+Les méthodes remarquables de l'interface \textit{Module} ont la sémantique suivante :
+\vspace{0.1cm}
+\begin{itemize}
+\item[$\bullet$] \textit{get\_cmd()} : retourne l'alias qui sert à appeler le programme en CLI (comme lors d'une utilisation normale)
+\item[$\bullet$] \textit{get\_params()} : obtention de 3 éléments : paramètres actuels, par défaut et leur description textuelle  
+\item[$\bullet$] \textit{set\_params()} : ajustement de quels paramètres et de leur valeur à fournir à une exécution du programme
+\vspace{0.2cm}
+\item[$\bullet$] \textit{launch()} : lance une exécution du programme dans un nouveau thread, avec les paramètres courants du module. Les définitions pour un schéma d'exécution classique sont déjà implémentées dans les classes abstraites de l'archétype correspondant (ce sont des objets instanciables avec certains paramètres).
+\vspace{0.1cm}
+\item[$\bullet$] \textit{distrib\_output()} : méthode de parsing appelée sur la sortie de l'exécution d'un programme, effectue le travail de traduction vers les éléments de l'application
+\vspace{0.1cm}
+\item[$\bullet$] \textit{stop()} : interrompt l'exécution de tous les programmes sous-jacents dans les threads liés à l'instance du module
+\end{itemize}
+    
 \subsubsection{Design pour un module actif}
+
+Le schéma d'exécution classique pour l'archétype actif est simple : l'appel à \textit{launch()} doit lancer l'exécution du programme sous-jacent avec les paramètres actuels du module et dans un nouveau thread, auquel une fonction de callback (\textit{distrib\_output()}) est passée en paramètre. À la fin de l'exécution, la sortie du programme est récupérée et l'appel à la fonction de callback est effectué sur cette sortie (donc le parsing se fait dans la fin du fil d'exécution du thread). Ce comportement peut être obtenu grâce au support déjà implémenté dans la classe abstraite \textit{ActiveModule} dont un module concret doit hériter. Il reste cependant des méthodes spécifiques au module qui doivent y être implémentées (notamment celles de l'interface \textit{Module}). La \wordlink{abstractif}{figure} résume cette information.
+
+    \begin{figure}[!h]
+       \noindent\makebox[\textwidth]{%
+       \includegraphics[width=0.73\textwidth]{abstractif.png}}
+       \caption{Framework d'écriture d'un module actif}
+       \label{abstractif}
+    \end{figure}
+
+\vspace{0.3cm}
+
+\par Le code d'un module actif devrait être structuré de la sorte (si utiliser les facilités déjà implémentées est désiré) :
+
+\begin{enumerate}
+\item \textit{get\_script\_thread()} doit retourner une instance de ScriptThread paramétrisée avec la fonction \textit{distrib\_output()} du module.
+\vspace{0.1cm}
+\item \textit{launch()} construit la commande d'appel au programme \textit{cmd} depuis les paramètres actuels du module, telle qu'elle serait invoquée en ligne de commande (en utilisant \textit{get\_cmd()} + les paramètres actuels dans \textit{get\_params()}).
+\vspace{0.01cm}
+\item \textit{launch()} instancie le conteneur de l'exécution avec \textit{get\_script\_thread()} et invoque sa méthode \textit{start()} avec \textit{cmd}, ce qui va lancer un nouveau thread dans lequel le processus du programme sous-jacent est créé. À la fin de son travail (\textit{run()} est bloquant dessus), la méthode \textit{distrib\_output()} est appelée sur sa sortie.
+\vspace{0.1cm}
+\item \textit{launch()}, après avoir créé et dissocié le thread du fil d'exécution, l'enregistre dans l'ensemble des exécutions courantes du module avec \textit{register\_thread()}.
+
+\end{enumerate}
+\vspace{0.2cm}
+Additionnellement, la méthode \textit{get\_default\_timer()} renseigne la valeur par défaut que devrait prendre le timer d'expiration d'une instance du module placée dans la Queue.
+
+\newpage
 
 \subsubsection{Design pour un module passif}
 
-\subsubsection{Modèle général d'abstraction}
+Pour un programme correspondant à l'archétype passif, le schéma d'exécution est complexifié car il faut pouvoir récupérer les sorties du programme au fur et à mesure qu'elles sont produites et de façon régulière. Effectivement, on ne peut pas attendre la terminaison du programme qui marque le fait qu'il y a quelque chose à lire sur sa sortie puisqu'il n'est pas censé terminer son exécution de lui-même. La solution choisie est de séparer le schéma d'exécution en deux parties. L'une contrôle le processus sous-jacent et redirige sa sortie vers un pipe temporaire pendant que l'autre partie y lit les sorties à intervalle régulier et les parse. Comme pour l'archétype actif, des facilités sont fournies pour gérer ce travail, illustrées par la \wordlink{abstrpassif}{figure}.
 
+    \begin{figure}[!h]
+       \noindent\makebox[\textwidth]{%
+       \includegraphics[width=0.9\textwidth]{abstrpassif.png}}
+       \caption{Framework d'écriture d'un module passif}
+       \label{abstrpassif}
+    \end{figure}
 
+Pour utiliser correctement ces facilités, l'implémentation du module devrait respecter ces recommandations :
+\begin{enumerate}
+\item \textit{new\_bg\_thread()} et \textit{new\_com\_thread()} retournent respectivement une instance de BackgroundThread et CommunicationThread. Cette dernière doit être paramétrisée avec un objet Timer, l'intervalle de temps auquel la lecture doit avoir lieu et la fonction de parsing \textit{distrib\_output()} appelée sur la sortie lue
+\vspace{0.2cm}
+\item \textit{set\_read\_interval()} et \textit{get\_read\_interval()} sont relatifs à l'intervalle entre deux lectures qui doit être $> 0$
+\vspace{0.2cm}
+\item Comme pour les modules actifs, \textit{launch()} devrait construire la commande \texttt{cmd} telle qu'utilisable en CLI
+\vspace{0.2cm}
+\item Dans un premier temps, \textit{launch()} appelle la méthode \textit{start()} d'une instance de BackgroundThread en lui passant \texttt{cmd} pour démarrer le processus du programme sous-jacent, tout en redirigeant sa sortie vers un pipe alors créé à cette fin ( \texttt{output\_pipe}). Une référence vers ce dernier est maintenue.
+\vspace{0.2cm}
+\item En second lieu, \textit{launch()} devrait attendre que le processus ait terminé son initialisation, c'est-à-dire que \texttt{output\_pipe} soit créé et accessible en lecture. Alors le CommunicationThread peut être instancié en le lui passant en paramètre.
+\vspace{0.2cm}
+\item Finalement, \textit{launch()} devrait enregistrer cette paire d'objets Thread dans la liste prévue à cet effet avec un appel à \textit{register\_thread\_pair()}
+\end{enumerate}
+
+\vspace{0.2cm}
+
+À noter qu'ici, la méthode de BackgroundThread \textit{run()} lançant le sous-processus ne bloque pas jusqu'à terminaison (ce serait un perte de ressources). Également, la méthode \textit{run()} de CommunicationThread fait passer l'état de l'objet à \textit{décrémentable} puis termine le fil d'exécution du thread. C'est quand son timer tombe à 0 qu'un nouveau "dumb thread" est créé avec pour unique tâche de faire la lecture et le parsing. Cela se justifie par le fait que la méthode qui fait l'appel à la décrémentation (propre à l'objet Timer régissant l'application) ne devrait pas effectuer ce travail. En effet, il pourrait perturber la gestion de l'écoulement du temps s'il est trop lourd et effectué dans le même fil d'exécution. 
 \newpage
 
 \section{Implémentation de l'application}
@@ -872,6 +1048,7 @@ Les Modules constituent la couche d'abstraction pour les programmes sous-jacents
 \subsubsection{Stockage et agrégation des informations}
 
 \subsubsection{Interactivité avec l'application}
+\label{justifinter}
 
 %---------------- Logiciels
 

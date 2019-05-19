@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?><diagram program="umlet" version="13.3">
+  <zoom_level>12</zoom_level>
+  <element>
+    <id>UMLInterface</id>
+    <coordinates>
+      <x>1176</x>
+      <y>0</y>
+      <w>336</w>
+      <h>252</h>
+    </coordinates>
+    <panel_attributes>Module
+--
+get_module_id(): String
+get_description(): String
+is_active(): Boolean
+get_cmd(): String
+get_params(): dicts tuple
+set_params(params: values dict)
+launch(rel_to_vi: mapid list)
+distrib_output(output: String)
+stop()
+bg=light_gray</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.baselet.element.old.element.Class</type>
+    <coordinates>
+      <x>1404</x>
+      <y>288</y>
+      <w>456</w>
+      <h>360</h>
+    </coordinates>
+    <panel_attributes>/PassiveModule/
+--
+TO IMPLEMENT
+/+new_bg_thread()/
+/+new_comm_thread(timer: Timer, read_interv: int)/
+/+set_read_interval(duration: int)/
+/+get_read_interval(): int/
+--
+IMPLEMENTED
+is_active(): False
+--
+{innerclass
+BackgroundThread
+--
+Predefined cmd execution support and
+output redirection to pipe
+innerclass}
+
+{innerclass
+CommunicationThread
+--
+Support to read in pipe at regular time interval
+and call parsing function on it
+innerclass}
+
+
+bg=light_gray</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.baselet.element.old.element.Class</type>
+    <coordinates>
+      <x>948</x>
+      <y>312</y>
+      <w>324</w>
+      <h>216</h>
+    </coordinates>
+    <panel_attributes>/ActiveModule/
+--
+TO IMPLEMENT
+/+get_default_timer(): int/
+/+get_script_thread(): ScriptThread/
+--
+IMPLEMENTED
+is_active(): True
+--
+{innerclass
+ScriptThread
+--
+Predefined cmd execution support
+innerclass}
+
+
+
+bg=light_gray</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1092</x>
+      <y>12</y>
+      <w>276</w>
+      <h>324</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;250.0;10.0;10.0;210.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1332</x>
+      <y>12</y>
+      <w>288</w>
+      <h>300</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>220.0;230.0;220.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <type>com.baselet.element.old.element.Class</type>
+    <coordinates>
+      <x>396</x>
+      <y>708</y>
+      <w>324</w>
+      <h>348</h>
+    </coordinates>
+    <panel_attributes>/ActiveModule/
+--
+TO IMPLEMENT
+/+get_default_timer(): int/
+/+get_script_thread(): ScriptThread/
+--
+IMPLEMENTED
+is_active(): True
+register_thread(th: Thread)
+terminate_threads()
+--
+curr_threads : Thread list
+
+--
+{innerclass
+ScriptThread (Thread)
+--
+ScriptThread(callback_fct)
+----------------------------------------
+run() [calls callback_fct(output)]
+start(cmd)
+interrupt()
+innerclass}
+
+
+
+bg=light_gray</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>540</x>
+      <y>564</y>
+      <w>96</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;120.0;10.0;10.0;60.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>708</x>
+      <y>720</y>
+      <w>216</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>160.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <type>com.baselet.element.old.element.Class</type>
+    <coordinates>
+      <x>936</x>
+      <y>1308</y>
+      <w>456</w>
+      <h>300</h>
+    </coordinates>
+    <panel_attributes>RealPassiveModule
+--
+TO IMPLEMENT
+--
+get_module_id(): String
+get_description(): String
+get_cmd(): String
+get_params(): dicts tuple
+set_params(params: values dict)
+launch(rel_to_vi: mapid list)
+distrib_output(output: String)
+stop()
+--
+/+new_bg_thread()/
+/+new_comm_thread(timer: Timer, read_interv: int)/
+/+set_read_interval(duration: int)/
+/+get_read_interval(): int/
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.baselet.element.old.element.Class</type>
+    <coordinates>
+      <x>348</x>
+      <y>1212</y>
+      <w>456</w>
+      <h>660</h>
+    </coordinates>
+    <panel_attributes>/PassiveModule/
+--
+TO IMPLEMENT
+/+new_bg_thread()/
+/+new_comm_thread(timer: Timer, read_interv: int)/
+/+set_read_interval(duration: int)/
+/+get_read_interval(): int/
+--
+IMPLEMENTED
+is_active(): False
+get_bg_threads(): Thread list
+get_comm_threads(): Thread list
+register_threadpair(bg, comm)
+terminate_threads()
+--
+pair_threads : Thread couples list
+--
+{innerclass
+BackgroundThread(Thread)
+--
+BackgroundThread()
+-------------------------------
+run()  [setup output pipe reference]
+start(cmd)
+get_output_pipe() : Pipe reference
+interrupt()
+innerclass}
+
+{innerclass
+CommunicationThread(Thread)
+--
+CommunicationThread(read_fct, timer, interval)
+------------------------------------------------------------------------
+decr()
+is_decrementable() : Boolean
+set_reading(run: Boolean, interval: int)
+run()  [set reading at True]
+start(output_pipe: Pipe reference)
+interrupt()
+innerclass}
+
+
+bg=light_gray</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>564</x>
+      <y>1068</y>
+      <w>96</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;120.0;10.0;10.0;60.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLInterface</id>
+    <coordinates>
+      <x>36</x>
+      <y>1476</y>
+      <w>192</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>TimerInterface
+--
+decr
+is_decrementable</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>120</x>
+      <y>1488</y>
+      <w>264</w>
+      <h>204</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>200.0;150.0;100.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <type>com.baselet.element.old.element.Class</type>
+    <coordinates>
+      <x>900</x>
+      <y>804</y>
+      <w>324</w>
+      <h>264</h>
+    </coordinates>
+    <panel_attributes>RealActiveModule
+--
+TO IMPLEMENT
+get_module_id(): String
+get_description(): String
+get_cmd(): String
+get_params(): dicts tuple
+set_params(params: values dict)
+launch(rel_to_vi: mapid list)
+distrib_output(output: String)
+stop()
+/+get_default_timer(): int/
+/+get_script_thread(): ScriptThread/
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>792</x>
+      <y>1224</y>
+      <w>168</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>120.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>
