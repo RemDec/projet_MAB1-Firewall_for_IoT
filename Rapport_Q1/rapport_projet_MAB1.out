@@ -54,14 +54,25 @@
 \BOOKMARK [1][-]{section.5}{Impl\351mentation de l'application}{}% 54
 \BOOKMARK [2][-]{subsection.5.1}{Justification des choix g\351n\351raux}{section.5}% 55
 \BOOKMARK [2][-]{subsection.5.2}{Discussions des choix d'impl\351mentation}{section.5}% 56
-\BOOKMARK [3][-]{subsubsection.5.2.1}{Gestion du temps}{subsection.5.2}% 57
-\BOOKMARK [3][-]{subsubsection.5.2.2}{Ex\351cution des logiciels}{subsection.5.2}% 58
-\BOOKMARK [3][-]{subsubsection.5.2.3}{Parsing des sorties}{subsection.5.2}% 59
-\BOOKMARK [3][-]{subsubsection.5.2.4}{Stockage et agr\351gation des informations}{subsection.5.2}% 60
-\BOOKMARK [3][-]{subsubsection.5.2.5}{Interactivit\351 avec l'application}{subsection.5.2}% 61
-\BOOKMARK [2][-]{subsection.5.3}{S\351lection des logiciels \340 int\351grer}{section.5}% 62
-\BOOKMARK [1][-]{section.6}{Manuel d'utilisation}{}% 63
-\BOOKMARK [1][-]{section.7}{Tests et \351valuation de l'application}{}% 64
-\BOOKMARK [2][-]{subsection.7.1}{Simulation d'\351quipements}{section.7}% 65
-\BOOKMARK [2][-]{subsection.7.2}{D\351ploiement dans un milieu domestique}{section.7}% 66
-\BOOKMARK [2][-]{subsection.7.3}{Stress-test dans un environnement peupl\351}{section.7}% 67
+\BOOKMARK [3][-]{subsubsection.5.2.1}{Choix du langage}{subsection.5.2}% 57
+\BOOKMARK [3][-]{subsubsection.5.2.2}{Gestion du temps}{subsection.5.2}% 58
+\BOOKMARK [3][-]{subsubsection.5.2.3}{Ex\351cution des programmes sous-jacents}{subsection.5.2}% 59
+\BOOKMARK [3][-]{subsubsection.5.2.4}{Parsing des sorties}{subsection.5.2}% 60
+\BOOKMARK [3][-]{subsubsection.5.2.5}{Stockage et agr\351gation des informations}{subsection.5.2}% 61
+\BOOKMARK [3][-]{subsubsection.5.2.6}{Interactivit\351 avec l'application}{subsection.5.2}% 62
+\BOOKMARK [3][-]{subsubsection.5.2.7}{Alertes et notifications par email}{subsection.5.2}% 63
+\BOOKMARK [2][-]{subsection.5.3}{S\351lection des logiciels \340 int\351grer}{section.5}% 64
+\BOOKMARK [1][-]{section.6}{Manuel d'utilisation}{}% 65
+\BOOKMARK [2][-]{subsection.6.1}{Utilisation classique}{section.6}% 66
+\BOOKMARK [3][-]{subsubsection.6.1.1}{Point d'entr\351e de l'application}{subsection.6.1}% 67
+\BOOKMARK [3][-]{subsubsection.6.1.2}{Navigation dans les menus}{subsection.6.1}% 68
+\BOOKMARK [3][-]{subsubsection.6.1.3}{Consultation de l'\351tat des \351l\351ments}{subsection.6.1}% 69
+\BOOKMARK [3][-]{subsubsection.6.1.4}{Exemple pratique d'utilisation}{subsection.6.1}% 70
+\BOOKMARK [2][-]{subsection.6.2}{Utilisation du point de vue du programmeur}{section.6}% 71
+\BOOKMARK [3][-]{subsubsection.6.2.1}{\311crire un module}{subsection.6.2}% 72
+\BOOKMARK [3][-]{subsubsection.6.2.2}{Int\351grer un module dans l'application}{subsection.6.2}% 73
+\BOOKMARK [1][-]{section.7}{Tests et \351valuation de l'application}{}% 74
+\BOOKMARK [2][-]{subsection.7.1}{D\351ploiement sur Raspberry Pi et utilisation distante}{section.7}% 75
+\BOOKMARK [2][-]{subsection.7.2}{Simulation d'\351quipements}{section.7}% 76
+\BOOKMARK [2][-]{subsection.7.3}{D\351ploiement dans un milieu domestique}{section.7}% 77
+\BOOKMARK [2][-]{subsection.7.4}{Stress-test dans un environnement peupl\351}{section.7}% 78

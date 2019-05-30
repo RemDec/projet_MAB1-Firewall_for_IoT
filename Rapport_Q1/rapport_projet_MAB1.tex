@@ -21,6 +21,29 @@
 \usepackage{titlesec}
 \usepackage{chngpage}
 \usepackage{calc}
+\usepackage{listings}
+
+\definecolor{gray}{rgb}{0.4,0.4,0.4}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.6}
+\definecolor{cyan}{rgb}{0.0,0.6,0.6}
+
+\lstset{
+  basicstyle=\ttfamily,
+  columns=fullflexible,
+  showstringspaces=false,
+  commentstyle=\color{gray}\upshape
+}
+
+\lstdefinelanguage{XML}
+{
+  morestring=[b]",
+  morestring=[s]{>}{<},
+  morecomment=[s]{<?}{?>},
+  stringstyle=\color{black},
+  identifierstyle=\color{darkblue},
+  keywordstyle=\color{cyan},
+  morekeywords={modid,cmd,pymod,pyclass,code,mandatory,default,prefix}
+}
 
 \setcounter{secnumdepth}{4}
 
@@ -548,7 +571,7 @@ Les systèmes doivent être fonctionnels quand cela est attendu et garantir l'ac
 
 \minit{Authentification}
 
-Seuls les utilisateurs légitimes (acquéreurs du produit entre autres) devraient être en mesure d'accéder aux systèmes et de les configurer, ainsi que d'accéder aux informations sensibles qu'ils possèdent. L'authentification peut aussi être relative à une entité, comme le fabriquant certifié du produit qui tente d'atteindre le système pour effectuer sa mise-à-jour ou lui appliquer un patch afin de corriger une faille dans sa sécurité.\\
+Seuls les utilisateurs légitimes (acquéreurs du produit entre autres) devraient être en mesure d'accéder aux systèmes et de les configurer, ainsi que d'accéder aux informations sensibles qu'ils possèdent. L'authentification peut aussi être relative à une entité, comme le fabricant certifié du produit qui tente d'atteindre le système pour effectuer sa mise-à-jour ou lui appliquer un patch afin de corriger une faille dans sa sécurité.\\
 
 %\minit{Autorisation d'accès aux ressources}
 
@@ -666,9 +689,9 @@ Plusieurs schémas d'attaques peuvent être distingués, exploitant ou non des v
 
 \newpage
 
-\par \textit{Sinkhole/Blackhole attack} : l'attaque consiste à, à partir d'un nœud infecté, consommer les ressources des nœuds voisins dans le rayon d'émission. Cela se fait essentiellement en occupant le canal radio, brouillant les transmissions légitimes. Il en résulte une consommation d'énergie anormalement élevée pour les nœuds dans cette zone, attribuée aux retransmissions alors nécessaires.\\
+\par \textit{Sinkhole/Blackhole attack} : l'attaque consiste à consommer les ressources de nœuds voisins dans le rayon d'émission d'un nœud infecté. Cela se fait essentiellement en occupant le canal radio, brouillant les transmissions légitimes. Il en résulte une consommation d'énergie anormalement élevée pour les nœuds dans cette zone, attribuée aux retransmissions alors nécessaires.\\
 
-\par \textit{Wormhole} : cette attaque cible les protocoles de routages, introduisant une confusion dans le calcul des routes. Un nœud infecté va transmettre un paquet qu'il est sensé router, directement vers un autre nœud éloigné en établissant un tunnel invisible pour le protocole de routage. Ainsi, des nouvelles routes vont apparaitre, donnant l'illusion que les deux nœuds sont proches, ce qui pour un protocole de routage se basant sur la distance entre deux nœuds constituera une nouvelle meilleure route (qui ne l'est en réalité pas du tout).\\
+\par \textit{Wormhole} : cette attaque cible les protocoles de routages, introduisant une confusion dans le calcul des routes. Un nœud infecté va transmettre un paquet qu'il est censé router, directement vers un autre nœud éloigné en établissant un tunnel invisible pour le protocole de routage. Ainsi, des nouvelles routes vont apparaître, donnant l'illusion que les deux nœuds sont proches, ce qui pour un protocole de routage se basant sur la distance entre deux nœuds constituera une nouvelle meilleure route (qui ne l'est en réalité pas du tout).\\
 
 \par \textit{Man-in-the-Middle attack (MITM)} : forme d'eavesdropping où l'attaquant s'interpose entre deux nœuds voulant communiquer légitimement. Il opère de façon à ce que la communication ait lieu normalement du point de vue des deux autres intervenants, mais de sorte que chacun communique avec lui qui joue le rôle d'intermédiaire. Il peut alors accéder au contenu de tous les échanges et le manipuler pour en tirer des informations confidentielles et influencer le déroulement de la communication.\\
 
@@ -676,7 +699,7 @@ Plusieurs schémas d'attaques peuvent être distingués, exploitant ou non des v
 
 \subsubsection{Sur la couche support et application}
 
-\par Altération/exploitation des données : comme ces couches manipulent des données issues de ce que les équipements ont mesuré et capté, elles peuvent être sensibles et doivent être protégées. Un attaquant qui met la main sur ces données pourrait d'une part les corrompre et d'autre part les analyser et les exploiter afin de mener une autre attaque contre les utilisateurs. Par exemple, il pourrait dégager des données enregistrées quelles sont les plages horaires pendant lesquelles un domicile n'est pas occupé et donc trouver une fenêtre de liberté pour une approche physique. De plus,  ces données ne sont plus directement sous le contrôle de l'utilisateur (stockées dans les machines d'une entreprise), cela peut donc être problématique et mener à une atteinte à sa vie privée (revente  illégale d'informations à une compagnie tierce, etc.).\\
+\par Altération/exploitation des données : comme ces couches manipulent des données issues de ce que les équipements ont mesuré et capté, elles peuvent être sensibles et doivent être protégées. Un attaquant qui met la main sur ces données pourrait d'une part les corrompre et d'autre part les analyser et les exploiter afin de mener une autre attaque contre les utilisateurs. Par exemple, il pourrait dégager à partir des données enregistrées quelles sont les plages horaires pendant lesquelles un domicile n'est pas occupé et donc trouver une fenêtre de liberté pour une approche physique. De plus,  ces données ne sont plus directement sous le contrôle de l'utilisateur (stockées dans les machines d'une entreprise), cela peut donc être problématique et mener à une atteinte à sa vie privée (revente  illégale d'informations à une compagnie tierce, etc.).\\
 
 \par Attaques de déni de service (\textit{DoS}, \textit{DDoS}) : les compagnies qui hébergent les services repris dans les couches support et application (traitement des données, accès aux serveurs, etc.) sont elles aussi susceptibles de se faire attaquer directement. Les attaques DoS (ou DDoS comme illustré avec Mirai en introduction de cette section) sont courantes et peuvent complètement interrompre la disponibilité de ces services par différent biais (congestion, mise à l'arrêt des machines).\\
 
@@ -713,7 +736,7 @@ L'équipe travaillant sur le projet a établi \href{https://www.owasp.org/index.
 
 \subsubsection{La détection des équipements en réseau et de leurs vulnérabilités}
 
-Face à un réseau réel, disons local à une habitation possédant des équipements connectés (c-à-d orientée smarthome), il est difficile de se faire une idée de tous les objets y étant connectés et de quelles sont leurs fonctionnalités. Des outils sont nécessaires afin de découvrir le réseau et établir quels équipements peuvent potentiellement être la cible d'attaques. Il en existe une flopée (\href{https://sectools.org/}{sectools.org} en maintient un classement fourni), libres ou commerciaux, possédant une interface graphique ou non, fonctionnels sur des OS variés. Outre ces logiciels complets au champ d'action assez étendu, des outils de scanning plus spécifiques à des cibles (routeurs, serveurs, ...) et services (Web, SQL, mail, ...) sont trouvables dans des dépôts dédiés sous la forme de scripts (\href{https://github.com/We5ter/Scanners-Box}{Scanners-box} est dédié à leur référencement). Des exemples sont donnés ci-dessous, classés en deux catégories \cite{Leos2014} en fonction de la manière dont le scan est effectué. Une attention particulière est portée aux outils dédiés à la détection des failles sur les équipements IoT d'un réseau s'il en existe qui y soient dédiés.
+Face à un réseau réel, disons local à une habitation possédant des équipements connectés (c-à-d orientée smarthome), il est difficile de se faire une idée de tous les objets y étant connectés et de quelles sont leurs fonctionnalités. Des outils sont nécessaires afin de découvrir le réseau et établir quels équipements peuvent potentiellement être la cible d'attaques. Il en existe une flopée (\href{https://sectools.org/}{sectools.org} en maintient un classement fourni), libres ou commerciaux, possédant une interface graphique ou non, fonctionnels sur des OS variés. Outre ces logiciels complets aux champs d'action assez étendu, des outils de scanning plus spécifiques à des cibles (routeurs, serveurs, ...) et services (Web, SQL, mail, ...) sont trouvables dans des dépôts dédiés sous la forme de scripts (\href{https://github.com/We5ter/Scanners-Box}{Scanners-box} est dédié à leur référencement). Des exemples sont donnés ci-dessous, classés en deux catégories \cite{Leos2014} en fonction de la manière dont le scan est effectué. Une attention particulière est portée aux outils dédiés à la détection des failles sur les équipements IoT d'un réseau s'il en existe qui y soient dédiés.
 
 \paragraph{Le scan passif et la prise d'empreintes}
 
@@ -753,7 +776,7 @@ L'objectif est d'en apprendre un maximum sur les équipements connectés au rés
 
 \par Le cas de \href{https://cisofy.com/lynis/}{Lynis} est un peu particulier. Effectivement, en opposition aux scanneurs en réseau comme OpenVAS, il s'agit d'un scanneur de vulnérabilités à lancer sur l'hôte à analyser. Cela permet une inspection beaucoup plus en profondeur des services et des vulnérabilités qu'il présente. Il tourne sur presque tous les systèmes UNIX et même sur un système limité tel qu'une carte Raspberry Pi ou un équipement relatif à l'IoT qui est capable de supporter le même type de charge. Lynis peut donc être un outil intéressant si on possède le contrôle de l'équipement à analyser (légitimement ou non).\\
 
-\par Dédié à la détection des vulnérabilités des équipements IoT, \href{https://github.com/rapid7/IoTSeeker}{IoTSeeker} est un outil libre et écrit en Perl, supporté par les systèmes Linux/Mac OS. Il est axé sur les vulnérabilités d'authentification, la découverte de mots de passe laissés par défaut par les utilisateurs imprudents (sur base des listes des identifiants par constructeur évoquée dans la \wordlink{motiv_IoT}{sous-section}).\\
+\par Dédié à la détection des vulnérabilités des équipements IoT, \href{https://github.com/rapid7/IoTSeeker}{IoTSeeker} est un outil libre et écrit en Perl, supporté par les systèmes Linux/Mac OS. Il est axé sur les vulnérabilités d'authentification, la découverte de mots de passe laissés par défaut par les utilisateurs imprudents (sur base des listes des identifiants par constructeur évoquées dans la \wordlink{motiv_IoT}{sous-section}).\\
 
 \par \href{https://github.com/threat9/routersploit}{Routersploit} est un framework dédié à la détection et l'exploitation de failles dans les systèmes embarqués. Comme son nom l'indique, la cible est davantage les routeurs que les équipements de l'IoT, cependant quelques modules ciblent notamment les caméras et d'autres équipements connectés insolites (projecteur, laveur de laboratoire). L'outil de pénétration \href{https://github.com/zdresearch/OWASP-Nettacker}{Nettacker} développé par OWASP, dont le but est le soutirage et l'agrégation d'informations d'une cible pour en dresser une liste des failles de sécurité, promet également la sortie future d'un module spécifique à l'IoT.
 
@@ -787,7 +810,7 @@ Ce travail englobe la thématique de la sécurité des équipements en réseau d
 L'application doit pouvoir être utilisée telle quelle depuis un équipement connecté au réseau domestique (similaire ou supérieur en terme de ressources à une carte Raspberry PI), avec un lot de programmes (sous entendu scanneurs dans la plupart des cas) déjà intégrés et prêts à l'emploi par une personne non initiée.
 Les interactions se font principalement sur deux composants décris plus en détail dans la \wordlink{compapp}{sous-section} : la routine de surveillance automatisée et la carte du réseau. En terme de concepts :\\
 
-\par $\bullet$ \textbf{La routine de surveillance} est l'ensemble des scanneurs qui doivent être utilisés pour analysé le réseau quand l'application est lancée. Elle se divise en deux sous-ensembles, l'un destiné aux programmes tournant en continus (analogie avec les scanneurs passifs, la prise d'empreintes) et l'autre aux programmes/scripts qui interagissent directement avec les équipements du réseau pour en sortir un feedback une fois leur analyse terminée (analogie avec les scanneurs actifs). L'automatisation pour le premier se fait simplement en associant un état commutable \textit{en cours}/\textit{arrêté} à chaque programme qui contrôle le lancement/l'interruption du processus sous-jacent. Pour le second, il s'agit d'un timer d'expiration associé à chaque programme dans l'ensemble, au terme duquel le programme est exécuté (se termine et fournit un feedback sur sa sortie) et son timer restauré à sa valeur initiale (on peut donc voir cela comme une file de programmes à exécutés les uns à la suite des autres). Ces deux ensembles sont manipulables, des programmes peuvent être ajoutés/retirés et leur état modifié en agissant sur ce qui sera désigné par la \textbf{Routine} qui regroupe ces deux ensembles \textbf{Panel} et \textbf{Queue} respectivement.
+\par $\bullet$ \textbf{La routine de surveillance} est l'ensemble des scanneurs qui doivent être utilisés pour analyser le réseau quand l'application est lancée. Elle se divise en deux sous-ensembles, l'un destiné aux programmes tournant en continu (analogie avec les scanneurs passifs, la prise d'empreintes) et l'autre aux programmes/scripts qui interagissent directement avec les équipements du réseau pour en sortir un feedback une fois leur analyse terminée (analogie avec les scanneurs actifs). L'automatisation pour le premier se fait simplement en associant un état commutable \textit{en cours}/\textit{arrêté} à chaque programme qui contrôle le lancement/l'interruption du processus sous-jacent. Pour le second, il s'agit d'un timer d'expiration associé à chaque programme dans l'ensemble, au terme duquel le programme est exécuté (se termine et fournit un feedback sur sa sortie) et son timer restauré à sa valeur initiale (on peut donc voir cela comme une file de programmes à exécuter les uns à la suite des autres). Ces deux ensembles sont manipulables : des programmes peuvent être ajoutés/retirés et leur état modifié en agissant sur ce qui sera désigné par la \textbf{Routine} qui regroupe ces deux ensembles \textbf{Panel} et \textbf{Queue} respectivement.
 
 \newpage
 
@@ -797,7 +820,7 @@ Les interactions se font principalement sur deux composants décris plus en dét
 
 \paragraph{La conception d'un framework d'intégration}
 
-Puisque l'application fonctionne uniquement en se basant sur des programmes extérieurs arbitraires, il est nécessaire de définir un cadre assez rigoureux pour les intégrer au système. Cela se fait via une surcouche d'abstraction désignée par le terme \textbf{Module}. Deux archétypes son envisagés pour un Module, en fonction de la nature de l'exécution du programme à abstraire : soit celle-ci est continue et produit un feedback régulier jusqu'à terminaison du processus, soit il s'agit d'une exécution unique destinée à se terminer avec un feedback des résultats e, sortie. Par analogie avec les types de scanneurs, on désigne l'archétype de Module à suivre correspondant par \textbf{Module Actif} et \textbf{Module Passif}. La surcouche correspond dans les faits à hériter d'une classe abstraite dont plusieurs méthodes doivent être implémentées, cette partie pratique est approfondie dans la \wordlink{abstrmodel}{sous-section}.\\
+Puisque l'application fonctionne uniquement en se basant sur des programmes extérieurs arbitraires, il est nécessaire de définir un cadre assez rigoureux pour les intégrer au système. Cela se fait via une surcouche d'abstraction désignée par le terme \textbf{Module}. Deux archétypes son envisagés pour un Module, en fonction de la nature de l'exécution du programme à abstraire : soit celle-ci est continue et produit un feedback régulier jusqu'à terminaison du processus, soit il s'agit d'une exécution unique destinée à se terminer avec un feedback des résultats en sortie. Par analogie avec les types de scanneurs, on désigne l'archétype de Module à suivre correspondant par \textbf{Module Actif} et \textbf{Module Passif}. La surcouche correspond dans les faits à hériter d'une classe abstraite dont plusieurs méthodes doivent être implémentées, cette partie pratique est approfondie dans la \wordlink{abstrmodel}{sous-section}.\\
 
 \par De nouveaux programmes peuvent ainsi être intégrés et utilisables dans l'application, à condition d'écrire une classe héritant de la classe correspondant soit aux modules actifs, soit aux modules passifs en fonction de la nature du programme. Dans ces classes supérieures, la façon dont l'exécution du programme sous-jacent doit être traitée est déjà encadrée (bien qu'il soit aussi possible de réécrire cela). Le schéma d'exécution est le suivant :
 \vspace{0.2cm}
@@ -809,7 +832,7 @@ Puisque l'application fonctionne uniquement en se basant sur des programmes ext�
 \vspace{0.4cm}
 
 
-\par Comme énoncé lors de son introduction, la Routine est composée de deux ensembles de modules : Panel et Queue. Le premier est donc destiné à accueillir des modules respectant l'archétype \textbf{passif}, tandis ce que le second s'attend à des modules présentant l'archétype \textbf{actif}. Sur base de cette hypothèse, un contrôle cohérent de leur exécution peut être établi : par exemple l'action de \textit{mettre en pause} un module passif dans le Panel et actif dans la Queue a une sémantique différente. Mettre en pause un module passif équivaut à envoyer un signal d'interruption au processus sous-jacent tournant en continu en arrière-plan. Mettre en pause un module actif dans la Queue équivaut à ne plus décrémenter son timer d'expiration associé, au terme duquel il était censé lancer une exécution du programme qu'il abstrait.\\
+\par Comme énoncé lors de son introduction, la Routine est composée de deux ensembles de modules : Panel et Queue. Le premier est destiné à accueillir des modules respectant l'archétype \textbf{passif}, tandis que le second s'attend à des modules présentant l'archétype \textbf{actif}. Sur base de cette hypothèse, un contrôle cohérent de leur exécution peut être établi : par exemple l'action de \textit{mettre en pause} un module passif dans le Panel et actif dans la Queue a une sémantique différente. Mettre en pause un module passif équivaut à envoyer un signal d'interruption au processus sous-jacent tournant en continu en arrière-plan. Mettre en pause un module actif dans la Queue équivaut à ne plus décrémenter son timer d'expiration associé, au terme duquel il était censé lancer une exécution du programme qu'il abstrait.\\
 
 
 \par L'application référence tous les modules disponibles dans une \textbf{Librairie} de modules. Il ne s'agit, en arrière-plan, que d'un simple fichier \texttt{XML} décrivant tous les modules qui doivent être chargés dans un format strict. Afin d'intégrer de façon constante un module pour qu'il soit utilisable dans l'application, deux options sont possibles : soit écrire manuellement la description du module et l'ajouter au fichier correspondant (plusieurs librairies de modules peuvent être envisagées), soit simplement appeler une méthode dédiée sur une instance du module qui en créera le descriptif automatiquement. Si le module a été correctement écrit en suivant le strict minimum imposé par le framework, le descriptif du module sera ajouté à la librairie courante et le module facilement manipulable dans l'application (pour par exemple l'ajouter à la Routine de surveillance).
@@ -844,7 +867,7 @@ Les Modules constituent la couche d'abstraction pour les programmes sous-jacents
 
 Les attributs qui devraient être définis lors de l'écriture d'un module doivent au minimum comporter : 
 \begin{itemize}
-\item[$\bullet$] Un id unique parmi tous les modules déjà référencés dans la Library
+\item[$\bullet$] Un id alphanumérique unique parmi tous les modules déjà référencés dans la Library
 \item[$\bullet$] Une description textuelle du rôle du module
 \item[$\bullet$] Une indication de l'archétype associé au module : à considérer comme actif ou passif
 \item[$\bullet$] La commande qui permet d'appeler l'exécutable sur le système
@@ -927,11 +950,11 @@ Afin de limiter ce besoin d'identifier l'instance virtuelle relative à une info
 
 \subsubsection{Centre d’événements - logging et lancement d'alertes}
 
-On distingue deux catégories d'informations qui doivent être enregistrées par l'application : les logs purs et les événements représentés par un objet \textbf{Event}. Les logs sont de simples informations à écrire dans un fichier ou une sortie donnée, tels que des du debug, des codes de retour à la terminaison des programmes et autres informations lors de leur exécution, etc. Les Events sont quant à eux capturés par l'application et instanciés pour être manipulés par la suite. Les logs interviennent principalement dans le cadre de l'exécution des programmes sous-jacents aux modules, et sont donc être utilisables depuis l'endroit de leur définition. La place de ces éléments dans la maquette est indiquée par \texttt{(4)}.\\
+On distingue deux catégories d'informations qui doivent être enregistrées par l'application : les logs purs et les événements représentés par un objet \textbf{Event}. Les logs sont de simples informations à écrire dans un fichier ou une sortie donnée, tels que du debug, des codes de retour des programmes et autres informations lors de leur exécution, etc. Les Events sont quant à eux capturés par l'application et instanciés pour être manipulés par la suite. Les logs interviennent principalement dans le cadre de l'exécution des programmes sous-jacents aux modules, et sont donc utilisables depuis l'endroit de leur définition. La place de ces éléments dans la maquette est indiquée par \texttt{(4)}.\\
 
-\par Les Events peuvent être de deux natures, et constituent un moyen pour les modules de communiquer les modifications qu'ils effectuent sur les éléments de l'application. Soit ce sont des événements de modification, soit de menace. Le premier cas fait référence aux modifications sur la Netmap et ses instances virtuelles, notamment la création d'une IV ou un ajout ou changement de valeur d'un de ses champs. L'objet Event contient principalement des informations telles que la valeur précédente et la nouvelle, le module qui a fait la modification. Un Event de menace est utilisé pour décrire une détection de menace au niveau de la sécurité du réseau domestique. Elle maintient des informations sur la nature de la menace, le possible patch à appliquer, le niveau de danger, etc. qui doivent être remplies par le module qui lance l'alerte.\\
+\par Les Events peuvent être de deux natures, et constituent un moyen pour les modules de communiquer les modifications qu'ils effectuent sur les éléments de l'application. Soit ce sont des événements de modification, soit de menace. Le premier cas fait référence aux modifications sur la Netmap et ses instances virtuelles, notamment la création d'une IV ou un ajout ou changement de valeur d'un de ses champs. L'objet Event contient principalement des informations telles que l'ancienne valeur et la nouvelle, quel module a fait la modification. Un Event de menace est utilisé pour décrire une détection de menace au niveau de la sécurité du réseau domestique. Elle maintient des informations sur la nature de la menace, le possible patch à appliquer, le niveau de danger, etc. qui doivent être remplies par le module qui lance l'alerte.\\
 
-\par L'élément de centralisation des Events de l'application est appelé \textbf{EventCenter}. Il est accessible par un simple appel depuis n'importe où dans l'application et permet de créer des Events qui y seront enregistrés. Il est alors possible d'appliquer des fonctions de recherche et filtrage sur ces événements, par exemple pour trouver toutes les modifications sur une instance virtuelle donnée. Un nombre fixe limite le maximum d'événements gardés en mémoire, les plus anciens laissant leur place aux plus récents.\\
+\par L'élément de centralisation des Events de l'application est appelé \textbf{EventCenter}. Il est accessible par un simple appel depuis n'importe où dans l'application et permet de créer des Events qui y seront enregistrés. Il est alors possible d'appliquer des fonctions de recherche et filtrage sur ces événements, par exemple pour trouver toutes les modifications sur une instance virtuelle donnée. Un nombre constant limite le maximum d'événements gardés en mémoire, les plus anciens laissant leur place aux plus récents.\\
 
 \par Pour éviter la perte d'événements importants concernant des équipements du réseau de la sorte, il est également possible d'accéder à l'EventCenter en passant par la Netmap. Un Event créé par ce biais, s'il concerne une IV de la Netmap, sera conservé de façon permanente dans la Netmap en plus de la journalisation temporaire dans l'EventCenter. L'indexation des Events dans la Netmap se fait simplement par le même index d'IV (son \texttt{mapid}). L'utilisateur peut ainsi facilement visualiser les modifications et menaces impliquant directement ses équipements.
 
@@ -1035,20 +1058,114 @@ Pour utiliser correctement ces facilités, l'implémentation du module devrait r
 
 \subsection{Justification des choix généraux}
 
+Comme l'application aspire à être déployée dans un environnement domestique, deux contraintes principales sont à prendre en compte pour son développement. La première est relative à l'utilisateur, qui de fait n'est pas une personne ayant une prédisposition particulière pour l'informatique. Un minimum de connaissances est quand même supposé : quelles sont les caractéristiques possibles d'un équipement sur le réseau, une idée de ce qu'est un scanneur de réseau, de ce que sont la prise d'empreinte et l'analyse de trafic, etc. L'interface doit être assez simple pour pouvoir manipuler les modules et avoir une vue d'ensemble du réseau. La seconde contrainte concerne l'environnement restreint. Idéalement, l'application doit être fonctionnelle sur un équipement tel qu'une carte Raspberry PI, sans que l'interactivité avec l'application soit impactée. De plus, une utilisation dans un environnement non-graphique doit être possible, ce qui offrirait la possibilité de manipuler l'application à distance par le réseau, en utilisant \textit{ssh} par exemple. Ce dernier point va de pair avec une utilisation sur une carte Raspberry qui est contrôlée à distance.\\
+
+\par Afin de concilier ces deux contraintes, la première interface développée est en ligne de commande. Elle se divise en deux parties : l'interaction (CLI) qui se présente comme des menus contextuels et la vue où l'état actuel de l'application est affiché clairement. L'utilisateur n'interagit qu'avec la première, qui lui permet de contrôler l'application en arrière-plan et la vue. L'application se lance depuis un terminal avec possibilité de lui passer certains arguments, puis utilise ce terminal comme CLI pour afficher le contenu des menus et récupérer les commandes que l'utilisateur y écrit afin de les interpréter. La vue est quant a elle initialisée après le cœur logique de l'application et peut se présenter sous plusieurs formes  en fonction des besoins de visualisation :
+\vspace{0.2cm}
+\begin{itemize}
+\item[$\bullet$] \textbf{NoOutput} : aucune facilité n'est mise à disposition. Pour visualiser l'état actuel d'un élément de l'application, cela se fait via un menu \textit{show} qui affiche la cible dans la CLI même.
+\vspace{0.2cm}
+\item[$\bullet$] \textbf{PipeOutput} : l'élément cible à afficher ne l'est pas réellement, cette information textuelle est redirigée vers un pipe utilisable librement par l'utilisateur
+\vspace{0.2cm}
+\item[$\bullet$] \textbf{ConsoleOutput} : apporte un support de visualisation à PipeOutput, invoquant un nouveau terminal du système qui va maintenir un affichage de l'information envoyée dans le pipe (il ne sert qu'à cela)
+\end{itemize}
+\vspace{0.2cm}
+
+\par La CLI permet de sélectionner ce qui doit être affiché dans la vue, et avec quel degré de détail. Il peut s'agir de la vue d'ensemble de l'application, du statut courant d'un module dans la Queue et ses paramètres, etc. À titre d'exemple représentatif, la \wordlink{cli}{figure} montre ce à quoi ressemble l'interface et le système de menus.
+
+\begin{figure}[!ht]
+\centering
+     \includegraphics[width=0.7\linewidth]{clicmds}
+     \caption{Interface CLI en mode ConsoleOutput}
+     \label{cli}
+\end{figure}
+
+\par L'utilisateur peut entrer une valeur parmi les choix proposés, qui dépendent du menu actuel. Certaines commandes spéciales sont également invocables indépendamment, toutes préfixées par '\$'. Notamment la commande \texttt{\$output} qui permet de contrôler la vue, modifiant l'affichage courant.
+
+
+\newpage
 %---------------- Discussion implem
 
 \subsection{Discussions des choix d'implémentation}
 
+\subsubsection{Choix du langage}
+
+Le langage qui a été sélectionné pour implémenter le cœur de l'application est le Python dans sa dernière version (3.7). La première interface développée n'étant pas graphique, elle est également réalisée en Python. L'application ne demandant en soit aucune opération ou algorithme à forte complexité, un langage compilé n'apporterait pas d'amélioration significative en terme de performances par rapport au Python. En effet, les seules opérations potentiellement lourdes serait celles effectuées par certains programmes sous-jacents des modules, mais c'est alors indépendant du langage choisi. Cependant, l'expérience de l'utilisateur n'en sera pas impactée, car de par le design choisi chacune de ces exécutions a lieu dans un fil dissocié de l'exécution principale.\\
+
+\par Python possède également une librairie standard assez vaste que pour couvrir à peu près tous les besoins de l'application (voir détails des points suivants). Comme une interface complète en ligne de commande est un objectif en terme d'interactivité avec l'utilisateur, la manipulation simplifiée des flux standards et un formatage aisé des chaînes de caractères sont des atouts importants de Python.
+
 \subsubsection{Gestion du temps}
 
-\subsubsection{Exécution des logiciels}
+\noindent Librairie utilisée : \href{https://docs.python.org/3/library/time.html}{\texttt{time}}\\
+
+\par Le temps intervient dans le gestion de plusieurs éléments de l'application : timers d'expirations des modules actifs, lecture de la sortie à intervalle de temps donné pour les modules passifs, mise à jour de la vue. Cette multiplicité a motivé le choix de créer un objet gestionnaire du temps unique et global a l'application. Les autres éléments de l'application nécessitant une interactivité temporelle s'enregistrent auprès de cet objet \textbf{TimerThread} et doivent implémenter une interface \textbf{\textit{TimerInterface}}. Cette interface ne contient que deux méthodes : \textit{decr()} qui est l'action à effectuer et \textit{is\_decrementable()} qui renvoie un booléen à vrai si \textit{decr()} doit être appelée.\\
+
+Comme son nom l'indique, TimerThread va effectuer la gestion du temps dans un thread à part. Grâce aux primitives de la librairie \texttt{time}, le thread se réveille toute les secondes pour notifier tous les objets qui se sont enregistrés, c-à-d appelle la méthode \textit{decr()} de chacun individuellement si \textit{is\_decrementable()} de l'objet retourne vrai. L'action qui est ainsi effectuée par chacun des objets enregistrés chaque seconde est arbitraire et ne dépend que de l'implémentation qui en est faite dans l'objet.
+
+\subsubsection{Exécution des programmes sous-jacents}
+
+\noindent Librairie utilisée : \href{https://docs.python.org/fr/3/library/subprocess.html}{\texttt{subprocess}}\\
+
+\par La librairie standard de Python permet la manipulation aisée de processus tiers sous forme d'objet. Le seul prérequis est le passage de la commande système destinée à appeler le programme, telle qu'elle serait utilisée en ligne de commande. Il est également possible de fournir et d'en récupérer les flux d'entrées et sorties standards. Ces facilités sont exploitées dans l'implémentation du schéma d'exécution pour les modules actifs et passifs. 
 
 \subsubsection{Parsing des sorties}
 
+Comme les sorties des programmes sous-jacents sont spécifiques et hétérogènes, leur traduction vers les éléments de l'application n'est pas gérée automatiquement. C'est à la personne qui intègre le module d'écrire le code dédié à cette tâche. Cependant, des facilités sont envisageables pour cela. Actuellement, c'est le cas pour les sorties XML du programme Nmap : comme elles sont régies par une structure claire et définie quelqu'en soit l'utilisation, un parseur générique peut être fourni. Ce parseur peut être utilisé pour obtenir facilement des informations d'une sortie quelconque de Nmap et les manipuler comme des objets (correspondants à des \textit{elements} dans le DOM\footnote{\url{https://fr.wikipedia.org/wiki/Document_Object_Model}}).
+
 \subsubsection{Stockage et agrégation des informations}
+\label{appcfg}
+\noindent Librairie utilisée : \href{https://lxml.de}{\texttt{lxml}} (non intégré dans la librairie standard)\\
+
+L'application maintient la Netmap, Routine, Librairie, etc. comme des objets, mais il est souhaitable que cette information soit retenue d'une exécution à l'autre et manipulable comme des fichiers indépendants. Considérant la quantité d'informations à stocker et la nature de conteneur de ces éléments, le choix à été fait d'utiliser le langage XML. Des méthodes de traduction ont donc été écrites pour les deux sens : des éléments de l'application vers une représentation XML et inversement. Cela a été fait pour les éléments suivants : Modules, Librairie, Routine, Netmap, Events. En terme de fichiers XML individuels, on en retrouve un pour la Librairie, un pour la Routine et un dernier pour la Netmap qui renseignent donc toute l'information des objets qu'ils contiennent :\\
+
+\begin{itemize}
+\item[$\bullet$] XML objet Librairie : une entrée (ie. un \textit{element} pour le DOM) par module qui y est décrit, cette entrée contient des informations telles que l'id du module, le chemin du module python où est écrit la classe de l'objet Module, le nom de cette classe.
+\vspace{0.2cm}
+\item[$\bullet$] XML objet Routine : divisé en deux parties pour le Panel et la Queue, remplie chacune d'entrée représentant les modules qui les peuplent. Chaque entrée renseigne l'id du module, son setid et ses paramètres courants au moment de la sauvegarde. Ces informations sont suffisantes pour réinstancier le Module à partir de la Librairie.\\
+
+\item[$\bullet$] XML objet Netmap : stocke une entrée par instance virtuelle, avec toute les informations littérales qui lui étaient associée. Les Events liés à chaque IV spécifique sont également écrits pour ne pas être perdus. 
+\end{itemize}
+\vspace{0.2cm}
+
+\par Pour une exécution de l'application, on a donc trois fichiers principaux qui doivent être écrits si une sauvegarde non temporaire en est souhaitée, et parsés au relancement. Il y a également d'autres informations diverses qui peuvent être stockées comme l'adresse mail de l'utilisateur. Afin de regrouper cette information (notamment les chemins des fichiers XML), un super-fichier de configuration globale de l'application est nécessaire. Pour manipuler les chemins de sauvegardes et ces configurations suite à des changements de préférences par l'utilisateur lors de l'exécution de l'application, un objet \textbf{CoreConfig} est utilisé.\\
+
+\par Le cœur logique de l'application ne prend qu'un seul paramètre à son initialisation qui doit être une instance de CoreConfig, ce qui permet de séparer le chargement des ressources et leur instanciation de leur utilisation. Une instance de CoreConfig peut être créée en parsant le super-fichier de configuration, qui est un fichier au format YAML et contient notamment les chemins des autres fichiers XML cités précédemment. Les différents fichiers sont alors parsés et les objets correspondant instanciés dans un ordre prédéfini car il y a des dépendances entre eux. Si des chemins sont inexistants dans le fichier de configuration, les éléments sont instanciés vides et avec leurs paramètres par défaut. Plusieurs fichiers de configurations coexistant sont envisageables, par exemple si l'utilisateur souhaite utiliser des routines différentes en fonction du réseau dans lequel il lance l'application. La seule contrainte étant qu'à un lancement d'application un seul fichier de configuration est passé et potentiellement modifiable durant l'exécution.
 
 \subsubsection{Interactivité avec l'application}
 \label{justifinter}
+
+Le système de menus interactif a été conçu dans l'optique d'être utilisable simplement par une personne non initiée. Aucune librairie tierce n'a été utilisée pour le mettre en place, excepté les méthodes Python natives de prises d'entrées et complétion. Brièvement, un menu est représenté en interne par un dictionnaires dont plusieurs valeurs associés à des clés spécifiques doivent être définies. On y retrouve notamment :\\
+\begin{itemize}
+\item[$\bullet$] \texttt{desc} : une description textuelle du menu, quelle est sa fonction par rapport aux choix qu'il propose
+\vspace{0.1cm}
+\item[$\bullet$] \texttt{choices} : une liste de choix qui peut être sous plusieurs forme (liste, dictionnaire, fonction qui retourne un des deux) qui sont les entrées possibles pour le menu courant
+\vspace{0.1cm}
+\item[$\bullet$] \texttt{fct\_choice} : une fonction dite de choix prenant une valeur en argument (qui sera le choix entré)
+\end{itemize}
+\vspace{0.2cm}
+
+Une procédure bouclant sans fin permet de naviguer à travers les menus. Le menu courant correspond à un dictionnaire définissant les champs cités ci-dessus. Les choix disponibles sont calculés et mis en forme pour être présentés à l'utilisateur dont l'entrée est attendue. Une fois qu'il a fournit une entrée correcte, la fonction de choix est appelée sur cette entrée dont dépendent alors les actions effectuées. Par exemple, la fonction de transition de menu va simplement remplacer le menu courant par celui auquel correspond l'entrée de l'utilisateur, ce après quoi la procédure reprend du début.
+
+\subsubsection{Alertes et notifications par email}
+
+\noindent Librairies utilisées : \href{https://docs.python.org/3/howto/logging.html}{logging} et \href{https://docs.python.org/3/library/smtplib.html}{\texttt{smtplib}}
+
+\par L'utilisateur doit pouvoir être alerté efficacement quand une menace est détectée par un module. En l'occurrence, cette information doit être observable et récupérable depuis l'interface, mais également communiquée à l'utilisateur autrement puisqu'il n'est pas forcément devant. L'option la plus évidente est de notifier les menaces considérées comme importantes par mail. À cette fin, l'utilisateur peut fournir son adresse mail à l'application. Pour éviter des complications et la configuration d'un serveur dédié, le compte mail utilisé pour envoyer les notifications est celui de l'utilisateur lui-même. Il lui sera donc demandé son mot de passe afin de se connecter au serveur authentifié SMTP dont il utilise les services.\\
+
+\par D'un point de vue implémentation, le lancement des alertes et la remontée des informations vers le centre d’événements de l'application depuis le code d'un Module doit être aisé. On distingue quatre façons de faire parvenir de l'information à l'utilisateur :
+\begin{enumerate}
+\item Par logging classique (utilisation des fonctionnalités natives de \texttt{logging}) avec les loggers \texttt{debug, info, error, cli, threats, modifs} qui redirigent l'information vers les flux d'entrées standards et les fichiers de logs.
+\vspace{0.1cm}
+\item En créant des objets Events qui seront gardés en mémoire dans l'application pour être manipulés. Facilité fournie : chaque objet Logger accessible classiquement en important \texttt{logging} (voir ci-dessus) est agrémenté d'une méthode \textit{register\_threat()}/\textit{register\_modif()} qui instancie cet Event, le garde en mémoire et le log de façon régulière en fonction du Logger concerné.
+\vspace{0.1cm}
+\item En enregistrant une entrée dans la zone de feedback de l'application, qui est un historique court affiché à l'utilisateur dans la vue (simples chaînes de caractères d'information). La méthode \textit{log\_feedback()} agrémente le module \texttt{logging} à cet effet et permet également de logger de façon régulière l'information par un Logger désigné.
+\vspace{0.1cm}
+\item En envoyant un mail contenant un message personnalisé à l'utilisateur s'il a fourni une adresse. Cela se fait classiquement vie le Logger \texttt{mail}. 
+\end{enumerate}
+\vspace{0.1cm}
+Le module python \texttt{logging} a comme particularité de pouvoir être importé n'importe où dans le code mais de permettre l'accès aux même instances de Logger par un identifiant unique. Cela permet d'éviter de devoir transporter des références vers ceux-ci à travers le code. On peut donc utiliser cela et y coupler d'autres facilités personnalisées, en déclarant des nouvelles méthodes pour ces objets : \textit{register\_threat()}/\textit{register\_modif()} et \textit{log\_feedback()}.\\
+
+\par De base, \texttt{logging} gère l'envoi de mail. Cependant, ce n'est pas le cas pour le SMTP authentifié qui est utilisé majoritairement. La librairie standard \texttt{smtplib} permet de pallier à ce problème en sous-classant l'utilitaire de base de \texttt{logging}.
 
 %---------------- Logiciels
 
@@ -1059,10 +1176,193 @@ Pour utiliser correctement ces facilités, l'implémentation du module devrait r
 
 \section{Manuel d'utilisation}
 
+Deux types d'utilisateurs sont susceptibles d'utiliser l'application, dans une optique différente. On a d'une part les utilisateurs normaux qui se servent de l'application pour son but premier : protéger leur réseau domestique. Leurs interactions se font uniquement depuis l'interface et avec les outils fournis. D'autre part, on a des personnes avec des connaissances plus avancées en programmation, capable d'assimiler le framework mis à disposition et intéressées par son utilisation. Ces dernières souhaitent intégrer leurs propres outils (sous-entendu programmes) pour pouvoir les manipuler dans l'application, et ont donc besoin d'une marche à suivre pour arriver à cette fin. Les deux cas d'utilisation sont distingués dans les sections suivantes qui font office de guide.
+
+\subsection{Utilisation classique}
+
+\subsubsection{Point d'entrée de l'application}
+
+À la racine du projet clonable depuis Github (\url{https://github.com/RemDec/IoTMonitor}) se trouve le point d'entrée en ligne de commande de l'application \texttt{IoTMonitor.py}. Plusieurs arguments peuvent lui être passés, mais ils sont tous optionnels (l'application sera lancée avec des paramètres par défaut). En revanche, il est nécessaire d'invoquer la commande avec les droits de super-utilisateur et en utilisant une version de Python $\geq 3.6$. Une page d'aide est affichable avec le flag \texttt{--h}. Quelques autres paramètres sont très utiles :\\
+\begin{itemize}
+\item[$\bullet$] \texttt{--fileconfig FILEPATH} : indique le super-fichier de configuration tel que décrit au \wordlink{appcfg}{point}.
+\vspace{0.2cm}
+\item[$\bullet$] \texttt{--noautosave} : par défaut, quand l'application est quittée, l'état actuel des éléments est sauvegardé de sorte qu'au prochain lancement, leur état est restauré. Ce flag désactive cette fonctionnalité.
+\vspace{0.2cm}
+\item[$\bullet$] \texttt{--noautoload} : par défaut, au lancement de l'application, l'état des éléments est restauré à celui qu'il était quand elle a été quittée (vierge si \texttt{noautosave} était mis). Désactive cette fonctionnalité, permettant de partir d'éléments vierges (routine, etc.).
+\vspace{0.2cm}
+\item[$\bullet$] \texttt{--mail MAIL} : renseigne l'adresse mail de l'utilisateur que l'application utilisera pour les notifications d'alertes. Préférentiellement à utiliser avec le flag \texttt{--testmail} qui testera la validité et accessibilité de cette adresse en envoyant un email témoin.
+\end{itemize}
+\vspace{0.2cm}
+
+\par Si une adresse mail est renseignée, le mot de passe pour le serveur SMTP authentifié le sera également, les mails étant envoyés à l'utilisateur avec sa propre adresse. Quand une menace est détectée par un module, celui-ci est susceptible d'en alerter l'utilisateur. Si aucune adresse mail n'est spécifiée, aucune tentative d'émission de mail n'aura lieu.\\
+
+\par Pour lancer l'application dans une configuration recommandée pour débuter, la commande suivante peut être utilisée :
+\begin{center}
+\texttt{sudo python3.7 IoTmonitor.py -nal --mail untel@gmail.com --mserver smtp.gmail.com --testmail}
+\end{center} 
+
+Fournir le serveur SMTP n'est pas obligatoire, mais conseillé car sinon il sera deviné et donc peut être erroné. Cette commande va lancer l'application en mode ConsoleOutput, invoquant un nouveau terminal (xterm par défaut) qui servira de vue sur son état actuel. Le terminal depuis lequel elle est invoquée sera celui dans lequel les entrées de l'utilisateur sont récupérées. Deux remarques à prendre en compte pour cette étape :
+
+\begin{enumerate}
+\item Certain fournisseurs de services mail (Gmail par exemple) peuvent demander des autorisations supplémentaire. Voir les remarques dans la fiche d'aide.
+\vspace{0.2cm}
+\item Pour éviter certains bugs graphiques, il est préférable de lancer cette commande dans un terminal assez grand en terme de taille par rapport au reste de l'écran, voire en plein écran.
+\end{enumerate}
+
+\subsubsection{Navigation dans les menus}
+
+Une fois lancée, l'application initialise sa partie logique et l'utilisateur se retrouve dans la partie interactive, dont le point de départ est le menu principal. La combinaison de la vue et de l'interface devrait être similaire à celle illustrée dans la \wordlink{startapp}{figure}. Les conteneurs principaux, la Netmap et la Routine, y sont illustrés comme vides.
+
+\begin{figure}[!ht]
+   \begin{adjustwidth}{-\oddsidemargin-1in + 0.5cm}{-\rightmargin}
+     \centering
+     \includegraphics[width=\paperwidth - 1cm]{startapp}
+     \caption{Application au démarrage (fenêtre de vue et CLI)}
+     \label{startapp}
+   \end{adjustwidth}
+   \
+\end{figure}
+
+Un cadre surplombant le champ de prise d'entrées renseigne quel est l'id du menu courant et une courte description de son utilité. Juste en dessous sont affichés les choix possibles pour ce menu, c'est-à-dire ce que l'utilisateur peut entrer comme valeur. Un système d'autocomplétion classique (touche \texttt{<Tabulation>}) permet de sélectionner rapidement un choix parmi ceux possibles, à valider par la touche entrée. De plus, appuyer sur entrée en n'ayant tapé que le début du mot le sélectionne automatiquement s'il n'y a aucune ambiguïté avec ce choix. Indépendamment du menu courant, des commandes spéciales sont invocables pour effectuer diverses actions, toutes à préfixer par le symbole '\$'. La liste de ces commandes est explicitée en tapant \texttt{\$cmds}.\\
+
+\par Le menu principal permet d'accéder à toutes les fonctionnalités disponibles de l'interface, qui sont en fait utilisables depuis les autres sous-menus. Un appel à \texttt{\$choices} permet d'en savoir plus sur ces menus associés chacun à un choix, comme illustré par la \wordlink{choicesmain}{figure}. Pour revenir au menu principal depuis un menu quelconque, la commande \texttt{\$main} peut être utilisée.
+
+\begin{figure}[!ht]
+\centering
+     \includegraphics[width=0.65\linewidth]{choicesmain}
+     \caption{Description des sous-menus accessibles depuis le menu principal}
+     \label{choicesmain}
+\end{figure}
+
+\subsubsection{Consultation de l'état des éléments}
+
+Bien que ce qui est affiché dans la vue soit contrôlable en utilisant la commande \texttt{\$output}, il est parfois plus utile et précis d'afficher le statut de l'élément désiré dans le terminal de l'interface même. Cela peut se faire en se rendant dans le menu \texttt{show} accessible depuis le menu principal. Un panel d'éléments dont les détails sont consultables est proposé à l'utilisateur. La navigation dans plusieurs menus contextuels consécutifs peut être nécessaire pour spécifier l'élément visé : par exemple pour une instance virtuelle précise, il sera demandé d'entrer le mapid correspondant.\\
+
+\par Lors de l'affichage de l'information désirée, un paramètre indiquant le niveau de détail est pris en compte. Pour modifier cette valeur avant l'affichage, la commande \texttt{set} peut être utilisée comme suit : \texttt{\$set lvl [niveau]} où niveau est un entier entre 0 et 10, mais la majeur partie des éléments peuvent fournir plus de détail jusqu'au niveau 4. Il en va de même avec l'élément affiché dans la vue, la configuration passant cette fois par la commande \texttt{\$output}.
+
+\subsubsection{Exemple pratique d'utilisation}
+
+Les actions rentrant en jeu pour mettre en place une surveillance du réseau domestique peuvent être réalisées aisément par n'importe quel utilisateur qui a compris les concepts abstraits de Modules et Routine. Cela peut se résumer à sélectionner quels modules instancier dans la Librairie parmi ceux disponibles par défaut et à les ajouter à la routine. La description des modules, le travail qu'ils effectuent et les paramètres qu'ils prennent sont accessibles en affichant la Librairie. Cela se fait donc en accédant au menu \texttt{show} depuis le menu principal, puis en sélectionnant l'élément Librairie en tapant \texttt{library}. Une description similaire à la \wordlink{showlib}{figure} est affichée pour chaque module disponible.
+
+\begin{figure}[!ht]
+\centering
+     \includegraphics[width=0.9\linewidth]{showlib}
+     \caption{Affichage de la description pour le module \texttt{nmapexplo}}
+     \label{showlib}
+\end{figure}
+
+Cela renseigne que le programme sous-jacent est \textit{nmap} et est d'office utilisé avec l'option \textit{-sn} qui signifie "passer la phase de scan des ports" car comme l'indique la description fournie, il s'agit d'un module pour la découverte des hôtes uniquement. Viennent ensuite les paramètres qu'il peut prendre avec leur code, leur description textuelle et la valeur préfixée telle qu'elle sera insérée dans la ligne de commande appelant le programme.Un paramètre dit "mandatory" sera toujours présent dans cette ligne de commande et prendra la valeur par défaut associée si aucune autre n'est fournie. Les valeurs par défaut des paramètres optionnels (non "mandatory") ne sont donc juste là qu'à titre indicatif, car le paramètre sera ignoré si aucune valeur ne lui est manuellement fournie. À noter que certaines valeur par défaut de paramètres peuvent être recalculées dynamiquement à l’instanciation du module, comme l'IP dans ce cas pour correspondre à celle du réseau local.\\
+
+\par Une fois la sélection des modules à utiliser terminée, il faut les instancier dans la Routine. Cela se fait en revenant au menu principal avec \texttt{\$main} et choisissant le menu \texttt{create}. Le choix par défaut est indiqué par \texttt{$< . >$}, qui est bien ici sur \texttt{module}, on peut donc le sélectionner directement en appuyant sur Entrée. La liste des ids des modules disponibles dans la Librairie est affichée, en premier lieu les modules passifs et à la ligne suivantes les actifs. Après avoir entré l'id voulu, une série de questions amenant à des sous-menus contextuels sont posées afin de configurer l'instance du module et son comportement dans la Routine (\wordlink{newmod}{figure}) :\\
+\begin{enumerate}
+\item Utiliser les paramètres par défaut ?
+	\begin{itemize}
+	\item[$\bullet$] Si oui, le module verra ses paramètres courants mis à leur valeur par défaut et aucun paramètre optionnel ne sera utilisé.
+	\item[$\bullet$] Si non, pour chaque paramètre existant une valeur sera demandée, appuyer sur Entrée revenant à utiliser celle par défaut.
+	\end{itemize}  
+\vspace{0.2cm}
+\item Ajouter l'instance dans la routine ?
+	\begin{itemize}
+	\item[$\bullet$] Si oui, l'instance du module sera ajoutée dans le conteneur correspondant à ton archétype (Panel ou Queue).
+	\item[$\bullet$] Si non, l'instance est ajoutée à l'ensemble des modules indépendants, mais il est déconseillé de l'utiliser au stade actuel de développement.
+	\end{itemize}
+\vspace{0.2cm}
+\item Fournir des instances virtuelles spécifiques auxquelles l'exécution du module devrait se rapporter ?
+	\begin{itemize}
+	\item[$\bullet$] Si oui, un sous-menu permettra de donner les mapids des IVs concernées. Le module pourra utiliser cette information à des fins diverses, vraisemblablement il exécutera son programme sous-jacent vis-à-vis de celles-ci mais cela dépend entièrement de son implémentation.
+	\item[$\bullet$] Si non, le module s'exécutera indifféremment où en considérant toutes les VIs s'il avait besoin de cibles données.
+	\end{itemize}
+\vspace{0.2cm}
+\item Spécifier un timer ? (intervalle de lecture pour un module passif ou d'expiration pour un actif)
+	\begin{itemize}
+	\item[$\bullet$] Si un entier est entré, utilisation de cet entier comme le nombre de secondes
+	\item[$\bullet$] Si rien n'est spécifié, utilisation de la valeur par défaut
+	\end{itemize}
+\vspace{0.2cm}
+\item Spécifier un setid utilisé pour identifier l'instance du module dans la Routine ?
+	\begin{itemize}
+	\item[$\bullet$] Si une chaîne de caractères est entrée le setid sera mis à sa valeur
+	\item[$\bullet$] Si rien n'est spécifié, utilisation de l'id du module
+	\end{itemize}
+\vspace{0.2cm}
+\end{enumerate}
+
+\begin{figure}[!ht]
+\centering
+     \includegraphics[width=0.8\linewidth]{newmod}
+     \caption{Instanciation du module \texttt{nmapexplo} à placer dans la Routine}
+     \label{newmod}
+\end{figure}
+
+
+Après remplissage de la Routine avec plusieurs instances de modules différents, on peut observer son état dans la vue (\wordlink{vueroutine}{figure}). Pour chaque instance de module, on a un résumé de son état actuel informant également du nombre de thread(s) courant(s) qui lui sont associés. Sur la \wordlink{vueroutine}{figure} on observe qu'aucun thread n'est enregistré donc aucun programme sous-jacent n'est en cours d'exécution. C'est normal car la Routine est toujours en état de pause. Pour lancer la routine automatique de surveillance, le menu \texttt{resume} doit être accédé depuis le menu principal et \texttt{entire routine} doit y être choisi. 
+
+\begin{figure}[!ht]
+\centering
+     \includegraphics[width=0.7\linewidth]{vueroutine}
+     \caption{État de la Routine après remplissage}
+     \label{vueroutine}
+\end{figure}
+
+La Routine illustrée permet de découvrir et analyser les équipements du réseau domestique pour en regrouper les caractéristiques. La Netmap devrait donc se remplir au fur et à mesure des exécutions des modules pour converger vers une représentation du réseau avec les différents équipements qui le peuplent. À titre d'exemple, la Netmap de la\wordlink{vuenetmap}{figure} est celle obtenue après un court moment.
+
+
+\begin{figure}[!ht]
+\centering
+     \includegraphics[width=\linewidth]{netmap}
+     \caption{État de la Netmap après que la routine de la \wordlink{vueroutine}{figure} ait tourné un court moment}
+     \label{vuenetmap}
+\end{figure}
+
+\par Cette représentation de la Netmap a pour but de donner une vue d'ensemble du réseau. Dans l'en-tête de chaque vignette d'IV, le symbole entre crochet représente l'état de connexion au réseau ('?' indique un flou), $n$ /!\textbackslash  indique le nombre de menaces trouvées pour l'équipement et $n$ -o- le nombre de modifications de ses champs. Pour consulter en détail ces informations, le choix \texttt{virtual instance} du menu \texttt{show} est utilisable.\\
+
+\par Pour agrémenter et améliorer la représentation du réseau, l'utilisateur peut rentrer ou corriger lui-même les valeurs des champs d'une IV, voire la créer de toute pièce. Cela se fait via le menu \texttt{edit} et \texttt{create} respectivement. Il en va de même pour les instances de Module. D'autres menus gèrent des fonctionnalités diverses, tel que \texttt{save} qui permet d'écrire les fichiers de sauvegarde de la Routine et de la Netmap décrits au \wordlink{appcfg}{point}, ainsi que de redéfinir les références vers les fichiers de sauvegardes à utiliser à l'initialisation définies dans le super-fichier de configuration. 
+
+\subsection{Utilisation du point de vue du programmeur}
+
+\subsubsection{Écrire un module}
+\label{writemod}
+
+\subsubsection{Intégrer un module dans l'application}
+
+Pour intégrer un nouveau Module à l'environnement afin qu'il y soit manipulable, il faut l'ajouter à la Library qui est chargée à l'initialisation. Pour l'instant, cette libraire est représentée par un fichier XML unique dont le chemin est \texttt{svd/configs/modlib.xml}, celui-ci n'étant pas modifiable pour pointer vers un autre fichier. La Library est construite en le parsant, chaque entrée s'y trouvant représente un Module et ses informations. Afin de faire le lien avec le code python du Module, le nom du package et le nom du module python dans lequel la classe est écrite sont fournis dans les attributs XML de l'entrée. Un exemple d'entrée dans ce document est le suivant :
+\small{
+\lstset{language=XML}
+\begin{lstlisting}
+<actmod modid="nmapexplo" cmd="nmap -sn" pymod="modules.actives.nmapExplorer" pyclass="AModNmapExplorer">
+  <desc>[nmapexplo] Nmap scan to discover hosts (-sn mode, no port scanning) by SYN/UDP probing ...</desc>
+  <defparams>
+    <param code="options" mandatory="False" default="" prefix="">other options compatible with -sn to ...</param>
+    <param code="SYNports" mandatory="True" default="21,22,23,80,443,3389" prefix="-PS">Ports targeted for ...</param>
+    <param code="UDPports" mandatory="True" default="53,135,137,161" prefix="-PU">Ports targeted for UDP ...</param>
+    <param code="XMLfile" mandatory="True" default="/tmp/xml_nmapexplo.xml" prefix="-oX ">The temp ...</param>
+    <param code="IP" mandatory="True" default="192.168.0.3/24" prefix="">Target IP address(es) acceptable ...</param>
+  </defparams>
+  <savedparams/>
+  <dependencies/>
+</actmod>
+\end{lstlisting}
+}
+
+Trois options s'offrent au programmeur pour intégrer son module, qui sont par ordre de facilité :
+
+\begin{enumerate}
+\item Intégration via l'interface CLI (menu \texttt{integrate}) en fournissant le module python
+\item Par programme, en instanciant un petit objet utilitaire ModuleIntegrator ou l'objet de contrôle de la librairie entière
+\item Par écriture directe dans le fichier \texttt{modlib.xml}
+\end{enumerate}
+
+\par L'intégration par CLI fait l'hypothèse que le code décrivant l'objet Module se trouve au bon endroit dans les package pythons destinés à les regrouper par archétype \texttt{modules.passives} et \texttt{modules.actives}. Le code doit contenir une classe respectant les conditions évoquées au \wordlink{writemod}{point} et qui est le code du Module. Supposons que le fichier contenant le code s'appelle mymodule.py, alors celui-ci correspond au module python \texttt{mymodule} (dans l'arborescence \texttt{modules.passives.mymodule} ou \texttt{modules.actives.mymodule}). Arrivé dans le menu \texttt{integrate}, le programmeur renseigne l'archétype de son nouveau Module. Il lui est en suite demandé d'entrer le nom du module python dans lequel il est définit : en l'occurrence \texttt{mymodule}. Si toutes les conventions ont été respectées, une entrée devrait être écrite dans le fichier modlib.xml, celui-ci reparsé et le Module devrait apparaître parmi ceux disponibles.\\
+
+\par L'objet utilitaire pour intégrer un Module à partir d'une de ses instances (donc créée par programme ou dans l'interpréteur Python) est trouvable dans le package \texttt{src.utils.filesManager}. Il s'agit de la classe \textbf{ModuleIntegrator}, qui prend en paramètre de constructeur une instance du Module à intégrer ou une chaîne de caractères désignant le module python à importer pour trouver la classe correspondante (\texttt{modules.passives.mymodule}). En instanciant un objet ModManager du module \texttt{src.utils.moduleManager} qui correspond à ce qu'on désignait par Library, il est également possible d'intégrer la nouvelle entrée au fichier grâce à la méthode \textit{add\_to\_modlib\_file(mod instance)}.\\
+
+\par La troisième façon d'intégrer un Module nouvellement écrit est celle la moins recommandée. Il s'agit simplement d'écrire l'entrée XML manuellement. Cela devrait être fait dans le fichier qui est chargé d'office : modlib.xml. La DTD pour ce fichier XML n'ayant pas encore été écrite, il est vivement recommandé d'éviter cette méthode et d'utiliser une des deux autres méthodes qui écrivent l'entrée automatiquement.
+
 \newpage
 
 \section{Tests et évaluation de l'application}
 
+\subsection{Déploiement sur Raspberry Pi et utilisation distante}
 \subsection{Simulation d'équipements}
 
 \subsection{Déploiement dans un milieu domestique}
