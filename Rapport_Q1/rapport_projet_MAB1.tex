@@ -78,9 +78,7 @@
 \vspace{1.6cm}
 {\Huge Développement d'un pare-feu domestique}\\
 \vspace{0.5cm}
-{\Huge Pré-rapport de projet}\\
-\vspace{0.2cm}
-{\large Activité d' Apprentissage \textsf{S-INFO-037}}\\
+{\Huge Rapport de projet}\\
 }
 
 
@@ -109,12 +107,12 @@ Faculté des Sciences, Université de Mons}
 \section*{Introduction}
 ~\\
 %https://www.entrepreneur.com/article/228489
-\par Depuis maintenant plusieurs années, la connectivité n'a cessé d'évoluer : en se limitant au domaine de l'Internet entre 2000 et 2015, une estimation de l'augmentation du pourcentage de la population mondiale l'utilisant avoisine 40\%  \cite{IWS} \cite{Cable}. Que ce soit dans le cadre d'infrastructures de type \og mainframe \fg \ ou dans le contexte des ordinateurs personnels, les technologies et équipements relatifs au réseau et aux communications sont devenus indispensables. En raison du potentiel croissant d'interconnexion, les ordinateurs et équipements mis en réseau s'exposent à davantage de menaces. Heureusement, parallèlement à cette évolution, les performances de ces machines rejoignant de nouveaux réseaux ont également suivi une amélioration en terme de performances. Cela a permis d'en renforcer la sécurité à plusieurs niveaux et surtout d'intercepter efficacement les menaces étrangères liées à l'utilisation des réseaux. À l'heure actuelle, les OS utilisés classiquement sur des machines desktop fournissent un pare-feu simple (\textit{Windows Defender}, un utilitaire fourni de base dans MAC OS X, \textit{iptables/Netfilter} ou autre pour les distributions Linux). Ce dernier tourne en arrière plan de façon quasi invisible car il demande peu de ressources par rapport à ce qu'une machine actuelle peut offrir.\\
+\par Depuis maintenant plusieurs années, la connectivité n'a cessé d'évoluer : en se limitant au domaine de l'Internet entre 2000 et 2015, une estimation de l'augmentation du pourcentage de la population mondiale l'utilisant avoisine 40\%  \cite{IWS} \cite{Cable}. Que ce soit dans le cadre d'infrastructures de type \og mainframe \fg \ ou dans le contexte des ordinateurs personnels, les technologies et équipements relatifs au réseau et aux communications sont devenus indispensables. En raison du potentiel croissant d'interconnexion, les ordinateurs et équipements mis en réseau s'exposent à davantage de menaces. Heureusement, parallèlement à cette évolution, les performances de ces machines rejoignant de nouveaux réseaux ont également suivi une amélioration en terme de performances. Cela a permis d'en renforcer la sécurité à plusieurs niveaux et surtout d'intercepter efficacement les menaces étrangères liées à l'utilisation des réseaux. À l'heure actuelle, les OS utilisés classiquement sur des machines desktop fournissent un pare-feu simple (\textit{Windows Defender}, un utilitaire fourni de base dans MAC OS X, \textit{iptables/Netfilter} ou autre pour les distributions Linux). Ce dernier peut tourner en arrière plan de façon quasi imperceptible car il demande peu de ressources par rapport à ce qu'une machine actuelle peut offrir.\\
 
 
-\par En parallèle avec la montée en puissance de ces machines de type desktop, serveurs, etc. s'est développée depuis à peu près les années 2000 la tendance de l'\og Internet des Objets \fg{}, ou encore plus communément abrégé IoT pour \textit{Internet of Things}. Bien qu'assez large, cette dénomination regroupe beaucoup d'objets et de concepts, qu'ils soient virtuels ou non mais possédant un dénominateur commun : la capacité de communiquer en réseau avec d'autres équipements. Cela englobe par exemple la domotique, les outils et capteurs de mesures diverses, les imprimantes et scanneurs en réseau, etc. Tous ces éléments convergeraient idéalement vers une mise en réseau commune, leur permettant de communiquer malgré leur nature hétérogène \cite{Kubler2014}. Cela peut se faire via le réseau Internet, il n'est pas rare d'orienter ces connections vers un cloud permettant de traiter globalement et intelligemment la masse de données qu'il reçoit de ces équipements \cite{Huichen2016}. Or, comme évoqué ci-dessus, plus on s'interconnecte et plus on s'ouvre à des attaquants potentiels, ce qui pose problème si rien n'est mis en place pour s'en protéger.\\
+\par En parallèle avec la montée en puissance de ces machines de type desktop, serveurs, etc. s'est développée depuis à peu près les années 2000 la tendance de l'\og Internet des Objets \fg{}, ou encore plus communément abrégé IoT pour \textit{Internet of Things}. Bien qu'assez large, cette dénomination regroupe beaucoup d'objets et de concepts, qu'ils soient virtuels ou non mais possédant un dénominateur commun : la capacité de communiquer en réseau avec d'autres équipements. Cela englobe par exemple la domotique, les outils et capteurs de mesures diverses, les imprimantes et scanneurs en réseau, etc. Tous ces éléments convergeraient idéalement vers une mise en réseau commune, leur permettant de communiquer malgré leur nature hétérogène \cite{Kubler2014}. Cela peut se faire via le réseau Internet, il n'est pas rare d'orienter ces connections vers un cloud permettant de traiter intelligemment la masse de données émises par ces équipements \cite{Huichen2016}. Or, comme évoqué ci-dessus, plus on s'interconnecte et plus on s'ouvre à des attaquants potentiels, ce qui pose problème si rien n'est mis en place pour s'en protéger.\\
 
-\par Ce travail aura pour objectif premièrement de faire un état de l'art des dispositifs de protection qui sont actuellement déployés dans l'IoT et plus particulièrement dans le cadre domestique. Il s'agit d'un monde beaucoup plus hétérogène et restreint en terme de ressources que celui des ordinateurs qu'on retrouve classiquement dans ce milieu, de fait il n'est pas toujours possible de réutiliser telles quelles toutes les technologies de protection y attenant. De plus, il faut prendre en considération les spécificités d'une habitation : au centre de tous ces équipements communiquant se trouve l'habitant, une personne n'étant pas forcément apte à manipuler et contrôler ces nouvelles technologies. Il sera également question d'établir une vision globale des différentes dispositifs de pare-feux existant et sous quelles formes ceux-ci peuvent être implémentés dans les équipements d'une habitation classique. Deuxièmement, il sera question de mettre en pratique ces connaissances pour développer un système en lien avec ces nouvelles mesures de sécurité inhérentes à l'IoT. Celui-ci fera intervenir les connaissances acquises au préalable sur les pare-feux.
+\par Ce travail aura pour objectif premièrement de faire un état de l'art des dispositifs de protection qui sont actuellement déployés dans l'IoT et plus particulièrement dans le cadre domestique. Il s'agit d'un monde beaucoup plus hétérogène et restreint en terme de ressources que celui des ordinateurs desktop qu'on retrouve classiquement dans ce milieu.  De fait il n'est pas toujours possible de réutiliser telles quelles toutes les technologies et ressources assurant la protection de ces machines non restreintes. De plus, il faut prendre en considération les spécificités d'une habitation : au centre de tous ces équipements communiquant se trouve l'habitant, une personne n'étant pas forcément apte à manipuler et contrôler ces nouvelles technologies. Il sera également question d'établir une vision globale des différents dispositifs de pare-feux existant et sous quelles formes ceux-ci peuvent être implémentés dans un réseau domestique. Deuxièmement, il sera question de mettre en pratique ces connaissances pour développer un système en lien avec la protection des réseaux domestiques et des équipements IoT qui les peuplent.
 %http://www.archive.ece.cmu.edu/~ece649/lectures/17_embedded_internet_security.pdf
 \newpage
 
@@ -148,6 +146,7 @@ Les secteurs dans lesquels l'IoT s'est implanté ces dernières années sont nom
 \newpage
 
 \subsubsection{L'environnement \textit{smarthome}}
+\label{smarthomearchi}
 \par Le terme émergeant \textit{Smart Home/smarthome} est une fois de plus très englobant et général. Il n'en existe pas de définition formelle et communément acceptée. Basman M. Hasan et al. \cite{Basman2016} en présentent plusieurs. Un résultat les unifiant pourrait être
 \begin{center}
  \textit{\og Une smarthome est un environnement lié au domicile particulier où plusieurs équipements ou sous-systèmes sont inter-connectés et où les informations qu'ils échangent sont collectées et utilisées afin de surveiller, réguler et automatiser l'écosystème du domicile\fg{}}.\\
@@ -510,7 +509,7 @@ Le terme \textit{appliance} désigne un appareil/système constitué du strict m
 
 \par \textbf{IPCop} est un pare-feu open-source assez minimaliste utilisant Netfilter en arrière-plan. Les pré-requis pour le faire tourner sont : 200MHz de fréquence CPU, 64 Mo de RAM et 800 Mo d'espace de stockage. Même avec cette configuration minimale, il assure les fonctionnalités de proxy et d'IPS en plus du filtrage à état classique. Des modules peuvent être ajoutés en fonction des services supplémentaires requis : services DHCP ou DNS, \textit{trafic shaping}, liste d'accès utilisateurs, etc. IPCop est une branche divergente du projet \href{https://www.smoothwall.com/}{SmoothWall}, ce dernier s'étant développé de telle sorte qu'il n'est plus associable à un pare-feu \textit{embarqué} en plus d'être passé en partie sous licence commerciale.\\
 
-\minit{Appliances orientées software}
+\minit{Appliances orientées software non spécifiques aux équipements restreints}
 
 \par \textbf{pfSense} se repose sur FreeBSD (bien qu'aucune connaissance sur ce dernier ne soit requise, puisque pfSense est une appliance à utiliser tel quel). Le software peut être installé sur une machine physique dédiée ou dans un environnement virtuel. Il est complètement open-source, et \href{https://www.pfsense.org/getting-started/}{a la prétention} d'offrir tous les services que les grandes distributions incluent dans leur appliances physiques en un seul software, gratuit et extensible. pfSense opère comme un routeur et pare-feu sur la machine dédiée, ces services étant alors configurables et mis à jour via une interface web.\\
 
@@ -549,9 +548,9 @@ Le terme \textit{appliance} désigne un appareil/système constitué du strict m
 
 \newpage
 
-\par Évidemment, l'utilisateur \og final \fg \ n'est pas le seul qui puisse en subir les conséquences. Ses équipements peuvent entre autres rejoindre un ensemble d'autres  objets connectés infectés, reconfigurés malicieusement en vue d'effectuer une attaque de masse de type \textit{DDOS} sur une cible étrangère au réseau domestique. C'est ce qui s'est passé avec \href{https://en.wikipedia.org/wiki/Mirai_(malware)}{\textit{Mirai}}, un malware catégorisé comme  \textit{botnet} décelé bien après son expansion et qui a été utilisé dans plusieurs attaques menées sur le fournisseur de services DNS \textit{Dyn}, la société d'hébergement \textit{OVH} et bien d'autres. Mirai n'est pas un cas isolé, et les hackers ont pleinement saisi l'opportunité qu'incarne l'IoT : il existe beaucoup de failles connues et exploitables sur des équipements hétérogènes, et celles-ci sont en partie rendues publiques sur par exemple des \href{https://github.com/nebgnahz/awesome-iot-hacks}{dépôts githubs} et des \href{https://hackforums.net/forumdisplay.php?fid=193}{forums dédiés}.\\
+\par Évidemment, l'utilisateur \og final \fg \ n'est pas le seul qui puisse en subir les conséquences. Ses équipements peuvent entre autres rejoindre un ensemble d'autres  objets connectés infectés, reconfigurés malicieusement en vue d'effectuer une attaque de masse de type \textit{DDOS} sur une cible étrangère au réseau domestique. C'est ce qui s'est passé avec \href{https://en.wikipedia.org/wiki/Mirai_(malware)}{\textit{Mirai}} \cite{wikiMirai}, un malware catégorisé comme \textit{botnet} décelé bien après son expansion et qui a été utilisé dans plusieurs attaques menées sur le fournisseur de services DNS \textit{Dyn}, la société d'hébergement \textit{OVH} et bien d'autres. Mirai n'est pas un cas isolé, et les hackers ont pleinement saisi l'opportunité qu'incarne l'IoT : il existe beaucoup de failles connues et exploitables sur des équipements hétérogènes, et celles-ci sont en partie rendues publiques sur par exemple des \href{https://github.com/nebgnahz/awesome-iot-hacks}{dépôts githubs} et des \href{https://hackforums.net/forumdisplay.php?fid=193}{forums dédiés}.\\
 
-\par Les équipements qu'on retrouve dans une smarthome ne sont pas les seuls à présenter des lacunes en terme de sécurité. Encore plus grave, les systèmes connectés utilisés dans l'industrie de nos jours peuvent être attaqués, et cela peut porter lourdement à conséquence (jusqu'à l'échelle internationale). Le \href{https://horusscenario.com/}{scénario Horus} le démontre particulièrement bien. Imaginée par un chercher néerlandais, cette attaque cible les installations photo-voltaïques qui fournissent en énergie l'Europe, plus spécifiquement les onduleurs connectés y opérant (qui, brièvement, sont les dispositifs transformant le courant alternatif en courant continu). Pas moins de 17 failles ont été découvertes, dont certaines permettant de prendre le contrôle total des onduleurs à distance. Il serait alors possible pour un attaquant de simuler artificiellement l'impact qu'une éclipse solaire aurait sur le réseau, qui est en temps normal compensé artificiellement (celle-ci pouvant être anticipée). En appliquant une telle variation de puissance soudaine, le réseau entrerait dans un état de fluctuation tel qu'il ne serait plus contrôlable et une grande partie du réseau finirait par sauter. La perte suite à une telle panne, considérant qu'elle dure trois heures, a été estimée à 4,5 milliards d'euros.
+\par Les équipements qu'on retrouve dans une smarthome ne sont pas les seuls à présenter des lacunes en terme de sécurité. Encore plus grave, les systèmes connectés utilisés dans l'industrie de nos jours peuvent être attaqués, et cela peut porter lourdement à conséquence (jusqu'à l'échelle internationale). Le \href{https://horusscenario.com/}{scénario Horus} \cite{wikiHorus} le démontre particulièrement bien. Imaginée par un chercher néerlandais, cette attaque cible les installations photo-voltaïques qui fournissent en énergie l'Europe, plus spécifiquement les onduleurs connectés y opérant (qui, brièvement, sont les dispositifs transformant le courant alternatif en courant continu). Pas moins de 17 failles ont été découvertes, dont certaines permettant de prendre le contrôle total des onduleurs à distance. Il serait alors possible pour un attaquant de simuler artificiellement l'impact qu'une éclipse solaire aurait sur le réseau, qui est en temps normal compensé artificiellement (celle-ci pouvant être anticipée). En appliquant une telle variation de puissance soudaine, le réseau entrerait dans un état de fluctuation tel qu'il ne serait plus contrôlable et une grande partie du réseau finirait par sauter. La perte suite à une telle panne, considérant qu'elle dure trois heures, a été estimée à 4,5 milliards d'euros.
 
 \subsection{Description des besoins en terme de sécurité}
 
@@ -601,7 +600,7 @@ Seuls les utilisateurs légitimes (acquéreurs du produit entre autres) devraien
 
 \subsection{Architecture globale des systèmes impliquant des équipements IoT}
 
-Leloglu propose dans \cite{Leloglu2017} un travail de synthèse de plusieurs sources dont il dérive entre autres un modèle structurel de l'IoT. Il n'est pas à considérer du point de vue d'un seul équipement, mais plutôt au niveau global, c'est-à-dire tout ce qui est impliqué dans le fonctionnement d'un système exploitant les services d'équipements de l'IoT. C'est une représentation en couches, une couche supérieure s'appuyant sur les services fournis par les couches plus basses afin de remplir la fonction qui lui est dédiée. On distingue les couches suivantes (reprises par des exemples dans le \wordlink{IoT_model_desc}{tableau} et schématisées par la \wordlink{IoT_model_scheme}{figure}) :\\
+Leloglu propose dans \cite{Leloglu2017} un travail de synthèse de plusieurs sources dont il dérive entre autres un modèle structurel d'une architecture typique de l'IoT. Celui-ci s'applique à un réseau domestique tel que présenté au \wordlink{smarthomearchi}{point}, dont on suppose certains équipements travaillent avec un cloud (communications extérieures au réseau local). C'est une représentation en couches, une couche supérieure s'appuyant sur les services fournis par les couches plus basses afin de remplir la fonction qui lui est dédiée. On distingue les couches suivantes (reprises par des exemples dans le \wordlink{IoT_model_desc}{tableau} et schématisées par la \wordlink{IoT_model_scheme}{figure}) :\\
 
 \minit{La couche perception}
 
@@ -609,7 +608,7 @@ Il s'agit de la couche la plus basse, où on considère le rôle des équipement
 
 \minit{La couche réseau}
 
-Cette couche a pour objectif le transfert des informations récoltées par la couche perception depuis les équipements qui les ont réalisées et jusqu'au système qui en effectuera le traitement. On distingue généralement deux parties dans ce transfert, la première correspondant à l'acheminement des données à travers un réseau local jusqu'à un portail (le gateway). Celui-ci qui constituera le point de départ de la deuxième partie du transfert, utilisant un réseau non spécifique tel que Internet pour atteindre le système de traitement terminal. Afin de rendre possible les communications entre ces deux réseaux de natures différentes, il est parfois nécessaire d'introduire une couche d'adaptation dans la pile des protocoles utilisés, e.g. \textit{6LoWPAN} qui permet des échanges basés sur IPv6 dans les réseaux contraints en ressources.\\
+Cette couche a pour objectif le transfert des informations récoltées par la couche perception depuis les équipements qui les ont réalisées et jusqu'au système qui en effectuera le traitement. On distingue généralement deux parties dans ce transfert, la première correspondant à l'acheminement des données à travers un réseau local jusqu'à un portail (le gateway). Celui-ci qui constituera le point de départ de la deuxième partie du transfert, utilisant un réseau non spécifique tel que Internet pour atteindre le système de traitement terminal. Afin de rendre possible les communications entre ces deux réseaux de natures différentes, il est parfois nécessaire d'introduire une couche d'adaptation dans la pile des protocoles utilisés, e.g. \textit{6LoWPAN} \cite{wiki6lowpan} qui permet des échanges basés sur IPv6 dans les réseaux contraints en ressources.\\
 
 \minit{La couche support}
 
@@ -703,7 +702,7 @@ Plusieurs schémas d'attaques peuvent être distingués, exploitant ou non des v
 
 \par Attaques de déni de service (\textit{DoS}, \textit{DDoS}) : les compagnies qui hébergent les services repris dans les couches support et application (traitement des données, accès aux serveurs, etc.) sont elles aussi susceptibles de se faire attaquer directement. Les attaques DoS (ou DDoS comme illustré avec Mirai en introduction de cette section) sont courantes et peuvent complètement interrompre la disponibilité de ces services par différent biais (congestion, mise à l'arrêt des machines).\\
 
-\par Injection de code : l'attaquant utilise des failles dans les applications pour injecter et faire exécuter son propre code écrit à des fins malicieuses. Cela se fait notamment sur les bases de données (injection SQL). Une injection peut résulter en l'installation d'un malware, des requêtes illégitimes effectuées sur les bases de données, un gain de privilèges dans le système pour l'attaquant ou encore rendre possible du \textit{cross-site scripting}\footnote{\url{https://en.wikipedia.org/wiki/Code_injection}}.\\
+\par Injection de code : l'attaquant utilise des failles dans les applications pour injecter et faire exécuter son propre code écrit à des fins malicieuses. Cela se fait notamment sur les bases de données (injection SQL). Une injection peut résulter en l'installation d'un malware, des requêtes illégitimes effectuées sur les bases de données, un gain de privilèges dans le système pour l'attaquant ou encore rendre possible du \textit{cross-site scripting}\footnote{\url{https://en.wikipedia.org/wiki/Cross-site_scripting}}.\\
 
 \par \textit{Sniffers/loggers} : les attaquants récoltent un maximum des données utilisées et transitant (par exemple lors des échanges avec l'utilisateur par le biais de l'application) afin d'en tirer des informations de valeur (bien que cela soit rendu plus difficile par le chiffrement). Il peut s'agir d'identifiants, de mots de passes, d'emails, etc.\\
 
@@ -719,16 +718,16 @@ Plusieurs schémas d'attaques peuvent être distingués, exploitant ou non des v
 
 \subsubsection{Le travail d'OWASP}
 
-La fondation \href{https://www.owasp.org/index.php/Main_Page}{OWASP} (\textit{The Open Web Application Security Project}) est une organisation à l'échelle mondiale qui aspire à améliorer la sécurité informatique des systèmes et logiciels. L'IoT étant en plein essor, \href{https://www.owasp.org/index.php/OWASP_Internet_of_Things_Project}{un projet} a vu le jour sur la plateforme, décrit comme \og conçu pour aider les fabricants, développeurs et utilisateurs à mieux comprendre les problèmes sécuritaires liés à l'IoT, et pour permettre aux utilisateurs de prendre de meilleures décisions relatives à la sécurité quand ils déploient et travaillent avec des technologies de l'IoT \fg .
+La fondation \href{https://www.owasp.org/index.php/Main_Page}{OWASP} (\textit{The Open Web Application Security Project}) est une organisation à l'échelle mondiale qui aspire à améliorer la sécurité informatique des systèmes et logiciels. L'IoT étant en plein essor, \href{https://www.owasp.org/index.php/OWASP_Internet_of_Things_Project}{un projet} a vu le jour sur la plateforme web, décrit comme \og conçu pour aider les fabricants, développeurs et utilisateurs à mieux comprendre les problèmes sécuritaires liés à l'IoT, et pour permettre aux utilisateurs de prendre de meilleures décisions relatives à la sécurité quand ils déploient et travaillent avec des technologies de l'IoT \fg .
 Ainsi, plusieurs sous-projets plus spécifiques sont destinés à peupler le projet principal, certains étant encore actuellement en développement.\\
 
 L'équipe travaillant sur le projet a établi \href{https://www.owasp.org/index.php/Principles_of_IoT_Security}{une liste} des principes relatif à la sécurité dans l'IoT. Plusieurs guides ont également été écrits, orientés chacun selon un point de vue différent : pour le fabricant, le développeur et l'utilisateur. D'autres ressources écrites sont disponibles, mais encore aucun outil développé autour de la sécurité n'a vu le jour comme c'est le cas pour d'autres domaines (les applications web particulièrement puisque originellement l'organisation ciblait ce secteur).	 
 
 \subsubsection{La standardisation de protocoles adaptés sécurisés}
 
-\par La \wordlink{IoT_prot}{sous-section} présentait les protocoles utilisables dans l'IoT, adaptés aux restrictions des équipements qui ne permettent pas toujours une compatibilité avec la \textit{pile TCP/IP} classique. Lors de la conception de ces protocoles, la composante sécurité a été prise en compte et des mécanismes y ont été introduits pour l'assurer \cite{Huichen2016} (ou alors des chercheurs ont fait ce travail par la suite).\\
+\par La \wordlink{IoT_prot}{sous-section} présentait les protocoles utilisables dans l'IoT, adaptés aux restrictions des équipements qui ne permettent pas toujours une compatibilité avec la \textit{pile TCP/IP} classique. Lors de la conception de ces protocoles, la composante sécurité a été prise en compte et des mécanismes y ont été introduits pour l'assurer (ou alors des chercheurs ont fait ce travail par la suite).\\
 
-\par 6LowPAN propose déjà des mécanismes utiles pour garantir la sécurité \cite{wiki6lowpan}. Pour éviter les attaques par fragmentation, les options d'en-têtes \textit{Timestamp} et \textit{Nonce} sont un premier rempart. La découverte des voisins d'un nœud est effectuée de façon sécurisée grâce à LSEND (\textit{Lightweight Secure Neighbor Discovery protocol}), version allégée de SEND. Des chercheurs ont également élaboré une version allégée de la suite de protocoles IPsec afin de garantir des communications sécurisées d'un nœud à l'autre dans un réseau 6LowPAN \cite{Huichen2016}. D'autres ont proposé un système d'établissement de connexion sécurisée à partir d'un échange de clés \cite{Huichen2016}.\\
+\par 6LowPAN propose déjà des mécanismes utiles pour garantir la sécurité \cite{wiki6lowpan}. Pour éviter les attaques par fragmentation, les options d'en-têtes \textit{Timestamp} et \textit{Nonce} sont un premier rempart. Des chercheurs ont également élaboré une version allégée de la suite de protocoles IPsec afin de garantir des communications sécurisées d'un nœud à l'autre dans un réseau 6LowPAN \cite{Huichen2016}. D'autres chercheurs présentés dans le même article ont proposé un système d'établissement de connexion sécurisée à partir d'un échange de clés.\\
 
 \par RPL, utilisé pour le routage dans les réseaux de capteurs notamment au dessus de 6LowPAN, dispose également de mécanismes de protection. Il s'agit dans ce cas de garantir que quand un nœud sélectionne son parent pour rejoindre la topologie, ce dernier soit un nœud légitime (éviter le \textit{spoofing}). Des solutions d'autres chercheurs sont présentées par Huichen \cite{Huichen2016} afin de sécuriser la génération des tables de routage dans RPL. Un exemple est un schéma de topologie authentifiée appelée TRAIL (\textit{Trust Anchor Interconnection Loop}) qui permet la découverte et l'isolation des nœuds falsifiés et où chaque nœud peut, en envoyant un message particulier, valider son chemin jusqu'à la racine.\\
 
@@ -736,7 +735,7 @@ L'équipe travaillant sur le projet a établi \href{https://www.owasp.org/index.
 
 \subsubsection{La détection des équipements en réseau et de leurs vulnérabilités}
 
-Face à un réseau réel, disons local à une habitation possédant des équipements connectés (c-à-d orientée smarthome), il est difficile de se faire une idée de tous les objets y étant connectés et de quelles sont leurs fonctionnalités. Des outils sont nécessaires afin de découvrir le réseau et établir quels équipements peuvent potentiellement être la cible d'attaques. Il en existe une flopée (\href{https://sectools.org/}{sectools.org} en maintient un classement fourni), libres ou commerciaux, possédant une interface graphique ou non, fonctionnels sur des OS variés. Outre ces logiciels complets aux champs d'action assez étendu, des outils de scanning plus spécifiques à des cibles (routeurs, serveurs, ...) et services (Web, SQL, mail, ...) sont trouvables dans des dépôts dédiés sous la forme de scripts (\href{https://github.com/We5ter/Scanners-Box}{Scanners-box} est dédié à leur référencement). Des exemples sont donnés ci-dessous, classés en deux catégories \cite{Leos2014} en fonction de la manière dont le scan est effectué. Une attention particulière est portée aux outils dédiés à la détection des failles sur les équipements IoT d'un réseau s'il en existe qui y soient dédiés.
+Face à un réseau réel, disons local à une habitation possédant des équipements connectés (c-à-d orientée smarthome), il est difficile de se faire une idée de tous les objets y étant connectés et de quelles sont leurs fonctionnalités. Des outils sont nécessaires afin de découvrir le réseau et établir quels équipements peuvent potentiellement être la cible d'attaques. Il en existe une flopée (\href{https://sectools.org/}{sectools.org} en maintient un classement fourni), libres ou commerciaux, possédant une interface graphique ou non, fonctionnels sur des OS variés. Outre ces logiciels complets aux champs d'action assez étendu, des outils de scanning plus spécifiques à des cibles (routeurs, serveurs, ...) et services (Web, SQL, mail, ...) sont trouvables dans des dépôts dédiés sous la forme de scripts (\href{https://github.com/We5ter/Scanners-Box}{Scanners-box} \footnote{\url{https://github.com/We5ter/Scanners-Box}} est dédié à leur référencement). Des exemples sont donnés ci-dessous, classés en deux catégories \cite{Leos2014} en fonction de la manière dont le scan est effectué. Une attention particulière est portée aux outils dédiés à la détection des failles sur les équipements IoT d'un réseau s'il en existe qui y soient dédiés.
 
 \paragraph{Le scan passif et la prise d'empreintes}
 
@@ -744,7 +743,7 @@ L'objectif est d'en apprendre un maximum sur les équipements connectés au rés
 
 \par Un analyseur de paquet populaire est Wireshark, qui utilise l'API \textit{pcap} pour capturer les paquets transitant par le réseau sur lequel une interface désignée est placée en mode promiscuité (c-à-d fait remonter au système tous les paquets qui lui parviennent). Beaucoup d'autres utilitaires de capture (Kismet, tcpdump, ngrep, etc.) utilisent l'API \textit{pcap}, implémentée dans la librairie \textit{libcap} (systèmes UNIX) ou WinPcap (port de libcap vers Windows), il s'agit donc d'une ressource importante. Wireshark permet un filtrage assez fin des lots de paquets capturés (plus d'un millier de protocoles reconnus), permettant une grande flexibilité en fonction du but de la capture (debug, recherche d'une information, surveillance du trafic, etc.).\\
 
-\par Les logiciels destinés à la capture d'empreintes et uniquement à cela sont assez peu nombreux (la plupart intègrent d'autres fonctionnalités actives). \href{http://lcamtuf.coredump.cx/p0f3/README}{p0f} est l'outil minimaliste le plus efficace. Il utilise diverses métriques extraites des en-têtes IPv4/6, des en-têtes TCP, des dynamiques observables dans le 3-way handshake de TCP et des données exploitables au niveau de la couche application (HTTP, SMTP, FTP, etc.). Combinées à une base de données de signatures récupérées expérimentalement, ces mesures permettent de déduire quels systèmes opèrent derrière les nœuds du réseau communiquant (là où un outil comme Nmap peut en être incapable). Outre cela, p0f est capable de déduire d'autres informations :
+\par Les logiciels destinés à la capture d'empreintes et uniquement à cela sont assez peu nombreux (la plupart intègrent d'autres fonctionnalités actives). \href{http://lcamtuf.coredump.cx/p0f3}{p0f}\footnote{\url{http://lcamtuf.coredump.cx/p0f3}} est l'outil minimaliste le plus efficace. Il utilise diverses métriques extraites des en-têtes IPv4/6, des en-têtes TCP, des dynamiques observables dans le 3-way handshake de TCP et des données exploitables au niveau de la couche application (HTTP, SMTP, FTP, etc.). Combinées à une base de données de signatures récupérées expérimentalement, ces mesures permettent de déduire quels systèmes opèrent derrière les nœuds du réseau communiquant (là où un outil comme Nmap peut en être incapable). Outre cela, p0f est capable de déduire d'autres informations :
 
 \begin{itemize}
 \vspace{0.2cm}
@@ -758,9 +757,9 @@ L'objectif est d'en apprendre un maximum sur les équipements connectés au rés
 \par D'autres outils existent, leurs fonctionnalités s'étendant au-delà de ce qui est considérable comme outil passif. On peut citer notamment :
 \begin{itemize}
 \vspace{0.2cm}
-\item[$\bullet$] \href{http://www.ettercap-project.org/}{Ettercap} utilise la capture de paquets pour intercepter des informations sensibles, et d'autres opérations avec pour but final d'effectuer une attaque de type \textit{Man-In-The-Middle} (MITM)
+\item[$\bullet$] \href{http://www.ettercap-project.org/}{Ettercap}\footnote{\url{http://www.ettercap-project.org/}} utilise la capture de paquets pour intercepter des informations sensibles, et d'autres opérations avec pour but final d'effectuer une attaque de type \textit{Man-In-The-Middle} (MITM)
 \vspace{0.2cm}
-\item[$\bullet$] \href{https://scapy.net/}{Scapy} et \href{https://github.com/phaethon/kamene}{Kamene} (fork du projet), des utilitaires en Python, permettent la capture et le reforgeage de paquets, la prise d'empreintes, le lancement d'attaques, etc. (le tout de façon modulable)
+\item[$\bullet$] \href{https://scapy.net/}{Scapy}\footnote{\url{https://scapy.net/}} et \href{https://github.com/phaethon/kamene}{Kamene} (fork du projet), des utilitaires en Python, permettent la capture et le reforgeage de paquets, la prise d'empreintes, le lancement d'attaques, etc. (le tout de façon modulable)
 \end{itemize}
 ~\\
 
@@ -770,15 +769,15 @@ L'objectif est d'en apprendre un maximum sur les équipements connectés au rés
 
 \par Ces logiciels tentent d'établir des connexions avec les hôtes à analyser, à la recherche d'un service répondant donc potentiellement ouvert, non protégé et dont il est possible de soutirer des informations. Une liste de numéros de ports pertinents est construite par le scanneur, utilisée par ce dernier lors de l'analyse des hôtes qu'il trouve dans le réseau. Cette technique basique est appelée \href{https://fr.wikipedia.org/wiki/Balayage_de_ports}{balayage de port}.   Se servant de ces scanneurs comme appoint, les \href{https://fr.wikipedia.org/wiki/Scanneur_de_vuln\%C3\%A9rabilit\%C3\%A9}{scanneurs de vulnérabilités} vont plus loin en tentant de découvrir pour chaque hôte analysé les failles de sécurités auxquelles ils sont exposés (au niveau d'une application, du système d'exploitation ou des interfaces réseaux).\\
 
-\par L'outil \href{https://nmap.org/}{Nmap} est dédié au balayage de ports et à l'acquisition directe d'informations (version, composants matériels utilisés, etc.) concernant le système et les services ouverts d'un hôte analysé. La détection de vulnérabilités est rendue possible grâce aux interactions scriptées avec la cible en utilisant le Nmap Scripting Engine (NSE), un exemple de module Nmap y étant dédié est \href{https://www.computec.ch/projekte/vulscan/}{Vulscan.nse}. Nmap a d'autres fonctionnalités pratiques telles qu'une interface graphique complète (\href{https://nmap.org/zenmap/}{Zenmap}) et la personnalisation des formats de sorties pour les résultats (filtrage, langages balisés, etc.).\\
+\par L'outil \href{https://nmap.org/}{Nmap}\footnote{\url{https://nmap.org/}} est dédié au balayage de ports et à l'acquisition directe d'informations (version, composants matériels utilisés, etc.) concernant le système et les services ouverts d'un hôte analysé. La détection de vulnérabilités est rendue possible grâce aux interactions scriptées avec la cible en utilisant le Nmap Scripting Engine (NSE), un exemple de module Nmap y étant dédié est \href{https://www.computec.ch/projekte/vulscan/}{Vulscan.nse}. Nmap a d'autres fonctionnalités pratiques telles qu'une interface graphique complète (\href{https://nmap.org/zenmap/}{Zenmap}) et la personnalisation des formats de sorties pour les résultats (filtrage, langages balisés, etc.).\\
 
-\par \href{http://www.openvas.org/}{OpenVAS} est une branche du projet \href{https://www.tenable.com/products/nessus/nessus-professional}{Nessus}, ce dernier étant passé sous licence commerciale. Ce sont les frameworks pour la détection de vulnérabilités sur un réseau les plus populaires. Tenable$^{®}$ (qui possède Nessus) propose des \href{https://www.tenable.com/solutions/iot}{services de scan dédiés aux équipements IoT} utilisés dans l'industrie, mais OpenVAS n'offre rien de similaire.\\
+\par \href{http://www.openvas.org/}{OpenVAS}\footnote{\url{http://www.openvas.org/}} est une branche du projet \href{https://www.tenable.com/products/nessus/nessus-professional}{Nessus}, ce dernier étant passé sous licence commerciale. Ce sont les frameworks pour la détection de vulnérabilités sur un réseau les plus populaires. Tenable$^{®}$ (qui possède Nessus) propose des \href{https://www.tenable.com/solutions/iot}{services de scan dédiés aux équipements IoT} utilisés dans l'industrie, mais OpenVAS n'offre rien de similaire.\\
 
-\par Le cas de \href{https://cisofy.com/lynis/}{Lynis} est un peu particulier. Effectivement, en opposition aux scanneurs en réseau comme OpenVAS, il s'agit d'un scanneur de vulnérabilités à lancer sur l'hôte à analyser. Cela permet une inspection beaucoup plus en profondeur des services et des vulnérabilités qu'il présente. Il tourne sur presque tous les systèmes UNIX et même sur un système limité tel qu'une carte Raspberry Pi ou un équipement relatif à l'IoT qui est capable de supporter le même type de charge. Lynis peut donc être un outil intéressant si on possède le contrôle de l'équipement à analyser (légitimement ou non).\\
+\par Le cas de \href{https://cisofy.com/lynis/}{Lynis}\footnote{\url{https://cisofy.com/lynis/}} est un peu particulier. Effectivement, en opposition aux scanneurs en réseau comme OpenVAS, il s'agit d'un scanneur de vulnérabilités à lancer sur l'hôte à analyser. Cela permet une inspection beaucoup plus en profondeur des services et des vulnérabilités qu'il présente. Il tourne sur presque tous les systèmes UNIX et même sur un système limité tel qu'une carte Raspberry Pi ou un équipement relatif à l'IoT qui est capable de supporter le même type de charge. Lynis peut donc être un outil intéressant si on possède le contrôle de l'équipement à analyser (légitimement ou non).\\
 
-\par Dédié à la détection des vulnérabilités des équipements IoT, \href{https://github.com/rapid7/IoTSeeker}{IoTSeeker} est un outil libre et écrit en Perl, supporté par les systèmes Linux/Mac OS. Il est axé sur les vulnérabilités d'authentification, la découverte de mots de passe laissés par défaut par les utilisateurs imprudents (sur base des listes des identifiants par constructeur évoquées dans la \wordlink{motiv_IoT}{sous-section}).\\
+\par Dédié à la détection des vulnérabilités des équipements IoT, \href{https://github.com/rapid7/IoTSeeker}{IoTSeeker}\footnote{\url{https://github.com/rapid7/IoTSeeker}} est un outil libre et écrit en Perl, supporté par les systèmes Linux/Mac OS. Il est axé sur les vulnérabilités d'authentification, la découverte de mots de passe laissés par défaut par les utilisateurs imprudents (sur base des listes des identifiants par constructeur évoquées dans la \wordlink{motiv_IoT}{sous-section}).\\
 
-\par \href{https://github.com/threat9/routersploit}{Routersploit} est un framework dédié à la détection et l'exploitation de failles dans les systèmes embarqués. Comme son nom l'indique, la cible est davantage les routeurs que les équipements de l'IoT, cependant quelques modules ciblent notamment les caméras et d'autres équipements connectés insolites (projecteur, laveur de laboratoire). L'outil de pénétration \href{https://github.com/zdresearch/OWASP-Nettacker}{Nettacker} développé par OWASP, dont le but est le soutirage et l'agrégation d'informations d'une cible pour en dresser une liste des failles de sécurité, promet également la sortie future d'un module spécifique à l'IoT.
+\par \href{https://github.com/threat9/routersploit}{Routersploit}\footnote{\url{https://github.com/threat9/routersploit}} est un framework dédié à la détection et l'exploitation de failles dans les systèmes embarqués. Comme son nom l'indique, la cible est davantage les routeurs que les équipements de l'IoT, cependant quelques modules ciblent notamment les caméras et d'autres équipements connectés insolites (projecteur, laveur de laboratoire). L'outil de pénétration \href{https://github.com/zdresearch/OWASP-Nettacker}{Nettacker} développé par OWASP, dont le but est le soutirage et l'agrégation d'informations d'une cible pour en dresser une liste des failles de sécurité, promet également la sortie future d'un module spécifique à l'IoT.
 
 %------------- PARE FEUX + IoT -------------
 
@@ -797,9 +796,17 @@ L'objectif est d'en apprendre un maximum sur les équipements connectés au rés
 
 Ce travail englobe la thématique de la sécurité des équipements en réseau dans l'environnement domestique, en mettant l'accent sur les différents types de pare-feux. Effectivement, ces derniers peuvent palier en partie aux faiblesses récurrentes des équipements IoT qui peuplent les réseaux domestiques. L'aboutissement final du projet est de développer un outil qui puisse contribuer à la protection de ces réseaux. Cependant, l'analyse de trafic avancée (au delà du simple pare-feu à état) telle qu'utilisée dans les solutions commerciales est une technologie non triviale qui sort des limites de ce projet (théorie de \textit{machine learning}, construction de base de données de signatures, etc.). À l'inverse, se limiter à un simple pare-feu à état ciblant un protocole de l'IoT peut sembler réducteur vis-à-vis de toutes les menaces planant sur ces équipements qu'un tel pare-feu ne pourrait contrer.\\
 
-\par La \wordlink{scanners}{sous-section} met en évidence quelques outils qui peuvent aider à analyser le réseau domestique et détecter les failles exploitables des équipements qui le peuplent. Ces \textit{scanners}, conjugués à des systèmes de prévention d'intrusion \textit{NIDS}, permettraient d'améliorer grandement la sécurité du réseau domestique, tout en n'effectuant aucune tâche de filtrage direct du trafic (c-à-d n'étant pas bloquant comme le serait un véritable pare-feu). En découle l'idée motrice de l'application à développer : prodiguer un outil permettant l'\textbf{analyse}, la \textbf{surveillance} et l'\textbf{agrégation des caractéristiques des équipements} d'un réseau domestique, basé sur des \textbf{scanneurs} existants ciblant \textbf{différents aspects} de sa sécurité. Le système doit donc être conçu de façon modulaire, de sorte que l'\textbf{intégration d'un nouveau scanneur} ne requiert comme travail que la traduction (parsing) de la sortie dudit programme vers des actions et éléments interprétables par l'application.     \\
+\par La \wordlink{scanners}{sous-section} met en évidence quelques outils qui peuvent aider à analyser le réseau domestique et détecter les failles exploitables des équipements qui le peuplent. Ces \textit{scanners}, conjugués à des systèmes de prévention d'intrusion \textit{NIDS}, permettraient d'améliorer grandement la sécurité du réseau domestique, tout en n'effectuant aucune tâche de filtrage direct du trafic comme le ferait un pare-feu en bordure du réseau. En découle l'idée motrice de l'application à développer : prodiguer un outil permettant l'\textbf{analyse}, la \textbf{surveillance} et l'\textbf{agrégation des caractéristiques des équipements (adresses IP/MAC, ports ouverts, etc.)} d'un réseau domestique, basé sur des \textbf{scanneurs} existants ciblant \textbf{différents aspects} de sa sécurité. Le système doit donc être conçu de façon modulaire, de sorte que l'\textbf{intégration d'un nouveau scanneur} ne requiert comme travail que la traduction (parsing) de la sortie dudit programme vers des actions et éléments interprétables par l'application.     \\
 
-\par Par exemple, l'application pourrait intégrer des scanneurs tels que \textit{nmap}, \textit{IoTSeeker}, etc. qui interrogent directement les équipements (actifs) et des programmes de prise d'empreintes/analyse de trafic tels que \textit{Snort}, \textit{p0f}, etc. (passifs). Chacun de ces programmes fournit un feedback sur sa sortie, que ce soit une fois son exécution terminée ou de façon continue jusqu'à interruption de l'exécution. Une fois parsées, les informations obtenues peuvent servir à alimenter une représentation virtuelle du réseau maintenue par l'application (renseignant les caractéristiques des équipements qui le peuplent) ou constituer une alerte à faire remonter jusqu'à l'utilisateur si une faille ou menace est détectée. Le framework d'intégration définit comment ajouter ces programmes à l'environnement de l'application, prodiguant une surcouche telle qu'il n'est nécessaire de fournir que la \textbf{commande} liée au programme, la façon de les lui passer et quels \textbf{paramètres} du programme utilisé et la \textbf{méthode de traitement} de la sortie. 
+\par Par exemple, l'application pourrait intégrer des scanneurs tels que présentés dans la \wordlink{scanners}{sous-section}. Parmi ceux-ci \textit{nmap}, \textit{IoTSeeker}, etc. qui interrogent directement les équipements (dits actifs) et des programmes de prise d'empreintes/analyse de trafic tels que \textit{Snort}, \textit{p0f}, etc. (dits passifs). Chacun de ces programmes fournit un feedback sur sa sortie, que ce soit une fois son exécution terminée ou de façon continue jusqu'à interruption manuelle de l'exécution. Une fois parsées, les informations obtenues peuvent servir à alimenter une représentation virtuelle du réseau maintenue par l'application (renseignant les caractéristiques des équipements qui le peuplent) ou constituer une alerte à faire remonter jusqu'à l'utilisateur si une faille ou menace est détectée. Le framework d'intégration définit comment ajouter ces programmes à l'environnement de l'application, prodiguant une surcouche telle qu'il n'est nécessaire de définir les éléments suivants :\\
+\begin{itemize}
+\item[$\bullet$] la \textbf{commande} liée au programme telle qu'utilisée pour y faire appel depuis un terminal
+\vspace{0.2cm}
+\item[$\bullet$] quels \textbf{paramètres du programme} utilisés parmi ceux passables en ligne de commande et la façon d'y associer des valeurs
+\vspace{0.2cm}
+\item[$\bullet$] la \textbf{méthode de traitement} de la sortie du programme pour en inclure les résultats dans l'application
+\end{itemize}
+
 
 
 
@@ -807,22 +814,28 @@ Ce travail englobe la thématique de la sécurité des équipements en réseau d
 
 \paragraph{La surveillance du réseau domestique}
 
-L'application doit pouvoir être utilisée telle quelle depuis un équipement connecté au réseau domestique (similaire ou supérieur en terme de ressources à une carte Raspberry PI), avec un lot de programmes (sous entendu scanneurs dans la plupart des cas) déjà intégrés et prêts à l'emploi par une personne non initiée.
-Les interactions se font principalement sur deux composants décris plus en détail dans la \wordlink{compapp}{sous-section} : la routine de surveillance automatisée et la carte du réseau. En terme de concepts :\\
-
-\par $\bullet$ \textbf{La routine de surveillance} est l'ensemble des scanneurs qui doivent être utilisés pour analyser le réseau quand l'application est lancée. Elle se divise en deux sous-ensembles, l'un destiné aux programmes tournant en continu (analogie avec les scanneurs passifs, la prise d'empreintes) et l'autre aux programmes/scripts qui interagissent directement avec les équipements du réseau pour en sortir un feedback une fois leur analyse terminée (analogie avec les scanneurs actifs). L'automatisation pour le premier se fait simplement en associant un état commutable \textit{en cours}/\textit{arrêté} à chaque programme qui contrôle le lancement/l'interruption du processus sous-jacent. Pour le second, il s'agit d'un timer d'expiration associé à chaque programme dans l'ensemble, au terme duquel le programme est exécuté (se termine et fournit un feedback sur sa sortie) et son timer restauré à sa valeur initiale (on peut donc voir cela comme une file de programmes à exécuter les uns à la suite des autres). Ces deux ensembles sont manipulables : des programmes peuvent être ajoutés/retirés et leur état modifié en agissant sur ce qui sera désigné par la \textbf{Routine} qui regroupe ces deux ensembles \textbf{Panel} et \textbf{Queue} respectivement.
+L'application doit pouvoir être utilisée telle quelle depuis un équipement connecté au réseau domestique similaire ou supérieur en terme de ressources à une carte Raspberry PI. Il est nécessaire de présenter une vue d'ensemble de l'état du réseau et des programmes sous-jacents intégrés à l'application pour le protéger. À cette fin, deux concepts sont introduits. Les interactions se font principalement avec ces deux composants : la carte du réseau et la routine de surveillance automatisée.\\
 
 \newpage
 
-\par $\bullet$ \textbf{La carte du réseau} est le résultat de l'agrégation des informations parsées sur les sorties des programmes de la Routine (donc automatiques) et des entrées manuelles de l'utilisateur. Il s'agit de résumer au mieux d'une part les informations récoltées concernant les équipements (adresses MAC, IP, hostname, ports ouverts, etc.) et d'autre part les alertes associées à un équipement particulier (CVE existante pour le modèle, service utilisé non sécurisé ou sujet à une faille connue, etc.). Cette carte virtuelle du réseau a pour objectif de fournir une vue d'ensemble du réseau domestique (limitée au LAN) pour l'utilisateur, afin qu'il puisse y exercer un contrôle plus pertinent.
+\par \textbf{La routine de surveillance} est ce qui permet de manipuler les programmes sous-jacents et de définir la façon dont ils sont utilisés par l'application. On distingue deux archétypes de programmes selon leur schéma d'exécution propre :\\
+\begin{itemize}
+\item[$\bullet$] Les programmes dits \textit{actifs} par analogie avec les scanneurs actifs : une fois appelés, ils effectuent un travail qui se termine après un temps fini. Les résultats de ce travail sont alors envoyés dans le flux de sortie standard ou vers un fichier. Cette information est par la suite interprétable humainement ou parsée automatiquement.
+\vspace{0.2cm}
+\item[$\bullet$] Les programmes dits \textit{passifs} par analogie avec les scanneurs passifs, les programmes de prise d'empreintes d'analyse du trafic (NIDS). Une fois appelés, ils s'exécutent en continu pour traiter des informations récupérées au cours du temps (du trafic en somme). N'interrogeant pas directement les équipements, ces programmes attendent que ceux-ci émettent eux-mêmes de l'information à traiter. Les résultats sont également transmis vers un flux de sortie, mais étant donné que l'exécution ne s'arrête pas cela est fait en continu mais de façon irrégulière et non pas à la terminaison de l'exécution comme pour un programme actif. 
+\end{itemize}
+\vspace{0.4cm}
+\par Ces deux archétypes sont considérés pour manipuler de façon différente les programmes intégrés à l'application. Le programmes passifs et actifs sont placés respectivement dans deux sous-ensembles de la Routine : le \textbf{Panel }et la \textbf{Queue}. Dans le Panel, on retrouve des programmes qui s'exécutent comme des tâches de fond jusqu'à l'envoi d'un signal d'interruption. Dans la Queue, les programmes sont exécutés similairement à des scripts à l'expiration d'un Timer associé à chacun. Une fois l'exécution lancée, on sait qu'elle va se terminer donc le programme est remis dans la Queue avec un Timer réinitialisé. La Queue est ordonnée selon les temps d'expiration restants, représentant ainsi la suite d'exécutions à venir. La Routine de surveillance, en maintenant ces deux sous-ensembles, est ce qui permet de configurer et contrôler l'automatisation de l'exécution des programmes.\\
 
-\vspace{1cm}
+\par \textbf{La carte du réseau} est le résultat de l'agrégation des informations parsées sur les sorties des programmes de la Routine (donc automatiques) et des entrées manuelles de l'utilisateur. Il s'agit de résumer au mieux d'une part les informations récoltées concernant les équipements (adresses MAC, IP, hostname, ports ouverts, etc.) et d'autre part les alertes associées à un équipement particulier. Une alerte serait par exemple une faille connue pour la version d'un service qu'on découvre comme utilisée sur un port d'un équipement. Cette carte virtuelle du réseau a pour objectif de fournir une vue d'ensemble du réseau domestique limitée au LAN pour l'utilisateur, afin qu'il puisse y exercer un contrôle plus pertinent.
+
+\newpage
 
 \paragraph{La conception d'un framework d'intégration}
 
-Puisque l'application fonctionne uniquement en se basant sur des programmes extérieurs arbitraires, il est nécessaire de définir un cadre assez rigoureux pour les intégrer au système. Cela se fait via une surcouche d'abstraction désignée par le terme \textbf{Module}. Deux archétypes son envisagés pour un Module, en fonction de la nature de l'exécution du programme à abstraire : soit celle-ci est continue et produit un feedback régulier jusqu'à terminaison du processus, soit il s'agit d'une exécution unique destinée à se terminer avec un feedback des résultats en sortie. Par analogie avec les types de scanneurs, on désigne l'archétype de Module à suivre correspondant par \textbf{Module Actif} et \textbf{Module Passif}. La surcouche correspond dans les faits à hériter d'une classe abstraite dont plusieurs méthodes doivent être implémentées, cette partie pratique est approfondie dans la \wordlink{abstrmodel}{sous-section}.\\
+Puisque l'application fonctionne uniquement en se basant sur des programmes extérieurs arbitraires, il est nécessaire de définir un cadre assez rigoureux pour les intégrer au système de sorte à pouvoir manipuler leur exécution et leur passer des paramètres. Cela se fait via une surcouche d'abstraction désignée par le terme \textbf{Module}. Deux types de Modules existent, correspondant aux deux archétypes de programme distingués. Effectivement, leur schéma d'exécution différant, il est plus pratique de les distinguer pour les manipuler. La surcouche correspond dans les faits à hériter d'une classe abstraite \textit{ActiveModule} ou \textit{PassiveModule} dont plusieurs méthodes doivent être implémentées, cet aspect pratique est approfondie dans la \wordlink{abstrmodel}{sous-section}.\\
 
-\par De nouveaux programmes peuvent ainsi être intégrés et utilisables dans l'application, à condition d'écrire une classe héritant de la classe correspondant soit aux modules actifs, soit aux modules passifs en fonction de la nature du programme. Dans ces classes supérieures, la façon dont l'exécution du programme sous-jacent doit être traitée est déjà encadrée (bien qu'il soit aussi possible de réécrire cela). Le schéma d'exécution est le suivant :
+\par De nouveaux programmes peuvent ainsi être intégrés et utilisables dans l'application, à condition d'écrire une classe héritant de la classe correspondant soit aux modules actifs, soit aux modules passifs en fonction de la nature du programme. Dans ces classes parents, la façon dont l'exécution du programme sous-jacent doit être traitée est déjà encadrée (bien qu'il soit aussi possible de réécrire cela). Le schéma d'exécution est le suivant :
 \vspace{0.2cm}
 \begin{itemize}
 \item[$\bullet$] \textbf{Module actif} : un thread est lancé pour dissocier le fil d'exécution général de l'application. Dans ce thread, un processus fils exécutant le programme est instancié, avec sa sortie récupérable. Une fois l'exécution terminée, le thread se termine en appelant une fonction de callback qui est celle définie pour le parsing du programme.
@@ -871,17 +884,17 @@ Les attributs qui devraient être définis lors de l'écriture d'un module doive
 \item[$\bullet$] Une description textuelle du rôle du module
 \item[$\bullet$] Une indication de l'archétype associé au module : à considérer comme actif ou passif
 \item[$\bullet$] La commande qui permet d'appeler l'exécutable sur le système
-\item[$\bullet$] Une définition des paramètres ajoutables à la commande, avec pour chacun :
+\item[$\bullet$] Une définition des paramètres ajoutables à la commande, avec pour chacun (considérant que leur ordre est également fourni) :
 \begin{itemize}
 \item un indicateur booléen indiquant s'il est indispensable (toujours rajouté à la commande)
 \item une valeur par défaut, qui sera utilisée si le paramètre est indispensable mais non fourni
 \item le flag associé à l'option du programme en ligne de commande si existant
 \end{itemize}
 \item[$\bullet$] Additionnellement, une description textuelle de chaque paramètre
-\item[$\bullet$] La méthode de parsing
+\item[$\bullet$] La méthode de parsing, fonction traduisant la sortie textuelle du programme vers des éléments de l'application
 \end{itemize}
 
-\vspace{1.3cm}
+\vspace{1.1cm}
 
 Le champ d'action d'un module tel qu'il devrait être suivant le framework est le suivant :
 
@@ -904,9 +917,9 @@ Pour plus de détails concernant l'implémentation concrète du système de modu
 
 La Routine est l'ensemble des modules sélectionnés pour surveiller le réseau domestique de façon automatisée, en répétition continue. On la retrouve associée dans la maquette au label \texttt{(2)}. La Routine courante est remplie par l'utilisateur depuis la Library et peut être paramétrée, modifiée et contrôlée par celui-ci à volonté. Elle maintient deux sous-ensembles vers lesquels les modules sont aiguillés en fonction de leur archétype : le Panel des passifs \texttt{(2.1)} et la Queue des actifs \texttt{(2.2)}. À l'ajout d'un module, un index unique parmi le sous-ensemble est associé (par défaut l'id du module) et toute interaction avec le module peut se faire via ce \texttt{setid} (respectivement un \texttt{pid} et un \texttt{qid}  dans les deux sous-ensembles). Un même module peut être présent en de multiples exemplaires, tant qu'il s'agit d'instances différentes. Cela permet, par exemple, d'avoir deux instances du même module mais qui considéreront des paramètres différents pour le programme sous-jacent.\\
 
-\par Le Panel maintient les modules respectant l'archétype \textit{passif}, c'est-à-dire dont le programme sous-jacent est destiné à être exécuté de façon continue jusqu'à interruption du processus. En plus d'un \texttt{pid}, à chaque module est donc associé un état "en cours" ou "pause", et au Panel également (panel "en cours" $\Leftrightarrow$ au moins un de ses modules est "en cours"). Cet état est commutable pour chacun de ces éléments, le passage à l'état "en cours" pour le Panel revient à lancer l'exécution de tous ses modules (idem pour "pause").\\
+\par Le Panel maintient les modules respectant l'archétype \textit{passif}. En plus d'un \texttt{pid}, à chaque module est donc associé un état "en cours" ou "pause", et au Panel également (panel "en cours" $\Leftrightarrow$ au moins un de ses modules est "en cours"). Cet état est commutable pour chacun de ces éléments, le passage à l'état "en cours" pour le Panel revient à lancer l'exécution de tous ses modules (idem pour "pause").\\
 
-\par La Queue contient les modules dits \textit{actifs}, dont le programme sous-jacent effectue un travail en temps fini au terme duquel il a terminé son exécution. Le but de la Queue est d'organiser la séquence des modules qui seront lancés. Pour cela, en plus du \texttt{qid} attribué à chacun de ses modules, un timer d'expiration est initialisé (à une valeur fournie par le module et modifiable). Il est décrémenté chaque seconde jusqu'à valoir 0, alors le module est lancé (entendu l'exécution du programme sous-jacent), et son timer est réinitialisé. L'ensemble des modules de la Queue peut alors être visualisé comme une file, où les modules sont agencés selon leur temps restant. On visualise ainsi la séquence d'exécution prochaine, totalement automatisée.
+\par Le but de la Queue est d'organiser la séquence des modules qui seront lancés. Pour cela, en plus du \texttt{qid} attribué à chacun de ses modules, un timer d'expiration est initialisé (à une valeur fournie par le module et modifiable). Il est décrémenté chaque seconde jusqu'à valoir 0, alors le module est lancé (entendu l'exécution du programme sous-jacent), et son timer est réinitialisé. L'ensemble des modules de la Queue peut alors être visualisé comme une file, où les modules sont agencés selon leur temps restant. On visualise ainsi la séquence d'exécution prochaine, totalement automatisée.
 
 \newpage
 
@@ -1112,6 +1125,8 @@ Comme son nom l'indique, TimerThread va effectuer la gestion du temps dans un th
 
 Comme les sorties des programmes sous-jacents sont spécifiques et hétérogènes, leur traduction vers les éléments de l'application n'est pas gérée automatiquement. C'est à la personne qui intègre le module d'écrire le code dédié à cette tâche. Cependant, des facilités sont envisageables pour cela. Actuellement, c'est le cas pour les sorties XML du programme Nmap : comme elles sont régies par une structure claire et définie quelqu'en soit l'utilisation, un parseur générique peut être fourni. Ce parseur peut être utilisé pour obtenir facilement des informations d'une sortie quelconque de Nmap et les manipuler comme des objets (correspondants à des \textit{elements} dans le DOM\footnote{\url{https://fr.wikipedia.org/wiki/Document_Object_Model}}).
 
+\newpage
+
 \subsubsection{Stockage et agrégation des informations}
 \label{appcfg}
 \noindent Librairie utilisée : \href{https://lxml.de}{\texttt{lxml}} (non intégré dans la librairie standard)\\
@@ -1169,20 +1184,42 @@ Le module python \texttt{logging} a comme particularité de pouvoir être import
 
 %---------------- Logiciels
 
-\subsection{Sélection des logiciels à intégrer}
-
 
 \newpage
 
 \section{Manuel d'utilisation}
 
-Deux types d'utilisateurs sont susceptibles d'utiliser l'application, dans une optique différente. On a d'une part les utilisateurs normaux qui se servent de l'application pour son but premier : protéger leur réseau domestique. Leurs interactions se font uniquement depuis l'interface et avec les outils fournis. D'autre part, on a des personnes avec des connaissances plus avancées en programmation, capable d'assimiler le framework mis à disposition et intéressées par son utilisation. Ces dernières souhaitent intégrer leurs propres outils (sous-entendu programmes) pour pouvoir les manipuler dans l'application, et ont donc besoin d'une marche à suivre pour arriver à cette fin. Les deux cas d'utilisation sont distingués dans les sections suivantes qui font office de guide.
+\subsection{Prérequis et installation}
+\label{install}
+Les prérequis généraux sont :
+\begin{itemize}
+\vspace{0.1cm}
+\item[$\bullet$] Une distribution Linux (testé sous Debian, Ubuntu, Arch)
+\vspace{0.1cm}
+\item[$\bullet$] Les programmes sous-jacents installés et accessibles en CLI, avec le nom renseigné par chaque attribut \texttt{cmd} d'un Module (du moins tous ceux utilisés dans la routine)
+\vspace{0.1cm}
+\item[$\bullet$] Une version de Python $\geq 3.7$
+\vspace{0.1cm}
+\item[$\bullet$] Les droits de super-utilisateur pour lancer l'application
+\end{itemize}
+
+Au niveau logiciel, quelques dépendances doivent être installées si non présentes par défaut. Cela peut se faire avec la commande suivante :\\
+
+\indent \texttt{sudo apt-get install python-yaml python3-lxml libxml2-dev libxslt1-dev xterm}
+\vspace{0.4cm}
+
+\par Ensuite, une fois en possession des sources du projet (\texttt{git clone \url{https://github.com/RemDec/IoTMonitor}}), les dépendances aux librairies python et l'initialisation des fichiers requis peuvent être gérés en appelant à la racine~\\
+
+\indent \texttt{python3.7 setup.py develop}
+\vspace{0.4cm}
+
+\par On distingue deux types d'utilisateurs qui sont susceptibles d'utiliser l'application, dans une optique différente. On a d'une part les utilisateurs normaux qui se servent de l'application pour son but premier : protéger leur réseau domestique. Leurs interactions se font uniquement depuis l'interface et avec les outils fournis. D'autre part, on a des personnes avec des connaissances plus avancées en programmation, capable d'assimiler le framework mis à disposition et intéressées par son utilisation. Ces dernières souhaitent intégrer leurs propres outils (sous-entendu programmes) pour pouvoir les manipuler dans l'application, et ont donc besoin d'une marche à suivre pour arriver à cette fin. Les deux cas d'utilisation sont distingués dans les sections suivantes qui font office de guide.
 
 \subsection{Utilisation classique}
 
 \subsubsection{Point d'entrée de l'application}
 
-À la racine du projet clonable depuis Github (\url{https://github.com/RemDec/IoTMonitor}) se trouve le point d'entrée en ligne de commande de l'application \texttt{IoTMonitor.py}. Plusieurs arguments peuvent lui être passés, mais ils sont tous optionnels (l'application sera lancée avec des paramètres par défaut). En revanche, il est nécessaire d'invoquer la commande avec les droits de super-utilisateur et en utilisant une version de Python $\geq 3.6$. Une page d'aide est affichable avec le flag \texttt{--h}. Quelques autres paramètres sont très utiles :\\
+À la racine du projet se trouve le point d'entrée en ligne de commande de l'application \texttt{IoTMonitor.py}. Plusieurs arguments peuvent lui être passés, mais ils sont tous optionnels (l'application sera lancée avec des paramètres par défaut). En revanche, il est nécessaire d'invoquer la commande avec les droits de super-utilisateur et en utilisant une version de Python $\geq 3.7$. Une page d'aide est affichable avec le flag \texttt{--h}. Quelques autres paramètres sont très utiles :\\
 \begin{itemize}
 \item[$\bullet$] \texttt{--fileconfig FILEPATH} : indique le super-fichier de configuration tel que décrit au \wordlink{appcfg}{point}.
 \vspace{0.2cm}
@@ -1195,6 +1232,8 @@ Deux types d'utilisateurs sont susceptibles d'utiliser l'application, dans une o
 \vspace{0.2cm}
 
 \par Si une adresse mail est renseignée, le mot de passe pour le serveur SMTP authentifié le sera également, les mails étant envoyés à l'utilisateur avec sa propre adresse. Quand une menace est détectée par un module, celui-ci est susceptible d'en alerter l'utilisateur. Si aucune adresse mail n'est spécifiée, aucune tentative d'émission de mail n'aura lieu.\\
+
+\newpage
 
 \par Pour lancer l'application dans une configuration recommandée pour débuter, la commande suivante peut être utilisée :
 \begin{center}
@@ -1233,6 +1272,8 @@ Un cadre surplombant le champ de prise d'entrées renseigne quel est l'id du men
      \caption{Description des sous-menus accessibles depuis le menu principal}
      \label{choicesmain}
 \end{figure}
+
+\newpage
 
 \subsubsection{Consultation de l'état des éléments}
 
@@ -1323,6 +1364,32 @@ La Routine illustrée permet de découvrir et analyser les équipements du rése
 \subsubsection{Écrire un module}
 \label{writemod}
 
+À un Module correspond, en terme de code, une classe astreinte à suivre le framework imposé. Par convention, le nom de celle-ci doit commencer par "AMod" pour un Module actif et "PMod" pour un Module passif. En fonction de l'archétype associable au programme sous-jacent à abstraire, cette classe doit également hériter de la classe abstraite correspondante : \textit{ActiveModule} ou \textit{PassiveModule}. De fait, elle devra également en implémenter les méthodes abstraites. Sans ses conditions, l'intégration d'un nouveau module à l'application ne se fera pas correctement.\\
+
+\par Deux options sont possibles pour l'implémentation d'une classe correspondant à un nouveau Module. La plus simple des deux est aussi celle qui offre le moins de contrôle : il s'agit de deux sous-classes (abstraite également) à \textit{ActiveModule} et \textit{PassiveModule} implémentant l'utilisation des facilités fournies par ces dernières (voir \wordlink{abstrmodel}{sous-section}). Ces deux sous-classes sont respectivement \textit{FacilityActiveModule} et \textit{FacilityPassiveModule}. Elles implémentent le maximum de ce qui peut l'être en ne laissant comme abstraites que les méthodes spécifiques à chaque Module (i.e. liée avec le programme sous-jacent). L'autre option, qui nécessite plus de travail mais permet de personnaliser davantage le comportement d'un Module, est de simplement hériter de \textit{ActiveModule} ou \textit{PassiveModule} en implémentant toutes les méthodes abstraites. La possibilité d'utiliser les facilités fournies de ces deux classes est alors laissée comme libre.\\ 
+
+Plus concrètement, les méthodes abstraites à implémenter dans une sous-classe de \textit{FacilityActiveModule} et \textit{FacilityPassiveModule} sont les suivantes :\\
+\begin{itemize}
+\item[$\bullet$] \textit{get\_module\_id(), get\_cmd(), get\_description()} qui sont des chaînes de caractères pour respectivement l'id unique du Module, la commande système utilisée pour appeler le programme en CLI et une description textuelle du module
+\vspace{0.2cm}
+\item[$\bullet$] \textit{get\_scheme\_param()} qui sert à décrire quels paramètres le module peut prendre et de quelle façon il sont traités : un dictionnaire dont les clés sont les noms des paramètres et les valeurs des triplets \textit{(valeur par défaut, obligatoire, préfixe en CLI)}
+\vspace{0.2cm}
+\item[$\bullet$] \textit{get\_desc\_params()} retourne un dictionnaire mappant chaque nom de paramètre avec une description textuelle de son utilité
+\vspace{0.2cm}
+\item[$\bullet$] \textit{build\_final\_cmd()} crée la commande telle qu'elle serait passée en CLI à partir de \textit{get\_cmd()}, les valeurs courantes des paramètres et le schéma de traitement de ces valeurs donné par \textit{get\_scheme\_param()}.
+\vspace{0.2cm}
+\item[$\bullet$] \textit{parse\_output(output)} est la méthode de parsing de la sortie du programme qui est censée faire la traduction vers des changements dans le reste de l'application
+\vspace{0.2cm}
+\end{itemize}
+
+Au final, implémenter un nouveau module avec ces facilités revient à écrire une classe d'à peu près 150 lignes dont la moitié constituent la fonction de parsing des sorties, seul travail laborieux mais incontournable.\\
+
+\par Afin de quand même faciliter le travail à effectuer pour l'implémentation en sous-classant directement \textit{ActiveModule} ou \textit{PassiveModule}, deux classes "squelette" types déjà structurées sont fournies. Il suffit d'en reprendre le code en y apportant les personnalisations voulues et les informations à remplir (id du Module, etc.).\\
+
+\par Des facilités de logging et de création d'Events sont également utilisables. Elle permette de simplement déclarer de nouvelles modifications de valeurs des champs d'instance virtuelle, des menaces les concernant, envoyer un mail, etc. Pour rappel, plusieurs loggers sont présents de base à l'initialisation, avec des objectifs différents : afficher un message dans la CLI interactive, enregistrer les événements importants dans des fichiers de logs y étant dédiés, et d'autres utilitaires.
+
+\newpage
+
 \subsubsection{Intégrer un module dans l'application}
 
 Pour intégrer un nouveau Module à l'environnement afin qu'il y soit manipulable, il faut l'ajouter à la Library qui est chargée à l'initialisation. Pour l'instant, cette libraire est représentée par un fichier XML unique dont le chemin est \texttt{svd/configs/modlib.xml}, celui-ci n'étant pas modifiable pour pointer vers un autre fichier. La Library est construite en le parsant, chaque entrée s'y trouvant représente un Module et ses informations. Afin de faire le lien avec le code python du Module, le nom du package et le nom du module python dans lequel la classe est écrite sont fournis dans les attributs XML de l'entrée. Un exemple d'entrée dans ce document est le suivant :
@@ -1363,14 +1430,28 @@ Trois options s'offrent au programmeur pour intégrer son module, qui sont par o
 \section{Tests et évaluation de l'application}
 
 \subsection{Déploiement sur Raspberry Pi et utilisation distante}
-\subsection{Simulation d'équipements}
 
-\subsection{Déploiement dans un milieu domestique}
+Le but est de pouvoir utiliser et manipuler l'application tournant sur une carte Raspberry Pi distante par ssh, donc en mode non-graphique. Cela doit pouvoir se faire sans perdre de fonctionnalités par rapport à une utilisation de l'application en mode ConsoleOutput. Le mode à considérer ici est PipeOutput.\\
 
-\subsection{Stress-test dans un environnement peuplé}
+\par Avant de s'y essayer, il est nécessaire d'installer Python 3.7 depuis les sources car Raspbian ne dispose pas encore de cette version. On utilise les instructions proposée dans cet article : \url{https://github.com/instabot-py/instabot.py/wiki/Installing-Python-3.7-on-Raspberry-Pi}. Il est également nécessaire d'installer les programmes sous-jacents (\textit{nmap}, \textit{p0f}, etc.), l'application faisant l'hypothèse qu'ils le sont. Ce après quoi on applique les instructions d'installation données au début de cette section. Ces opérations étant toutes réalisables via une connexion ssh existante, on suppose qu'il est possible d'en établir une seconde depuis un autre terminal  (qui servira de vue). Dans la première qui servira d'interface interactive on lance donc l'application avec :~\\
+
+\indent \texttt{sudo python3.7 IoTmonitor.py -lvl 3 -m outpiped}
+\vspace{0.4cm}
+\par Un pipe est alors créé automatiquement dans /tmp et alimenté toute les secondes avec l'état actuel de l'application. Pour observer ces modifications de façon continue, on peut alors utiliser la commande \texttt{watch} dans le second terminal :~\\
+
+\indent \texttt{watch -t -n 0,5 cat output\_monitor}
+\vspace{0.4cm}
+
+Comme attendu, l'application est alors utilisable de la même façon que en mode ConsoleOutput et offre des fonctionnalités identiques.
 
 
 \newpage
+
+\section{Conclusion}
+
+\par La première partie de ce projet a été l'occasion de se plonger dans ce que la littérature proposait en terme de cybersécurité pour les foyers. Beaucoup de thèmes ont étés abordés en surface car l'application à réaliser n'était pas fixée. Aussi, une vue globale était nécessaire pour décider quels seraient les tenants et les aboutissants de la partie implémentation.\\
+
+\par Pour cette application, le soin apporté à l'intégration générique de n'importe quel programme arbitraire est un investissement sur le long terme. À l'heure actuelle, le nombre de module disponibles est restreint par manque de temps non pas pour leur implémentation, mais pour la recherche et les expérimentations nécessaires avant l'intégration. Effectivement, la seule difficulté est inhérente au fait qu'il est nécessaire de traduire les sorties de chaque programme spécifique. Outre cela, beaucoup d'améliorations sont encore facilement apportables à l'application : interface graphique, gestion des dépendances, etc.
 
 \bibliographystyle{plain}
 \bibliography{articles}

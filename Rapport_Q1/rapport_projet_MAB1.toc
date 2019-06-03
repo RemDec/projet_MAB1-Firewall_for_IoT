@@ -46,38 +46,36 @@
 \contentsline {subsubsection}{\numberline {4.1.1}Contexte et environnement cibl\IeC {\'e}}{30}{subsubsection.4.1.1}
 \contentsline {subsubsection}{\numberline {4.1.2}Objectifs de l'application}{30}{subsubsection.4.1.2}
 \contentsline {paragraph}{\numberline {4.1.2.1}La surveillance du r\IeC {\'e}seau domestique}{30}{paragraph.4.1.2.1}
-\contentsline {paragraph}{\numberline {4.1.2.2}La conception d'un framework d'int\IeC {\'e}gration}{31}{paragraph.4.1.2.2}
-\contentsline {subsection}{\numberline {4.2}Composants du syst\IeC {\`e}me de surveillance}{32}{subsection.4.2}
-\contentsline {subsubsection}{\numberline {4.2.1}Modules actifs et passifs - abstraction des programmes}{32}{subsubsection.4.2.1}
-\contentsline {subsubsection}{\numberline {4.2.2}Routine - automatisation de la surveillance}{33}{subsubsection.4.2.2}
-\contentsline {subsubsection}{\numberline {4.2.3}Netmap - recensement des \IeC {\'e}quipements du r\IeC {\'e}seau}{34}{subsubsection.4.2.3}
-\contentsline {subsubsection}{\numberline {4.2.4}Centre d\IeC {\textquoteright }\IeC {\'e}v\IeC {\'e}nements - logging et lancement d'alertes}{35}{subsubsection.4.2.4}
-\contentsline {subsection}{\numberline {4.3}Mod\IeC {\`e}le d'abstraction des logiciels}{35}{subsection.4.3}
-\contentsline {subsubsection}{\numberline {4.3.1}Mod\IeC {\`e}le g\IeC {\'e}n\IeC {\'e}ral d'abstraction}{35}{subsubsection.4.3.1}
-\contentsline {subsubsection}{\numberline {4.3.2}Design pour un module actif}{36}{subsubsection.4.3.2}
-\contentsline {subsubsection}{\numberline {4.3.3}Design pour un module passif}{37}{subsubsection.4.3.3}
-\contentsline {section}{\numberline {5}Impl\IeC {\'e}mentation de l'application}{38}{section.5}
-\contentsline {subsection}{\numberline {5.1}Justification des choix g\IeC {\'e}n\IeC {\'e}raux}{38}{subsection.5.1}
-\contentsline {subsection}{\numberline {5.2}Discussions des choix d'impl\IeC {\'e}mentation}{39}{subsection.5.2}
-\contentsline {subsubsection}{\numberline {5.2.1}Choix du langage}{39}{subsubsection.5.2.1}
-\contentsline {subsubsection}{\numberline {5.2.2}Gestion du temps}{39}{subsubsection.5.2.2}
-\contentsline {subsubsection}{\numberline {5.2.3}Ex\IeC {\'e}cution des programmes sous-jacents}{39}{subsubsection.5.2.3}
-\contentsline {subsubsection}{\numberline {5.2.4}Parsing des sorties}{39}{subsubsection.5.2.4}
-\contentsline {subsubsection}{\numberline {5.2.5}Stockage et agr\IeC {\'e}gation des informations}{39}{subsubsection.5.2.5}
-\contentsline {subsubsection}{\numberline {5.2.6}Interactivit\IeC {\'e} avec l'application}{40}{subsubsection.5.2.6}
-\contentsline {subsubsection}{\numberline {5.2.7}Alertes et notifications par email}{40}{subsubsection.5.2.7}
-\contentsline {subsection}{\numberline {5.3}S\IeC {\'e}lection des logiciels \IeC {\`a} int\IeC {\'e}grer}{41}{subsection.5.3}
-\contentsline {section}{\numberline {6}Manuel d'utilisation}{42}{section.6}
-\contentsline {subsection}{\numberline {6.1}Utilisation classique}{42}{subsection.6.1}
-\contentsline {subsubsection}{\numberline {6.1.1}Point d'entr\IeC {\'e}e de l'application}{42}{subsubsection.6.1.1}
-\contentsline {subsubsection}{\numberline {6.1.2}Navigation dans les menus}{42}{subsubsection.6.1.2}
-\contentsline {subsubsection}{\numberline {6.1.3}Consultation de l'\IeC {\'e}tat des \IeC {\'e}l\IeC {\'e}ments}{43}{subsubsection.6.1.3}
-\contentsline {subsubsection}{\numberline {6.1.4}Exemple pratique d'utilisation}{44}{subsubsection.6.1.4}
-\contentsline {subsection}{\numberline {6.2}Utilisation du point de vue du programmeur}{46}{subsection.6.2}
-\contentsline {subsubsection}{\numberline {6.2.1}\IeC {\'E}crire un module}{46}{subsubsection.6.2.1}
-\contentsline {subsubsection}{\numberline {6.2.2}Int\IeC {\'e}grer un module dans l'application}{46}{subsubsection.6.2.2}
-\contentsline {section}{\numberline {7}Tests et \IeC {\'e}valuation de l'application}{48}{section.7}
-\contentsline {subsection}{\numberline {7.1}D\IeC {\'e}ploiement sur Raspberry Pi et utilisation distante}{48}{subsection.7.1}
-\contentsline {subsection}{\numberline {7.2}Simulation d'\IeC {\'e}quipements}{48}{subsection.7.2}
-\contentsline {subsection}{\numberline {7.3}D\IeC {\'e}ploiement dans un milieu domestique}{48}{subsection.7.3}
-\contentsline {subsection}{\numberline {7.4}Stress-test dans un environnement peupl\IeC {\'e}}{48}{subsection.7.4}
+\contentsline {paragraph}{\numberline {4.1.2.2}La conception d'un framework d'int\IeC {\'e}gration}{32}{paragraph.4.1.2.2}
+\contentsline {subsection}{\numberline {4.2}Composants du syst\IeC {\`e}me de surveillance}{33}{subsection.4.2}
+\contentsline {subsubsection}{\numberline {4.2.1}Modules actifs et passifs - abstraction des programmes}{33}{subsubsection.4.2.1}
+\contentsline {subsubsection}{\numberline {4.2.2}Routine - automatisation de la surveillance}{34}{subsubsection.4.2.2}
+\contentsline {subsubsection}{\numberline {4.2.3}Netmap - recensement des \IeC {\'e}quipements du r\IeC {\'e}seau}{35}{subsubsection.4.2.3}
+\contentsline {subsubsection}{\numberline {4.2.4}Centre d\IeC {\textquoteright }\IeC {\'e}v\IeC {\'e}nements - logging et lancement d'alertes}{36}{subsubsection.4.2.4}
+\contentsline {subsection}{\numberline {4.3}Mod\IeC {\`e}le d'abstraction des logiciels}{36}{subsection.4.3}
+\contentsline {subsubsection}{\numberline {4.3.1}Mod\IeC {\`e}le g\IeC {\'e}n\IeC {\'e}ral d'abstraction}{36}{subsubsection.4.3.1}
+\contentsline {subsubsection}{\numberline {4.3.2}Design pour un module actif}{37}{subsubsection.4.3.2}
+\contentsline {subsubsection}{\numberline {4.3.3}Design pour un module passif}{38}{subsubsection.4.3.3}
+\contentsline {section}{\numberline {5}Impl\IeC {\'e}mentation de l'application}{39}{section.5}
+\contentsline {subsection}{\numberline {5.1}Justification des choix g\IeC {\'e}n\IeC {\'e}raux}{39}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}Discussions des choix d'impl\IeC {\'e}mentation}{40}{subsection.5.2}
+\contentsline {subsubsection}{\numberline {5.2.1}Choix du langage}{40}{subsubsection.5.2.1}
+\contentsline {subsubsection}{\numberline {5.2.2}Gestion du temps}{40}{subsubsection.5.2.2}
+\contentsline {subsubsection}{\numberline {5.2.3}Ex\IeC {\'e}cution des programmes sous-jacents}{40}{subsubsection.5.2.3}
+\contentsline {subsubsection}{\numberline {5.2.4}Parsing des sorties}{40}{subsubsection.5.2.4}
+\contentsline {subsubsection}{\numberline {5.2.5}Stockage et agr\IeC {\'e}gation des informations}{41}{subsubsection.5.2.5}
+\contentsline {subsubsection}{\numberline {5.2.6}Interactivit\IeC {\'e} avec l'application}{41}{subsubsection.5.2.6}
+\contentsline {subsubsection}{\numberline {5.2.7}Alertes et notifications par email}{42}{subsubsection.5.2.7}
+\contentsline {section}{\numberline {6}Manuel d'utilisation}{43}{section.6}
+\contentsline {subsection}{\numberline {6.1}Pr\IeC {\'e}requis et installation}{43}{subsection.6.1}
+\contentsline {subsection}{\numberline {6.2}Utilisation classique}{43}{subsection.6.2}
+\contentsline {subsubsection}{\numberline {6.2.1}Point d'entr\IeC {\'e}e de l'application}{43}{subsubsection.6.2.1}
+\contentsline {subsubsection}{\numberline {6.2.2}Navigation dans les menus}{44}{subsubsection.6.2.2}
+\contentsline {subsubsection}{\numberline {6.2.3}Consultation de l'\IeC {\'e}tat des \IeC {\'e}l\IeC {\'e}ments}{45}{subsubsection.6.2.3}
+\contentsline {subsubsection}{\numberline {6.2.4}Exemple pratique d'utilisation}{45}{subsubsection.6.2.4}
+\contentsline {subsection}{\numberline {6.3}Utilisation du point de vue du programmeur}{48}{subsection.6.3}
+\contentsline {subsubsection}{\numberline {6.3.1}\IeC {\'E}crire un module}{48}{subsubsection.6.3.1}
+\contentsline {subsubsection}{\numberline {6.3.2}Int\IeC {\'e}grer un module dans l'application}{49}{subsubsection.6.3.2}
+\contentsline {section}{\numberline {7}Tests et \IeC {\'e}valuation de l'application}{50}{section.7}
+\contentsline {subsection}{\numberline {7.1}D\IeC {\'e}ploiement sur Raspberry Pi et utilisation distante}{50}{subsection.7.1}
+\contentsline {section}{\numberline {8}Conclusion}{51}{section.8}

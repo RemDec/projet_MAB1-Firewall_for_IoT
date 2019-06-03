@@ -1,13 +1,19 @@
-This is BibTeX, Version 0.99dThe top-level auxiliary file: rapport_projet_MAB1.aux
+This is BibTeX, Version 0.99d (TeX Live 2015/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: rapport_projet_MAB1.aux
 The style file: plain.bst
 Database file #1: articles.bib
-I was expecting an "="---line 14 of file articles.bib
+I was expecting an "="---line 279 of file articles.bib
  :     year 
  :          : "2016",
 I'm skipping whatever remains of this entry
-Repeated entry---line 63 of file articles.bib
- : @article{Nthala2018
- :                    ,
+I was expecting an "="---line 288 of file articles.bib
+ :     year 
+ :          : "2017",
+I'm skipping whatever remains of this entry
+Repeated entry---line 310 of file articles.bib
+ : @inproceedings{Nthala2018
+ :                          ,
 I'm skipping whatever remains of this entry
 Warning--to sort, need author or key in IWS
 Warning--to sort, need author or key in Cable
@@ -17,7 +23,47 @@ Warning--to sort, need author or key in wikifwFR
 Warning--to sort, need author or key in wikiappfw
 Warning--to sort, need author or key in wikifw
 Warning--to sort, need author or key in frameIP
-Warning--to sort, need author or key in wiki6lowpan
 Warning--empty booktitle in Lakkundi2014
 Warning--empty booktitle in Palka2011
-(There were 2 error messages)
+You've used 27 entries,
+            2118 wiz_defined-function locations,
+            636 strings with 8032 characters,
+and the built_in function-call counts, 6008 in all, are:
+= -- 572
+> -- 226
+< -- 2
++ -- 98
+- -- 68
+* -- 285
+:= -- 980
+add.period$ -- 76
+call.type$ -- 27
+change.case$ -- 113
+chr.to.int$ -- 0
+cite$ -- 37
+duplicate$ -- 252
+empty$ -- 557
+format.name$ -- 68
+if$ -- 1296
+int.to.chr$ -- 0
+int.to.str$ -- 27
+missing$ -- 12
+newline$ -- 133
+num.names$ -- 37
+pop$ -- 191
+preamble$ -- 1
+purify$ -- 89
+quote$ -- 0
+skip$ -- 197
+stack$ -- 0
+substring$ -- 179
+swap$ -- 39
+text.length$ -- 2
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 106
+warning$ -- 10
+while$ -- 40
+width$ -- 29
+write$ -- 259
+(There were 3 error messages)

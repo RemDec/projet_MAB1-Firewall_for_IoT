@@ -1,9 +1,5 @@
 \begin{thebibliography}{10}
 
-\bibitem{wiki6lowpan}
-6lowpan.
-\newblock Wikipedia article, URL : \url{https://fr.wikipedia.org/wiki/6LoWPAN}.
-
 \bibitem{wikiappfw}
 Application firewall.
 \newblock Wikipedia article, URL :
@@ -122,10 +118,8 @@ Imran Makhdoom, Mehran Abolhasan, Justin Lipman, Ren Liu, and Wei Ni.
 
 \bibitem{Nthala2018}
 Norbert Nthala and Ivan Flechais.
-\newblock Informal support networks: an investigation into {H}ome {D}ata
-  {S}ecurity {P}ractice.
-\newblock In {\em Fourteenth Symposium on Usable Privacy and Security (SOUPS)}.
-  USENIX, August 2018.
+\newblock Rethinking home network security.
+\newblock {\em European Workshop on Usable Security}, 2018.
 
 \bibitem{Palka2011}
 Dariusz Pałka and Marek Zachara.
@@ -136,5 +130,26 @@ Dariusz Pałka and Marek Zachara.
 Alaauddin Shieha.
 \newblock {\em Application Layer Firewall Using Open{F}low}.
 \newblock PhD thesis, University of Colorado, 2014.
+
+\bibitem{wikiHorus}
+{Wikipedia contributors}.
+\newblock Horus scenario, exploiting a weak spot in the power grid.
+\newblock Dernière lecture le 30/01/2019.
+
+\bibitem{wiki6lowpan}
+{Wikipedia contributors}.
+\newblock 6lowpan --- {Wikipedia}{,} the free encyclopedia.
+\newblock
+  \url{https://en.wikipedia.org/w/index.php?title=6LoWPAN&oldid=899429432},
+  2019.
+\newblock Dernière lecture le 01/02/2019.
+
+\bibitem{wikiMirai}
+{Wikipedia contributors}.
+\newblock Mirai (malware) --- {Wikipedia}{,} the free encyclopedia.
+\newblock
+  \url{https://en.wikipedia.org/w/index.php?title=Mirai_(malware)&oldid=886619081},
+  2019.
+\newblock Dernière lecture le 7 mars 2019.
 
 \end{thebibliography}
