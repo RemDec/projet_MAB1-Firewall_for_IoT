@@ -72,5 +72,9 @@
 \BOOKMARK [3][-]{subsubsection.6.3.1}{\311crire un module}{subsection.6.3}% 72
 \BOOKMARK [3][-]{subsubsection.6.3.2}{Int\351grer un module dans l'application}{subsection.6.3}% 73
 \BOOKMARK [1][-]{section.7}{Tests et \351valuation de l'application}{}% 74
-\BOOKMARK [2][-]{subsection.7.1}{D\351ploiement sur Raspberry Pi et utilisation distante}{section.7}% 75
-\BOOKMARK [1][-]{section.8}{Conclusion}{}% 76
+\BOOKMARK [2][-]{subsection.7.1}{\311valuation de la d\351tection des \351quipements}{section.7}% 75
+\BOOKMARK [2][-]{subsection.7.2}{\311valuation de la d\351tection de menaces}{section.7}% 76
+\BOOKMARK [3][-]{subsubsection.7.2.1}{Simulation d'\351quipements virtuels}{subsection.7.2}% 77
+\BOOKMARK [3][-]{subsubsection.7.2.2}{Utilisation dans un r\351seau domestique peupl\351}{subsection.7.2}% 78
+\BOOKMARK [2][-]{subsection.7.3}{D\351ploiement sur Raspberry Pi et utilisation distante}{section.7}% 79
+\BOOKMARK [1][-]{section.8}{Conclusion}{}% 80
