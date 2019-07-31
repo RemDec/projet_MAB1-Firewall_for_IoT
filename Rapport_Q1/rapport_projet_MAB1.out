@@ -41,7 +41,7 @@
 \BOOKMARK [1][-]{section.4}{D\351veloppement d'une application IoTMonitor - introduction et concepts}{}% 41
 \BOOKMARK [2][-]{subsection.4.1}{Pr\351sentation g\351n\351rale}{section.4}% 42
 \BOOKMARK [3][-]{subsubsection.4.1.1}{Contexte et environnement cibl\351}{subsection.4.1}% 43
-\BOOKMARK [3][-]{subsubsection.4.1.2}{Objectifs de l'application}{subsection.4.1}% 44
+\BOOKMARK [3][-]{subsubsection.4.1.2}{Objectifs de l'outil}{subsection.4.1}% 44
 \BOOKMARK [2][-]{subsection.4.2}{Composants du syst\350me de surveillance}{section.4}% 45
 \BOOKMARK [3][-]{subsubsection.4.2.1}{Modules actifs et passifs - abstraction des programmes}{subsection.4.2}% 46
 \BOOKMARK [3][-]{subsubsection.4.2.2}{Routine - automatisation de la surveillance}{subsection.4.2}% 47

@@ -798,58 +798,43 @@ Ce travail englobe la thématique de la sécurité des équipements en réseau d
 
 \par La \wordlink{scanners}{sous-section} met en évidence quelques outils qui peuvent aider à analyser le réseau domestique et détecter les failles exploitables des équipements qui le peuplent. Ces \textit{scanners}, conjugués à des systèmes de prévention d'intrusion \textit{NIDS}, permettraient d'améliorer grandement la sécurité du réseau domestique, tout en n'effectuant aucune tâche de filtrage direct du trafic comme le ferait un pare-feu en bordure du réseau. En découle l'idée motrice de l'application à développer : prodiguer un outil permettant l'\textbf{analyse}, la \textbf{surveillance} et l'\textbf{agrégation des caractéristiques des équipements (adresses IP/MAC, ports ouverts, etc.)} d'un réseau domestique, basé sur des \textbf{scanneurs} existants ciblant \textbf{différents aspects} de sa sécurité. Le système doit donc être conçu de façon modulaire, de sorte que l'\textbf{intégration d'un nouveau scanneur} ne requiert comme travail que la traduction (parsing) de la sortie dudit programme vers des actions et éléments interprétables par l'application.     \\
 
-\par Par exemple, l'application pourrait intégrer des scanneurs tels que présentés dans la \wordlink{scanners}{sous-section}. Parmi ceux-ci \textit{nmap}, \textit{IoTSeeker}, etc. qui interrogent directement les équipements (dits actifs) et des programmes de prise d'empreintes/analyse de trafic tels que \textit{Snort}, \textit{p0f}, etc. (dits passifs). Chacun de ces programmes fournit un feedback sur sa sortie, que ce soit une fois son exécution terminée ou de façon continue jusqu'à interruption manuelle de l'exécution. Une fois parsées, les informations obtenues peuvent servir à alimenter une représentation virtuelle du réseau maintenue par l'application (renseignant les caractéristiques des équipements qui le peuplent) ou constituer une alerte à faire remonter jusqu'à l'utilisateur si une faille ou menace est détectée. Le framework d'intégration définit comment ajouter ces programmes à l'environnement de l'application, prodiguant une surcouche telle qu'il n'est nécessaire de définir que les éléments suivants :\\
+\par Par exemple, l'application pourrait intégrer des scanneurs tels que présentés dans la \wordlink{scanners}{sous-section}. Parmi ceux-ci \textit{nmap}, \textit{IoTSeeker}, etc. qui interrogent directement les équipements (dits actifs) et des programmes de prise d'empreintes/analyse de trafic tels que \textit{Snort}, \textit{p0f}, etc. (dits passifs). Chacun de ces programmes fournit un feedback sur sa sortie, que ce soit une fois son exécution terminée ou de façon continue jusqu'à interruption manuelle de l'exécution. Une fois parsées, les informations obtenues peuvent servir à alimenter une représentation virtuelle du réseau maintenue par l'application (renseignant les caractéristiques des équipements qui le peuplent) ou constituer une alerte à faire remonter jusqu'à l'utilisateur si une faille ou menace est détectée.\\
+
+\par Par programme il est entendu : \textit{un programme ou script installé et fonctionnel sur le système, exécutable depuis un terminal et dont la sortie est récupérable}. Le framework d'intégration définit comment ajouter ces programmes à l'environnement de l'application, prodiguant une surcouche telle qu'il n'est nécessaire de définir que les éléments suivants :\\
 \begin{itemize}
 \item[$\bullet$] la \textbf{commande} liée au programme telle qu'utilisée pour y faire appel depuis un terminal
 \vspace{0.2cm}
 \item[$\bullet$] quels \textbf{paramètres du programme} utilisés parmi ceux passables en ligne de commande et la façon d'y associer des valeurs (\textit{schéma} de paramètres)
 \vspace{0.2cm}
-\item[$\bullet$] la \textbf{méthode de traitement} de la sortie du programme pour en inclure les résultats dans l'application
+\item[$\bullet$] la \textbf{méthode de traitement} de la sortie du programme (parsing) pour en inclure les résultats dans l'application
 \end{itemize}
 
 
-
-
-\subsubsection{Objectifs de l'application}
-
-\paragraph{La surveillance du réseau domestique}
-
-L'application doit pouvoir être utilisée telle quelle depuis un équipement connecté au réseau domestique similaire ou supérieur en terme de ressources à une carte Raspberry PI. Il est nécessaire de présenter une vue d'ensemble de l'état du réseau et des programmes sous-jacents intégrés à l'application pour le protéger. À cette fin, deux concepts sont introduits. Les interactions se font principalement avec ces deux composants : la carte du réseau et la routine de surveillance automatisée.\\
-
-\newpage
-
-\par \textbf{La routine de surveillance} est ce qui permet de manipuler les programmes sous-jacents et de définir la façon dont ils sont utilisés par l'application. On distingue deux archétypes de programmes selon leur schéma d'exécution propre :\\
-\begin{itemize}
-\item[$\bullet$] Les programmes dits \textit{actifs} par analogie avec les scanneurs actifs : une fois appelés, ils effectuent un travail qui se termine après un temps fini. Les résultats de ce travail sont alors envoyés dans le flux de sortie standard ou vers un fichier. Cette information est par la suite interprétable humainement ou parsée automatiquement.
 \vspace{0.2cm}
-\item[$\bullet$] Les programmes dits \textit{passifs} par analogie avec les scanneurs passifs, les programmes de prise d'empreintes d'analyse du trafic (NIDS). Une fois appelés, ils s'exécutent en continu pour traiter des informations récupérées au cours du temps (du trafic en somme). N'interrogeant pas directement les équipements, ces programmes attendent que ceux-ci émettent eux-mêmes de l'information à traiter. Les résultats sont également transmis vers un flux de sortie, mais étant donné que l'exécution ne s'arrête pas cela est fait en continu et de façon irrégulière et non pas à la terminaison de l'exécution comme pour un programme actif. 
-\end{itemize}
-\vspace{0.4cm}
-\par Ces deux archétypes sont considérés pour manipuler de façon différente les programmes intégrés à l'application. Le programmes passifs et actifs sont placés respectivement dans deux sous-ensembles de la Routine : le \textbf{Panel }et la \textbf{Queue}. Dans le Panel, on retrouve des programmes qui s'exécutent comme des tâches de fond jusqu'à l'envoi d'un signal d'interruption. Dans la Queue, les programmes sont exécutés similairement à des scripts à l'expiration d'un Timer associé à chacun. Une fois l'exécution lancée, on sait qu'elle va se terminer donc le programme est remis dans la Queue avec un Timer réinitialisé. La Queue est ordonnée selon les temps d'expiration restants, représentant ainsi la suite d'exécutions à venir. La Routine de surveillance, en maintenant ces deux sous-ensembles, est ce qui permet de configurer et contrôler l'automatisation de l'exécution des programmes.\\
 
-\par \textbf{La carte du réseau} est le résultat de l'agrégation des informations parsées sur les sorties des programmes de la Routine (donc automatiques) et des entrées manuelles de l'utilisateur. Il s'agit de résumer au mieux d'une part les informations récoltées concernant les équipements (adresses MAC, IP, hostname, ports ouverts, etc.) et d'autre part les alertes associées à un équipement particulier. Une alerte serait par exemple une faille connue pour la version d'un service qu'on découvre comme utilisée sur un port d'un équipement. Cette carte virtuelle du réseau a pour objectif de fournir une vue d'ensemble du réseau domestique limitée au LAN pour l'utilisateur, afin qu'il puisse y exercer un contrôle plus pertinent.
+\subsubsection{Objectifs de l'outil}
+
+\paragraph{La surveillance automatique du réseau domestique}
+
+Une manipulation aisée des programmes à utiliser pour surveiller le réseau est essentielle. L'utilisateur doit pouvoir sélectionner et configurer les programmes qu'il souhaite pour défendre son réseau parmi ceux disponibles. Une fois cette sélection opérée, les programmes choisis devraient être maintenus dans une structure où leur exécution, la récupération de leur sortie et le parsing de ces dernières sont entièrement automatisés. L'utilisateur n'ayant alors qu'à agir sur cette structure pour contrôler l'état de la surveillance de son réseau. La gestion du travail des programmes qui y sont maintenus est entièrement automatisée et ne requiert pas d'interaction avec l'utilisateur. L'application peut alors agir de façon autonome et effectuer sa tâche de surveillance en fond continuellement. Ladite structure est un objet appelé \textbf{Routine} dans l'application.
 
 \newpage
+
+\paragraph{La représentation du réseau}
+
+Puisque n'importe quel programme peut potentiellement être intégré dans l'environnement de l'application, les sorties sont totalement arbitraires. Cependant, il est très probable que celles-ci contiennent des informations relatives aux hôtes sur le réseau analysé : adresses MAC, IP, nom d'hôte, etc. Un objectif de l'application est de regrouper toutes ces informations afin de construire une carte virtuelle du réseau la plus fidèle possible. Cette carte est appelée \textbf{Netmap} et doit être consultable par l'utilisateur de façon à ce qu'il ait une vision synthétique mais complète de l'état de son réseau. L'utilisateur doit également pouvoir interagir avec cette carte en créant et modifiant des informations associées aux hôtes, afin d'assister ou corriger la récolte automatique d'informations.
+
+\paragraph{La détection de menaces}
+
+Certains programmes intégrés à l'application sont conçus pour trouver des failles existantes aux hôtes du réseau. Une fois les sorties de ces programmes parsées, les menaces détectées doivent être remontées jusqu'à l'utilisateur et archivées dans l'application. Les notifications à l'utilisateur, s'il n'est pas directement en train d'utiliser l'application, se font par un email récapitulatif de la menace trouvée. Pour en consulter les détails par la suite, les menaces associées à un hôte doivent être consultables dans l'application même.
 
 \paragraph{La conception d'un framework d'intégration}
 
-Puisque l'application fonctionne uniquement en se basant sur des programmes extérieurs arbitraires, il est nécessaire de définir un cadre assez rigoureux pour les intégrer au système de sorte à pouvoir manipuler leur exécution et leur passer des paramètres. Cela se fait via une surcouche d'abstraction désignée par le terme \textbf{Module}. Deux types de Modules existent, correspondant aux deux archétypes de programme distingués. Effectivement, leur schéma d'exécution différant, il est plus pratique de les distinguer pour les manipuler. La surcouche correspond dans les faits à hériter d'une classe abstraite \textit{ActiveModule} ou \textit{PassiveModule} dont plusieurs méthodes doivent être implémentées, cet aspect pratique est approfondi dans la \wordlink{abstrmodel}{sous-section}.\\
+Puisque l'application fonctionne en se basant sur des programmes extérieurs arbitraires, il est nécessaire de définir un cadre assez rigoureux pour les intégrer au système de sorte à pouvoir manipuler leur exécution et leur passer des paramètres. Cela se fait via une surcouche d'abstraction désignée par le terme \textbf{Module}. Dans les faits, il s'agit d'une classe à écrire en Python héritant d'une classe abstraite (faisant office de framework). Deux types de Modules sont envisagés pour abstraire un programme en fonction de son schéma d'exécution, décidant de la classe abstraite à sous-classer. Ces deux archétypes sont détaillés dans la \wordlink{abstrmodel}{sous-section}.
 
-\par De nouveaux programmes peuvent ainsi être intégrés et utilisables dans l'application, à condition d'écrire une classe héritant de la classe correspondant soit aux modules actifs, soit aux modules passifs en fonction de la nature du programme. Dans ces classes parents, la façon dont l'exécution du programme sous-jacent doit être traitée est déjà encadrée. Le schéma d'exécution est le suivant :
-\vspace{0.2cm}
-\begin{itemize}
-\item[$\bullet$] \textbf{Module actif} : un thread est lancé pour dissocier le fil d'exécution général de l'application. Dans ce thread, un processus fils exécutant le programme est instancié, avec sa sortie récupérable. Une fois l'exécution terminée, le thread se termine en appelant une fonction de callback qui est celle définie pour le parsing du programme.
-\vspace{0.2cm}
-\item[$\bullet$] \textbf{Module passif} : le travail est divisé en deux parties, la première se charge de lancer un processus fils exécutant le programme dont la sortie est redirigée vers un pipe et la seconde est chargée de lire le contenu de ce pipe et d'appeler la fonction de parsing dessus à intervalle de temps régulier.
-\end{itemize}
-\vspace{0.4cm}
+\paragraph{L'utilisation en environnement restreint}
 
-
-\par Comme énoncé lors de son introduction, la Routine est composée de deux ensembles de modules : Panel et Queue. Le premier est destiné à accueillir des modules respectant l'archétype \textbf{passif}, tandis que le second s'attend à des modules présentant l'archétype \textbf{actif}. Sur base de cette hypothèse, un contrôle cohérent de leur exécution peut être établi : par exemple l'action de \textit{mettre en pause} un module passif dans le Panel et actif dans la Queue a une sémantique différente. Mettre en pause un module passif équivaut à envoyer un signal d'interruption au processus sous-jacent tournant en continu en arrière-plan. Mettre en pause un module actif dans la Queue équivaut à ne plus décrémenter son timer d'expiration associé, au terme duquel il était censé lancer une exécution du programme qu'il abstrait.\\
-
-
-\par L'application référence tous les modules disponibles dans une \textbf{Librairie} de modules. Il ne s'agit, en arrière-plan, que d'un simple fichier \texttt{XML} décrivant tous les modules qui doivent être chargés dans un format strict. Afin d'intégrer de façon constante un module pour qu'il soit utilisable dans l'application, deux options sont possibles : soit écrire manuellement la description du module et l'ajouter au fichier correspondant (plusieurs librairies de modules peuvent être envisagées), soit simplement appeler une méthode dédiée sur une instance du module qui en créera le descriptif automatiquement. Si le module a été correctement écrit en suivant le strict minimum imposé par le framework, le descriptif du module sera ajouté à la librairie courante et le module facilement manipulable dans l'application (pour par exemple l'ajouter à la Routine de surveillance).
-
+L'application doit pouvoir être utilisée telle quelle depuis un équipement connecté au réseau domestique, similaire ou supérieur en terme de ressources à une carte Raspberry PI. Également, l'application devrait pouvoir être pleinement utilisée dans un environnement non graphique, par exemple sur la carte Raspberry depuis une connexion SSH distante. Effectivement, comme le travail de surveillance effectué par l'application nécessite une machine continuellement active, il est préférable pour l'utilisateur qu'elle soit peu consommatrice. Une carte Raspberry PI 3 dédiée à l'utilisation de l'application devrait être suffisante.
 
 \newpage
 %---------------- Concepts
@@ -872,58 +857,85 @@ Afin de mieux visualiser les différents éléments qui composent le cœur de l'
 
 \subsubsection{Modules actifs et passifs - abstraction des programmes}
 
-Les Modules constituent la couche d'abstraction pour les programmes sous-jacents et sont régis par un framework spécifique à l'archétype actif ou passif. Par programme il est entendu : \textit{un programme ou script installé et fonctionnel sur le système, exécutable depuis un terminal et dont la sortie est récupérable}. Plusieurs modules distincts peuvent abstraire le même programme, mais dont les utilisations spécifiques sont différentes. Par exemple, le programme \textit{nmap} est accompagné du NSE (Nmap Script Engine), un framework permettant d'intégrer des scripts variés à l'exécution d'un scan nmap. Nmap peut donc être utilisé en combinaison avec différents scripts dont les objectifs (et donc les paramètres et sorties du programme) sont très hétérogènes. Cela implique que des couches d'abstraction distinctes devraient être écrites afin de les représenter par différents modules dans l'application.\\
-
-\par Les modules sont manipulables comme des unités dans l'application. Ils sont référencés dans la Library qui est le point d'entrée à partir duquel les instancier dans l'application. Elle est représentée dans la maquette par le label \texttt{(1)}. À partir de là, un module peut soit être inséré dans la routine de surveillance si on souhaite son utilisation régulière automatisée, ou dans un ensemble à part, dit indépendant, où il sera exécuté directement une unique fois (ce qui a plus de sens pour un module actif, mais reste possible pour un module passif).
-
-\newpage
-
-Les attributs qui devraient être définis lors de l'écriture d'un module doivent au minimum comporter : 
+Les Modules constituent la couche d'abstraction pour les programmes sous-jacents et sont régis par un framework spécifique à l'archétype attribuable au programme. On distingue deux archétypes de programmes selon leur schéma d'exécution propre :\\
 \begin{itemize}
-\item[$\bullet$] Un id alphanumérique unique parmi tous les modules déjà référencés dans la Library
-\item[$\bullet$] Une description textuelle du rôle du module
-\item[$\bullet$] Une indication de l'archétype associé au module : à considérer comme actif ou passif
-\item[$\bullet$] La commande qui permet d'appeler l'exécutable sur le système
-\item[$\bullet$] Une définition des paramètres ajoutables à la commande, avec pour chacun (considérant que leur ordre est également fourni) :
+\item[$\bullet$] Les programmes dits \textit{actifs} par analogie avec les scanneurs actifs : une fois appelés, ils effectuent un travail qui se termine après un temps fini. Les résultats de ce travail sont alors envoyés dans le flux de sortie standard ou vers un fichier. Cette information est par la suite interprétable humainement ou parsée automatiquement.
+\vspace{0.2cm}
+\item[$\bullet$] Les programmes dits \textit{passifs} par analogie avec les scanneurs passifs, les programmes de prise d'empreintes et d'analyse du trafic (NIDS). Une fois appelés, ils s'exécutent en continu pour traiter des informations récupérées au cours du temps (du trafic notamment). N'interrogeant pas directement les équipements, ces programmes attendent que ceux-ci émettent eux-mêmes de l'information à traiter. Les résultats sont également transmis vers un flux de sortie, mais étant donné que l'exécution ne s'arrête pas cela est fait en continu de façon irrégulière et non pas à la terminaison de l'exécution comme pour un programme actif. 
+\end{itemize}
+\vspace{0.4cm}
+
+
+\par De nouveaux programmes peuvent ainsi être intégrés et utilisables dans l'application, à condition d'écrire une classe héritant de la classe abstraite correspondant soit aux modules actifs, soit aux modules passifs en fonction de la nature du programme cible. Dans ces classes parents, la façon dont l'exécution du programme sous-jacent doit être traitée est déjà encadrée en implémentée sur base de l'assomption faite de l'archétype. L'implémentation de la gestion de l'exécution du programme sur base du schéma est la suivante :
+\vspace{0.2cm}
 \begin{itemize}
-\item un indicateur booléen indiquant s'il est indispensable (toujours rajouté à la commande)
+\item[$\bullet$] \textbf{Module actif} : un thread est lancé pour dissocier le fil d'exécution général de l'application. Dans ce thread, un processus fils exécutant le programme est instancié, avec sa sortie récupérable. Une fois l'exécution terminée, le thread se termine en appelant une fonction de callback sur la sortie, la définition de cette fonction étant spécifique au parsing de la sortie programme.
+\vspace{0.2cm}
+\item[$\bullet$] \textbf{Module passif} : le travail est divisé en deux parties. La première se charge de lancer un processus fils exécutant le programme dont la sortie est redirigée vers un pipe tandis que la seconde est chargée de lire le contenu de ce pipe et d'appeler la fonction de parsing dessus à intervalle régulier.
+\end{itemize}
+\vspace{0.4cm}
+
+\par Les Modules sont manipulables comme des unités dans l'application. Ils sont référencés dans la Librairie qui est le point d'entrée à partir duquel les instancier. Elle est représentée dans la maquette par le label \texttt{(1)}. À partir de là, une instance de Module peut soit être insérée dans la Routine de surveillance si on souhaite son utilisation régulière automatisée, ou dans un ensemble à part dit indépendant, où il sera exécuté directement une unique fois.\\
+
+\par Plusieurs modules distincts peuvent abstraire le même programme, mais dont les utilisations spécifiques sont différentes. Par exemple, le programme \textit{nmap} est accompagné du NSE (Nmap Script Engine), un framework permettant de coupler des scripts variés à l'exécution d'un scan nmap. Nmap peut donc être utilisé en combinaison avec différents scripts dont les objectifs, paramètres et sorties sont très hétérogènes. Cela implique que des couches d'abstraction distinctes devraient être écrites afin de les représenter par différents Modules dans l'application.\\
+
+En terme d'implémentation, les éléments imposés par le framework que chaque implémentation de Module doit fournir sont :
+\vspace{0.1cm} 
+\begin{itemize}
+\item[$\bullet$] Un id alphanumérique unique parmi tous les autres Modules déjà référencés dans la Librairie
+\item[$\bullet$] Une description textuelle du rôle du Module
+\item[$\bullet$] L'archétype attribuable au Module : à considérer comme actif ou passif
+\item[$\bullet$] La commande qui permet d'appeler l'exécutable sur le système (vraisemblablement dans le PATH)
+\item[$\bullet$] Le schéma de paramètres : une définition des paramètres passables à la commande et la façon de l'y injecter (et leur ordre relatif), chacun identifié par un code alphanumérique et présentant les attributs suivants :
+\begin{itemize}
+\item un indicateur booléen indiquant s'il est indispensable (toujours injecté dans la commande)
 \item une valeur par défaut, qui sera utilisée si le paramètre est indispensable mais non fourni
-\item le flag associé à l'option du programme en ligne de commande si existant
+\item le flag associé à l'argument du programme en ligne de commande si existant
 \end{itemize}
 \item[$\bullet$] Additionnellement, une description textuelle de chaque paramètre
 \item[$\bullet$] La méthode de parsing, fonction traduisant la sortie textuelle du programme vers des éléments de l'application
 \end{itemize}
 
-\vspace{1.1cm}
+\vspace{1cm}
 
-Le champ d'action d'un module tel qu'il devrait être suivant le framework est le suivant :
+Le champ d'action d'un Module conforme au framework est le suivant :
 
 \begin{enumerate}
-\item Appeler le programme avec les paramètres qui lui ont été communiqués ou ceux définis comme par défaut
-\item Dissocier le fil d'exécution en exécutant le programme sous-jacent dans un nouveau thread
+\item Construire la commande d'appel au programme en utilisant le schéma de paramètres et les valeurs courantes de ces paramètres pour l'instance du Module, telle qu'elle serait écrite dans un terminal
+\item Dissocier le fil d'exécution en exécutant la commande construite dans un nouveau thread
 \item Maintenir une référence vers ce processus de sorte à pouvoir communiquer avec (signal d'interruption, etc.)
 \item Récupérer les informations que le programme renvoie sur sa sortie standard et ses erreurs
 \item Parser cette sortie et la traduire vers l'application afin d'y intégrer l'information :
-\subitem 1. \textbf{Logging} : informations diverses à inclure dans les logs de l'application (debug, ...)
+\subitem 1. \textbf{Logging} : informations et événements à inclure dans les logs de l'application (debug, ...)
 \subitem 2. \textbf{Alertes} : menace détectée par le programme, à ne pas simplement logger (associer à un équipement particulier, création et envoi d'un mail au propriétaire, ...)
-\subitem 3. \textbf{Modifications} : un module a l'accès en lecture et écriture sur la carte du réseau et ses éléments, permettant leur mise à jour automatique depuis les sorties des programmes
+\subitem 3. \textbf{Modifications} : un Module a l'accès en lecture et écriture sur la carte du réseau et ses éléments, permettant leur mise à jour automatique avec les nouvelles informations obtenues
 \end{enumerate}
 
-\vspace{0.5cm}
+\vspace{0.4cm}
 
-Pour plus de détails concernant l'implémentation concrète du système de modules, se référer à la \wordlink{abstrmodel}{sous-section}.
+Pour plus de détails concernant l'implémentation concrète du système de Modules, se référer à la \wordlink{abstrmodel}{sous-section}.
 
 \subsubsection{Routine - automatisation de la surveillance}
 
-La Routine est l'ensemble des modules sélectionnés pour surveiller le réseau domestique de façon automatisée, en répétition continue. On la retrouve associée dans la maquette au label \texttt{(2)}. La Routine courante est remplie par l'utilisateur depuis la Library et peut être paramétrée, modifiée et contrôlée par celui-ci à volonté. Elle maintient deux sous-ensembles vers lesquels les modules sont aiguillés en fonction de leur archétype : le Panel des passifs \texttt{(2.1)} et la Queue des actifs \texttt{(2.2)}. À l'ajout d'un module, un index unique parmi le sous-ensemble est associé (par défaut l'id du module) et toute interaction avec le module peut se faire via ce \texttt{setid} (respectivement un \texttt{pid} et un \texttt{qid}  dans les deux sous-ensembles). Un même module peut être présent en de multiples exemplaires, tant qu'il s'agit d'instances différentes. Cela permet, par exemple, d'avoir deux instances du même module mais qui considéreront des paramètres différents pour le programme sous-jacent.\\
+\par La Routine est essentiellement un conteneur pour les instances de Modules que l'utilisateur sélectionne pour surveiller son réseau. En agissant sur la Routine, tous les Modules qu'elle contient peuvent être manipulés d'un coup. Elle permet notamment d'en contrôler l'exécution, automatisant ainsi le lancement de tous les Modules sélectionnés par l'utilisateur. Un état \texttt{running} est associé à la Routine, reflétant l'état d'exécution des programmes sous-jacents aux Modules qui la composent. À chaque instance de Module dans la Routine, un id alphanumérique unique appelé \texttt{setid} est associé.\\
 
-\par Le Panel maintient les modules respectant l'archétype \textit{passif}. En plus d'un \texttt{pid}, à chaque module est donc associé un état "en cours" ou "pause", et au Panel également (panel "en cours" $\Leftrightarrow$ au moins un de ses modules est "en cours"). Cet état est commutable pour chacun de ces éléments, le passage à l'état "en cours" pour le Panel revient à lancer l'exécution de tous ses modules (idem pour "pause").\\
+\par La Routine est indiquée dans la maquette par le label \texttt{(2)}. Elle maintient deux sous-ensembles vers lesquels les modules sont aiguillés en fonction de leur archétype : le \textbf{Panel} des passifs \texttt{(2.1)} et la \textbf{Queue} des actifs \texttt{(2.2)}. Cette division est directement liée au fait qu'il est nécessaire de traiter différemment l'exécution de Modules qui présentent des schémas différents : un Module actif devra être exécuté à répétition afin d'avoir un impact dans la surveillance du réseau. À l'inverse, un Module passif n'a pas besoin d'être relancé pour effectuer son travail jusqu'à son interruption depuis l'extérieur. Les deux ensembles gèrent donc de manière différente l'exécution des Modules contenus, mais maintiennent tous deux un état binaire \texttt{running}. L'état \texttt{running} de la Routine est mis à vrai dès lors que l'un des deux sous ensemble est en activité.\\
 
-\par Le but de la Queue est d'organiser la séquence des modules qui seront lancés. Pour cela, en plus du \texttt{qid} attribué à chacun de ses modules, un timer d'expiration est initialisé (à une valeur fournie par le module et modifiable). Il est décrémenté chaque seconde jusqu'à valoir 0, alors le module est lancé (entendu l'exécution du programme sous-jacent), et son timer est réinitialisé. L'ensemble des modules de la Queue peut alors être visualisé comme une file, où les modules sont agencés selon leur temps restant. On visualise ainsi la séquence d'exécution prochaine, totalement automatisée.
+\par Le Panel maintient les modules respectant l'archétype \textit{passif}. Son état commutable \texttt{running} correspond à l'exécution des instances de Module qu'il contient. Quand \texttt{running} est passé à vrai, chaque Module du Panel déclenche l'exécution de son programme sous-jacent. Quand le Panel est repassé en pause, tous ces processus vivants sont terminés (signal d'interruption).\\
+
+\par Le but de la Queue est d'organiser la séquence des modules qui seront lancés. Pour cela, en plus du \texttt{qid} attribué à chacun de ses modules, un timer d'expiration est initialisé (à une valeur fournie par le module et modifiable). Il est décrémenté chaque seconde jusqu'à valoir 0, alors le module est lancé (entendu l'exécution du programme sous-jacent), et son timer est réinitialisé. L'ensemble des modules de la Queue peut alors être visualisé comme une file, où les modules sont agencés selon leur temps restant. On visualise ainsi la séquence d'exécution prochaine, totalement automatisée.\\
+
+\par Comme énoncé lors de son introduction, la Routine est composée de deux ensembles de modules : Panel et Queue. Le premier est destiné à accueillir des modules respectant l'archétype \textbf{passif}, tandis que le second s'attend à des modules présentant l'archétype \textbf{actif}. Sur base de cette hypothèse, un contrôle cohérent de leur exécution peut être établi : par exemple l'action de \textit{mettre en pause} un module passif dans le Panel et actif dans la Queue a une sémantique différente. Mettre en pause un module passif équivaut à envoyer un signal d'interruption au processus sous-jacent tournant en continu en arrière-plan. Mettre en pause un module actif dans la Queue équivaut à ne plus décrémenter son timer d'expiration associé, au terme duquel il était censé lancer une exécution du programme qu'il abstrait.\\
+
+\par L'application référence tous les modules disponibles dans une \textbf{Librairie} de modules. Il ne s'agit, en arrière-plan, que d'un simple fichier \texttt{XML} décrivant tous les modules qui doivent être chargés dans un format strict. Afin d'intégrer de façon constante un module pour qu'il soit utilisable dans l'application, deux options sont possibles : soit écrire manuellement la description du module et l'ajouter au fichier correspondant (plusieurs librairies de modules peuvent être envisagées), soit simplement appeler une méthode dédiée sur une instance du module qui en créera le descriptif automatiquement. Si le module a été correctement écrit en suivant le strict minimum imposé par le framework, le descriptif du module sera ajouté à la librairie courante et le module facilement manipulable dans l'application (pour par exemple l'ajouter à la Routine de surveillance).\\
 
 \newpage
 
 \subsubsection{Netmap - recensement des équipements du réseau}
+
+
+\par \textbf{La carte du réseau} est le résultat de l'agrégation des informations parsées des sorties de programmes de la Routine (donc obtenue automatiquement) et des entrées manuelles de l'utilisateur. Il s'agit de résumer au mieux d'une part les informations récoltées concernant les équipements (adresses MAC, IP, hostname, ports ouverts, etc.) et d'autre part les alertes découvertes associées à un équipement particulier. Une alerte serait par exemple une faille connue pour la version d'un service qu'on découvre comme utilisée sur un port de l'équipement. Cette carte virtuelle du réseau a pour objectif de fournir une vue d'ensemble du réseau domestique limitée au LAN pour l'utilisateur, afin qu'il puisse y exercer un contrôle plus pertinent. Elle a pour objectif de représenter au mieux l'état actuel du réseaux et des hôtes qui le peuplent.
+
 
 La carte du réseau est l'élément vers lequel doivent converger toutes les informations concernant le réseau, obtenues grâce aux programmes sous-jacents ou entrées par l'utilisateur lui-même. Elle a pour objectif de les agréger pour produire une représentation interne du réseau domestique cohérente, comme représenté dans la maquette par \texttt{(3)}. Les équipements physiques y sont représentés par des \textbf{Instances Virtuelles} (IV), chacune destinée à correspondre à un unique équipement et regroupant un maximum des informations le concernant. Cet ensemble d'IVs est maintenu dans la \textbf{Netmap}, où elles sont indexées par un identifiant \texttt{mapid} attribué automatiquement \textit{device0}, \textit{device1}, ... modifiable par l'utilisateur s'il le désire en fonction de ce qu'est réellement l'équipement pour lui.\\
 
