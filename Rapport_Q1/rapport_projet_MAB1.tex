@@ -1436,7 +1436,26 @@ Trois options s'offrent au programmeur pour intégrer son module, qui sont par o
 
 \newpage
 
+
 \section{Tests et évaluation de l'application}
+
+\subsection{Déploiement sur Raspberry Pi et utilisation distante}
+
+Le but est de déployer et lancer l'application sur une carte Rasperry Pi 3 (sous Raspbian installé) et d'interagir avec celle-ci de façon distante par ssh. Cela doit pouvoir se faire sans perdre en fonctionnalités par rapport à une utilisation complète sur une machine de type desktop munie, elle, d'un environnement graphique. On utilisera donc dans ce cas le mode PipeOutput à la place du mode classique ConsoleOutput. Afin de visualiser le contenu de la Vue, il sera nécessaire de jouer avec un deuxième shell connecté par ssh au Raspberry et d'afficher le contenu du pipe créé (avec la commande \texttt{watch} par exemple).\\
+
+\par Avant de s'y essayer, il est nécessaire d'installer Python 3.7 depuis les sources car la dernière distribution Raspbian ne dispose pas encore de cette version. On utilise les instructions proposée dans cet article : \url{https://github.com/instabot-py/instabot.py/wiki/Installing-Python-3.7-on-Raspberry-Pi}. Il est également nécessaire d'installer les programmes sous-jacents (\textit{nmap}, \textit{fping}, etc.), ce qui peut être fait automatiquement en appelant le script principal de l'application avec le flag \texttt{--installprog}. Ce après quoi on applique les instructions d'installation données au début de cette section. Ces opérations étant toutes réalisables via une connexion ssh existante, on suppose qu'il est possible d'en établir une seconde depuis un autre terminal (qui servira de Vue). Dans la première qui servira d'interface interactive on lance donc l'application avec :~\\
+
+\indent \texttt{sudo python3.7 IoTmonitor.py -m outpiped}
+\vspace{0.4cm}
+\par Un pipe est alors créé automatiquement dans /tmp et alimenté toute les secondes avec l'état actuel de l'application (ou la ressource ciblée dans le cadre de la vue). Pour observer ces modifications de façon continue, on peut alors utiliser la commande \texttt{watch} dans le second terminal :~\\
+
+\indent \texttt{watch -t -n 0,5 cat /tmp/output\_monitor}
+\vspace{0.4cm}
+
+Comme attendu, l'application est alors utilisable de la même façon que en mode ConsoleOutput et offre des fonctionnalités identiques. Les deux terminaux peuvent être utilisés côte à côte dans l'environnement graphique de la machine distante, l'un faisant office d'interpréteur et l'autre de Vue. Une démarche similaire est applicable dans un environnement non-graphique pour l'hôte se connectant au Raspberry. Bien que cela alourdisse l'utilisation, toute ressource affichable dans la vue l'est aussi dans le terminal qui sert d'interpréteur (menu \texttt{\$show}).\\
+
+Dans les tests décrits ci-dessous, l'application a été utilisée sur ladite carte Raspberry. Il est à noter que la consommation en terme de ressources n'y est pas mentionnée car elle se révèle très faible. On observe que le processeur ne dépasse pas 5\% d'activité et la RAM reste également largement inoccupée. Cependant, cela reste intrinsèque aux Modules utilisés, les programmes sous-jacents pouvant être eux-même gourmands. Cela n'est pas le cas dans ces expérimentations où \textit{nmap} et \textit{fping} sont les seuls utilisés car considérés comme les plus essentiels.
+
 
 \subsection{Évaluation de la détection des équipements}
 
@@ -1445,22 +1464,6 @@ Trois options s'offrent au programmeur pour intégrer son module, qui sont par o
 \subsubsection{Simulation d'équipements virtuels}
 
 \subsubsection{Utilisation dans un réseau domestique peuplé}
-
-\subsection{Déploiement sur Raspberry Pi et utilisation distante}
-
-Le but est de pouvoir utiliser et manipuler l'application tournant sur une carte Raspberry Pi distante par ssh, donc en mode non-graphique. Cela doit pouvoir se faire sans perdre de fonctionnalités par rapport à une utilisation de l'application en mode ConsoleOutput. Le mode à considérer ici est PipeOutput.\\
-
-\par Avant de s'y essayer, il est nécessaire d'installer Python 3.7 depuis les sources car Raspbian ne dispose pas encore de cette version. On utilise les instructions proposée dans cet article : \url{https://github.com/instabot-py/instabot.py/wiki/Installing-Python-3.7-on-Raspberry-Pi}. Il est également nécessaire d'installer les programmes sous-jacents (\textit{nmap}, \textit{p0f}, etc.), l'application faisant l'hypothèse qu'ils le sont. Ce après quoi on applique les instructions d'installation données au début de cette section. Ces opérations étant toutes réalisables via une connexion ssh existante, on suppose qu'il est possible d'en établir une seconde depuis un autre terminal  (qui servira de vue). Dans la première qui servira d'interface interactive on lance donc l'application avec :~\\
-
-\indent \texttt{sudo python3.7 IoTmonitor.py -lvl 3 -m outpiped}
-\vspace{0.4cm}
-\par Un pipe est alors créé automatiquement dans /tmp et alimenté toute les secondes avec l'état actuel de l'application. Pour observer ces modifications de façon continue, on peut alors utiliser la commande \texttt{watch} dans le second terminal :~\\
-
-\indent \texttt{watch -t -n 0,5 cat output\_monitor}
-\vspace{0.4cm}
-
-Comme attendu, l'application est alors utilisable de la même façon que en mode ConsoleOutput et offre des fonctionnalités identiques.
-
 
 \newpage
 

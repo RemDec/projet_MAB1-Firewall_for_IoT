@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.11.6)  2 AUG 2019 00:04
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.11.6)  10 AUG 2019 19:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1728,22 +1728,27 @@ Underfull \hbox (badness 10000) in paragraph at lines 1433--1434
  []
 
 [49]
-Underfull \hbox (badness 10000) in paragraph at lines 1451--1452
+Underfull \hbox (badness 10000) in paragraph at lines 1444--1445
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1453--1454
+Underfull \hbox (badness 10000) in paragraph at lines 1446--1447
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1457--1458
+Underfull \hbox (badness 10000) in paragraph at lines 1450--1451
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1455--1456
 
  []
 
 [50]
-Underfull \hbox (badness 10000) in paragraph at lines 1469--1470
+Underfull \hbox (badness 10000) in paragraph at lines 1472--1473
 
  []
 
@@ -1762,16 +1767,16 @@ g /
  []
 
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1478.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1481.
  [52]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1478.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1481.
  (./rapport_projet_MAB1.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1478.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1478.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1481.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1481.
 
 Package rerunfilecheck Info: File `rapport_projet_MAB1.out' has not changed.
-(rerunfilecheck)             Checksum: 42E9C329B48A03190B3D3AE2252DBBDE;7080.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1478.
+(rerunfilecheck)             Checksum: D0D928150BF3D100500C944B55F45CEC;7080.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1481.
  ) 
 Here is how much of TeX's memory you used:
  11337 strings out of 493029
@@ -1851,7 +1856,7 @@ dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/f
 onts/type1/public/amsfonts/cm/cmtt8.pfb></usr/share/texlive/texmf-dist/fonts/ty
 pe1/public/amsfonts/cm/cmtt9.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
 lic/eurosym/feymr10.pfb>
-Output written on rapport_projet_MAB1.pdf (52 pages, 4779452 bytes).
+Output written on rapport_projet_MAB1.pdf (52 pages, 4781333 bytes).
 PDF statistics:
  1194 PDF objects out of 1200 (max. 8388607)
  1076 compressed objects within 11 object streams
