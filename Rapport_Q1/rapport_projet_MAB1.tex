@@ -1459,9 +1459,98 @@ Dans les tests décrits ci-dessous, l'application a été utilisée sur ladite c
 
 \subsection{Évaluation de la détection des équipements}
 
+Avant même la découverte des menaces potentielles dans le réseau domestique, une détection efficace des hôtes le peuplant doit être gérée par l'application. Cela se fait notamment par deux Modules désignés par les ids \texttt{fping} et \texttt{nmapexplo}. Le premier est basé sur le programme \textit{fping}, installable sur toutes les distributions Linux classiques. Il est plus polyvalent que son homologue \textit{ping} car il permet d'interroger un réseau complet de manière répétée (\textit{ping} est tout de même abstrait dans l'application par le Module \texttt{ping}). Le second utilise le programme \textit{nmap} dans l'optique de la découverte d'hôtes, et non leur analyse complète afin d'être plus rapide et efficace (pas de balayage des ports). Cela équivaut à passer le flag \texttt{-sn} à nmap. La découverte se fait alors en utilisant différentes techniques de sondes\footnote{\url{https://nmap.org/man/fr/man-host-discovery.html}} sur des ports spécifiques, se démarquant des simples requêtes ICMP que \textit{ping} et ses dérivés utilisent. À noter qu'en plus d'utiliser des méthodes différentes, les deux Modules \texttt{fping} et \texttt{nmapexplo} sont d'archétypes différents, respectivement passif et actif.\\
+
+Les tests sont dans un premier temps réalisés dans un laboratoire virtuel monté de toutes pièces. Comme tout y est contrôlable, on connait le nombre d'hôte, leur caractéristiques et on peut y mesurer à quel point leur détection est efficace et exhaustive. Des mesures du temps nécessaire pour leur découverte sont prises, en tenant compte de l'archétype du Module testé individuellement. Dans un second temps, un test sur un réseau domestique réel est opéré en considérant une utilisation des deux Modules conjointe pour maximiser la capacité de détection de l'application. Bien qu'on ne contrôle pas intégralement le réseau, on peut se faire une idée de l'exhaustivité de la détection en consultant quels sont les appareils connectés au modem de la maison via son interface. À noter que, sauf mention contraire, les Modules instanciés le sont avec leur paramètres par défaut.  
+
+\newpage
+
+\subsubsection{Mesures dans un laboratoire virtuel}
+
+Le réseau utilisé est construit intégralement de façon virtuelle en utilisant le logiciel VirtualBox et des machines virtuelles différentes. Elles sont au nombre de 8 instances :~\\
+\begin{itemize}
+\item[$\bullet$] Quatre montées sur une image de Raspberry Pi Desktop (Debian Stretch)\footnote{\url{https://www.raspberrypi.org/downloads/raspberry-pi-desktop/}}
+\item[$\bullet$] Quatre autres sur Ubuntu Core\footnote{\url{https://ubuntu.com/core}}, un OS utilisé dans le cadre de l'IoT
+\end{itemize}
+~\\
+Effectivement, comme l'entièreté du laboratoire est virtualisée sur une seule machine, des OS peu gourmands étaient nécessaires pour atteindre un nombre d'hôtes reflétant la composition d'un réseau domestique moyen. De plus, choisir ces OS utilisés pour exploiter des équipements relatifs à l'IoT permet de se rapprocher des objets étudiés.\\
+
+\minit{Mesures pour \texttt{fping}}
+\vspace{0.1cm}
+
+\par Pour \texttt{fping}, comme il s'agit d'un archétype passif, le programme tournera de façon continue jusqu'à être interrompu manuellement, c'est-à-dire quand les 8 hôtes ont été découverts. Comme pour tous les Modules passifs, la lecture des sorties ne se fait qu'à intervalle régulier une fois le Module lancé, 10 secondes par défaut dans ce cas. Les mesures de temps sont prises par rapport au premier appel à la fonction de parsing après le lancement du Module car , de fait, aucun hôte ne sera découvert avant. Les résultats sont illustrés par la \wordlink{fpingmean}{figure}. Y sont représentés les intervalles de temps entre l'ajout des hôtes dans l'environnement de l'application, jusqu'à ce que les 8 existants soient découverts de la sorte. Il s'agit des temps moyens (relatifs au moment où le premier appel à la fonction de parsing est fait) pour 5 expérimentations dans des conditions identiques, les 8 hôtes étant découverts à chaque fois en un seul appel à la fonction de parsing.\\
+
+\begin{figure}[!ht]
+\centering
+     \includegraphics[width=0.75\linewidth]{fpingmean}
+     \caption{Moyenne des mesures des temps de découverte pour \texttt{fping}}
+     \label{fpingmean}
+\end{figure}
+
+\vspace{0.1cm}
+
+On observe que la découverte complète du réseau se fait très rapidement ($\approx$ 18 ms), en un seul premier appel à la fonction de parsing qui trouve dans la sortie du programme l'information relative à la totalité des hôtes du réseau. Cela a donc pris en tout un petit peu plus de 10 secondes pour trouver les 8 hôtes. La plage IP donnée en paramètre au Module étant 192.168.56.100-255, le serveur DHCP de Virtualbox en mode ``réseau privé hôte" distribuant les adresses dans cette zone, soit 156 adresses balayées par \textit{fping}. Les autres paramètres du Module influent sur ces mesures : si le paramètre \texttt{period} qui désigne le temps en millisecondes entre une retentative sur un même hôte avait été mis à une valeur supérieure à celle par défaut de 3 secondes, tous les hôtes n'auraient peut être pas étés découverts à la première lecture 10 secondes après le lancement. Effectivement, à la lecture du buffer de sortie du programme, certaines lignes peuvent être tronquées et non parsables (celles du début et de la fin du texte lu). Cependant, la valeur par défaut de 3 secondes et celle de l'intervalle entre deux lectures permettent d'éviter cela par la redondance d'information.
+
+\newpage
+
+\minit{Mesures pour \texttt{nmapexplo}}
+\vspace{0.1cm}
+
+\par Le Module \texttt{nmap} étant actif, ce n'est pas une lecture de la sortie du programme en cours qui est faite à intervalles réguliers mais bien un nouvel appel et une exécution du programme \textit{nmap} dont la sortie est parsée une fois sa terminaison. On ne tient donc pas compte du timer d'expiration entre chaque exécution : le temps de référence est le premier appel à la fonction \textit{launch()} du Module. Les mesures se terminent quand les 8 hôtes sont découverts après le parsing d'une de ces exécutions. Le graphique obtenu est donné par la \wordlink{explomean}{figure} (également une moyenne des temps sur 5 expérimentations).\\
+
+\begin{figure}[!ht]
+\centering
+     \includegraphics[width=0.75\linewidth]{explomean}
+     \caption{Moyenne des mesures des temps de découverte pour \texttt{nmapexplo}}
+     \label{explomean}
+\end{figure}
+
+\vspace{0.1cm}
+
+\par Comme dans le cas de \texttt{fping}, \texttt{nmapexplo} semble toujours trouver les 8 hôtes d'une seule fois (dés la première exécution ici). On observe que nmap s'est exécuté pendant un peu plus de 2.5 secondes à la suite de quoi la fonction de parsing a été appelée. Les 8 hôtes y sont renseignés à chaque fois et parsés d'un coup. Bien que par nature le Module \texttt{nmapexplo} soit moins réactif aux changements du réseau (cela dépend de l'intervalle de temps auquel il s'exécute), il a l'avantage par rapport à \texttt{fping} de renseigner d'autres informations telles que l'adresse MAC, potentiellement le nom d'hôte et autres.
+\vspace{0.4cm}
+
+\subsection{Application dans un environnement domestique}
+
+Avant de lancer la Routine de surveillance contenant les Modules axés sur la découverte et récolte d'informations sur les hôtes, l'état du réseau est consulté via l'interface web du modem. En comptant le modem lui-même, 8 hôtes sont dénombrés comme actifs sur le réseau et dont on sait qu'ils sont de nature variée. La Routine est configurée comme indiqué par la \wordlink{routinedisc}{figure}, le Module \texttt{nmapports} gérant la découverte des ports ouverts d'un hôte. Cette inspection des ports se révèle beaucoup plus couteuse en temps, c'est donc un Module qui s'exécutera plus rarement que la simple exploration du réseau, déjà de toutes façons gérées par \texttt{nmapexplo} et \texttt{fping}.\\
+
+\par Une fois la configuration terminée, la Routine est lancée et son état est passé à ``en cours". Le Module \texttt{fping} lance le programme associé et les hôtes trouvés sont instanciés comme des Instances Virtuelles dés la première lecture dans la Netmap, soit 10 secondes après le lancement de la Routine. Seule leur IP est renseignée, mais d'autres informations sont ajoutées dès la terminaison de l'exécution de \texttt{nmapexplo} 10 secondes plus tard. À ce stade, les 8 équipements sont déjà référencés dans la Netmap avec assez d'information pour les identifier formellement : adresses IP et MAC, nom d'hôte, fabricant présumé. Une vue d'ensemble de la Netmap est illustrée par la \wordlink{netmapdisc}{figure}.
+
+\newpage
+
+\begin{figure}[!ht]
+\centering
+     \includegraphics[width=0.6\linewidth]{routineDisc}
+     \caption{Configuration d'une Routine pour découvrir les hôtes du réseau domestique}
+     \label{routinedisc}
+\end{figure}
+
+\vspace{0.3cm}
+
+Par défaut, \texttt{nmapports} va, pour chaque hôte, tester le statut des 50 ports les plus utilisés généralement. Après quelques minutes d'exécution, la Routine de surveillance aura fait converger la Netmap vers l'état actuel du réseau. Chaque Instance Virtuelle est consultable individuellement, mais les informations principales y sont résumées. Afin d'en découvrir davantage, le paramètre \texttt{version} de l'instance de \texttt{nmapports} dans la Routine est passé à vrai. Cela rallonge son temps d'exécution mais permet d'obtenir des informations à propos de la version des services actifs sur les ports, mais également le système d'exploitation et le hardware. La \wordlink{modemdisc}{figure} illustre les résultats obtenus pour l'Instance Virtuelle correspondant au modem après une nouvelle exécution de \texttt{nmapports}.
+
+\vspace{0.3cm}
+
+\begin{figure}[!ht]
+\centering
+     \includegraphics[width=0.7\linewidth]{netmapDisc}
+     \caption{État de la Netmap après 5 minutes de travail autonome de la Routine}
+     \label{netmapdisc}
+\end{figure}
+
+\newpage
+
+
+\begin{figure}[!ht]
+\centering
+     \includegraphics[width=0.8\linewidth]{modemDisc}
+     \caption{Affichage détaillé des informations récoltées pour le modem}
+     \label{modemdisc}
+\end{figure}
+
 \subsection{Évaluation de la détection de menaces}
 
-\subsubsection{Simulation d'équipements virtuels}
+\subsubsection{Simulation d'équipements virtuels vulnérables}
 
 \subsubsection{Utilisation dans un réseau domestique peuplé}
 
