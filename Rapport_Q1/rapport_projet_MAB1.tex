@@ -1194,6 +1194,7 @@ Le module python \texttt{logging} a comme particularité de pouvoir être import
 \newpage
 
 \section{Manuel d'utilisation}
+\label{manuel}
 
 \subsection{Prérequis et installation}
 \label{install}
@@ -1441,20 +1442,18 @@ Trois options s'offrent au programmeur pour intégrer son module, qui sont par o
 
 \subsection{Déploiement sur Raspberry Pi et utilisation distante}
 
-Le but est de déployer et lancer l'application sur une carte Rasperry Pi 3 (sous Raspbian installé) et d'interagir avec celle-ci de façon distante par ssh. Cela doit pouvoir se faire sans perdre en fonctionnalités par rapport à une utilisation complète sur une machine de type desktop munie, elle, d'un environnement graphique. On utilisera donc dans ce cas le mode PipeOutput à la place du mode classique ConsoleOutput. Afin de visualiser le contenu de la Vue, il sera nécessaire de jouer avec un deuxième shell connecté par ssh au Raspberry et d'afficher le contenu du pipe créé (avec la commande \texttt{watch} par exemple).\\
+Afin de valider l'application dans l'environnement qu'on lui destinait, les prochains tests effectués  dans un réseau réel le sont sur une machine restreinte en ressources : une carte Rasperry Pi 3 (sous Raspbian installé). L'interaction avec cette dernière se fait à distance via ssh depuis une station assimilable à un PC banal. On utilisera donc dans ce cas le mode PipeOutput à la place du mode classique ConsoleOutput. Afin de visualiser le contenu de la Vue, il sera nécessaire de jouer avec un deuxième shell connecté via ssh au Raspberry et d'afficher le contenu du pipe créé.\\
 
-\par Avant de s'y essayer, il est nécessaire d'installer Python 3.7 depuis les sources car la dernière distribution Raspbian ne dispose pas encore de cette version. On utilise les instructions proposée dans cet article : \url{https://github.com/instabot-py/instabot.py/wiki/Installing-Python-3.7-on-Raspberry-Pi}. Il est également nécessaire d'installer les programmes sous-jacents (\textit{nmap}, \textit{fping}, etc.), ce qui peut être fait automatiquement en appelant le script principal de l'application avec le flag \texttt{--installprog}. Ce après quoi on applique les instructions d'installation données au début de cette section. Ces opérations étant toutes réalisables via une connexion ssh existante, on suppose qu'il est possible d'en établir une seconde depuis un autre terminal (qui servira de Vue). Dans la première qui servira d'interface interactive on lance donc l'application avec :~\\
+Au préalable, Python 3.7 doit être installé manuellement\footnote{\url{https://github.com/instabot-py/instabot.py/wiki/Installing-Python-3.7-on-Raspberry-Pi}} (non fourni par Raspbian). Ce après quoi on applique les instructions d'installation données à la \wordlink{manuel}{section}. Ces opérations étant toutes réalisables via une connexion ssh existante, on suppose qu'il est possible d'en établir une seconde depuis un autre terminal (qui servira de Vue). Dans la première qui servira d'interface interactive on lance l'application avec :~\\
 
 \indent \texttt{sudo python3.7 IoTmonitor.py -m outpiped}
 \vspace{0.4cm}
-\par Un pipe est alors créé automatiquement dans /tmp et alimenté toute les secondes avec l'état actuel de l'application (ou la ressource ciblée dans le cadre de la vue). Pour observer ces modifications de façon continue, on peut alors utiliser la commande \texttt{watch} dans le second terminal :~\\
+\par Un pipe est alors créé automatiquement dans /tmp et alimenté toutes les secondes avec l'état actuel de l'application (ou la ressource ciblée dans le cadre de la vue). Pour observer ces modifications de façon continue, on peut alors utiliser la commande \texttt{watch} dans le second terminal :~\\
 
 \indent \texttt{watch -t -n 0,5 cat /tmp/output\_monitor}
 \vspace{0.4cm}
 
-Comme attendu, l'application est alors utilisable de la même façon que en mode ConsoleOutput et offre des fonctionnalités identiques. Les deux terminaux peuvent être utilisés côte à côte dans l'environnement graphique de la machine distante, l'un faisant office d'interpréteur et l'autre de Vue. Une démarche similaire est applicable dans un environnement non-graphique pour l'hôte se connectant au Raspberry. Bien que cela alourdisse l'utilisation, toute ressource affichable dans la vue l'est aussi dans le terminal qui sert d'interpréteur (menu \texttt{\$show}).\\
-
-Dans les tests décrits ci-dessous, l'application a été utilisée sur ladite carte Raspberry. Il est à noter que la consommation en terme de ressources n'y est pas mentionnée car elle se révèle très faible. On observe que le processeur ne dépasse pas 5\% d'activité et la RAM reste également largement inoccupée. Cependant, cela reste intrinsèque aux Modules utilisés, les programmes sous-jacents pouvant être eux-même gourmands. Cela n'est pas le cas dans ces expérimentations où \textit{nmap} et \textit{fping} sont les seuls utilisés car considérés comme les plus essentiels.
+Dans les tests réels décrits ci-dessous, l'application a été utilisée sur ladite carte Raspberry de cette façon. Il est à noter que la consommation en terme de ressources n'y est pas mentionnée car elle se révèle très faible. On observe que le processeur ne dépasse pas 5\% d'activité et la RAM reste également largement inoccupée. Cependant, cela reste intrinsèque aux Modules utilisés, les programmes sous-jacents pouvant être eux-même gourmands. Cela n'est pas le cas dans ces expérimentations où \textit{nmap} et \textit{fping} sont les seuls programmes utilisés car considérés comme les plus essentiels.
 
 
 \subsection{Évaluation de la détection des équipements}
@@ -1473,25 +1472,26 @@ Le réseau utilisé est construit intégralement de façon virtuelle en utilisan
 \item[$\bullet$] Quatre autres sur Ubuntu Core\footnote{\url{https://ubuntu.com/core}}, un OS utilisé dans le cadre de l'IoT
 \end{itemize}
 ~\\
-Effectivement, comme l'entièreté du laboratoire est virtualisée sur une seule machine, des OS peu gourmands étaient nécessaires pour atteindre un nombre d'hôtes reflétant la composition d'un réseau domestique moyen. De plus, choisir ces OS utilisés pour exploiter des équipements relatifs à l'IoT permet de se rapprocher des objets étudiés.\\
+\par Effectivement, comme l'entièreté du laboratoire est virtualisée sur une seule machine, des OS peu gourmands étaient nécessaires pour atteindre un nombre d'hôtes reflétant la composition d'un réseau domestique moyen. De plus, choisir ces OS utilisés pour exploiter des équipements relatifs à l'IoT permet de se rapprocher des objets étudiés.\\
 
 \minit{Mesures pour \texttt{fping}}
 \vspace{0.1cm}
 
-\par Pour \texttt{fping}, comme il s'agit d'un archétype passif, le programme tournera de façon continue jusqu'à être interrompu manuellement, c'est-à-dire quand les 8 hôtes ont été découverts. Comme pour tous les Modules passifs, la lecture des sorties ne se fait qu'à intervalle régulier une fois le Module lancé, 10 secondes par défaut dans ce cas. Les mesures de temps sont prises par rapport au premier appel à la fonction de parsing après le lancement du Module car , de fait, aucun hôte ne sera découvert avant. Les résultats sont illustrés par la \wordlink{fpingmean}{figure}. Y sont représentés les intervalles de temps entre l'ajout des hôtes dans l'environnement de l'application, jusqu'à ce que les 8 existants soient découverts de la sorte. Il s'agit des temps moyens (relatifs au moment où le premier appel à la fonction de parsing est fait) pour 5 expérimentations dans des conditions identiques, les 8 hôtes étant découverts à chaque fois en un seul appel à la fonction de parsing.\\
+\par Pour \texttt{fping}, comme il s'agit d'un archétype passif, le programme tournera de façon continue jusqu'à être interrompu manuellement, c'est-à-dire quand les 8 hôtes ont été découverts. Comme pour tous les Modules passifs, la lecture des sorties ne se fait qu'à intervalle régulier une fois le Module lancé, 10 secondes par défaut dans ce cas. Les mesures de temps sont prises par rapport au premier appel à la fonction de parsing après le lancement du Module car, de fait, aucun hôte ne sera découvert avant. Les résultats sont illustrés par la \wordlink{fpingmean}{figure}. Y sont représentés les intervalles de temps entre l'ajout des hôtes dans l'environnement de l'application, jusqu'à ce que les 8 existants soient découverts de la sorte. Il s'agit des temps moyens (relatifs au moment où le premier appel à la fonction de parsing est fait) pour 5 expérimentations dans des conditions identiques, les 8 hôtes étant découverts à chaque fois en un seul appel à la fonction de parsing. Le procédé est stable, cela se reflète dans la variance associée à chacune de ces valeurs de temps moyennes qui n'excède pas 119$\mu$s. L'intervalle entre le temps de référence et la première instanciation est le plus conséquent (6 ms en moyenne), cela est imputable au fait qu'il comprend les actions de récupération de la sortie textuelle du programme (lecture dans un pipe, gérée par Python) et son parcours pour extraction des informations à cibler, notamment les IP et l'état de l'hôte sur le réseau (répondant au ping ou non).
 
 \begin{figure}[!ht]
 \centering
-     \includegraphics[width=0.75\linewidth]{fpingmean}
+     \includegraphics[width=0.7\linewidth]{fpingmean}
      \caption{Moyenne des mesures des temps de découverte pour \texttt{fping}}
      \label{fpingmean}
 \end{figure}
 
 \vspace{0.1cm}
 
-On observe que la découverte complète du réseau se fait très rapidement ($\approx$ 18 ms), en un seul premier appel à la fonction de parsing qui trouve dans la sortie du programme l'information relative à la totalité des hôtes du réseau. Cela a donc pris en tout un petit peu plus de 10 secondes pour trouver les 8 hôtes. La plage IP donnée en paramètre au Module étant 192.168.56.100-255, le serveur DHCP de Virtualbox en mode ``réseau privé hôte" distribuant les adresses dans cette zone, soit 156 adresses balayées par \textit{fping}. Les autres paramètres du Module influent sur ces mesures : si le paramètre \texttt{period} qui désigne le temps en millisecondes entre une retentative sur un même hôte avait été mis à une valeur supérieure à celle par défaut de 3 secondes, tous les hôtes n'auraient peut être pas étés découverts à la première lecture 10 secondes après le lancement. Effectivement, à la lecture du buffer de sortie du programme, certaines lignes peuvent être tronquées et non parsables (celles du début et de la fin du texte lu). Cependant, la valeur par défaut de 3 secondes et celle de l'intervalle entre deux lectures permettent d'éviter cela par la redondance d'information.
+On observe que la découverte complète du réseau se fait très rapidement (18 ms en moyenne), en un seul premier appel à la fonction de parsing qui trouve dans la sortie du programme l'information relative à la totalité des hôtes du réseau. Cela a donc pris au total un peu plus de 10 secondes pour trouver les 8 hôtes. La plage IP donnée en paramètre au Module est 192.168.56.3-255, le serveur DHCP de Virtualbox en mode ``réseau privé hôte" distribuant les adresses dans cette zone (les deux premières adresses sont réservées au serveur DHCP et à la machine hôte). Le programme \textit{fping} parcourt cette plage séquentiellement, en partant des plus petites adresses. Les adresses allouées aux hôtes virtuels sont les 8 plus hautes de sorte à se placer dans le pire des cas. En conjugaison avec le fait que le masque d'un réseau domestique est souvent de 24 bits comme considéré ici, les expériences menées reproduisent au mieux la réalité et s'avèrent concluantes.\\ 
 
-\newpage
+ \par À noter que les autres paramètres du Module influent sur ces mesures : si le paramètre \texttt{period} qui désigne le temps en millisecondes entre une retentative sur un même hôte avait été mis à une valeur supérieure à celle par défaut de 3 secondes, tous les hôtes n'auraient peut être pas étés découverts à la première lecture 10 secondes après le lancement. Effectivement, à la lecture du pipe recueillant la sortie du programme, certaines lignes peuvent être tronquées et non parsables (celles du début et de la fin du texte lu). Cependant, la valeur par défaut de 3 secondes et celle de l'intervalle entre deux lectures permettent d'éviter cela par la redondance d'information, ainsi que des précautions prises dans l'implémentation même.\\
+
 
 \minit{Mesures pour \texttt{nmapexplo}}
 \vspace{0.1cm}
@@ -1507,16 +1507,36 @@ On observe que la découverte complète du réseau se fait très rapidement ($\a
 
 \vspace{0.1cm}
 
-\par Comme dans le cas de \texttt{fping}, \texttt{nmapexplo} semble toujours trouver les 8 hôtes d'une seule fois (dés la première exécution ici). On observe que nmap s'est exécuté pendant un peu plus de 2.5 secondes à la suite de quoi la fonction de parsing a été appelée. Les 8 hôtes y sont renseignés à chaque fois et parsés d'un coup. Bien que par nature le Module \texttt{nmapexplo} soit moins réactif aux changements du réseau (cela dépend de l'intervalle de temps auquel il s'exécute), il a l'avantage par rapport à \texttt{fping} de renseigner d'autres informations telles que l'adresse MAC, potentiellement le nom d'hôte et autres.
-\vspace{0.4cm}
+\par Comme dans le cas de \texttt{fping}, \texttt{nmapexplo} trouve les 8 hôtes d'une seule fois (dés la première exécution ici), et ce pour chacune des 5 exécutions. On observe que nmap s'est exécuté pendant 4.3 secondes en moyenne à la suite de quoi la fonction de parsing a été appelée. Les 8 hôtes sont alors instanciés dans l'application en 10 ms en moyenne. Les moyennes sont représentatives, les variance associées ne s'élevant pas au dessus de 0.35 secondes.\\
+
+\par La configuration du réseau est identique (plage IP, hôtes aux adresses les plus hautes). L'ordre de balayage n'a ici pas d'importance : les résultats pour le réseau entier passé en paramètre sont retournés d'un bloc à la fin de l'exécution de \textit{nmap}, ce qui prend ici un peu plus de 4 secondes pour les 252 adresses considérées. Bien que par nature le Module \texttt{nmapexplo} soit moins réactif aux changements du réseau (cela dépend de l'intervalle de temps auquel il s'exécute), il a l'avantage par rapport à \texttt{fping} de renseigner d'autres informations telles que l'adresse MAC, potentiellement le nom d'hôte et le fabriquant.
+
+\newpage
 
 \subsection{Application dans un environnement domestique}
 
-Avant de lancer la Routine de surveillance contenant les Modules axés sur la découverte et récolte d'informations sur les hôtes, l'état du réseau est consulté via l'interface web du modem. En comptant le modem lui-même, 8 hôtes sont dénombrés comme actifs sur le réseau et dont on sait qu'ils sont de nature variée. La Routine est configurée comme indiqué par la \wordlink{routinedisc}{figure}, le Module \texttt{nmapports} gérant la découverte des ports ouverts d'un hôte. Cette inspection des ports se révèle beaucoup plus couteuse en temps, c'est donc un Module qui s'exécutera plus rarement que la simple exploration du réseau, déjà de toutes façons gérées par \texttt{nmapexplo} et \texttt{fping}.\\
+Avant de lancer la Routine de surveillance contenant les Modules de découverte et récolte d'informations sur les hôtes, l'état du réseau est consulté via l'interface web du modem. En comptant le modem lui-même, 8 hôtes sont dénombrés comme actifs sur le réseau dont 7 connus. Un schéma récapitulatif de la composition du réseau, tel qu'il est connu, est donné par la \wordlink{mynetwork}{figure}. Tous ces appareils se sont vus allouer une adresse IPv4 par l'unique modem/routeur de l'habitation dans la plage 192.168.1.2-63.\\
 
-\par Une fois la configuration terminée, la Routine est lancée et son état est passé à ``en cours". Le Module \texttt{fping} lance le programme associé et les hôtes trouvés sont instanciés comme des Instances Virtuelles dés la première lecture dans la Netmap, soit 10 secondes après le lancement de la Routine. Seule leur IP est renseignée, mais d'autres informations sont ajoutées dès la terminaison de l'exécution de \texttt{nmapexplo} 10 secondes plus tard. À ce stade, les 8 équipements sont déjà référencés dans la Netmap avec assez d'information pour les identifier formellement : adresses IP et MAC, nom d'hôte, fabricant présumé. Une vue d'ensemble de la Netmap est illustrée par la \wordlink{netmapdisc}{figure}.
+\begin{figure}[!ht]
+\centering
+     \includegraphics[width=0.75\linewidth]{mynetwork}
+     \caption{Composition du réseau domestique à analyser}
+     \label{mynetwork}
+\end{figure}
 
-\newpage
+\vspace{0.1cm}
+
+\par La Routine est configurée comme indiqué par la \wordlink{routinedisc}{figure}, avec les Modules et leurs paramètres par défaut :\\
+\begin{itemize}
+\item[$\bullet$] \texttt{fping} : à l'aide de requêtes ICMP, détermine l'IP des hôtes peuplant le réseau et régule leur état (connecté ou non) en opérant une lecture de la sortie du programme en cours toutes les 10 secondes
+\vspace{0.1cm}
+\item[$\bullet$] \texttt{nmapexplo} : balaie le réseau à intervalle de 20 secondes, découvrant les hôtes et leurs caractéristiques en utilisant des techniques de sondes plus évoluées que par ICMP
+\vspace{0.1cm}
+\item[$\bullet$] \texttt{nmapports} : découvre les ports ouverts d'un hôte (teste par défaut les 50 ports les plus utilisés généralement). Cette inspection des ports se révèle beaucoup plus coûteuse en temps (de facto en ressources), ce Module s'exécutera donc plus rarement que la simple exploration du réseau (240 secondes)
+
+\end{itemize}
+
+\vspace{0.2cm}
 
 \begin{figure}[!ht]
 \centering
@@ -1527,26 +1547,45 @@ Avant de lancer la Routine de surveillance contenant les Modules axés sur la d�
 
 \vspace{0.3cm}
 
-Par défaut, \texttt{nmapports} va, pour chaque hôte, tester le statut des 50 ports les plus utilisés généralement. Après quelques minutes d'exécution, la Routine de surveillance aura fait converger la Netmap vers l'état actuel du réseau. Chaque Instance Virtuelle est consultable individuellement, mais les informations principales y sont résumées. Afin d'en découvrir davantage, le paramètre \texttt{version} de l'instance de \texttt{nmapports} dans la Routine est passé à vrai. Cela rallonge son temps d'exécution mais permet d'obtenir des informations à propos de la version des services actifs sur les ports, mais également le système d'exploitation et le hardware. La \wordlink{modemdisc}{figure} illustre les résultats obtenus pour l'Instance Virtuelle correspondant au modem après une nouvelle exécution de \texttt{nmapports}.
+\newpage
+
+\par Une fois la configuration terminée, la Routine est lancée et son état est passé à ``en cours". Le Module \texttt{fping} lance le programme associé et les hôtes trouvés sont instanciés comme des Instances Virtuelles dans la Netmap dès la première lecture, soit 10 secondes après le lancement de la Routine. Seule leur IP est renseignée, mais d'autres informations sont ajoutées dès la terminaison de l'exécution de \texttt{nmapexplo} un peu plus de 10 secondes plus tard (comprend l'exécution de \textit{nmap}). À ce stade, les 8 équipements sont déjà référencés dans la Netmap avec assez d'information pour les identifier formellement : adresses IP et MAC, nom d'hôte et fabricant présumé pour certains. Une ligne temporelle illustrant les cycles de la Routine ainsi que la vue d'ensemble de la Netmap obtenue sont illustrées par les \wordlink{timeline}{figures} et \wordlink{netmapdisc}{}.
+
+\begin{figure}[!ht]
+\centering
+     \includegraphics[width=\linewidth]{timeline}
+     \caption{Cycles d'exécutions des Modules dans la Routine établie}
+     \label{timeline}
+\end{figure}
 
 \vspace{0.3cm}
 
 \begin{figure}[!ht]
 \centering
-     \includegraphics[width=0.7\linewidth]{netmapDisc}
+     \includegraphics[width=0.9\linewidth]{netmapDisc}
      \caption{État de la Netmap après 5 minutes de travail autonome de la Routine}
      \label{netmapdisc}
 \end{figure}
 
+\vspace{0.2cm}
+
+On observe que toutes les adresses IP allouées dans le réseau ont été correctement restituées dans l'application, associant chacune à une Instance Virtuelle différente. Il en va de même pour les adresses MAC, excepté pour la carte Raspberry. Effectivement, dans les résultats de son scan, \textit{nmap} les renseigne toutes sauf celle de l'hôte depuis lequel il a été lancé. Ce n'est pas modifiable nativement, mais considéré comme acceptable car ce n'est théoriquement pas cet hôte que l'utilisateur désire surveiller. Les noms d'hôtes ont été trouvés pour 4 des 8 appareils. Les fabricants sont devinés par \textit{nmap} en se basant sur le préfixe de l'adresse MAC et de sa base de données interne. Il s'agit donc dans certain cas uniquement du fabricant de la carte réseau des hôtes. Les ports découverts affichés sont ceux réellement ouverts et dont \textit{nmap} est confiant vis-à-vis du service associé (corrélé à un niveau allant de 3 à 10). La détection du réseau semble donc assez efficace que pour s'en faire une représentation précise après 5 minutes d'activité de la Routine.
+
 \newpage
 
+\par Par défaut \texttt{nmapports} va, pour chaque hôte, tester le statut des 50 ports les plus utilisés généralement. Après quelques minutes d'activité, la Routine de surveillance aura fait converger la Netmap vers l'état actuel du réseau. Chaque Instance Virtuelle est consultable individuellement, mais les informations principales sont résumées dans la vue d'ensemble donnée par la \wordlink{netmapdisc}{figure}. Afin d'en découvrir davantage, le paramètre \texttt{version} de l'instance de \texttt{nmapports} dans la Routine est passé à vrai. Cela rallonge son temps d'exécution (de 35 secondes à plus de 2 minutes pour un sous-réseau de masque /24) mais permet d'obtenir des informations à propos de la version des services actifs sur les ports, ainsi que le système d'exploitation et le hardware. Ces informations sont retournées par \textit{nmap} en utilisant le format standardisé CPE (Common Platform Enumeration\footnote{\url{https://nmap.org/book/output-formats-cpe.html}}). La \wordlink{modemdisc}{figure} illustre les résultats obtenus pour l'Instance Virtuelle correspondant au modem après une nouvelle exécution de \texttt{nmapports}, détaillant les services devinés sur ses ports ouverts.
+
+\vspace{0.1cm}
 
 \begin{figure}[!ht]
 \centering
-     \includegraphics[width=0.8\linewidth]{modemDisc}
+     \includegraphics[width=\linewidth]{modemDisc}
      \caption{Affichage détaillé des informations récoltées pour le modem}
      \label{modemdisc}
 \end{figure}
+
+
+\newpage
 
 \subsection{Évaluation de la détection de menaces}
 
