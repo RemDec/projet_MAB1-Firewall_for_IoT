@@ -1472,7 +1472,7 @@ Le réseau utilisé est construit intégralement de façon virtuelle en utilisan
 \item[$\bullet$] Quatre autres sur Ubuntu Core\footnote{\url{https://ubuntu.com/core}}, un OS utilisé dans le cadre de l'IoT
 \end{itemize}
 ~\\
-\par Effectivement, comme l'entièreté du laboratoire est virtualisée sur une seule machine, des OS peu gourmands étaient nécessaires pour atteindre un nombre d'hôtes reflétant la composition d'un réseau domestique moyen. De plus, choisir ces OS utilisés pour exploiter des équipements relatifs à l'IoT permet de se rapprocher des objets étudiés.\\
+\par Effectivement, comme l'entièreté du laboratoire est virtualisée sur une seule machine, des OS peu gourmands étaient nécessaires pour atteindre un nombre d'hôtes reflétant à peu près la composition d'un réseau domestique moyen (11 appareils aux USA selon Bitdefender \cite{bitdefender}). De plus, choisir ces OS utilisés pour exploiter des équipements relatifs à l'IoT permet de se rapprocher des objets étudiés.\\
 
 \minit{Mesures pour \texttt{fping}}
 \vspace{0.1cm}
@@ -1589,9 +1589,61 @@ On observe que toutes les adresses IP allouées dans le réseau ont été correc
 
 \subsection{Évaluation de la détection de menaces}
 
-\subsubsection{Simulation d'équipements virtuels vulnérables}
+À l'heure actuelle, un seul Module est complètement opérationnel dans la découverte de vulnérabilité : \texttt{nmapvulners}. Il s'agit d'un Module actif basé sur le script \textit{nmap-vulners}, intégrable à une exécution de \textit{nmap} grâce au Nmap Script Engine. Pour chaque hôte découvert lors du balayage, le script va faire en sorte de deviner la version des services actifs sur les ports ouverts. Si cela est possible, une requête est alors effectuée en ligne vers la base de données Vulners. Si une entrée CVE correspond à la version du service recherché, une menace est instanciée dans l'application et remontée jusqu'à l'utilisateur. Afin d'obtenir plus de détail sur la vulnérabilité du service tournant sur l'un de ses appareils, un lien internet vers le descriptif CVE (dans Vulners) est fourni à l'utilisateur.
+
+\subsubsection{Simulation d'équipement virtuel vulnérable}
+
+L'objectif est de vérifier qu'en installant intentionnellement un logiciel vulnérable sur une machine virtuelle (une des Debian Stretch utilisée pour les tests précédents), l'application le détecte et en alerte l'utilisateur. La procédure employée est la suivante :
+
+\begin{enumerate}
+\item Recherche dans la base de données Vulners une entrée de type CVE (\url{https://vulners.com/search?query=type:cve}) pour un logiciel orienté serveur dont une faille a été rendue publique
+\vspace{0.1cm}
+\item Rechercher les sources correspondant à une version indiquée comme vulnérable dans le descriptif CVE, installer le programme obsolète sur la machine virtuelle
+\vspace{0.1cm}
+\item Mettre en route le service qui écoutera sur son port par défaut et tester la bonne détection de ce service par \textit{nmap}
+\vspace{0.1cm}
+\item Dans l'application, instancier le Module \texttt{nmapvulners} avec si nécessaire des paramètres adaptés (port peu commun, ...) et lancer son exécution
+\vspace{0.1cm}
+\item Vérifier que la menace est bien détectée et l'alerte donnée à l'utilisateur, pointant vers les bons descriptifs CVE initialement considérés
+\end{enumerate}
+
+Les logiciels alors considérés sont les suivants :
+
+\begin{itemize}
+\item[$\bullet$] \textit{proftpd}, version 1.3.4 (2 CVEs\footnote{\url{https://vulners.com/search?query=affectedSoftware.name:proftpd AND type:cve AND affectedSoftware.version:1.3.4}})
+\item[$\bullet$] \textit{lighttpd}, version 1.4.42 (1 CVE\footnote{\url{https://vulners.com/search?query=affectedSoftware.name:lighttpd AND type:cve AND affectedSoftware.version:1.4.42}})
+\end{itemize}
+~\\
+
+\par Après avoir instancié le Module \texttt{nmapvulners}, le scann est lancé sur la machine ciblée. On observe que des vulnérabilités ont en effet été découvertes, et si une adresse mail avait été fournie alors un récapitulatif similaire à ce qui est affiché dans l'application (\wordlink{threatsvm}{figure}) est envoyé. À chaque menace un niveau de dangerosité est associé, allant de 1 à 10. Dans le cas de \texttt{nmapvulners}, il s'agit du CVSS (Common Vulnerability Scoring System\footnote{\url{https://fr.wikipedia.org/wiki/Common_Vulnerability_Scoring_System}}).
+
+\vspace{0.1cm}
+
+\begin{figure}[!ht]
+\centering
+     \includegraphics[width=1.05\linewidth]{threatsVM}
+     \caption{Résultat d'une exécution de \texttt{nmapvulners} (vulnérabilités trouvées)}
+     \label{threatsvm}
+\end{figure}
+
+\newpage
+
+En suivant le lien donné pour chaque menace, on retrouve bien les CVEs attendues. Cependant, le Module n'est pas du tout exhaustif. Si on s'en réfère à une recherche manuelle dans la base de données Vulners sans spécifier de version pour \textit{proftpd}, on tombe sur 36 résultats au lieu des 2 initiaux. Certains sont bien pertinents, décrivant une vulnérabilité dont version la 1.3.4 de \textit{proftp} n'est pas exempte. Cela est dû au fait que certaines entrées dans la base de données ne renseignent pas formellement les versions affectées, mais uniquement dans une description textuelle. Ces entrées ne se retrouvent donc pas dans les résultats d'une recherche pour une version spécifique.\\
+
+\par De plus, \texttt{nmapexplo} peut tout simplement échouer à deviner la version ou le service associé à un port. Par exemple, malgré le fait que \textit{telnet} soit un programme sujet à des failles (4 CVEs sont renseignées sur Vulners), \textit{nmap} ne parvient à deviner que l'activité de \textit{telnet} sur le port 23 sans information complémentaire sur sa version. En conséquence, aucune requête n'est faite par le script vers l'API de Vulners. Il arrive également que \textit{nmap} ne reconnaisse pas le protocole, comme par exemple en testant le programme serveur Mosquitto dans le cadre du protocole MQTT (utilisé dans l'IoT, cf. \wordlink{IoT_prot}{sous-section}).
 
 \subsubsection{Utilisation dans un réseau domestique peuplé}
+
+Le réseau utilisé est celui présenté pour les tests de découverte des hôtes (\wordlink{mynetwork}{figure}), reproduit au mieux. La Routine utilisée n'est remplie que des Modules \texttt{fping} et \texttt{nmapports}. Pour ce dernier, afin de couvrir un nombre de services plus larges, le paramètre \texttt{top-ports} est mis à 30 de sorte que \textit{nmap} inspecte les 30 ports les plus utilisés généralement pour chaque hôte. Le temps d'exécution est alors de 30 secondes pour le sous-réseau /24 considéré. La \wordlink{realvulns}{figure} illustre la vue générale de la Netmap après 5 minutes d'activité de la Routine. 
+
+\begin{figure}[!ht]
+\centering
+     \includegraphics[width=1\linewidth]{netmapvulns}
+     \caption{Vue d'ensemble du réseau domestique est des menaces trouvées (/!\textbackslash)}
+     \label{realvulns}
+\end{figure}
+
+\par Des menaces ont été détectées pour 3 appareils, 2 d'entre eux étant des ordinateurs desktop et le troisième le modem lui-même. Pour les ordinateurs, il s'agit de vulnérabilités liées au service web \textit{Apache} qui avait été installé à la même époque sur les deux machines. Depuis, 23 CVEs ont visiblement été déclarées pour ces versions obsolètes. En ce qui concerne le modem, il s'agit du service de DNS interne (port 53) dont la version est sujette à 3 CVEs. Les autres appareils semblent plus protégés, mais il est nécessaire de garder à l'esprit que seuls 30 des ports les plus répandus ont été analysés pour fluidifier le balayage complet du réseau. Un ciblage plus spécifique sur quelques hôtes avec plus de ports, ou des ports plus pertinents connaissant l'appareil, peut aisément être réalisé par reconfiguration du Module ou en en créant une nouvelle instance.
 
 \newpage
 
