@@ -85,7 +85,10 @@
 
 \author{
 \vspace{0.9cm}
-\huge{Rémy Decocq}
+\huge{Rémy Decocq}\\
+\large{Directeur : Alain Buys}\\
+\large{Co-directeur : Bruno Quoitin}\\
+\large{Rapporteur : Jérémy Dubrulle}
 }
 
 \date{
@@ -112,7 +115,7 @@ Faculté des Sciences, Université de Mons}
 
 \par En parallèle avec la montée en puissance de ces machines de type desktop, serveurs, etc. s'est développée depuis à peu près les années 2000 la tendance de l'\og Internet des Objets \fg{}, ou encore plus communément abrégé IoT pour \textit{Internet of Things}. Bien qu'assez large, cette dénomination regroupe beaucoup d'objets et de concepts, qu'ils soient virtuels ou non mais possédant un dénominateur commun : la capacité de communiquer en réseau avec d'autres équipements. Cela englobe par exemple la domotique, les outils et capteurs de mesures diverses, les imprimantes et scanneurs en réseau, etc. Tous ces éléments convergeraient idéalement vers une mise en réseau commune, leur permettant de communiquer malgré leur nature hétérogène \cite{Kubler2014}. Cela peut se faire via le réseau Internet, il n'est pas rare d'orienter ces connections vers un cloud permettant de traiter intelligemment la masse de données émises par ces équipements \cite{Huichen2016}. Or, comme évoqué ci-dessus, plus on s'interconnecte et plus on s'ouvre à des attaquants potentiels, ce qui pose problème si rien n'est mis en place pour s'en protéger.\\
 
-\par Ce travail aura pour objectif premièrement de faire un état de l'art des dispositifs de protection qui sont actuellement déployés dans l'IoT et plus particulièrement dans le cadre domestique. Il s'agit d'un monde beaucoup plus hétérogène et restreint en terme de ressources que celui des ordinateurs desktop qu'on retrouve classiquement dans ce milieu.  De fait il n'est pas toujours possible de réutiliser telles quelles toutes les technologies et ressources assurant la protection de ces machines non restreintes. De plus, il faut prendre en considération les spécificités d'une habitation : au centre de tous ces équipements communiquant se trouve l'habitant, une personne n'étant pas forcément apte à manipuler et contrôler ces nouvelles technologies. Il sera également question d'établir une vision globale des différents dispositifs de pare-feux existant et sous quelles formes ceux-ci peuvent être implémentés dans un réseau domestique. Deuxièmement, il sera question de mettre en pratique ces connaissances pour développer un système en lien avec la protection des réseaux domestiques et des équipements IoT qui les peuplent.
+\par Ce travail aura pour objectif premièrement de faire un état de l'art des dispositifs de protection qui sont actuellement déployés dans l'IoT et plus particulièrement dans le cadre domestique. Il s'agit d'un monde beaucoup plus hétérogène et restreint en terme de ressources que celui des ordinateurs desktop qu'on retrouve classiquement dans ce milieu.  De fait il n'est pas toujours possible de réutiliser telles quelles toutes les technologies et ressources assurant la protection de ces machines non restreintes. De plus, il faut prendre en considération les spécificités d'une habitation : au centre de tous ces équipements communiquant se trouve l'habitant, une personne n'étant pas forcément apte à manipuler et contrôler ces nouvelles technologies. Il sera également question d'établir une vision globale des différents dispositifs de pare-feux existant et sous quelles formes ceux-ci peuvent être implémentés dans un réseau domestique. Deuxièmement, il sera question de mettre en pratique ces connaissances pour développer une solution logicielle en lien avec la protection des réseaux domestiques et des équipements IoT qui les peuplent.
 %http://www.archive.ece.cmu.edu/~ece649/lectures/17_embedded_internet_security.pdf
 \newpage
 
@@ -800,25 +803,23 @@ Ce travail englobe la thématique de la sécurité des équipements en réseau d
 
 \par Par exemple, l'application pourrait intégrer des scanneurs tels que présentés dans la \wordlink{scanners}{sous-section}. Parmi ceux-ci \textit{nmap}, \textit{IoTSeeker}, etc. qui interrogent directement les équipements (dits actifs) et des programmes de prise d'empreintes/analyse de trafic tels que \textit{Snort}, \textit{p0f}, etc. (dits passifs). Chacun de ces programmes fournit un feedback sur sa sortie, que ce soit une fois son exécution terminée ou de façon continue jusqu'à interruption manuelle de l'exécution. Une fois parsées, les informations obtenues peuvent servir à alimenter une représentation virtuelle du réseau maintenue par l'application (renseignant les caractéristiques des équipements qui le peuplent) ou constituer une alerte à faire remonter jusqu'à l'utilisateur si une faille ou menace est détectée.\\
 
-\par Par programme il est entendu : \textit{un programme ou script installé et fonctionnel sur le système, exécutable depuis un terminal et dont la sortie est récupérable}. Le framework d'intégration définit comment ajouter ces programmes à l'environnement de l'application, prodiguant une surcouche telle qu'il n'est nécessaire de définir que les éléments suivants :\\
+\par Par programme il est entendu : \textit{un programme ou script installé et fonctionnel sur le système, exécutable depuis un terminal et dont la sortie est récupérable}. Vraisemblablement, il s'agit donc d'un programme qui est appelable par un nom unique défini dans le PATH, comme \texttt{nmap} qui permet de lancer le scanneur \textit{nmap} après son installation. Le framework d'intégration définit comment ajouter ces programmes à l'environnement de l'application, prodiguant une surcouche telle qu'il n'est nécessaire de définir que les éléments suivants dedans :\\
 \begin{itemize}
 \item[$\bullet$] la \textbf{commande} liée au programme telle qu'utilisée pour y faire appel depuis un terminal
 \vspace{0.2cm}
-\item[$\bullet$] quels \textbf{paramètres du programme} utilisés parmi ceux passables en ligne de commande et la façon d'y associer des valeurs (\textit{schéma} de paramètres)
+\item[$\bullet$] quels \textbf{paramètres du programme} utilisés parmi ceux passables en ligne de commande et la façon d'y associer des valeurs en les identifiant par un code (\textit{schéma} de paramètres)
 \vspace{0.2cm}
 \item[$\bullet$] la \textbf{méthode de traitement} de la sortie du programme (parsing) pour en inclure les résultats dans l'application
 \end{itemize}
 
 
-\vspace{0.2cm}
+\newpage
 
-\subsubsection{Objectifs de l'outil}
+\subsubsection{Objectifs de l'outil}\label{appgoals}
 
 \paragraph{La surveillance automatique du réseau domestique}
 
 Une manipulation aisée des programmes à utiliser pour surveiller le réseau est essentielle. L'utilisateur doit pouvoir sélectionner et configurer les programmes qu'il souhaite pour défendre son réseau parmi ceux disponibles. Une fois cette sélection opérée, les programmes choisis devraient être maintenus dans une structure où leur exécution, la récupération de leur sortie et le parsing de ces dernières sont entièrement automatisés. L'utilisateur n'ayant alors qu'à agir sur cette structure pour contrôler l'état de la surveillance de son réseau. La gestion du travail des programmes qui y sont maintenus est entièrement automatisée et ne requiert pas d'interaction avec l'utilisateur. L'application peut alors agir de façon autonome et effectuer sa tâche de surveillance en fond continuellement. Ladite structure est un objet appelé \textbf{Routine} dans l'application.
-
-\newpage
 
 \paragraph{La représentation du réseau}
 
@@ -1341,7 +1342,7 @@ Cela renseigne que le programme sous-jacent est \textit{nmap} et est d'office ut
 \begin{figure}[!ht]
 \centering
      \includegraphics[width=0.85\linewidth]{newmod}
-     \caption{Instanciation du module \texttt{nmapexplo} à placer dans la Routine}
+     \caption{Instanciation du Module \texttt{nmapexplo} à placer dans la Routine}
      \label{newmod}
 \end{figure}
 
@@ -1351,7 +1352,7 @@ Après remplissage de la Routine avec plusieurs instances de Modules différents
 
 \begin{figure}[!ht]
 \centering
-     \includegraphics[width=0.7\linewidth]{vueroutine}
+     \includegraphics[width=0.5\linewidth]{vueroutine}
      \caption{État de la Routine après remplissage}
      \label{vueroutine}
 \end{figure}
@@ -1361,7 +1362,7 @@ La Routine illustrée permet de découvrir et analyser les équipements du rése
 
 \begin{figure}[!ht]
 \centering
-     \includegraphics[width=\linewidth]{netmap}
+     \includegraphics[width=0.8\linewidth]{vuenetmap}
      \caption{État de la Netmap après que la Routine de la \wordlink{vueroutine}{figure} ait tourné un court moment}
      \label{vuenetmap}
 \end{figure}
@@ -1432,7 +1433,7 @@ Trois options s'offrent au programmeur pour intégrer son module, qui sont par o
 \item Par écriture directe dans le fichier \texttt{modlib.xml}
 \end{enumerate}
 
-\par L'intégration par CLI fait l'hypothèse que le code décrivant l'objet Module se trouve au bon endroit dans les package pythons destinés à les regrouper par archétype \texttt{modules.passives} et \texttt{modules.actives}. Le code doit contenir une classe respectant les conditions évoquées au \wordlink{writemod}{point} et qui est le code du Module. Supposons que le fichier contenant le code s'appelle mymodule.py, alors celui-ci correspond au module python \texttt{mymodule} (dans l'arborescence \texttt{modules.passives.mymodule} ou \texttt{modules.actives.mymodule}). Arrivé dans le menu \texttt{integrate}, le programmeur renseigne l'archétype de son nouveau Module. Il lui est en suite demandé d'entrer le nom du module python dans lequel il est définit : en l'occurrence \texttt{mymodule}. Si toutes les conventions ont été respectées, une entrée devrait être écrite dans le fichier modlib.xml, celui-ci reparsé et le Module devrait apparaître parmi ceux disponibles.\\
+\par L'intégration par CLI fait l'hypothèse que le code décrivant l'objet Module se trouve au bon endroit dans les package pythons destinés à les regrouper par archétype : \texttt{modules.passives} et \texttt{modules.actives}. Le code doit contenir une classe respectant les conditions évoquées au \wordlink{writemod}{point} et qui est le code du Module. Supposons que le fichier contenant le code s'appelle mymodule.py, alors celui-ci correspond au module python \texttt{mymodule} (dans l'arborescence \texttt{modules.passives.mymodule} ou \texttt{modules.actives.mymodule}). Arrivé dans le menu \texttt{integrate}, le programmeur renseigne l'archétype de son nouveau Module. Il lui est en suite demandé d'entrer le nom du module python dans lequel il est définit : en l'occurrence \texttt{mymodule}. Si toutes les conventions ont été respectées, une entrée devrait être écrite dans le fichier modlib.xml, celui-ci reparsé et le Module devrait apparaître parmi ceux disponibles.\\
 
 \par L'objet utilitaire pour intégrer un Module à partir d'une de ses instances (donc créée par programme ou dans l'interpréteur Python) est trouvable dans le package \texttt{src.utils.filesManager}. Il s'agit de la classe \textbf{ModuleIntegrator}, qui prend en paramètre de constructeur une instance du Module à intégrer ou une chaîne de caractères désignant le module python à importer pour trouver la classe correspondante (\texttt{modules.passives.mymodule}). En instanciant un objet Library du module \texttt{src.utils.moduleManager}, il est également possible d'intégrer la nouvelle entrée au fichier grâce à la méthode \textit{add\_to\_modlib\_file(mod instance)}.\\
 
@@ -1445,13 +1446,13 @@ Trois options s'offrent au programmeur pour intégrer son module, qui sont par o
 
 \subsection{Déploiement sur Raspberry Pi et utilisation distante}
 
-Afin de valider l'application dans l'environnement qu'on lui destinait, les prochains tests effectués  dans un réseau réel le sont sur une machine restreinte en ressources : une carte Rasperry Pi 3 (sous Raspbian installé). L'interaction avec cette dernière se fait à distance via ssh depuis une station assimilable à un PC banal. On utilisera donc dans ce cas le mode PipeOutput à la place du mode classique ConsoleOutput. Afin de visualiser le contenu de la Vue, il sera nécessaire de jouer avec un deuxième shell connecté via ssh au Raspberry et d'afficher le contenu du pipe créé.\\
+Afin de valider l'application dans l'environnement qu'on lui destinait, les prochains tests effectués  dans un réseau réel le sont sur une machine restreinte en ressources : une carte Rasperry Pi 3 (sous Raspbian installé). L'interaction avec cette dernière se fait à distance via ssh depuis une station assimilable à un ordinateur desktop. On utilisera donc dans ce cas le mode PipeOutput à la place du mode classique ConsoleOutput. Afin de visualiser le contenu de la Vue, il sera nécessaire de jouer avec un deuxième shell connecté via ssh au Raspberry et d'afficher le contenu du pipe créé.\\
 
-Au préalable, Python 3.7 doit être installé manuellement\footnote{\url{https://github.com/instabot-py/instabot.py/wiki/Installing-Python-3.7-on-Raspberry-Pi}} (non fourni par Raspbian). Ce après quoi on applique les instructions d'installation données à la \wordlink{manuel}{section}. Ces opérations étant toutes réalisables via une connexion ssh existante, on suppose qu'il est possible d'en établir une seconde depuis un autre terminal (qui servira de Vue). Dans la première qui servira d'interface interactive on lance l'application avec :~\\
+Au préalable, Python 3.7 doit être installé manuellement\footnote{\url{https://github.com/instabot-py/instabot.py/wiki/Installing-Python-3.7-on-Raspberry-Pi}} (non fourni par Raspbian). Ce après quoi on applique les instructions d'installation données à la \wordlink{manuel}{section}. Ces opérations étant toutes réalisables via une connexion ssh existante, on suppose qu'il est possible d'en établir une seconde dans un autre terminal (qui servira de Vue). Dans la première qui servira d'interface interactive on lance l'application avec :~\\
 
 \indent \texttt{sudo python3.7 IoTmonitor.py -m outpiped}
 \vspace{0.4cm}
-\par Un pipe est alors créé automatiquement dans /tmp et alimenté toutes les secondes avec l'état actuel de l'application (ou la ressource ciblée dans le cadre de la vue). Pour observer ces modifications de façon continue, on peut alors utiliser la commande \texttt{watch} dans le second terminal :~\\
+\par Un pipe est alors créé automatiquement dans /tmp et alimenté toutes les secondes avec l'état actuel de l'application (ou la ressource ciblée dans le cadre de la Vue). Pour observer ces modifications de façon continue, on peut alors utiliser la commande \texttt{watch} dans le second terminal :~\\
 
 \indent \texttt{watch -t -n 0,5 cat /tmp/output\_monitor}
 \vspace{0.4cm}
@@ -1461,9 +1462,9 @@ Dans les tests réels décrits ci-dessous, l'application a été utilisée sur l
 
 \subsection{Évaluation de la détection des équipements}
 
-Avant même la découverte des menaces potentielles dans le réseau domestique, une détection efficace des hôtes le peuplant doit être gérée par l'application. Cela se fait notamment par deux Modules désignés par les ids \texttt{fping} et \texttt{nmapexplo}. Le premier est basé sur le programme \textit{fping}, installable sur toutes les distributions Linux classiques. Il est plus polyvalent que son homologue \textit{ping} car il permet d'interroger un réseau complet de manière répétée (\textit{ping} est tout de même abstrait dans l'application par le Module \texttt{ping}). Le second utilise le programme \textit{nmap} dans l'optique de la découverte d'hôtes, et non leur analyse complète afin d'être plus rapide et efficace (pas de balayage des ports). Cela équivaut à passer le flag \texttt{-sn} à nmap. La découverte se fait alors en utilisant différentes techniques de sondes\footnote{\url{https://nmap.org/man/fr/man-host-discovery.html}} sur des ports spécifiques, se démarquant des simples requêtes ICMP que \textit{ping} et ses dérivés utilisent. À noter qu'en plus d'utiliser des méthodes différentes, les deux Modules \texttt{fping} et \texttt{nmapexplo} sont d'archétypes différents, respectivement passif et actif.\\
+Avant même la découverte des menaces potentielles dans le réseau domestique, une détection efficace des hôtes le peuplant doit être gérée par l'application. Cela se fait notamment par deux Modules désignés par les ids \texttt{fping} et \texttt{nmapexplo}. Le premier est basé sur le programme \textit{fping}, installable sur toutes les distributions Linux classiques. Il est plus polyvalent que son homologue \textit{ping} car il permet d'interroger un réseau complet de manière répétée (\textit{ping} est tout de même abstrait dans l'application par le Module \texttt{ping}). Le second utilise le programme \textit{nmap} dans l'optique de la découverte d'hôtes, et non leur analyse complète afin d'être plus rapide et efficace (pas de balayage des ports). Cela équivaut à passer le flag \texttt{-sn} à nmap. La découverte se fait alors en utilisant différentes techniques de sonde\footnote{\url{https://nmap.org/man/fr/man-host-discovery.html}} sur des ports spécifiques, se démarquant des simples requêtes ICMP que \textit{ping} et ses dérivés utilisent. À noter qu'en plus d'utiliser des méthodes différentes, les deux Modules \texttt{fping} et \texttt{nmapexplo} sont d'archétypes différents, respectivement passif et actif.\\
 
-Les tests sont dans un premier temps réalisés dans un laboratoire virtuel monté de toutes pièces. Comme tout y est contrôlable, on connait le nombre d'hôte, leur caractéristiques et on peut y mesurer à quel point leur détection est efficace et exhaustive. Des mesures du temps nécessaire pour leur découverte sont prises, en tenant compte de l'archétype du Module testé individuellement. Dans un second temps, un test sur un réseau domestique réel est opéré en considérant une utilisation des deux Modules conjointe pour maximiser la capacité de détection de l'application. Bien qu'on ne contrôle pas intégralement le réseau, on peut se faire une idée de l'exhaustivité de la détection en consultant quels sont les appareils connectés au modem de la maison via son interface. À noter que, sauf mention contraire, les Modules instanciés le sont avec leur paramètres par défaut.  
+Les tests sont dans un premier temps réalisés dans un laboratoire virtuel monté de toutes pièces. Comme tout y est contrôlable, on connait le nombre d'hôte, leur caractéristiques et on peut y mesurer à quel point leur détection est efficace et exhaustive. Des mesures du temps nécessaire pour leur découverte sont prises, en tenant compte de l'archétype du Module testé individuellement. Dans un second temps, un test sur un réseau domestique réel est opéré en considérant une utilisation conjointe des deux Modules pour maximiser la capacité de détection de l'application. Bien qu'on ne contrôle pas intégralement le réseau, on peut se faire une idée de l'exhaustivité de la détection en consultant quels sont les appareils connectés au modem de la maison via son interface Web. À noter que, sauf mention contraire, les Modules instanciés le sont avec leurs paramètres par défaut.  
 
 \newpage
 
@@ -1474,13 +1475,15 @@ Le réseau utilisé est construit intégralement de façon virtuelle en utilisan
 \item[$\bullet$] Quatre montées sur une image de Raspberry Pi Desktop (Debian Stretch)\footnote{\url{https://www.raspberrypi.org/downloads/raspberry-pi-desktop/}}
 \item[$\bullet$] Quatre autres sur Ubuntu Core\footnote{\url{https://ubuntu.com/core}}, un OS utilisé dans le cadre de l'IoT
 \end{itemize}
-~\\
+
+\vspace{0.2cm}
+
 \par Effectivement, comme l'entièreté du laboratoire est virtualisée sur une seule machine, des OS peu gourmands étaient nécessaires pour atteindre un nombre d'hôtes reflétant à peu près la composition d'un réseau domestique moyen (11 appareils aux USA selon Bitdefender \cite{bitdefender}). De plus, choisir ces OS utilisés pour exploiter des équipements relatifs à l'IoT permet de se rapprocher des objets étudiés.\\
 
 \minit{Mesures pour \texttt{fping}}
 \vspace{0.1cm}
 
-\par Pour \texttt{fping}, comme il s'agit d'un archétype passif, le programme tournera de façon continue jusqu'à être interrompu manuellement, c'est-à-dire quand les 8 hôtes ont été découverts. Comme pour tous les Modules passifs, la lecture des sorties ne se fait qu'à intervalle régulier une fois le Module lancé, 10 secondes par défaut dans ce cas. Les mesures de temps sont prises par rapport au premier appel à la fonction de parsing après le lancement du Module car, de fait, aucun hôte ne sera découvert avant. Les résultats sont illustrés par la \wordlink{fpingmean}{figure}. Y sont représentés les intervalles de temps entre l'ajout des hôtes dans l'environnement de l'application, jusqu'à ce que les 8 existants soient découverts de la sorte. Il s'agit des temps moyens (relatifs au moment où le premier appel à la fonction de parsing est fait) pour 5 expérimentations dans des conditions identiques, les 8 hôtes étant découverts à chaque fois en un seul appel à la fonction de parsing. Le procédé est stable, cela se reflète dans la variance associée à chacune de ces valeurs de temps moyennes qui n'excède pas 119$\mu$s. L'intervalle entre le temps de référence et la première instanciation est le plus conséquent (6 ms en moyenne), cela est imputable au fait qu'il comprend les actions de récupération de la sortie textuelle du programme (lecture dans un pipe, gérée par Python) et son parcours pour extraction des informations à cibler, notamment les IP et l'état de l'hôte sur le réseau (répondant au ping ou non).
+\par Pour \texttt{fping}, comme il s'agit d'un archétype passif, le programme tournera de façon continue jusqu'à être interrompu manuellement, c'est-à-dire quand les 8 hôtes ont été découverts. Comme pour tous les Modules passifs, la lecture des sorties ne se fait qu'à intervalle régulier une fois le Module lancé, 10 secondes par défaut dans ce cas. Les mesures de temps sont prises par rapport au premier appel à la fonction de parsing après le lancement du Module car, de fait, aucun hôte ne sera découvert avant. Les résultats sont illustrés par la \wordlink{fpingmean}{figure}. Y sont représentés les intervalles de temps entre l'ajout des hôtes dans l'environnement de l'application, jusqu'à ce que les 8 existants soient découverts de la sorte. Il s'agit des temps moyens (relatifs au moment où le premier appel à la fonction de parsing est fait) pour 5 expérimentations dans des conditions identiques, les 8 hôtes étant découverts à chaque fois en un seul appel à la fonction de parsing. Le procédé est stable, cela se reflète dans la variance associée à chacune de ces valeurs de temps moyennes qui n'excède pas 119$\mu$s. L'intervalle entre le temps de référence et la première instanciation est le plus conséquent (6 ms en moyenne), cela est imputable au fait qu'il comprend les actions de récupération de la sortie textuelle du programme (lecture dans un pipe, gérée par Python) et son traitement pour extraction des informations à cibler, notamment les IPs et l'état de l'hôte sur le réseau (répondant au ping ou non).
 
 \begin{figure}[!ht]
 \centering
@@ -1491,7 +1494,7 @@ Le réseau utilisé est construit intégralement de façon virtuelle en utilisan
 
 \vspace{0.1cm}
 
-On observe que la découverte complète du réseau se fait très rapidement (18 ms en moyenne), en un seul premier appel à la fonction de parsing qui trouve dans la sortie du programme l'information relative à la totalité des hôtes du réseau. Cela a donc pris au total un peu plus de 10 secondes pour trouver les 8 hôtes. La plage IP donnée en paramètre au Module est 192.168.56.3-255, le serveur DHCP de Virtualbox en mode ``réseau privé hôte" distribuant les adresses dans cette zone (les deux premières adresses sont réservées au serveur DHCP et à la machine hôte). Le programme \textit{fping} parcourt cette plage séquentiellement, en partant des plus petites adresses. Les adresses allouées aux hôtes virtuels sont les 8 plus hautes de sorte à se placer dans le pire des cas. En conjugaison avec le fait que le masque d'un réseau domestique est souvent de 24 bits comme considéré ici, les expériences menées reproduisent au mieux la réalité et s'avèrent concluantes.\\ 
+On observe que la découverte complète du réseau se fait très rapidement (18 ms en moyenne), en un seul premier appel à la fonction de parsing qui trouve dans la sortie du programme l'information relative à la totalité des hôtes du réseau. Cela a donc pris au total un peu plus de 10 secondes pour trouver les 8 hôtes. La plage IP donnée en paramètre au Module est 192.168.56.3-255, le serveur DHCP de Virtualbox en mode ``réseau privé hôte" distribuant les adresses dans cette zone (les deux premières adresses sont réservées au serveur DHCP et à la machine hôte). Le programme \textit{fping} parcourt cette plage séquentiellement, en partant des plus petites adresses. Les adresses allouées aux hôtes virtuels sont les 8 plus hautes de sorte à se placer dans le pire des cas. En conjugaison avec le fait que le masque d'un réseau domestique est généralement de 24 bits comme considéré ici, les expériences menées reproduisent au mieux la réalité et s'avèrent concluantes.\\ 
 
  \par À noter que les autres paramètres du Module influent sur ces mesures : si le paramètre \texttt{period} qui désigne le temps en millisecondes entre une retentative sur un même hôte avait été mis à une valeur supérieure à celle par défaut de 3 secondes, tous les hôtes n'auraient peut être pas étés découverts à la première lecture 10 secondes après le lancement. Effectivement, à la lecture du pipe recueillant la sortie du programme, certaines lignes peuvent être tronquées et non parsables (celles du début et de la fin du texte lu). Cependant, la valeur par défaut de 3 secondes et celle de l'intervalle entre deux lectures permettent d'éviter cela par la redondance d'information, ainsi que des précautions prises dans l'implémentation même.\\
 
@@ -1499,7 +1502,7 @@ On observe que la découverte complète du réseau se fait très rapidement (18 
 \minit{Mesures pour \texttt{nmapexplo}}
 \vspace{0.1cm}
 
-\par Le Module \texttt{nmap} étant actif, ce n'est pas une lecture de la sortie du programme en cours qui est faite à intervalles réguliers mais bien un nouvel appel et une exécution du programme \textit{nmap} dont la sortie est parsée une fois sa terminaison. On ne tient donc pas compte du timer d'expiration entre chaque exécution : le temps de référence est le premier appel à la fonction \textit{launch()} du Module. Les mesures se terminent quand les 8 hôtes sont découverts après le parsing d'une de ces exécutions. Le graphique obtenu est donné par la \wordlink{explomean}{figure} (également une moyenne des temps sur 5 expérimentations).\\
+\par Le Module \texttt{nmapexplo} étant actif, ce n'est pas une lecture de la sortie du programme en cours qui est faite à intervalles réguliers mais bien un nouvel appel et une exécution du programme \textit{nmap} dont la sortie est parsée une fois sa terminaison. On ne tient donc pas compte du timer d'expiration entre chaque exécution : le temps de référence est le premier appel à la fonction \textit{launch()} du Module. Les mesures se terminent quand les 8 hôtes sont découverts après le parsing d'une de ces exécutions. Le graphique obtenu est donné par la \wordlink{explomean}{figure} (également une moyenne des temps sur 5 expérimentations).\\
 
 \begin{figure}[!ht]
 \centering
@@ -1510,13 +1513,13 @@ On observe que la découverte complète du réseau se fait très rapidement (18 
 
 \vspace{0.1cm}
 
-\par Comme dans le cas de \texttt{fping}, \texttt{nmapexplo} trouve les 8 hôtes d'une seule fois (dés la première exécution ici), et ce pour chacune des 5 exécutions. On observe que nmap s'est exécuté pendant 4.3 secondes en moyenne à la suite de quoi la fonction de parsing a été appelée. Les 8 hôtes sont alors instanciés dans l'application en 10 ms en moyenne. Les moyennes sont représentatives, les variance associées ne s'élevant pas au dessus de 0.35 secondes.\\
+\par Comme dans le cas de \texttt{fping}, \texttt{nmapexplo} trouve les 8 hôtes d'une seule fois (dés la première exécution ici), et ce pour chacune des 5 exécutions. On observe que \textit{nmap} s'est exécuté pendant 4.3 secondes en moyenne à la suite de quoi la fonction de parsing est appelée. Les 8 hôtes sont alors instanciés dans l'application en 10 ms en moyenne. Les moyennes sont représentatives, les variance associées ne s'élevant pas au dessus de 0.35 secondes.\\
 
 \par La configuration du réseau est identique (plage IP, hôtes aux adresses les plus hautes). L'ordre de balayage n'a ici pas d'importance : les résultats pour le réseau entier passé en paramètre sont retournés d'un bloc à la fin de l'exécution de \textit{nmap}, ce qui prend ici un peu plus de 4 secondes pour les 252 adresses considérées. Bien que par nature le Module \texttt{nmapexplo} soit moins réactif aux changements du réseau (cela dépend de l'intervalle de temps auquel il s'exécute), il a l'avantage par rapport à \texttt{fping} de renseigner d'autres informations telles que l'adresse MAC, potentiellement le nom d'hôte et le fabriquant.
 
 \newpage
 
-\subsection{Application dans un environnement domestique}
+\subsubsection{Application dans un environnement domestique peuplé}
 
 Avant de lancer la Routine de surveillance contenant les Modules de découverte et récolte d'informations sur les hôtes, l'état du réseau est consulté via l'interface web du modem. En comptant le modem lui-même, 8 hôtes sont dénombrés comme actifs sur le réseau dont 7 connus. Un schéma récapitulatif de la composition du réseau, tel qu'il est connu, est donné par la \wordlink{mynetwork}{figure}. Tous ces appareils se sont vus allouer une adresse IPv4 par l'unique modem/routeur de l'habitation dans la plage 192.168.1.2-63.\\
 
@@ -1543,7 +1546,7 @@ Avant de lancer la Routine de surveillance contenant les Modules de découverte 
 
 \begin{figure}[!ht]
 \centering
-     \includegraphics[width=0.6\linewidth]{routineDisc}
+     \includegraphics[width=0.5\linewidth]{routineDisc}
      \caption{Configuration d'une Routine pour découvrir les hôtes du réseau domestique}
      \label{routinedisc}
 \end{figure}
@@ -1592,16 +1595,16 @@ On observe que toutes les adresses IP allouées dans le réseau ont été correc
 
 \subsection{Évaluation de la détection de menaces}
 
-À l'heure actuelle, un seul Module est complètement opérationnel dans la découverte de vulnérabilité : \texttt{nmapvulners}. Il s'agit d'un Module actif basé sur le script \textit{nmap-vulners} (à installer), intégrable à une exécution de \textit{nmap} grâce au Nmap Script Engine. Pour chaque hôte découvert lors du balayage, le script va faire en sorte de deviner la version des services sur les ports ouverts. Si cela est possible, une requête est alors effectuée en ligne vers la base de données des entrées CVEs référencées par le site \href{https://vulners.com/}{Vulners.com}. CVE (Common Vulnerabilities and Exposures) est un dictionnaire des informations publiques relatives aux vulnérabilités de sécurité, où chaque entrée relative à une faille, menace ou vulnérabilité possède un identifiant unique. Si une entrée CVE correspond à la version du service recherché, une menace est instanciée dans l'application et remontée jusqu'à l'utilisateur. Afin d'obtenir plus de détail à propos de la menace liée au service tournant sur l'un de ses appareils, un lien internet vers le descriptif CVE (sur le site de Vulners) est fourni à l'utilisateur.
+À l'heure actuelle, un seul Module est complètement opérationnel dans la découverte de vulnérabilité : \texttt{nmapvulners}. Il s'agit d'un Module actif basé sur le script \textit{nmap-vulners} (à installer), couplable à une exécution de \textit{nmap} grâce au Nmap Script Engine. Pour chaque hôte découvert lors du balayage, le script va faire en sorte de deviner la version des services sur les ports ouverts. Si cela est possible, une requête est alors effectuée en ligne vers la base de données des entrées CVEs référencées par le site \href{https://vulners.com/}{Vulners.com}. CVE (Common Vulnerabilities and Exposures) est un dictionnaire des informations publiques relatives aux vulnérabilités de sécurité, où chaque entrée relative à une faille, menace ou vulnérabilité possède un identifiant unique. Si une entrée CVE correspond à la version du service recherché, une menace est instanciée dans l'application et remontée jusqu'à l'utilisateur. Afin d'obtenir plus de détail à propos de la menace liée au service tournant sur l'un de ses appareils, un lien internet vers le descriptif CVE (sur le site de Vulners) est fourni à l'utilisateur.
 
 \subsubsection{Simulation d'équipement virtuel vulnérable}
 
 L'objectif est de vérifier qu'en installant intentionnellement un logiciel vulnérable sur une machine virtuelle (une des Debian Stretch utilisée pour les tests précédents), l'application le détecte et en alerte l'utilisateur. La procédure employée est la suivante :
 
 \begin{enumerate}
-\item Rechercher dans la base de données Vulners une entrée de type CVE (\url{https://vulners.com/search?query=type:cve}) pour un logiciel orienté serveur dont une faille a été rendue publique, installable sur le système de la MV
+\item Rechercher dans la base de données Vulners une entrée de type CVE (\url{https://vulners.com/search?query=type:cve}) pour un logiciel orienté serveur dont une faille a été rendue publique, installable sur le système de la machine virtuelle
 \vspace{0.1cm}
-\item Rechercher les sources correspondant à une version indiquée comme vulnérable dans le descriptif CVE, installer le programme obsolète sur la MV
+\item Rechercher les sources correspondant à une version indiquée comme vulnérable dans le descriptif CVE, installer le programme obsolète sur la machine virtuelle
 \vspace{0.1cm}
 \item Mettre en route le service qui écoutera sur son port par défaut et tester la bonne détection de ce service par \textit{nmap}
 \vspace{0.1cm}
@@ -1618,7 +1621,7 @@ Les logiciels considérés sont les suivants :
 \end{itemize}
 ~\\
 
-\par Après avoir instancié le Module \texttt{nmapvulners}, l'analyse est lancée sur la machine ciblée. On observe que des vulnérabilités ont en effet été découvertes, et si une adresse mail avait été fournie alors un récapitulatif similaire à ce qui est affiché dans l'application (\wordlink{threatsvm}{figure}) lui est envoyé. À chaque menace un niveau de dangerosité est associé, allant de 1 à 10. Dans le cas de \texttt{nmapvulners}, il s'agit du CVSS (Common Vulnerability Scoring System\footnote{\url{https://fr.wikipedia.org/wiki/Common_Vulnerability_Scoring_System}}).
+\par Après avoir instancié le Module \texttt{nmapvulners}, l'analyse est lancée sur la machine ciblée. On observe que des vulnérabilités ont en effet été découvertes, et si une adresse mail avait été fournie alors un récapitulatif similaire à ce qui est affiché dans l'application (\wordlink{threatsvm}{figure}) lui est envoyé. À chaque menace un niveau de dangerosité est associé, allant de 1 à 10. Dans le cas de \texttt{nmapvulners}, il s'agit du CVSS (Common Vulnerability Scoring System\footnote{\url{https://fr.wikipedia.org/wiki/Common_Vulnerability_Scoring_System}}) qui est retourné couplé à chaque entrée CVE et utilisé tel quel dans l'application.
 
 \vspace{0.1cm}
 
@@ -1635,7 +1638,9 @@ En suivant le lien donné pour chaque menace, on retrouve bien les CVEs attendue
 
 \par De plus, \texttt{nmapexplo} peut tout simplement échouer à deviner la version ou le service associé à un port. Par exemple, malgré le fait que \textit{telnet} soit un programme sujet à des failles (4 CVEs sont renseignées par Vulners), \textit{nmap} ne parvient à deviner que l'activité de \textit{telnet} sur le port 23 sans information complémentaire sur sa version. En conséquence, aucune requête n'est faite par le script vers l'API de Vulners. Il arrive également que \textit{nmap} ne reconnaisse pas le protocole, comme par exemple en testant le programme serveur Mosquitto dans le cadre du protocole MQTT (utilisé dans l'IoT, cf. \wordlink{IoT_prot}{sous-section}).
 
-\subsubsection{Utilisation dans un réseau domestique peuplé}
+\newpage
+
+\subsubsection{Application dans un environnement domestique peuplé}
 
 Le réseau utilisé est celui présenté pour les tests de découverte des hôtes (\wordlink{mynetwork}{figure}), reproduit au mieux. La Routine utilisée n'est remplie que des Modules \texttt{fping} et \texttt{nmapvulners}. Pour ce dernier, afin de couvrir un nombre de services plus large, le paramètre \texttt{top-ports} est mis à 30 de sorte que \textit{nmap} inspecte les 30 ports les plus utilisés généralement pour chaque hôte. Le temps d'exécution est alors de 30 secondes pour le sous-réseau /24 considéré. La \wordlink{realvulns}{figure} illustre la vue d'ensemble de la Netmap après 5 minutes d'activité de la Routine. 
 
@@ -1656,7 +1661,7 @@ Le réseau utilisé est celui présenté pour les tests de découverte des hôte
 
 \par Concernant cette application, le soin apporté à l'intégration générique de n'importe quel programme arbitraire via le framework est un investissement sur le long terme. L'exhaustivité n'étant pas un objectif crucial, beaucoup de Modules pourraient encore être implémentés facilement, chacun ciblant une tâche plus précise que ceux fournis de base, volontairement généraux. Cette polyvalence permet à ces Modules d'être utile sur n'importe quel réseau IPv4 en apportant des informations pertinentes quelque soit l'hôte ciblé. Par exemple, un programme plus spécifique à abstraire serait \textit{IoTSeeker}\footnote{\url{https://github.com/rapid7/IoTSeeker}}, qui permet de détecter les équipements dont les identifiants pour accéder à leur interface Web ont été laissés par défaut. La stabilité et la facilité d'utilisation de l'application ont été considérés comme plus prioritaires que l'abstraction de ces programmes qui pourra être entamée par la suite pour permettre la détection de davantage de menaces.\\
 
-\par Bien que les objectifs de base pour l'application soient atteints, certains apports évidents l'amélioreraient drastiquement : gestion de réseau IPv6, interface graphique complète pour faciliter l'interaction avec un utilisateur débutant, Modules supplémentaires, gestion des interfaces réseau, etc. Le développement de l'application est toujours en cours et sera maintenu par la suite, l'objectif à terme étant qu'elle soit utilisable par des personnes sans aucune connaissance et détecte un panel varié de vulnérabilités.
+\par Bien que les objectifs de base pour l'application détaillés au \wordlink{appgoals}{point} soient atteints, certains apports évidents l'amélioreraient drastiquement : gestion de réseau IPv6, interface graphique complète pour faciliter l'interaction avec un utilisateur débutant, Modules supplémentaires, gestion des interfaces réseau, etc. Le développement de l'application est toujours en cours et sera maintenu par la suite, les objectifs à terme étant qu'elle soit utilisable par des personnes sans aucune connaissance et permette de détecter un panel varié de vulnérabilités.
 
 \newpage
 

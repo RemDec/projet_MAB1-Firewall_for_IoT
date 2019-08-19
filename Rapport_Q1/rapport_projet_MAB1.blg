@@ -1,71 +1,15 @@
-This is BibTeX, Version 0.99d (TeX Live 2015/Debian)
-Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
-The top-level auxiliary file: rapport_projet_MAB1.aux
+This is BibTeX, Version 0.99dThe top-level auxiliary file: rapport_projet_MAB1.aux
 The style file: plain.bst
 Database file #1: articles.bib
-I was expecting an "="---line 293 of file articles.bib
- :     year 
- :          : "2016",
-I'm skipping whatever remains of this entry
-I was expecting an "="---line 302 of file articles.bib
- :     year 
- :          : "2017",
-I'm skipping whatever remains of this entry
-Repeated entry---line 324 of file articles.bib
+Repeated entry---line 336 of file articles.bib
  : @inproceedings{Nthala2018
  :                          ,
 I'm skipping whatever remains of this entry
 Warning--to sort, need author or key in IWS
-Warning--to sort, need author or key in Cable
 Warning--to sort, need author or key in Wind2015
-Warning--to sort, need author or key in wikiASA
-Warning--to sort, need author or key in wikifwFR
-Warning--to sort, need author or key in wikiappfw
-Warning--to sort, need author or key in wikifw
-Warning--to sort, need author or key in frameIP
 Warning--to sort, need author or key in bitdefender
 Warning--to sort, need author or key in IoTconcern
 Warning--empty booktitle in Lakkundi2014
+Warning--empty note in Leos2014
 Warning--empty booktitle in Palka2011
-You've used 29 entries,
-            2118 wiz_defined-function locations,
-            645 strings with 8645 characters,
-and the built_in function-call counts, 6348 in all, are:
-= -- 606
-> -- 228
-< -- 2
-+ -- 102
-- -- 68
-* -- 295
-:= -- 1018
-add.period$ -- 82
-call.type$ -- 29
-change.case$ -- 119
-chr.to.int$ -- 0
-cite$ -- 41
-duplicate$ -- 266
-empty$ -- 603
-format.name$ -- 68
-if$ -- 1380
-int.to.chr$ -- 0
-int.to.str$ -- 29
-missing$ -- 12
-newline$ -- 143
-num.names$ -- 37
-pop$ -- 211
-preamble$ -- 1
-purify$ -- 93
-quote$ -- 0
-skip$ -- 207
-stack$ -- 0
-substring$ -- 191
-swap$ -- 41
-text.length$ -- 2
-text.prefix$ -- 0
-top$ -- 0
-type$ -- 114
-warning$ -- 12
-while$ -- 40
-width$ -- 31
-write$ -- 277
-(There were 3 error messages)
+(There was 1 error message)

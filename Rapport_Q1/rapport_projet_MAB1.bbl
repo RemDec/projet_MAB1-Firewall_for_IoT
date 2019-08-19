@@ -1,30 +1,10 @@
 \begin{thebibliography}{10}
 
-\bibitem{wikiappfw}
-Application firewall.
-\newblock Wikipedia article, URL :
-  \url{https://en.wikipedia.org/wiki/Application\_firewall}.
-
-\bibitem{Cable}
-Cable broadband technology gigabit evolution.
-\newblock Dernière lecture le 27/11/2018.
-
-\bibitem{wikiASA}
-Cisco asa.
-\newblock Wikipedia article, URL :
-  \url{https://en.wikipedia.org/wiki/Cisco_ASA}, dernière lecture le
-  19/12/2018.
-
 \bibitem{IoTconcern}
 The current take on iot security: Are we getting closer to a safe ecosystem?
 \newblock
   \url{https://www.forbes.com/sites/andrewarnold/2018/10/15/the-current-take-on-iot-security-are-we-getting-closer-to-a-safe-ecosystem/#2c32a0373862}.
 \newblock Dernière lecture le 17/08/2019.
-
-\bibitem{wikifw}
-Firewall(computing).
-\newblock Wikipedia article, URL :
-  \url{https://en.wikipedia.org/wiki/Firewall\_(computing)}.
 
 \bibitem{IWS}
 Internet growth statistics par internet world stats.
@@ -34,17 +14,8 @@ Internet growth statistics par internet world stats.
 \bibitem{bitdefender}
 The iot threat landscape and top smart home vulnerabilities in 2018.
 \newblock
-  \url{https://www.bitdefender.com/files/News/CaseStudies/study/229/Bitdefender-Whitepaper-The-IoT-Threat-Landscape-and-Top-Smart-Home-Vulnerabilities-in-2018.pdf?fbclid=IwAR0A4_dQpjTOn4Z-qG-6_NWeFxfoB_qifbShq3Y_dEmzLJuy7Q7HJVibxcQ}.
+  \url{https://www.bitdefender.com/files/News/CaseStudies/study/229/Bitdefender-Whitepaper-The-IoT-Threat-Landscape-and-Top-Smart-Home-Vulnerabilities-in-2018.pdf}.
 \newblock Dernière lecture le 15/08/2019.
-
-\bibitem{frameIP}
-Les firewalls.
-\newblock Community article, URL : \url{https://www.frameip.com/firewall/}.
-
-\bibitem{wikifwFR}
-Pare-feu(informatique).
-\newblock Wikipedia article, URL :
-  \url{https://fr.wikipedia.org/wiki/Pare-feu\_(informatique)}.
 
 \bibitem{Wind2015}
 Security in the {I}nternet of {T}hings.
@@ -69,6 +40,14 @@ Dan-Radu Berte.
 \newblock Defining the {I}o{T}.
 \newblock {\em De Gruyter}, 2018.
 
+\bibitem{Cable}
+CableLabs.
+\newblock Cable broadband technology gigabit evolution.
+\newblock
+  \url{https://www.cablelabs.com/insights/cable-broadband-technology-gigabit-evolution/},
+  2016.
+\newblock Dernière lecture le 27/11/2018.
+
 \bibitem{cisco2018}
 Cisco.
 \newblock {\em CLI Book 2: Cisco ASA Series Firewall CLI Configuration Guide,
@@ -76,6 +55,12 @@ Cisco.
 \newblock URLs :
   \url{https://www.cisco.com/c/en/us/td/docs/security/asa/asa96/configuration/firewall/asa-96-firewall-config/access-idfw.html},
   \url{https://www.cisco.com/c/en/us/td/docs/security/asa/asa96/configuration/firewall/asa-96-firewall-config/access-idfw.pdf}.
+
+\bibitem{frameIP}
+FrameIP community.
+\newblock Les firewalls.
+\newblock \url{https://www.frameip.com/firewall/}.
+\newblock Dernière lecture le 23/12/2018.
 
 \bibitem{Granjal2015}
 Jorge Granjal, Edmundo Monteiro, and Jorge Sá~Silva.
@@ -113,9 +98,7 @@ Engin Leloglu.
 \bibitem{Leos2014}
 Manuel Leos~Rivas.
 \newblock Securing the home {I}o{T} network.
-\newblock SANS Institute Reading Room, URL :
-  \url{https://www.sans.org/reading-room/whitepapers/hsoffice/paper/37717},
-  2014.
+\newblock 2014.
 
 \bibitem{Huichen2016}
 Huichen Lin and Neil Bergmann.
@@ -143,9 +126,34 @@ Alaauddin Shieha.
 \newblock {\em Application Layer Firewall Using Open{F}low}.
 \newblock PhD thesis, University of Colorado, 2014.
 
+\bibitem{wikiappfw}
+{Wikipedia contributors}.
+\newblock Application firewall.
+\newblock \url{https://en.wikipedia.org/wiki/Application\_firewall}.
+\newblock Dernière lecture le 20/12/2018.
+
+\bibitem{wikifwFR}
+{Wikipedia contributors}.
+\newblock Pare-feu(informatique).
+\newblock \url{https://fr.wikipedia.org/wiki/Pare-feu\_(informatique)}.
+\newblock Dernière lecture le 20/12/2018.
+
+\bibitem{wikiASA}
+{Wikipedia contributors}.
+\newblock Cisco asa.
+\newblock \url{https://en.wikipedia.org/wiki/Cisco_ASA}, 2017.
+\newblock Dernière lecture le 19/12/2018.
+
+\bibitem{wikifw}
+{Wikipedia contributors}.
+\newblock Firewall(computing).
+\newblock \url{https://en.wikipedia.org/wiki/Firewall\_(computing)}, 2017.
+\newblock Dernière lecture le 25/01/2019.
+
 \bibitem{wikiHorus}
 {Wikipedia contributors}.
 \newblock Horus scenario, exploiting a weak spot in the power grid.
+\newblock \url{https://horusscenario.com/}, 2017.
 \newblock Dernière lecture le 30/01/2019.
 
 \bibitem{wiki6lowpan}
