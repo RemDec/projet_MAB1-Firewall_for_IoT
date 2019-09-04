@@ -1,0 +1,5 @@
+\select@language {french}
+\beamer@sectionintoc {1}{Introduction}{3}{0}{1}
+\beamer@sectionintoc {2}{\IeC {\'E}tat de l'art}{4}{0}{2}
+\beamer@sectionintoc {3}{D\IeC {\'e}veloppement d'une application}{13}{0}{3}
+\beamer@sectionintoc {4}{Conclusion}{19}{0}{4}

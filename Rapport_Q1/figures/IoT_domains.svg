@@ -26,10 +26,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.979899"
-     inkscape:cx="336.68967"
-     inkscape:cy="840.42415"
+     inkscape:cx="395.53106"
+     inkscape:cy="865.17289"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="g1781"
      showgrid="false"
      inkscape:window-width="1920"
      inkscape:window-height="1017"
@@ -44,7 +44,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -73,11 +73,11 @@
            x="232.85715"
            y="159.66254"
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start" /></flowRegion><flowPara
-         id="flowPara1892">-optimisation ressources énergétiques</flowPara><flowPara
-         id="flowPara1894">-contrôle flux de trafic (feux)</flowPara><flowPara
-         id="flowPara1896">-parking intelligents</flowPara><flowPara
-         id="flowPara1898">-transports publiques</flowPara><flowPara
-         id="flowPara1900">-sécurité publique</flowPara></flowRoot>  </g>
+         id="flowPara893">-optimisation ressources énergétiques</flowPara><flowPara
+         id="flowPara895">-contrôle flux de trafic (feux)</flowPara><flowPara
+         id="flowPara897">-parking intelligents</flowPara><flowPara
+         id="flowPara899">-transports publics</flowPara><flowPara
+         id="flowPara901">-sécurité publique</flowPara></flowRoot>  </g>
   <g
      id="g1828"
      transform="translate(54.790253,49.177593)"
@@ -120,17 +120,19 @@
        cx="123.81259"
        cy="46.878651"
        rx="18.60235"
-       ry="18.0917" />
+       ry="18.0917"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200" />
     <text
        id="text1765"
        y="35.424351"
        x="115.37428"
        style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.88055563px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200"><tspan
          sodipodi:role="line"
-         id="tspan1783"
-         x="115.37428"
-         y="35.424351">E-Santé</tspan></text>
+         id="tspan903">e-Santé</tspan></text>
   </g>
   <g
      id="g1759"
@@ -315,7 +317,7 @@
            height="43.941635"
            x="335.87573"
            y="249.74788" /></flowRegion><flowPara
-         id="flowPara1637"></flowPara></flowRoot>    <flowRoot
+         id="flowPara1637" /></flowRoot>    <flowRoot
        xml:space="preserve"
        id="flowRoot1639"
        style="font-style:normal;font-weight:normal;font-size:13.33333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
@@ -326,7 +328,7 @@
            height="77.276672"
            x="323.75388"
            y="244.69713" /></flowRegion><flowPara
-         id="flowPara1645"></flowPara></flowRoot>    <text
+         id="flowPara1645" /></flowRoot>    <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.72846746px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.27963504"
        x="91.521599"
@@ -359,5 +361,5 @@
          id="flowPara1661">périphériques de communication/multimédias,</flowPara><flowPara
          id="flowPara1663">domotique, etc.</flowPara><flowPara
          id="flowPara1665">connectés</flowPara><flowPara
-         id="flowPara1667"></flowPara></flowRoot>  </g>
+         id="flowPara1667" /></flowRoot>  </g>
 </svg>
